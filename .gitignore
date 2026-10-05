@@ -16,3 +16,4 @@ docu.pdf
 slides.pdf
 handouts.pdf
 Thumbs.db
+__pycache__/
