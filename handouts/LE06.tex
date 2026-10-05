@@ -1,0 +1,163 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Handout und Uebungsblatt zu Lehreinheit 6
+% Im Skript am Kapitelende, in handouts.tex als Druckvorlage.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{handout}{Forschungsdesign}
+
+\textbf{Worum es heute ging.} Drei Seile wurden gleich lang, zweimal. Beim
+ersten Mal gab es nur die Vorführung: Wer behauptete, zeigte auch, und
+niemand maß. Beim zweiten Mal legten Sie vorher fest, wie geprüft wird.
+Ohne Vergleich bleiben selbst grobe Täuschungen unentdeckt; eine
+verweigerte Kontrolle ist selbst ein Befund.
+
+\textbf{Kernbegriffe}
+\begin{description}
+  \item[Forschungsdesign] Plan einer Untersuchung: welche Variablen an
+    wem, wann und unter welchen Bedingungen erhoben oder verändert werden
+    und womit verglichen wird.
+  \item[UV / AV / Störvariable] vermutete Ursache / gemessene Wirkung /
+    weiterer Einfluss auf die AV.
+  \item[Konfundierung] eine Störvariable variiert systematisch mit der
+    UV; ihre Wirkung ist nicht mehr abtrennbar.
+  \item[Interne Validität] die Veränderung der AV ist eindeutig auf die
+    UV zurückzuführen \parencite{shadish2002experimental}.
+  \item[Externe Validität] das Ergebnis lässt sich auf andere Personen,
+    Situationen und Zeiten übertragen.
+  \item[Objektivität, Reliabilität, Validität] unabhängig von der
+    messenden Person; bei Wiederholung gleich; misst das Gemeinte.
+  \item[Blind-Design, Parallelmessung] Messende kennen die Bedingung
+    nicht; dasselbe Konstrukt wird mit mehreren Verfahren erhoben.
+\end{description}
+
+\textbf{Designtypen}
+
+\begin{center}
+\small
+\begin{tabular}{p{0.24\textwidth}p{0.14\textwidth}p{0.1\textwidth}p{0.36\textwidth}}
+\toprule
+& \textbf{UV variiert} & \textbf{Zufall} & \textbf{Kurzschrift (R, X, O)} \\
+\midrule
+Experiment & ja & ja & R\,X\,O \;/\; R\;\;\,O \\
+Quasi-Experiment & ja & nein & \phantom{R\,}X\,O \;/\; \phantom{R\,X\,}O \\
+nicht-experimentell & nein & -- & nur O (Zusammenhänge) \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\textbf{Bedrohungen der internen Validität:} Geschichte, Reifung,
+Testeffekt, Instrumentierung, Regression zur Mitte, Selektion, Ausfall
+-- und die Erwartungen der Forschenden.
+
+\textbf{Fünf Werkzeuge der Kontrolle:} Randomisierung, Konstanthalten,
+Schichten/Parallelisieren, (aktive) Kontrollgruppe, Blindbedingungen.
+
+\begin{merkbox}
+Ein Design ist so gut wie die Alternativerklärungen, die es ausschließt.
+Fragen Sie bei jeder Kontrollgruppe: Unterscheidet sie sich \emph{nur} in
+der UV?
+\end{merkbox}
+
+\textbf{Zum Weiterlesen:} \textcite{doering2016forschungsmethoden},
+Kapitel zu Untersuchungsdesign und Gütekriterien;
+\textcite{shadish2002experimental}, Kap.~1--2.
+\end{handout}
+
+\begin{uebungsblatt}{Forschungsdesign}
+
+\aufgabe{Fallstudie: Ein Design analysieren}[in der Stunde, Zweiergruppe, 15 Min.]
+\textit{Die folgende Studie ist fiktiv und für diese Übung konstruiert;
+alle Zahlen sind erfunden.}
+
+\begin{center}
+\fbox{\parbox{0.92\textwidth}{\small
+\textbf{\enquote{Lern-App verbessert Mathematiknoten um 0,7}}\\[1mm]
+Im Wintersemester bietet eine Hochschule zur Vorlesung Mathematik~1 eine
+neue Übungs-App an, die der Dozent der Vorlesung selbst entwickelt hat.
+Die Nutzung ist freiwillig; 64 von 212 Studierenden melden sich an. Zur
+Einführung der App bietet der Dozent für die Angemeldeten ein
+wöchentliches Tutorium an, in dem mit der App geübt wird. Am
+Semesterende schreiben alle 212 Studierenden dieselbe Klausur, die der
+Dozent selbst korrigiert; auf den Bögen stehen Name und Matrikelnummer.
+Die App-Gruppe erreicht im Mittel die Note 2,3, die übrigen 148
+Studierenden die Note 3,0. Im Pressetext der Hochschule heißt es:
+\enquote{Die App verbessert die Note um 0,7. Sie wird ab dem nächsten
+Semester für alle Erstsemester verpflichtend.}
+}}
+\end{center}
+
+\begin{enumerate}
+  \item Benennen Sie UV und AV. Wie ist die AV gemessen worden?
+  \item Welcher Designtyp liegt vor? Schreiben Sie das Design in der
+    Kurzschrift R/X/O.
+  \item Gibt es eine Kontrollgruppe? In welchen Merkmalen unterscheidet
+    sie sich von der App-Gruppe außer in der App-Nutzung?
+  \item Nennen Sie mindestens drei Konfounder bzw.\ Bedrohungen der
+    internen Validität und ordnen Sie sie den Begriffen der Vorlesung zu.
+  \item Ist die Messung objektiv? Was wäre ein Blind-Design?
+  \item Skizzieren Sie ein verbessertes Design, das die Aussage des
+    Pressetexts prüfen könnte.
+\end{enumerate}
+\schreiblinien{9}
+
+\aufgabe{Design-Skizze zu Ihrer Hypothese}[Beginn in der Stunde, Abgabe bis LE~7, benotet]
+Füllen Sie die Vorlage aus und begründen Sie Ihre Wahl auf höchstens einer
+weiteren Seite.
+
+\begin{center}
+\renewcommand{\arraystretch}{1.5}
+\begin{tabular}{|p{0.3\textwidth}|p{0.6\textwidth}|}
+\hline
+H\textsubscript{1} (aus LE~5) & \\[6mm] \hline
+UV und ihre Stufen & \\ \hline
+AV und Messinstrument & \\ \hline
+Designtyp (experimentell / quasi / nicht-experimentell; Quer- oder Längsschnitt) & \\ \hline
+Design in Kurzschrift (R / X / O) & \\ \hline
+Stichprobe: wer, wie viele, wie rekrutiert? & \\ \hline
+Zuteilung zu den Bedingungen & \\ \hline
+Kontrollbedingung (aktiv?) & \\ \hline
+Wichtigste Störvariablen und wie ich sie kontrolliere & \\[8mm] \hline
+Messgüte: objektiv? reliabel? valide? blind? Parallelmessung? & \\[8mm] \hline
+Verbleibende Bedrohung, die ich in Kauf nehme & \\ \hline
+\end{tabular}
+\end{center}
+
+\aufgabe{Peer-Feedback}[in der Stunde, Zweiergruppe, 10 Min.]
+Notieren Sie für die Skizze Ihrer Partnerin bzw.\ Ihres Partners:
+\begin{center}
+\renewcommand{\arraystretch}{2}
+\begin{tabular}{|p{0.42\textwidth}|p{0.48\textwidth}|}
+\hline
+Eine Alternativerklärung, die das Design nicht ausschließt & \\ \hline
+Eine Änderung, die sie ausschließen würde & \\ \hline
+Was an dem Design überzeugt & \\ \hline
+\end{tabular}
+\end{center}
+
+\aufgabe{Tagebuch des Staunens}[Hausaufgabe]
+Finden Sie in Werbung, Nachrichten oder sozialen Medien eine
+Wirkungsbehauptung, der ein Vergleich fehlt. Welche Kontrollbedingung
+bräuchte man, um sie zu prüfen?
+
+\begin{lehrhinweis}[Erwartungshorizont]
+\textbf{Aufgabe~1.} UV: App-Nutzung (ja/nein, selbst gewählt); AV:
+Klausurnote, korrigiert vom Entwickler der App, nicht anonymisiert. Design:
+quasi-experimentell bzw.\ nicht-experimenteller Gruppenvergleich ohne
+Vortest (X\,O / \phantom{X\,}O), keine Randomisierung. Die
+\enquote{Kontrollgruppe} unterscheidet sich in Motivation und vermutlich
+Vorkenntnissen (Selbstselektion), im zusätzlichen Tutorium (Konfundierung
+der UV mit Übungszeit und Betreuung) und darin, wie der Korrektor sie
+wahrnimmt (Versuchsleitereffekt, fehlende Objektivität). Weitere Punkte:
+kein Vortest, also keine Aussage über Veränderung; mögliche
+Neuheitseffekte; Übertragung von Freiwilligen auf eine Pflichtnutzung ist
+fraglich (externe Validität). Verbessertes Design: zufällige Zuteilung
+(ggf.\ geschichtet nach Vorkenntnissen aus einem Eingangstest), Tutorium
+für beide Gruppen gleich lang mit herkömmlichen Übungen (aktive
+Kontrolle), anonymisierte Klausur, Korrektur durch eine Person, die die
+Gruppenzugehörigkeit nicht kennt (Blind-Design).
+\textbf{Aufgabe~2.} Bewertet werden: Passung von Design und Hypothese
+(Kausalbehauptung erfordert experimentelles oder gut begründetes
+quasi-experimentelles Design), eine Kontrollbedingung, die sich nur in der
+UV unterscheidet, ein konkretes Messinstrument, mindestens zwei benannte
+und kontrollierte Störvariablen, eine ehrlich benannte Restbedrohung.
+\end{lehrhinweis}
+\end{uebungsblatt}

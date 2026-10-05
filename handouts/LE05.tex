@@ -1,0 +1,160 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Handout und Uebungsblatt zu Lehreinheit 5
+% Im Skript am Kapitelende, in handouts.tex als Druckvorlage.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{handout}{Hypothesen und Falsifizierbarkeit}
+
+\textbf{Worum es heute ging.} Ein Schaltbrett mit vier Schaltern und vier
+Lampen: Sie haben ein Modell gebildet und es oft bestätigt gesehen. Dann
+genügte ein Umstecken, und das Modell war widerlegt. Viele Bestätigungen
+machen eine allgemeine Aussage nicht gewiss; eine einzige Gegenbeobachtung
+kann sie zu Fall bringen. Die Lösung des Bretts liegt im Gerät, und es ist
+komplizierter, als Ihr Modell erlaubt hat.
+
+\textbf{Kernbegriffe}
+\begin{description}
+  \item[Induktion / Deduktion / Abduktion] von Fällen auf eine Regel /
+    von der Regel auf eine Vorhersage / von einer Überraschung auf die
+    beste Erklärung. Logisch zwingend ist nur die Deduktion.
+  \item[Falsifizierbarkeit] Eine Aussage ist prüfbar, wenn sich eine
+    Beobachtung angeben lässt, die ihr widerspräche
+    \parencite{popper1934logik}. Bewährt heißt: Widerlegungsversuche sind
+    gescheitert. Bewiesen ist damit nichts.
+  \item[Immunisierung] eine Aussage wird so formuliert oder nachträglich
+    angepasst, dass nichts sie widerlegen kann.
+  \item[H\textsubscript{0} / H\textsubscript{1}] Nullhypothese (kein
+    Unterschied, kein Zusammenhang) und Alternativhypothese (Ihre
+    Vermutung). Geprüft wird, ob die Daten mit H\textsubscript{0}
+    vereinbar sind.
+  \item[Graduelle Bestätigung] Tritt eine vorhergesagte Beobachtung $E$
+    ein, steigt nur die Wahrscheinlichkeit von $H$, und zwar umso mehr, je
+    unwahrscheinlicher $E$ vorher war \parencite{horwich1982probability}.
+  \item[Duhem-Quine] Geprüft wird immer die Hypothese \emph{samt}
+    Hilfsannahmen; ein Widerspruch sagt nicht, welches Glied falsch ist.
+  \item[Congruence Bias] nur die eigene Hypothese direkt testen, nie die
+    Alternativen (Wason-2-4-6-Test).
+\end{description}
+
+\textbf{Raster: Ist meine Hypothese gut?}
+
+\begin{center}
+\small
+\begin{tabular}{p{0.2\textwidth}p{0.7\textwidth}}
+\toprule
+präzise & Sind alle Begriffe operationalisiert? \\
+falsifizierbar & Welches Ergebnis würde ihr widersprechen? \\
+riskant & Wäre das Ergebnis ohne die Hypothese unwahrscheinlich? \\
+begrenzt & Für wen, wann, unter welchen Bedingungen gilt sie? \\
+begründet & Woraus folgt sie: Theorie, Literatur, Beobachtung? \\
+offen & Sind die Hilfsannahmen benannt? \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\begin{merkbox}
+Fragen Sie nicht \enquote{Was spricht für meine Hypothese?}, sondern
+\enquote{Was würde mich umstimmen?} Eine Beobachtung ist nur so viel wert
+wie das Risiko, das die Hypothese mit ihr eingegangen ist.
+\end{merkbox}
+
+\textbf{Zum Weiterlesen:} \textcite{popper1934logik};
+\textcite{wason1960failure}; zur Vertiefung
+\textcite{horwich1982probability}.
+\end{handout}
+
+\begin{uebungsblatt}{Hypothesen und Falsifizierbarkeit}
+
+\aufgabe{Falsifizierbar oder nicht?}[in der Stunde, Kleingruppe, 10 Min.]
+Entscheiden Sie für jede Aussage, ob sie \emph{in der vorliegenden Form}
+falsifizierbar ist (ja / nein / erst nach Präzisierung). Geben Sie für jede
+prüfbare Aussage eine konkrete Beobachtung an, die sie widerlegen würde.
+Formulieren Sie vage Aussagen so um, dass sie prüfbar werden. (Die
+Aussagen sind für diese Übung konstruiert.)
+
+\begin{enumerate}
+  \item[A1] \enquote{Ehrliche Menschen schlafen besser.}
+  \item[A2] \enquote{Studierende, die in der Woche vor der Klausur im
+    Mittel mindestens sieben Stunden pro Nacht schlafen, erzielen in
+    dieser Klausur im Mittel mehr Punkte als Studierende mit weniger als
+    fünf Stunden.}
+  \item[A3] \enquote{Alles, was geschieht, geschieht aus einem Grund, auch
+    wenn wir ihn nicht immer erkennen können.}
+  \item[A4] \enquote{Astrologinnen und Astrologen können einem
+    Geburtshoroskop häufiger als zufällig das passende von drei
+    Persönlichkeitsprofilen zuordnen.}
+  \item[A5] \enquote{Das Mittel wirkt bei allen, die offen dafür sind.
+    Wer keine Wirkung spürt, war innerlich nicht bereit.}
+\end{enumerate}
+
+\begin{center}
+\renewcommand{\arraystretch}{2.4}
+\begin{tabular}{|p{0.06\textwidth}|p{0.14\textwidth}|p{0.68\textwidth}|}
+\hline
+\textbf{Nr.} & \textbf{falsifizierbar?} & \textbf{Widerlegungsbedingung bzw.\ präzisierte Fassung} \\
+\hline
+A1 & & \\ \hline
+A2 & & \\ \hline
+A3 & & \\ \hline
+A4 & & \\ \hline
+A5 & & \\ \hline
+\end{tabular}
+\end{center}
+
+\aufgabe{Das Schaltbrett im Rückblick}[in der Stunde oder Hausaufgabe]
+\begin{enumerate}
+  \item Notieren Sie das Modell, das Ihre Gruppe in Runde~1 gebildet hat,
+    und die Zahl der Versuche, die es bestätigt haben.
+  \item Welche \emph{eine} Eingabe hätte Ihr Modell am stärksten
+    gefährdet? Begründen Sie mit Horwichs Widerlegungsrisiko.
+  \item Nennen Sie zwei Hilfsannahmen, die Sie beim Explorieren
+    stillschweigend gemacht haben (Duhem-Quine).
+\end{enumerate}
+\schreiblinien{5}
+
+\aufgabe{Null- und Alternativhypothese für Ihre Forschungsfrage}[Beginn in der Stunde, Abgabe bis LE~6]
+\begin{center}
+\renewcommand{\arraystretch}{1.6}
+\begin{tabular}{|p{0.3\textwidth}|p{0.6\textwidth}|}
+\hline
+Meine Forschungsfrage (aus LE~2) & \\[6mm] \hline
+Art der Hypothese (Unterschied / Zusammenhang / Veränderung; gerichtet?) & \\ \hline
+H\textsubscript{1} (Alternativhypothese) & \\[8mm] \hline
+H\textsubscript{0} (Nullhypothese) & \\[8mm] \hline
+Operationalisierung: Begriff $\to$ Messvorschrift & \\[8mm] \hline
+Population, Bedingungen, Zeitraum & \\ \hline
+Ich verwerfe H\textsubscript{1}, wenn \ldots & \\[8mm] \hline
+Hilfsannahmen, die ich dabei mache & \\[6mm] \hline
+\end{tabular}
+\end{center}
+
+\aufgabe{Tagebuch des Staunens}[Hausaufgabe]
+Beschreiben Sie ein Erlebnis dieser Woche, in dem Sie (oder jemand
+anderes) eine Annahme nur bestätigt statt geprüft haben. Welcher Versuch
+hätte die Annahme wirklich gefährdet?
+
+\begin{lehrhinweis}[Erwartungshorizont]
+\textbf{Aufgabe~1.} A1: in dieser Form nicht prüfbar, weil
+\enquote{ehrlich} und \enquote{besser schlafen} unbestimmt sind;
+präzisierbar, z.\,B.\ \enquote{Erwachsene mit höheren Werten in einem
+validierten Fragebogen zur Ehrlichkeit haben über zwei Wochen eine längere,
+per Aktivitätstracker gemessene Schlafdauer}; widerlegt, wenn kein oder ein
+negativer Zusammenhang auftritt. A2: falsifizierbar; widerlegt, wenn die
+Gruppe mit mindestens sieben Stunden im Mittel gleich viele oder weniger
+Punkte erzielt. Gute Antworten bemerken, dass ein solcher Befund noch
+keine Kausalität zeigt (Brücke zu LE~6). A3: nicht falsifizierbar; der
+Zusatz \enquote{auch wenn wir ihn nicht erkennen} schließt jede
+Gegenbeobachtung aus. A4: falsifizierbar; widerlegt, wenn die
+Trefferquote im Doppelblindversuch nicht über einem Drittel liegt. So
+wurde die Aussage tatsächlich geprüft \parencite{carlson1985doubleblind},
+mit einem Ergebnis auf Zufallsniveau. A5: immunisiert; jede ausbleibende
+Wirkung wird der Person zugeschrieben. Prüfbar wird die Aussage erst, wenn
+\enquote{offen dafür} unabhängig und \emph{vor} der Einnahme gemessen wird.
+\textbf{Aufgabe~2.} Bewertet wird, ob die gewählte Eingabe einen
+Ausgang hat, den das Modell \emph{nicht} sicher vorhersagt, und ob als
+Hilfsannahmen z.\,B.\ funktionierende Lampen, volle Batterien, Gleichheit
+von sichtbarer und tatsächlicher Verdrahtung genannt werden.
+\textbf{Aufgabe~3.} H\textsubscript{0} und H\textsubscript{1} schließen
+sich aus; die Verwerfungsbedingung nennt eine Messung und ein Kriterium;
+die Operationalisierung deckt alle Begriffe der Hypothese ab.
+\end{lehrhinweis}
+\end{uebungsblatt}

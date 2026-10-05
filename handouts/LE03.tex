@@ -1,0 +1,229 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Handout und Uebungsblatt zu Lehreinheit 3
+% Im Skript am Kapitelende, in handouts.tex als Druckvorlage.
+% Der Kruskal-Text (Aufgabe 1) wird mit tools/kruskal_check.py geprueft.
+% Wer ihn aendert, muss das Skript erneut laufen lassen!
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{handout}{Literaturrecherche}
+
+\textbf{Worum es heute ging.} Alle haben eine eigene Startzahl gewählt und
+sind nach derselben Zählregel durch einen Text gegangen, fast alle landeten
+auf demselben Wort. Das ist Mathematik: Sobald zwei Wege einmal auf
+dasselbe Wort treffen, laufen sie für immer gemeinsam weiter (Kruskal-Prinzip).
+Eine systematische Recherche funktioniert ähnlich: Mit guten Suchbegriffen und
+dem Weg über Literaturlisten landet man aus verschiedenen Richtungen bei den
+zentralen Quellen. Die Kehrseite: Wer nur nach Bestätigung sucht, landet
+zuverlässig bei der eigenen Vorannahme.
+
+\textbf{Kernbegriffe}
+\begin{description}
+  \item[Systematische Recherche] geplante, dokumentierte und wiederholbare
+    Suche mit festgelegten Begriffen, Datenbanken und Auswahlkriterien.
+  \item[Boolesche Operatoren] \texttt{AND} (beide Begriffe), \texttt{OR}
+    (einer genügt, für Synonyme), \texttt{NOT} (ausschließen, sparsam!).
+  \item[Trunkierung und Phrase] \texttt{lern*} findet lernen, Lernende,
+    Lernerfolg; \texttt{\symbol{34}magic trick\symbol{34}} sucht die genaue Wortfolge.
+  \item[Schneeballsuche] rückwärts: Literaturliste eines Schlüsseltexts;
+    vorwärts: Arbeiten, die ihn später zitieren \parencite{wohlin2014snowballing}.
+  \item[Graue Literatur] nicht verlagsmäßig publiziert: Abschlussarbeiten,
+    Preprints, Berichte. Oft aktuell, aber ohne Begutachtung.
+  \item[Gegenrecherche] gezielte Suche nach Belegen, die der eigenen These
+    widersprechen könnten (Congruence Bias, \textcite{wason1960failure}).
+\end{description}
+
+\textbf{Suchstring in drei Schritten}
+\begin{center}
+\small
+\begin{tabular}{lll}
+\toprule
+\textbf{Konzept 1} & \textbf{Konzept 2} & \textbf{Konzept 3} \\
+\midrule
+\texttt{magic OR conjuring} & \texttt{wonder OR awe OR curiosity} & \texttt{learn* OR memory} \\
+\bottomrule
+\end{tabular}
+
+\smallskip
+\texttt{(K1) AND (K2) AND (K3)}: Synonyme mit OR, Konzepte mit AND
+\end{center}
+
+\begin{merkbox}
+Eine Recherche ist erst dann wissenschaftlich, wenn jemand anderes sie mit
+Ihrem Protokoll wiederholen könnte und wenn Sie auch nach dem gesucht haben,
+was Ihnen widerspricht.
+\end{merkbox}
+
+\textbf{Zum Weiterlesen:} \textcite{doering2016forschungsmethoden}, Kapitel
+zur Literaturrecherche; \textcite{gusenbauer2020academic} zur Frage, welche
+Suchsysteme sich für systematische Recherchen eignen.
+\end{handout}
+
+\begin{uebungsblatt}{Recherchieren und dokumentieren}
+
+\aufgabe{Der Zählweg}[in der Stunde, Einzelarbeit, 8 Min.]
+Wählen Sie im Stillen eine Zahl zwischen 1 und 10. Zählen Sie vom Anfang des
+Textes so viele Wörter ab; das ist Ihr Startwort. Zählen Sie seine Buchstaben
+und gehen Sie genau so viele Wörter weiter. Wiederholen Sie das. Satzzeichen
+zählen nicht, ä, ö, ü zählen als ein Buchstabe. Wenn der nächste Sprung über
+das Textende hinausführen würde, ist Ihr aktuelles Wort Ihr
+\textbf{Schlusswort}. Behalten Sie es für sich. \emph{(Text selbst verfasst,
+fiktive Geschichte.)}
+
+\medskip
+\noindent\fbox{\parbox{\dimexpr\textwidth-2\fboxsep-2\fboxrule\relax}{%
+\linespread{1.25}\selectfont\raggedright
+\hyphenpenalty=10000 \exhyphenpenalty=10000 % keine Trennungen: jedes Wort ganz
+% KRUSKAL-TEXT-BEGINN
+Als Hanna Berger zum ersten Mal die alte Bibliothek ihrer Stadt betrat,
+suchte sie nur ein einziges Buch. Ihre Tante hatte ihr erzählt, dass dort
+ein Bericht über den Winter stehe, in dem der See vollständig zugefroren
+war und die Menschen trocken bis zur anderen Seite gehen konnten. Hanna
+wollte wissen, ob diese Geschichte stimmte. Sie fragte den Bibliothekar,
+einen ruhigen Mann mit grauem Bart, wo sie anfangen solle. Er lächelte und
+gab ihr keinen Titel, sondern einen Rat: \enquote{Fang irgendwo an, aber
+schreib auf, wohin dich jedes Buch schickt.} Also begann sie bei einer
+Chronik der Fischerei. Darin fand sie einen Hinweis auf alte
+Kirchenbücher, die jede Taufe und jede Beerdigung festhielten. In den
+Kirchenbüchern stand am Rand eine Notiz über ungewöhnliche Kälte, mit
+einem Verweis auf die Wetterbeobachtungen eines Lehrers. Der Lehrer hatte
+jeden Morgen die Temperatur gemessen und in kleine Hefte geschrieben.
+Diese Hefte lagen im Keller, in einer Kiste mit der Aufschrift
+\enquote{Verschiedenes}. Hanna arbeitete drei Wochen lang an einem langen
+Tisch unter einem hohen Fenster. Sie las, verglich und notierte, und
+manchmal fand sie Angaben, die einander widersprachen. Ein Kaufmann
+schrieb, das Eis sei dünn gewesen, ein Pfarrer meinte, man habe darauf
+getanzt. Hanna lernte, dass jeder Zeuge seine eigenen Gründe hatte, etwas
+zu behaupten. Sie ordnete die Berichte nach Datum, nach Herkunft und nach
+der Frage, wer was gesehen haben konnte. Am Ende führten fast alle Spuren,
+gleich wo sie begonnen hatte, zu demselben Ort. Es war ein dünnes Heft
+des Lehrers, in dem für einen Februar viele Nächte mit strengem Frost
+standen und daneben ein Satz in sauberer Schrift: \enquote{Heute ging ich
+mit meinen Schülern über das Eis bis zum anderen Ufer.} Hanna legte den
+Stift hin. Sie wusste jetzt, dass die Erzählung ihrer Tante einen wahren
+Kern hatte, und sie wusste noch etwas anderes: Wer lange und gründlich
+sucht, landet oft bei derselben Quelle.
+% KRUSKAL-TEXT-ENDE
+}}
+
+\medskip
+\noindent Meine Startzahl: \rule{15mm}{0.3pt}\qquad
+Mein Schlusswort: \rule{45mm}{0.3pt}\qquad
+Zahl der Sprünge: \rule{15mm}{0.3pt}
+
+\aufgabe{Suchbegriffe sammeln}[in der Stunde, Einzelarbeit, 10 Min.]
+Zerlegen Sie Ihre Forschungsfrage aus LE~2 in zwei bis drei Konzepte. Sammeln
+Sie zu jedem deutsche und englische Begriffe, Synonyme, Ober- und
+Unterbegriffe. Markieren Sie, wo Trunkierung (\texttt{*}) sinnvoll ist.
+
+\smallskip
+\noindent\textbf{Meine Forschungsfrage:}
+\schreiblinien{1}
+\begin{center}
+\renewcommand{\arraystretch}{2.0}
+\begin{tabular}{|p{0.22\textwidth}|p{0.22\textwidth}|p{0.22\textwidth}|p{0.22\textwidth}|}
+\hline
+ & \textbf{Konzept 1} & \textbf{Konzept 2} & \textbf{Konzept 3} \\ \hline
+Begriff deutsch & & & \\ \hline
+Synonyme & & & \\ \hline
+englisch & & & \\ \hline
+Ober-/Unterbegriffe & & & \\ \hline
+\end{tabular}
+\end{center}
+
+\aufgabe{Suchstring und Gegenrecherche}[in der Stunde, 5 Min.]
+\begin{enumerate}
+  \item Bauen Sie aus der Tabelle einen Suchstring: Synonyme mit \texttt{OR},
+    Konzepte mit \texttt{AND}.
+  \item Formulieren Sie einen zweiten Suchstring, der gezielt Arbeiten findet,
+    die Ihrer erwarteten Antwort \emph{widersprechen} könnten (Begriffe wie
+    \texttt{no effect}, \texttt{null result}, \texttt{failed replication},
+    \texttt{critique}, oder die Gegenhypothese selbst).
+\end{enumerate}
+\noindent Suchstring 1:
+\schreiblinien{2}
+\noindent Suchstring 2 (Gegenrecherche):
+\schreiblinien{2}
+
+\aufgabe{Rechercheprotokoll}[in der Stunde beginnen, Hausaufgabe, 10\,\% der Portfolionote]
+Führen Sie eine dokumentierte Recherche in mindestens zwei Datenbanken durch.
+Eine Zeile pro Suchvorgang. Notieren Sie Suchbegriffe, Datenbanken,
+Treffermengen und Auswahlkriterien so genau, dass eine andere Person Ihre
+Suche wiederholen kann.
+
+\begin{center}
+\small
+\renewcommand{\arraystretch}{2.4}
+\begin{tabular}{|p{0.07\textwidth}|p{0.12\textwidth}|p{0.24\textwidth}|p{0.11\textwidth}|p{0.07\textwidth}|p{0.07\textwidth}|p{0.09\textwidth}|}
+\hline
+\textbf{Datum} & \textbf{Datenbank} & \textbf{Suchstring} & \textbf{Filter} &
+\textbf{Tref\-fer} & \textbf{ge\-sich\-tet} & \textbf{aus\-ge\-wählt} \\ \hline
+ & & & & & & \\ \hline
+ & & & & & & \\ \hline
+ & & & & & & \\ \hline
+ & & & & & & \\ \hline
+ & & & & & & \\ \hline
+\end{tabular}
+\end{center}
+\noindent\textbf{Ein- und Ausschlusskriterien} (z.\,B. Sprache, Zeitraum,
+Publikationstyp, Population):
+\schreiblinien{2}
+\noindent\textbf{Schneeball:} Welche zwei Schlüsseltexte haben Sie rückwärts
+und vorwärts verfolgt? Was kam dabei neu hinzu?
+\schreiblinien{2}
+
+\aufgabe{Treffer sortieren}[in der Stunde, 10 Min.]
+Ordnen Sie Ihre ersten fünf Treffer einer Stufe zu. Die Stufen sind eine
+Arbeitshilfe für die erste Sichtung, kein Qualitätsurteil im Einzelfall; das
+folgt in LE~4.
+
+\begin{center}
+\small
+\begin{tabular}{cp{0.78\textwidth}}
+\toprule
+\textbf{Stufe} & \textbf{Publikationstyp} \\
+\midrule
+A & systematische Übersichtsarbeit, Metaanalyse, begutachteter Zeitschriftenartikel \\
+B & Fachbuch, Handbuchkapitel, begutachteter Konferenzbeitrag \\
+C & graue Literatur: Preprint, Abschlussarbeit, Bericht einer Behörde oder Stiftung \\
+D & Fachpresse, Wissenschaftsjournalismus, Lehrbuchwissen ohne Belege \\
+E & Blog, Video, Werbung, Quelle ohne erkennbare Autorschaft \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\aufgabe{Annotierte Bibliographie}[Hausaufgabe, Abgabe bis LE~4]
+Kommentieren Sie fünf gefundene Quellen mit je zwei bis drei Sätzen zu
+\emph{Kernaussage}, \emph{Methode} und \emph{Relevanz für Ihre Frage}.
+Mindestens eine Quelle soll aus der Gegenrecherche stammen. Verwalten Sie die
+Quellen in einem Literaturverwaltungsprogramm (Zotero, Citavi oder JabRef).
+
+\smallskip
+\noindent\textbf{Beispiel einer Annotation:}
+
+\noindent\begin{minipage}{\textwidth}\small
+Wason, P.~C. (1960). On the failure to eliminate hypotheses in a conceptual
+task. \emph{Quarterly Journal of Experimental Psychology, 12}(3), 129--140.
+
+\emph{Kernaussage:} Wer eine Regel erraten soll, prüft fast nur Beispiele, die
+zur eigenen Vermutung passen, und bemerkt deshalb eine zu enge Hypothese
+nicht. \emph{Methode:} Experiment mit dem Zahlentripel 2--4--6; nur sechs
+von 29 Personen fanden die Regel ohne falschen Zwischenschluss.
+\emph{Relevanz:} Begründet, warum meine Recherche auch nach widersprechenden
+Befunden suchen muss.
+\end{minipage}
+
+\begin{lehrhinweis}[Erwartungshorizont]
+Aufgabe~1: Schlusswort ist \textbf{\enquote{Quelle}} (letztes Wort des
+Textes) für jede Startzahl von 1 bis 10; nach dem Prüfskript
+\texttt{tools/kruskal\_check.py} laufen alle zehn Wege spätestens beim 47.~Wort
+(\enquote{gehen}) zusammen, insgesamt sind es je nach Start 59 bis 66 Sprünge.
+Wer woanders landet, hat sich verzählt; das gemeinsame Nachzählen ist eine
+kleine Lektion in Reproduzierbarkeit. Aufgabe~2/3: mindestens zwei Konzepte,
+englische Begriffe vorhanden, Synonyme mit OR innerhalb der Klammer, AND
+zwischen Konzepten; Gegenrecherche enthält die Gegenhypothese oder
+Begriffe für Nullbefunde und Kritik. Aufgabe~4: Protokoll ist
+wiederholbar, wenn Datum, Datenbank, exakter String, Filter und Trefferzahl
+dastehen; mindestens zwei Datenbanken, davon eine Fachdatenbank, Google
+Scholar allenfalls ergänzend. Aufgabe~6: Annotationen trennen Kernaussage,
+Methode und Relevanz; keine bloße Wiedergabe des Abstracts.
+\end{lehrhinweis}
+\end{uebungsblatt}

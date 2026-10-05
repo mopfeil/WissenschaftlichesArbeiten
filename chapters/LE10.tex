@@ -1,0 +1,569 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Lehreinheit 10: Datenanalyse und Interpretation
+% Quelle: WuZ-Buch, Kap. 15 (LE 10), Abschnitt 10d (Vorhersage-Trick,
+%         p-Hacking, Tafelformel), Kap. 5b (Newcomb, Horwich),
+%         Kap. 12f (explorative Subgruppenanalyse, nur Zahlen aus dem Buch)
+% Staunmoment: Die unveraenderliche Summe (selbstarbeitende Variante,
+%              Vorschlag) + Vorhersage-Trick
+% Kernbegriff: Determinismus
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\nsl{In LE~8 und LE~9 haben die Studierenden Daten erhoben und
+beschrieben. Diese Einheit fragt, was man aus ihnen schließen darf. Sie
+beginnt mit einer Vorhersage, die versiegelt im Raum liegt, und mit vier
+Zahlen, die Freiwillige frei wählen. Die Summe trifft die Vorhersage. Die
+Wahl war frei, das Ergebnis trotzdem festgelegt: durch die Struktur der
+Rechnung. Dieselbe Struktur steckt in vielen Datenauswertungen, die
+scheinbar offen beginnen und doch nur zu einem Ergebnis führen können.
+Die Einheit unterscheidet deshalb sauber zwischen Daten, Befund und
+Schlussfolgerung, zeigt mit dem Vorhersage-Trick aus dem Buch, wie
+p-Hacking garantierte Muster erzeugt, und stellt die Gegenmittel vor:
+Gegenhypothesen, Triangulation und Präregistrierung.
+\newpage}
+\os{\begin{description}
+\item[{\rot\bf Heute}]~\\[-\lblskip]
+\bi
+  \ite eine Summe, die vorher feststand
+  \ite Daten, Befund, Schlussfolgerung
+  \ite Over-Interpretation, p-Hacking, HARKing
+  \ite der Garten der sich verzweigenden Wege
+  \ite Gegenmittel: Triangulation und Präregistrierung
+\ei
+\end{description}
+\newpage}
+
+\begin{vorbereitung}[Die unveränderliche Summe und der Vorhersage-Trick]
+\textbf{Hinweis.} Kap.~15 des Buchs nennt den Effekt \enquote{Die
+unveränderliche Summe (Datum-Force)}, beschreibt aber keine Methode. Die
+folgende selbstarbeitende Variante ist ein \emph{Vorschlag} für die
+Umsetzung. Sie beruht auf reiner Arithmetik und braucht keine
+Fingerfertigkeit.
+
+\textbf{Das Prinzip.} Eine Person nennt (1)~ihr Geburtsjahr, (2)~das
+Alter, das sie im laufenden Kalenderjahr erreicht, (3)~das Jahr eines
+persönlich wichtigen Ereignisses und (4)~die Anzahl der Jahre, die seitdem
+bis zum laufenden Jahr vergangen sind. Geburtsjahr plus erreichtes Alter
+ergibt das laufende Jahr $J$, Ereignisjahr plus vergangene Jahre ebenfalls.
+Die Summe aller vier Zahlen ist deshalb immer $2J$.
+
+\textbf{Eine Woche vorher}
+\begin{checkliste}
+  \item \textbf{Termin prüfen!} LE~10 liegt im Dezember oder Januar. Die
+    Vorhersage hängt am Kalenderjahr des Vorlesungstags: im Dezember~2026
+    lautet sie 4052, im Januar~2027 lautet sie 4054. Wird der Termin über
+    den Jahreswechsel verschoben, Vorhersage neu schreiben.
+  \item Vorhersage auf eine Karte schreiben, in einen Umschlag stecken,
+    zukleben und unterschreiben lassen (z.\,B.\ von einer Kollegin). Der
+    Umschlag liegt ab Beginn der Stunde sichtbar am Pult oder klebt an der
+    Tafel.
+  \item Sprechtext üben, vor allem die Fragen~2 und~4 (siehe
+    Fallstricke). Zwei Probeläufe mit Personen, die den Effekt nicht
+    kennen; dabei auf Missverständnisse achten.
+  \item Für den Vorhersage-Trick (Buch, Abschnitt~10d) die geheime
+    Botschaft der Abweichungen festlegen, z.\,B.\ $r=(3,1,4,1)$ für die
+    ersten Ziffern von $\pi$. Die letzte Zahl der Runde wird geforct. Das
+    Buch nennt dafür Force-Bag, Force-Deck, einen Rechen-Force oder
+    Equivoque \parencite{pailhes2020}; Wahl und Einstudierung des Forces
+    nach der Standardliteratur, hier bewusst nicht beschrieben. Die
+    Master-Vorhersage $p_n = F + r_n$ vorab auf eine Karte schreiben und
+    versiegeln.
+  \item Plan~B ohne Force aus dem Buch bereithalten: der 1089-Trick oder
+    Kaprekars Konstante 6174 (Buch, Abschnitt~10d).
+\end{checkliste}
+
+\textbf{Fallstricke der unveränderlichen Summe}
+\begin{checkliste}
+  \item \textbf{Alter:} Es muss das im laufenden Jahr \emph{erreichte}
+    Alter sein, egal ob der Geburtstag schon war. Wer noch nicht
+    Geburtstag hatte und das aktuelle Alter nennt, liegt um eins zu
+    niedrig. Formulierung: \enquote{Wie alt werden Sie dieses Jahr an
+    Ihrem Geburtstag -- oder sind es schon geworden?}
+  \item \textbf{Vergangene Jahre:} gezählt wird nach Jahreszahlen, nicht
+    nach Jahrestagen. Formulierung: \enquote{Wie viele Silvester liegen
+    seit diesem Ereignis hinter Ihnen?} Ein Ereignis im laufenden Jahr
+    ergibt null.
+  \item \textbf{Jahreswechsel:} Im Januar denken viele noch im alten Jahr.
+    Dann \enquote{in diesem Jahr} durch \enquote{im neuen Jahr} ersetzen
+    und bei der Silvester-Frage \enquote{das letzte mitgezählt} ergänzen.
+    Im Dezember besteht die Gefahr nicht.
+  \item \textbf{Paare gehören zusammen:} Geburtsjahr und Alter müssen von
+    derselben Person stammen, Ereignisjahr und vergangene Jahre vom
+    selben Ereignis. Mehrere Personen sind möglich, wenn jede ein
+    vollständiges Paar liefert.
+  \item \textbf{Rechnen:} eine dritte Person addiert mit dem
+    Taschenrechner, eine vierte kontrolliert. Kopfrechnen vor Publikum
+    erzeugt Fehler.
+\end{checkliste}
+
+\textbf{Handout und Übungsblatt}
+\begin{checkliste}
+  \item Handout \enquote{Datenanalyse und Interpretation} und Übungsblatt
+    LE~10 je einmal pro Person kopieren (Druckvorlage
+    \texttt{handouts.pdf}, Seiten zu LE~10). Das Übungsblatt enthält die
+    vollständigen Rohdaten der fiktiven Studie und die Tabelle zur
+    Formel $1-(1-\alpha)^m$.
+  \item Taschenrechner zulassen; wer einen Laptop hat, darf die Rohdaten
+    in eine Tabellenkalkulation übernehmen.
+\end{checkliste}
+
+\textbf{Am Tag selbst}
+\begin{checkliste}
+  \item Umschlag mit der Vorhersage vor Beginn sichtbar aufhängen; nicht
+    kommentieren.
+  \item Tafel: rechts oben Platz für die vier Zahlen und die Summe, links
+    Platz für die Tabelle des Vorhersage-Tricks (Runde, $a_i$, $p_i$,
+    $p_i-a_i$) und die Formel.
+  \item Für den Vorhersage-Trick: fünf Karten, einen Umschlag, die
+    versiegelte Master-Karte, das Force-Requisit.
+\end{checkliste}
+
+\textbf{Risiken und Plan B.} Stimmt die Summe nicht, zuerst die beiden
+Fallstricke prüfen (Alter, Silvester), und zwar offen: Das ist dann
+selbst ein Lehrstück über Messfehler und Operationalisierung. Der Effekt
+ist danach nicht verloren, sondern wird sofort aufgelöst. Kennt jemand
+den Effekt, wird die Person zur Komplizin gemacht (\enquote{Verraten Sie
+es bitte noch nicht}). Misslingt der Force im Vorhersage-Trick, auf den
+1089-Trick ausweichen; die Lektion bleibt dieselbe.
+\end{vorbereitung}
+
+\begin{ablauf}
+\begin{description}
+\item[0--10 · Staunmoment.] \enquote{Die unveränderliche Summe}: vier frei
+  genannte Zahlen, die Summe trifft die versiegelte Vorhersage. Frage: Wo
+  war hier die Freiheit?
+\item[10--20 · Auflösung und Force-Begriff.] Die Rechnung an der Tafel;
+  Einordnung als Force; Determinismus und Freiheits-Illusion
+  (Newcomb-Paradoxon, Buch, Kap.~5b).
+\item[20--45 · Theorie-Input.] Daten -- Befund -- Schlussfolgerung;
+  Over-Interpretation, p-Hacking, HARKing, Garden of Forking Paths;
+  Triangulation.
+\item[45--60 · p-Hacking erleben.] Der Vorhersage-Trick (Buch,
+  Abschnitt~10d); Tafel-Auflösung $1-(1-\alpha)^m$.
+\item[60--80 · Befund-Übung.] Rohdaten einer fiktiven Studie (Übungsblatt,
+  Aufgabe~1): deskriptive Befunde, zwei konkurrierende Interpretationen,
+  entscheidende Zusatzdaten.
+\item[80--90 · Selbstbezug.] Prüfung der eigenen bisherigen Ergebnisse:
+  Habe ich nach Bestätigung gesucht? Was würde meine Hypothese
+  herausfordern?
+\end{description}
+\end{ablauf}
+
+%==============================================================================
+\section{Staunmoment: Die unveränderliche Summe}
+%==============================================================================
+\begin{staunbox}{Vier freie Zahlen}
+Am Pult liegt seit Beginn der Stunde ein versiegelter Umschlag. Eine
+Person nennt:
+(1)~ihr Geburtsjahr, (2)~das Alter, das sie in diesem Jahr erreicht,
+(3)~das Jahr eines Ereignisses, das ihr wichtig ist, (4)~wie viele
+Silvester seitdem vergangen sind.
+
+\emph{Jemand addiert. Dann öffnen wir den Umschlag.}
+\end{staunbox}
+\os{\newpage}
+
+\begin{lehrhinweis}[Sprechtext (Vorschlag)]
+\itshape
+In diesem Umschlag liegt eine Zahl, die ich heute Morgen aufgeschrieben
+habe. Ich brauche jemanden, der mir vier Zahlen über sich verrät, die ich
+nicht kennen kann. Sagen Sie uns zuerst Ihr Geburtsjahr. \dots\ Und wie alt
+werden Sie dieses Jahr an Ihrem Geburtstag -- oder sind es schon
+geworden? \dots\ Jetzt denken Sie an ein Ereignis, das Ihnen wichtig war.
+Sie müssen nicht sagen, was es war. Nur das Jahr. \dots\ Und wie viele
+Silvester haben Sie seitdem gefeiert? \dots\ Das sind vier Zahlen, die nur
+Sie kennen. Bitte addieren Sie sie (an eine zweite Person gewandt), und
+Sie kontrollieren. \dots\ Lesen Sie die Summe laut vor. \dots\ Öffnen Sie
+den Umschlag.
+\end{lehrhinweis}
+
+\begin{description}
+\item[{\rot\bf Wo war hier die Freiheit?}]~\\[-\lblskip]
+\bi
+  \ite alle vier Zahlen waren frei gewählt
+  \ite das Ergebnis stand trotzdem vorher fest
+  \ite welche Erklärungen haben Sie?
+  \ite was hätte die Vorhersage scheitern lassen können?
+\ei
+\os{\newpage}
+\end{description}
+
+%==============================================================================
+\section{Auflösung: der Force}
+%==============================================================================
+\nsl{Die Auflösung ist eine Zeile Arithmetik. Geburtsjahr plus das im
+laufenden Jahr erreichte Alter ergibt das laufende Jahr. Ereignisjahr plus
+die seitdem vergangenen Jahre ergibt ebenfalls das laufende Jahr. Die
+Summe ist also das Doppelte der Jahreszahl, gleichgültig, welche Person
+und welches Ereignis gewählt wurden. In der Sprache der Zauberkunst ist
+das ein \emph{Force}: Die Wahl ist frei, ihr Ergebnis ist es nicht. Das
+Buch behandelt dasselbe Muster unter dem Stichwort Determinismus und
+Freiheits-Illusion am Newcomb-Paradoxon \parencite{nozick1969newcomb}: Ein
+Prädiktor füllt Boxen nach einer Vorhersage über eine Wahl, die erst
+danach getroffen wird. Zum Zeitpunkt der Wahl liegt der Inhalt längst
+fest.}
+\begin{description}
+\item[{\rot\bf Die Rechnung}]~\\[-\lblskip]
+\[
+\underbrace{\text{Geburtsjahr} + \text{Alter}}_{=\,J}
+\;+\;
+\underbrace{\text{Ereignisjahr} + \text{vergangene Jahre}}_{=\,J}
+\;=\; 2J
+\]
+\bi
+  \ite jede Eingabe war frei, die \emph{Struktur} der Rechnung nicht
+  \ite die Freiheit hat das Ergebnis nie berührt
+  \ite scheitern kann die Vorhersage nur an Messfehlern: falsches Alter,
+    falsch gezählte Jahre
+\ei
+\os{\newpage}
+
+\item[{\rot\bf Force}]~\\
+\defn{force}{Ein \textbf{Force} ist ein Verfahren, das einer Person eine
+freie Wahl lässt und trotzdem ein vorab festgelegtes Ergebnis
+herbeiführt.}
+\bi
+  \ite Zauberkunst: Die versiegelte Vorhersage stimmt, weil das Verfahren
+    sie erzwingt
+  \ite Newcomb: Der Prädiktor hat entschieden, bevor die Person wählt
+    \parencite{nozick1969newcomb}
+  \ite Forschung: Eine Auswertung, die nur ein Ergebnis zulassen kann,
+    prüft nichts
+\ei
+\os{\newpage}
+
+\item[{\rot\bf Forces in der Forschung}]~\\[-\lblskip]
+\bi
+  \ite Stichprobe nur aus Freiwilligen, die das Thema mögen
+  \ite Fragebogen nur mit zustimmend formulierten Items
+  \ite \enquote{Erfolg} wird erst nach Sicht der Daten definiert
+  \ite Auswertung so lange variieren, bis sie passt
+  \ite Frage: Hätte meine Auswertung meine Hypothese überhaupt
+    widerlegen können?
+\ei
+\nsl{Die letzte Frage verbindet die Einheit mit Horwichs Analyse des
+Beweiswerts (LE~5 und LE~8): Nur Beobachtungen, die ein
+Widerlegungsrisiko eingehen, haben vollen Beweiswert
+\parencite{horwich1982probability}. Eine Auswertung, die strukturell
+nur ein Ergebnis liefern kann, ist ein Force, kein Test.}
+\os{\newpage}
+\end{description}
+
+%==============================================================================
+\section{Daten, Befund, Schlussfolgerung}
+%==============================================================================
+\nsl{Der häufigste Fehler beim Interpretieren ist kein Rechenfehler, sondern
+ein Ebenenwechsel. \emph{Daten} sind die erhobenen Werte. Ein
+\emph{Befund} ist eine Aussage, die die Daten zusammenfasst und an ihnen
+geprüft werden kann: Mittelwerte, Unterschiede, Zusammenhänge mit ihrer
+Unsicherheit. Eine \emph{Schlussfolgerung} geht darüber hinaus; sie
+erklärt den Befund, verallgemeinert ihn oder leitet eine Empfehlung ab.
+Schlussfolgerungen sind notwendig, aber sie brauchen Annahmen, die man
+offenlegen muss. Over-Interpretation entsteht, wenn eine Schlussfolgerung
+wie ein Befund formuliert wird.}
+\begin{description}
+\item[{\rot\bf Drei Ebenen}]~\\[-\lblskip]
+\begin{center}
+\resizebox{0.95\textwidth}{!}{%
+\begin{tikzpicture}[font=\sffamily,>=Stealth,
+  st/.style={draw=rwuviolet,thick,fill=rwuviolet!8,rounded corners=3pt,
+    minimum width=30mm,minimum height=16mm,align=center}]
+  \node[st] (a) at (0,0) {\textbf{Daten}\\erhobene Werte};
+  \node[st] (b) at (7,0) {\textbf{Befund}\\zusammengefasst,\\prüfbar};
+  \node[st,draw=rwucyan,fill=rwucyan40!40] (c) at (14,0) {\textbf{Schlussfolgerung}\\Erklärung,\\Verallgemeinerung};
+  \draw[->,very thick] (a) -- node[above]{Statistik} (b);
+  \draw[->,very thick] (b) -- node[above]{Annahmen} (c);
+\end{tikzpicture}}
+\end{center}
+\bi
+  \ite Beispiel Monty Hall: 97 von 150 Wechselrunden gewonnen -- Wechseln
+    gewann in 64,7\,\% -- Wechseln ist im Spiel überlegen
+  \ite jede Stufe braucht etwas, das in der vorigen nicht steht
+\ei
+\nsl{Das Monty-Hall-Beispiel ist das konstruierte Rechenbeispiel aus LE~8.}
+\os{\newpage}
+
+\item[{\rot\bf Over-Interpretation}]~\\[-\lblskip]
+\bi
+  \ite Zusammenhang als Ursache lesen
+  \ite über die Stichprobe hinaus verallgemeinern
+  \ite \enquote{signifikant} als \enquote{groß} oder \enquote{wichtig} lesen
+  \ite einen Einzelbefund als gesichert darstellen
+  \ite aus dem Fehlen eines Befunds auf das Fehlen eines Effekts schließen
+\ei
+\os{\newpage}
+
+\item[{\rot\bf Interpretation oder Spekulation?}]~\\[-\lblskip]
+\bi
+  \ite \textbf{Interpretation}: bleibt an den Befund gebunden, nennt
+    ihre Annahmen, lässt Alternativen zu
+  \ite \textbf{Spekulation}: geht über das hinaus, was die Daten tragen
+    können -- erlaubt, wenn sie so heißt
+  \ite Prüffrage: Welcher Befund würde meine Deutung widerlegen?
+  \ite Pflicht: zu jeder Deutung mindestens eine Gegenhypothese
+\ei
+\os{\newpage}
+\end{description}
+
+%==============================================================================
+\section{p-Hacking erleben: der Vorhersage-Trick}
+%==============================================================================
+\nsl{Für das p-Hacking hat das Buch eine Demonstration, in der die
+Methode des Tricks und der zu vermittelnde Fehlschluss identisch sind
+(Abschnitt~10d). Die Vorführende macht mehrere Vorhersagen über Zahlen,
+die Freiwillige frei nennen. Beim Öffnen sind \emph{alle} Vorhersagen
+falsch. Dann der Vorschlag, nicht auf die Treffer zu schauen, sondern auf
+die Fehler: Die Abweichungen zwischen Vorhersage und Wirklichkeit ergeben
+die Ziffern von $\pi$. Die Methode ist ein \emph{One-Ahead}: Die
+Vorführende schreibt jede \enquote{Vorhersage für die nächste Runde} in
+Wahrheit aus der gerade genannten Zahl plus der geplanten Abweichung;
+die letzte Zahl ist geforct und die passende Karte vorab versiegelt. Das
+Muster war also garantiert, weil jede Vorhersage nach dem Blick auf die
+Daten konstruiert wurde.}
+\begin{description}
+\item[{\rot\bf Vier Vorhersagen, alle falsch}]~\\[-\lblskip]
+\begin{center}
+\begin{tabular}{@{}cccc@{}}
+\toprule
+\textbf{Runde} & \textbf{genannte Zahl $a_i$} & \textbf{Vorhersage $p_i$} & \textbf{Abweichung $p_i-a_i$} \\
+\midrule
+1 & 5 & 8 & \textbf{3} \\
+2 & 9 & 10 & \textbf{1} \\
+3 & 2 & 6 & \textbf{4} \\
+4 & 7 & 8 & \textbf{1} \\
+\bottomrule
+\end{tabular}
+\end{center}
+\bi
+  \ite keine Vorhersage trifft -- aber die Fehler lauten 3, 1, 4, 1
+\ei
+\nsl{Die Tabelle ist das durchgerechnete Beispiel aus dem Buch; in der
+Stunde stehen dort die tatsächlich genannten Zahlen.}
+\os{\newpage}
+
+\item[{\rot\bf Die Methode ist der Fehlschluss}]~\\[-\lblskip]
+\bi
+  \ite jede Vorhersage wurde \emph{nach} der genannten Zahl geschrieben:
+    $p_i = a_i + r_i$
+  \ite das Muster war garantiert, egal welche Zahlen kamen
+  \ite genau das ist \textbf{p-Hacking}: Bedeutung wird nachträglich in
+    Daten hineingerechnet
+  \ite dafür braucht es keinen bösen Willen, nur Auswahl nach Sicht der
+    Daten
+\ei
+\os{\newpage}
+\end{description}
+
+%==============================================================================
+\section{Viele Wege, ein Treffer}
+%==============================================================================
+\nsl{In der Forschung braucht es für p-Hacking keinen Trick. Es genügt,
+nach Sicht der Daten unter vielen plausiblen Auswertungen die eine zu
+wählen, die \enquote{funktioniert}. \textcite{gelmanloken2014forking}
+nennen das den \emph{Garden of Forking Paths}: Jede Entscheidung über
+Ausreißer, Teilgruppen, Kovariaten, Messzeitpunkte oder Abbruchkriterien
+ist eine Weggabelung, und wer erst am Ende des Gartens entscheidet,
+welchen Weg er gegangen sein will, findet fast immer einen Treffer.
+\textcite{simmons2011falsepositive} haben gezeigt, dass solche
+\enquote{researcher degrees of freedom} die Falsch-Positiv-Rate weit über
+die nominellen 5\,\% treiben. \textcite{kerr1998harking} hat den
+verwandten Fall benannt, dass eine Hypothese erst nach den Ergebnissen
+gebildet und dann als vorab aufgestellt präsentiert wird (HARKing). Und
+\textcite{ioannidis2005false} hat argumentiert, dass bei kleinen
+Studien, kleinen Effekten und vielen getesteten Beziehungen ein großer
+Teil der veröffentlichten positiven Befunde falsch sein dürfte.}
+\begin{description}
+\item[{\rot\bf Begriffe}]~\\[-\lblskip]
+\bi
+  \ite \textbf{p-Hacking}: Auswertung variieren, bis $p<0{,}05$
+    \parencite{simmons2011falsepositive}
+  \ite \textbf{HARKing}: Hypothese nach den Ergebnissen bilden und als
+    vorab ausgeben \parencite{kerr1998harking}
+  \ite \textbf{Garden of Forking Paths}: viele Gabelungen, auch ohne
+    bewusstes Probieren \parencite{gelmanloken2014forking}
+  \ite \textbf{Data Dredging}: in großen Datensätzen ohne Hypothese nach
+    Mustern graben
+\ei
+\os{\newpage}
+
+\item[{\rot\bf Die Tafel-Auflösung}]~\\[-\lblskip]
+\[
+P(\text{mindestens ein Treffer}) \;=\; 1-(1-\alpha)^m
+\]
+\begin{center}
+\small
+\begin{tabular}{@{}lcccccccc@{}}
+\toprule
+$m$ & 1 & 2 & 5 & 10 & 14 & 20 & 50 & 100 \\
+\midrule
+$\alpha=0{,}05$ & 5\,\% & 9,8\,\% & 22,6\,\% & 40,1\,\% & 51,2\,\% & 64,2\,\% & 92,3\,\% & 99,4\,\% \\
+\bottomrule
+\end{tabular}
+\end{center}
+\bi
+  \ite $m$: Zahl der Versuche (Auswertungen, Hypothesen,
+    Zwischenstände)
+  \ite ab $m=14$ ist ein Zufallstreffer wahrscheinlicher als keiner
+  \ite $m$ ist die \enquote{Magier-Freiheit} des Tricks
+\ei
+\nsl{Die Werte sind nachgerechnet; der Wert für $m=14$ steht so auch im
+Buch. Eine strengere Schwelle wie $p<0{,}005$ verschiebt das Problem nur
+\parencite{benjamin2018redefine}: Bei $m=100$ liegt die Wahrscheinlichkeit
+für mindestens einen Zufallstreffer dann immer noch bei 39,4\,\%.}
+\os{\newpage}
+
+\item[{\rot\bf Die Bayes-Pointe}]~\\[-\lblskip]
+\bi
+  \ite viele Hypothesen teilen sich den Vorab-Glauben, jede bekommt nur
+    wenig
+  \ite ein Treffer unter vielen war ohnehin zu erwarten
+  \ite also bleibt die Posteriori nahe der Priori
+  \ite 100 versiegelte Vorhersagen, eine trifft: Erwartung, kein Wunder
+\ei
+\nsl{Ein Verfahren, das \emph{immer} ein hübsches Ergebnis liefert, ist
+so wenig Evidenz wie ein Test, der die Nullhypothese stets ablehnt (Buch,
+Abschnitt~10d; \textcite{ioannidis2005false}).}
+\os{\newpage}
+
+\item[{\rot\bf Ein Lehrstück aus dem Buch}]~\\[-\lblskip]
+\bi
+  \ite Monty-Hall-Feldstudie, Teilnehmende \emph{ohne} Vorwissen
+  \ite Trefferquote U1: 25\,\%, U2: 60\,\%, U3: 83\,\%
+  \ite Differenz U3 gegen U1: $+58$ Prozentpunkte $[+6;\,+81]$
+  \ite aber: sechs gegen acht Personen, Analyse erst nach Sichtung der
+    Daten gerechnet
+\ei
+\nsl{Das Buch kommentiert diesen Befund selbst als den, dem man am
+wenigsten trauen darf, und ergänzt: \enquote{Genau so entstehen
+Ergebnisse, die in der Replikation verschwinden} (Kap.~12f). Die
+Schichtung nach Vorwissen war nicht vorab geplant und ist im Buch
+ausdrücklich als explorativ markiert. Das ist ein Beispiel für saubere
+Praxis: Der Befund wird berichtet, aber als Hypothese für eine
+Folgestudie, nicht als Ergebnis.}
+\os{\newpage}
+\end{description}
+
+%==============================================================================
+\section{Gegenmittel}
+%==============================================================================
+\nsl{Gegen die Freiheiten der Auswertung helfen drei Dinge. Erstens die
+\emph{Präregistrierung}: Hypothesen, Stichprobengröße und Auswertungsplan
+werden vor der Datenerhebung öffentlich festgelegt. Damit wird sichtbar,
+was vorhergesagt und was nachträglich gefunden wurde; beides ist
+legitim, solange man es unterscheidet \parencite{nosek2018preregistration}.
+Die Präregistrierung ist das Gegenteil des One-Ahead: Die Vorhersage
+liegt tatsächlich vorher im Umschlag. Zweitens die \emph{Triangulation}:
+Derselbe Gegenstand wird mit verschiedenen Daten, Methoden oder Personen
+untersucht \parencite{denzin1970research}. Ein Befund, der nur in einer
+Auswertung auftaucht, ist verdächtig; einer, den verschiedene Zugänge
+unabhängig stützen, ist robuster. Drittens die \emph{Gegenhypothese}: Wer
+zu jeder Deutung aktiv nach der besten Alternative sucht, schützt sich
+gegen den Bestätigungsfehler (LE~7).}
+\begin{description}
+\item[{\rot\bf Präregistrierung}]~\\[-\lblskip]
+\bi
+  \ite \emph{vor} der Erhebung festlegen: Hypothesen, $n$, Ausschlüsse,
+    Auswertung
+  \ite öffentlich und mit Zeitstempel hinterlegen
+  \ite Abweichungen sind erlaubt, müssen aber berichtet werden
+  \ite trennt Vorhersage von Nachhersage \parencite{nosek2018preregistration}
+  \ite das Gegenteil des One-Ahead: Die Vorhersage liegt wirklich vorher
+    im Umschlag
+\ei
+\os{\newpage}
+
+\item[{\rot\bf Triangulation}]~\\[-\lblskip]
+\bi
+  \ite \textbf{Daten}: verschiedene Quellen, Zeitpunkte, Orte
+  \ite \textbf{Forschende}: mehrere Personen werten unabhängig aus (LE~9)
+  \ite \textbf{Methoden}: Zahlen und Interviews, Experiment und Beobachtung
+  \ite \textbf{Theorien}: denselben Befund aus mehreren Perspektiven
+    deuten \parencite{denzin1970research}
+\ei
+\os{\newpage}
+
+\item[{\rot\bf Prüffragen an die eigene Auswertung}]~\\[-\lblskip]
+\bi
+  \ite Stand meine Auswertung fest, bevor ich die Daten sah?
+  \ite Wie viele Wege habe ich ausprobiert, wie viele berichte ich?
+  \ite Was ist die beste Gegenhypothese?
+  \ite Welche Zusatzdaten würden zwischen beiden entscheiden?
+  \ite Hätte meine Auswertung meine Hypothese widerlegen können?
+\ei
+\os{\newpage}
+\end{description}
+
+\begin{merkbox}
+Ein Muster, das jede Datenlage hervorbringen würde, sagt nichts über die
+konkrete Datenlage. Wer erst nach dem Blick auf die Daten entscheidet,
+wonach er sucht, hat keinen Befund, sondern eine Hypothese für die
+nächste Studie.
+\end{merkbox}
+\os{\newpage}
+
+%==============================================================================
+\section{Übung in der Stunde}
+%==============================================================================
+\begin{description}
+\item[{\rot\bf Befund-Übung (Kleingruppen, 20 Min.)}]~\\[-\lblskip]
+\bi
+  \ite fiktive Studie: Tagebuch des Staunens und Klausurpunkte
+    (Übungsblatt)
+  \ite (a) Formulieren Sie die deskriptiven Befunde
+  \ite (b) Formulieren Sie zwei konkurrierende Interpretationen
+  \ite (c) Welche Zusatzdaten würden zwischen ihnen entscheiden?
+  \ite (d) Wie viele Wege hätte man auswerten können?
+\ei
+\os{\newpage}
+
+\item[{\rot\bf Selbstbezug (Einzelarbeit, 10 Min.)}]~\\[-\lblskip]
+\bi
+  \ite Notieren Sie Ihr bisher wichtigstes Ergebnis im Semesterprojekt
+  \ite Haben Sie gezielt nach Bestätigung gesucht?
+  \ite Welcher Befund würde Ihre Hypothese herausfordern?
+  \ite Wo liegen Ihre eigenen Weggabelungen?
+\ei
+\os{\newpage}
+\end{description}
+
+\begin{lehrhinweis}
+Die nachgerechneten Kennwerte der fiktiven Studie stehen im
+Erwartungshorizont des Übungsblatts. Der Datensatz ist so konstruiert,
+dass der Unterschied zwischen den Tagebuch-Gruppen groß und
+\enquote{hochsignifikant} ist, Tagebuch und Anwesenheit aber so eng
+zusammenhängen, dass sich ihre Wirkungen mit diesen Daten nicht trennen
+lassen. Die zentrale Einsicht: Die konkurrierende Interpretation
+(Engagement als Drittvariable) ist mit den Daten genauso verträglich, und
+nur ein anderes Design, etwa die zufällige Zuteilung zum Tagebuch,
+könnte entscheiden. Im Selbstbezug genügt es, wenn jede Person eine
+eigene Weggabelung konkret benennt.
+\end{lehrhinweis}
+
+%==============================================================================
+\section{Lernziele und Aufgaben}
+%==============================================================================
+\begin{description}
+\item[{\rot\bf Nach dieser Einheit können Sie}]~\\[-\lblskip]
+\bi
+  \ite Daten, Befund und Schlussfolgerung unterscheiden
+  \ite zu einem Befund konkurrierende Interpretationen formulieren und
+    entscheidende Zusatzdaten benennen
+  \ite p-Hacking, HARKing und den Garden of Forking Paths erklären
+  \ite die Wahrscheinlichkeit von Zufallstreffern bei $m$ Tests berechnen
+  \ite Präregistrierung und Triangulation als Gegenmittel einsetzen
+\ei
+\os{\newpage}
+
+\item[{\rot\bf Bis zur nächsten Woche}]~\\[-\lblskip]
+\bi
+  \ite \textbf{Befund-Übung} fertigstellen (Übungsblatt, Aufgabe~1)
+  \ite \textbf{Reflexion} zum Semesterprojekt: Haben Sie Ergebnisse
+    gesucht, die Ihre Hypothese \emph{bestätigen}? Welche Befunde könnten
+    sie \emph{herausfordern}? (Aufgabe~3)
+  \ite \textbf{Tagebuch des Staunens}: eine Entscheidung, die sich frei
+    anfühlte und es vielleicht nicht war
+  \ite für LE~11: einen Absatz aus Ihrem Projekt mitbringen, in dem Sie
+    ein Ergebnis deuten
+\ei
+\os{\newpage}
+\end{description}
+
+\handoutinput{handouts/LE10}

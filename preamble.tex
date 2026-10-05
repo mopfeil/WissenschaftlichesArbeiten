@@ -1,0 +1,53 @@
+%************************************************************************
+% Gemeinsame Preamble fuer Skript (docu.tex), Folien (slides.tex) und
+% Handouts/Uebungsblaetter (handouts.tex).
+% Jede Root-Datei laedt ihre Dokumentklasse, setzt ggf. \slidestrue bzw.
+% \handoutstrue, dann \input{preamble}, dann hyperref, dann die Geometrie.
+% Aufbau und RWU-Design wie im Projekt Embedded Computing.
+%************************************************************************
+\usepackage{iftex}
+\ifPDFTeX
+  % Rueckfallebene ohne RWU-Schrift: make PDFTEX=1 (oder pdflatex)
+  \usepackage[utf8]{inputenc}
+  \usepackage[T1]{fontenc}
+  \usepackage{lmodern}
+\else
+  % RWU-Hausschrift Barlow Semi Condensed, liegt in fonts/ (SIL OFL)
+  \usepackage{fontspec}
+  \defaultfontfeatures{Ligatures=TeX}
+  \newcommand{\rwufontsetup}[1]{#1{BarlowSemiCondensed}[
+      Path=fonts/, Extension=.otf,
+      UprightFont=*-Regular, ItalicFont=*-Italic,
+      BoldFont=*-SemiBold, BoldItalicFont=*-SemiBoldItalic]}
+  \rwufontsetup\setmainfont
+  \rwufontsetup\setsansfont
+  \setmonofont{Latin Modern Mono}
+\fi
+\usepackage[ngerman]{babel}
+\usepackage[autostyle=true,german=quotes]{csquotes}
+\usepackage[table]{xcolor}
+\usepackage{graphicx,amsmath,amssymb,latexsym,longtable,url,version,ifthen}
+\usepackage{array,tabularx,booktabs,multicol}
+
+% RWU-Hausfarben (wie rwudefs.sty)
+\definecolor{rwuviolet}{RGB}{102,56,182}
+\definecolor{rwuvioletlight}{RGB}{155,125,212}
+\definecolor{rwucyan}{RGB}{0,169,206}
+\definecolor{rwucyanlight}{RGB}{5,195,222}
+\definecolor{rwucyan40}{RGB}{153,221,253}
+\colorlet{rwucyandark}{rwucyan!75!black}   % Cyan fuer Text auf Weiss
+\colorlet{rwugray}{black!55}
+% zieht den ersten Spiegelstrich unter ein Themenlabel:
+% \item[{\rot\bf Thema}]~\\[-\lblskip]
+\newcommand{\lblskip}{1.1em}
+\newcommand{\rwulogo}[1][height=1.3cm]{\includegraphics[#1]{rwu_logo_hor_lila-cyan_cmyk}}
+\usepackage{chngcntr}
+\usepackage{verbatim}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta,positioning,calc,shapes.geometric,decorations.pathreplacing}
+\usepackage[most]{tcolorbox}
+
+% Literatur: biblatex/biber, Stil wie im Buch (authoryear)
+\usepackage[backend=biber,style=authoryear,maxcitenames=2,uniquename=false,uniquelist=false,backref=false]{biblatex}
+\addbibresource{refs.bib}
+\setcounter{biburlnumpenalty}{9000}\setcounter{biburlucpenalty}{9000}\setcounter{biburllcpenalty}{9000}

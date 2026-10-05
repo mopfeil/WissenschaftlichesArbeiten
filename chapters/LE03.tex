@@ -1,0 +1,741 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Lehreinheit 3: Literaturrecherche
+% Quelle: WuZ-Buch, Kap. 15 (LE 3), Kap. 5b (Congruence Bias,
+%         sec:congruence_bias), Kap. 11 (Effekttabelle: Kruskal Count),
+%         Kap. 15b (Kruskal Count als Referenzerfahrung)
+% Staunmoment: Kruskal Count  |  Kernbegriff: Suchstrategie
+% Der Text fuer den Kruskal Count steht in handouts/LE03.tex und wird mit
+% tools/kruskal_check.py geprueft (Schlusswort: "Quelle").
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\nsl{Mit einer Forschungsfrage aus LE~2 beginnt die Suche nach dem, was
+andere dazu schon herausgefunden haben. Die meisten Studierenden kennen
+dafür ein einziges Werkzeug: das Suchfeld einer Suchmaschine. Diese Einheit
+ersetzt es durch eine Strategie. Der Staunmoment, der Kruskal Count, lässt
+die ganze Gruppe von verschiedenen Startpunkten aus auf demselben Wort
+landen. Das Prinzip dahinter ist mathematisch und darf vollständig erklärt
+werden. Es liefert ein Bild für zwei Dinge zugleich: Eine gute Suchstrategie
+führt aus vielen Richtungen zu den zentralen Quellen. Eine einseitige
+Strategie führt aus vielen Richtungen zur eigenen Vorannahme. Der zweite
+Teil dieses Bildes verbindet die Einheit mit dem Bestätigungsfehler, den
+das Buch in Kapitel~5b am Wason-Test entfaltet.
+\newpage}
+\os{\begin{description}
+\item[{\rot\bf Heute}]~\\[-\lblskip]
+\bi
+  \ite ein Text, an dessen Ende alle dasselbe Wort finden
+  \ite systematisch statt zufällig suchen
+  \ite Datenbanken, boolesche Operatoren, Trunkierung
+  \ite Schneeball und Zitationsnetzwerke
+  \ite dokumentieren, verwalten, annotieren
+  \ite die Pflicht zur Gegenrecherche
+\ei
+\end{description}
+\newpage}
+
+\begin{vorbereitung}[Kruskal Count]
+\textbf{Eine Woche vorher}
+\begin{checkliste}
+  \item Den Text auf dem Übungsblatt (Aufgabe~1) selbst dreimal mit
+    verschiedenen Startzahlen durchzählen, bis die Regel sicher sitzt. Das
+    Schlusswort für alle Startzahlen von 1 bis 10 ist \textbf{\enquote{Quelle}}
+    (letztes Wort des Textes). Das Prüfskript
+    \texttt{tools/kruskal\_check.py} bestätigt das; wer den Text ändert,
+    muss es erneut laufen lassen.
+  \item Eine \textbf{Vorhersage} vorbereiten: \enquote{Quelle} auf eine
+    Karte schreiben, in einen Umschlag stecken, zukleben und mit Datum
+    beschriften. Der Umschlag liegt von Beginn an sichtbar auf dem Pult.
+  \item \textbf{Live-Demo planen:} bei der Hochschulbibliothek klären, welche
+    Datenbanken lizenziert sind (Web of Science, Scopus, Fachdatenbanken)
+    und ob sie im Hörsaal-WLAN ohne VPN erreichbar sind. Eine Beispielfrage
+    festlegen (Vorschlag: \enquote{Fördert ein Zaubereffekt im Unterricht
+    das Behalten?}) und die Suche einmal komplett durchspielen.
+  \item Von der Probesuche Bildschirmfotos der Trefferlisten sichern (Plan B
+    bei Netzproblemen). Trefferzahlen \emph{nicht} auf Folien festschreiben;
+    sie ändern sich laufend und werden in der Stunde live abgelesen.
+  \item Optional: Fachreferent:in der Bibliothek für 10~Minuten in die
+    Live-Demo einladen.
+\end{checkliste}
+
+\textbf{Handout und Übungsblatt}
+\begin{checkliste}
+  \item Übungsblatt LE~3 je einmal pro Person plus fünf Reserve kopieren.
+    Es wird zu Beginn \emph{verdeckt} ausgeteilt, weil Aufgabe~1 den Text
+    für den Staunmoment enthält. Den Text einseitig und gut lesbar drucken
+    (nicht verkleinern).
+  \item Handout \enquote{Literaturrecherche} je einmal pro Person; es wird
+    erst nach der Auflösung ausgeteilt, weil es das Prinzip erklärt.
+  \item Bleistifte bereitlegen; wer mitzählen will, tippt mit dem Stift von
+    Wort zu Wort.
+\end{checkliste}
+
+\textbf{Am Tag selbst}
+\begin{checkliste}
+  \item Beamer mit Browser und eingeloggtem Bibliothekszugang testen;
+    Literaturverwaltung (Zotero) auf dem Dozierendenrechner geöffnet.
+  \item Die Folie mit der Zählregel und dem Übungsbeispiel bereithalten;
+    die Regel ist der kritische Punkt.
+  \item Tafel: links \enquote{Wie ist das möglich?}, rechts später
+    \enquote{Was heißt das für die Suche?}
+\end{checkliste}
+
+\textbf{Risiken und Plan B.} Die häufigste Störung sind Zählfehler,
+besonders beim ersten Schritt (Wird das Startwort mitgezählt?) und bei
+Wörtern mit Umlauten. Deshalb die Regel an einem fremden Beispielsatz
+vorführen. Wer auf einem anderen Wort landet, ist kein Ausfall, sondern ein
+Datenpunkt: Zwei Personen mit verschiedenen Schlusswörtern zählen
+gemeinsam nach und finden den Fehler. Die Kopplung ist robust; ein
+einzelner Zählfehler führt oft wieder in den gemeinsamen Weg zurück. Das
+Prinzip ist öffentlich und wird vollständig aufgelöst. Fällt das Netz aus,
+läuft die Live-Demo mit den gesicherten Bildschirmfotos.
+\end{vorbereitung}
+
+\begin{ablauf}
+\begin{description}
+\item[0--5 · Blitzlicht.] Kurzer Rückblick: Welche Frage haben wir letzte
+  Woche geschärft? Danach richtet sich heute die Suche.
+\item[5--15 · Staunmoment.] Kruskal Count mit der ganzen Gruppe;
+  Vorhersage öffnen; Staunen über die Konvergenz; Erklärungsvermutungen
+  sammeln, dann auflösen.
+\item[15--45 · Theorie-Input und Live-Demo.] Systematische Recherche,
+  Datenbanken, boolesche Operatoren, Schneeball, Literaturverwaltung;
+  Live-Recherche an der Beispielfrage. Einschub: Bestätigungsfehler in der
+  Suche und die Pflicht zur Gegenrecherche (Buch, Kap.~5b).
+\item[45--75 · Rechercheprotokoll.] Die Studierenden starten die
+  dokumentierte Recherche zur eigenen Frage (Übungsblatt, Aufgaben 2--4).
+\item[75--90 · Sicherung und Transfer.] Erste Treffer nach Stufen sortieren
+  (Aufgabe~5); Auftrag zur annotierten Bibliographie als Brücke zu LE~4
+  (Quellenkritik).
+\end{description}
+\end{ablauf}
+
+%==============================================================================
+\section{Staunmoment: Der Zählweg}
+%==============================================================================
+\begin{staunbox}{Kruskal Count}
+Wählen Sie im Stillen eine Zahl von 1 bis 10. Zählen Sie im Text auf dem
+Übungsblatt so viele Wörter ab: Das ist Ihr Startwort.
+
+\medskip
+Zählen Sie seine Buchstaben und gehen Sie so viele Wörter weiter. Wieder
+Buchstaben zählen, wieder weitergehen. Wenn der nächste Sprung über das
+Textende hinausführt, haben Sie Ihr \textbf{Schlusswort}.
+
+\medskip
+\emph{Behalten Sie es für sich.}
+\end{staunbox}
+\os{\newpage}
+
+\begin{description}
+\item[{\rot\bf Die Regel an einem Beispiel}]~\\[-\lblskip]
+\bi
+  \ite Satz: \enquote{Der kleine Hund sprang über den breiten Graben und
+    bellte laut.}
+  \ite Startzahl 2 $\to$ Startwort \enquote{kleine} (6 Buchstaben)
+  \ite 6 Wörter weiter: Hund, sprang, über, den, breiten, \textbf{Graben}
+  \ite \enquote{Graben} hat 6 Buchstaben, es folgen nur noch 3 Wörter
+    $\to$ Schlusswort \enquote{Graben}
+  \ite Satzzeichen zählen nicht; ä, ö, ü zählen als ein Buchstabe
+\ei
+\nsl{Das Beispiel stammt nicht aus dem Übungstext, damit niemand vorab
+etwas über das Schlusswort erfährt. Wichtig ist der erste Sprung: Man
+zählt ab dem \emph{nächsten} Wort. Nach dem Beispiel zählen alle still.
+Wer fertig ist, dreht das Blatt um. Nach etwa acht Minuten fragt die
+Lehrperson, wer ein Schlusswort hat, und lässt eine Person den Umschlag
+öffnen.}
+\os{\newpage}
+
+\item[{\rot\bf Was ist gerade passiert?}]~\\[-\lblskip]
+\bi
+  \ite Wer hat \enquote{Quelle} als Schlusswort? Wer nicht?
+  \ite Sie haben Ihre Zahl frei gewählt. Wie konnte die Vorhersage
+    stimmen?
+  \ite sammeln Sie Erklärungen: Zufall? ein präparierter Text? etwas
+    anderes?
+  \ite Wie könnte man die Erklärungen prüfen?
+\ei
+\nsl{Typische Vermutungen: Der Text sei so gebaut, dass alle Wege
+konstruiert zusammenlaufen; es gebe nur ein einziges Wort, das man
+erreichen kann; die Lehrperson habe die Wahl beeinflusst. Die ersten beiden
+liegen nahe an der Wahrheit, die dritte ist hier falsch, aber eine gute
+Frage: Im Buch dient der Kruskal Count als Beispiel für eine scheinbar
+freie Wahl, deren Ergebnis feststeht (Kap.~15b). Prüfbar wird das, wenn
+zwei Personen mit verschiedenen Startzahlen ihre Wege nebeneinanderlegen
+und nachsehen, wo sie sich treffen.}
+\os{\newpage}
+\end{description}
+
+%==============================================================================
+\section{Auflösung: das Kruskal-Prinzip}
+%==============================================================================
+\nsl{Der Effekt geht auf den Mathematiker und Physiker Martin Kruskal zurück
+und wurde durch Martin Gardner bekannt; eine mathematische Analyse geben
+\textcite{lagarias2009kruskal}. Die Erklärung beruht auf einer einfachen
+Beobachtung: Der Weg durch den Text hängt nur vom aktuellen Wort ab, nicht
+davon, wie man dorthin gekommen ist. Treffen zwei Wege einmal auf
+dasselbe Wort, gehen sie von da an denselben Weg bis zum Ende. In der
+Sprache der Wahrscheinlichkeitstheorie sind das zwei Markov-Ketten, die
+\emph{koppeln}.
+
+Wie wahrscheinlich ist ein solches Treffen? Deutsche Wörter haben im
+Mittel einige Buchstaben; jeder Weg trifft also ungefähr jedes vierte bis
+sechste Wort. Zwei Wege, die nebeneinander herlaufen, haben bei jedem
+Schritt eine gute Chance, auf dasselbe Wort zu fallen. Über viele Schritte
+wird es fast sicher, dass sie es irgendwann tun. Im Übungstext laufen alle
+zehn Startwege nach dem Prüfskript spätestens beim 47.~Wort zusammen; die
+übrigen rund 260 Wörter legen sie gemeinsam zurück. Ein langer Text ist
+also kein Hindernis für den Effekt, er ist seine Voraussetzung.}
+\begin{description}
+\item[{\rot\bf Zwei Wege, die sich treffen}]~\\[-\lblskip]
+\begin{center}
+\resizebox{0.95\textwidth}{!}{%
+\begin{tikzpicture}[font=\sffamily\small,>=Stealth]
+  \foreach \i in {1,...,22} {\draw[rwugray!60] (\i*0.6,0) rectangle +(0.5,0.5);}
+  % Weg A (violett) ueber der Leiste
+  \foreach \a/\b in {1/4,4/9,9/12,12/17,17/21} {
+    \draw[->,thick,rwuviolet] (\a*0.6+0.25,0.55) to[bend left=50] (\b*0.6+0.25,0.55);}
+  % Weg B (cyan) unter der Leiste
+  \foreach \a/\b in {2/7,7/12} {
+    \draw[->,thick,rwucyan] (\a*0.6+0.25,-0.05) to[bend right=50] (\b*0.6+0.25,-0.05);}
+  \fill[rwuviolet!40] (12*0.6,0) rectangle +(0.5,0.5);
+  \node[below=6mm,align=center] at (12*0.6+0.25,0) {Treffpunkt:\\ab hier ein Weg};
+  \node[rwuviolet,left] at (0.5,0.9) {Start 1};
+  \node[rwucyan,left] at (0.5,-0.4) {Start 2};
+\end{tikzpicture}}
+\end{center}
+\bi
+  \ite der nächste Schritt hängt nur vom aktuellen Wort ab
+  \ite einmal getroffen, immer gemeinsam: Die Wege \emph{koppeln}
+\ei
+\os{\newpage}
+
+\item[{\rot\bf Warum fast alle treffen}]~\\[-\lblskip]
+\bi
+  \ite jeder Weg berührt etwa jedes vierte bis sechste Wort
+  \ite bei jedem Schritt besteht eine Chance, auf ein Wort eines anderen
+    Wegs zu fallen
+  \ite über viele Schritte wird das Treffen fast sicher
+  \ite im Übungstext: alle zehn Wege treffen sich spätestens bei Wort 47
+    von 312
+  \ite Analyse: \textcite{lagarias2009kruskal}
+\ei
+\os{\newpage}
+
+\item[{\rot\bf Was der Trick über Suchen sagt}]~\\[-\lblskip]
+\bi
+  \ite \textbf{Konvergenz:} Eine gute Strategie führt von vielen
+    Startpunkten zu den zentralen Quellen
+  \ite \textbf{Kehrseite:} Eine einseitige Strategie führt von vielen
+    Startpunkten zur eigenen Vorannahme
+  \ite das Ergebnis kann feststehen, obwohl sich jeder Schritt frei
+    anfühlt
+  \ite Prüffrage aus dem Buch: \enquote{Ist das gerade ein Kruskal Count?}
+\ei
+\nsl{Die Prüffrage stammt aus Kapitel~15b des Buchs, das den Trick als
+gemeinsame Referenzerfahrung für Teams vorschlägt: Wer ihn erlebt hat, kann
+fragen, ob ein Ergebnis wirklich aus der Sache folgt oder aus der Regel, nach
+der man sucht. Dass ein Weg sich frei anfühlt, sagt wenig darüber, wohin er
+führt.}
+\os{\newpage}
+\end{description}
+
+%==============================================================================
+\section{Systematisch statt zufällig}
+%==============================================================================
+\nsl{Eine unsystematische Recherche beginnt mit einem Suchbegriff, folgt
+dem ersten interessanten Treffer und endet, wenn die Zeit knapp wird oder
+man genug gefunden zu haben glaubt. Das Ergebnis hängt dann vom
+Startpunkt, von der Reihenfolge der Trefferliste und von der Laune des
+Tages ab. Niemand, auch man selbst nicht, kann es später nachvollziehen. Eine
+systematische Recherche legt dagegen vorher fest, mit welchen Begriffen,
+in welchen Quellen und nach welchen Kriterien gesucht wird, und
+protokolliert jeden Schritt \parencite{doering2016forschungsmethoden}.
+In ihrer strengsten Form, der systematischen Übersichtsarbeit, wird sogar
+das Protokoll vorab veröffentlicht und die Auswahl in einem Flussdiagramm
+offengelegt \parencite{page2021prisma}. Für eine Seminar- oder
+Bachelorarbeit genügt eine einfachere Fassung. Der Grundsatz bleibt
+derselbe: Die Suche muss sich wiederholen lassen.}
+\begin{description}
+\item[{\rot\bf Zwei Arten zu suchen}]~\\[-\lblskip]
+\begin{center}
+\small
+\begin{tabular}{p{0.42\textwidth}p{0.42\textwidth}}
+\toprule
+\textbf{unsystematisch} & \textbf{systematisch} \\
+\midrule
+ein Suchbegriff, eine Suchmaschine & Begriffe pro Konzept, mehrere Datenbanken \\
+dem ersten guten Treffer folgen & Ein- und Ausschlusskriterien vorab \\
+aufhören, wenn es reicht & aufhören, wenn nichts Neues mehr kommt \\
+nicht nachvollziehbar & Protokoll: wiederholbar \\
+\bottomrule
+\end{tabular}
+\end{center}
+\os{\newpage}
+
+\item[{\rot\bf Arbeitsdefinition}]~\\
+\defn{systrecherche}{Eine \textbf{systematische Literaturrecherche} ist
+eine geplante Suche, bei der Suchbegriffe, Quellen und Auswahlkriterien
+vorab festgelegt und alle Schritte so dokumentiert werden, dass eine andere
+Person die Suche wiederholen und zum selben Ergebnis kommen kann.}
+\bi
+  \ite \emph{geplant}: Begriffe und Kriterien stehen vor der Suche fest
+  \ite \emph{dokumentiert}: Rechercheprotokoll
+  \ite \emph{reproduzierbar}: der Prüfstein jeder Recherche
+\ei
+\os{\newpage}
+
+\item[{\rot\bf Der Ablauf in fünf Schritten}]~\\[-\lblskip]
+\begin{center}
+\resizebox{0.95\textwidth}{!}{%
+\begin{tikzpicture}[font=\sffamily\small,>=Stealth,
+  st/.style={draw=rwuviolet,thick,fill=rwuviolet!8,rounded corners=2pt,
+    minimum height=18mm,align=center,text width=26mm}]
+  \node[st] (a) at (0,0) {Frage in Konzepte zerlegen};
+  \node[st] (b) at (3.2,0) {Begriffe und Synonyme sammeln};
+  \node[st] (c) at (6.4,0) {Suchstring in Datenbanken};
+  \node[st] (d) at (9.6,0) {Schneeball rückwärts und vorwärts};
+  \node[st,draw=rwucyan,fill=rwucyan40!40] (e) at (12.8,0) {sichten, auswählen, protokollieren};
+  \draw[->,thick] (a) -- (b); \draw[->,thick] (b) -- (c);
+  \draw[->,thick] (c) -- (d); \draw[->,thick] (d) -- (e);
+  \draw[->,thick,rwugray,dashed] (e.south) to[bend left=15]
+    node[below]{neue Begriffe aus den Treffern $\to$ nächste Runde} (b.south);
+\end{tikzpicture}}
+\end{center}
+\os{\newpage}
+\end{description}
+
+%==============================================================================
+\section{Wo man sucht: Kataloge und Datenbanken}
+%==============================================================================
+\nsl{Ein Bibliothekskatalog verzeichnet, was eine Bibliothek besitzt, vor
+allem Bücher und Zeitschriftentitel, aber nicht die einzelnen Aufsätze darin.
+Für Aufsätze braucht man Datenbanken. Fachübergreifende
+Zitationsdatenbanken wie Web of Science und Scopus erfassen ausgewählte
+Zeitschriften mit ihren Literaturlisten und erlauben deshalb auch die Suche
+nach zitierenden Arbeiten. Fachdatenbanken (PubMed für Medizin, PsycInfo
+für Psychologie, ERIC und das Fachportal Pädagogik für Bildung, IEEE Xplore
+und die ACM Digital Library für Technik und Informatik) erschließen ein Fach
+tiefer, oft mit einem kontrollierten Schlagwortverzeichnis. Google Scholar
+findet sehr viel, ist aber für eine systematische Suche nur bedingt
+geeignet: Die Suchsyntax ist eingeschränkt, Trefferlisten lassen sich nicht
+exakt wiederholen, und es bleibt unklar, was überhaupt erfasst ist.
+\textcite{gusenbauer2020academic} haben 28 Suchsysteme verglichen und
+empfehlen Google Scholar deshalb nur als Ergänzung, nicht als Hauptquelle
+einer systematischen Suche.}
+\begin{description}
+\item[{\rot\bf Werkzeuge und wofür sie taugen}]~\\[-\lblskip]
+\begin{center}
+\small
+\begin{tabular}{p{0.32\textwidth}p{0.55\textwidth}}
+\toprule
+\textbf{Werkzeug} & \textbf{wofür} \\
+\midrule
+Bibliothekskatalog, KVK & Bücher, Zeitschriftentitel, Bestand vor Ort \\
+Web of Science, Scopus & fachübergreifend, mit Zitationssuche \\
+PubMed, PsycInfo, ERIC, IEEE Xplore \dots & Fachdatenbanken mit Schlagwörtern \\
+Google Scholar & breiter Einstieg, Ergänzung, Volltexte finden \\
+BASE, Repositorien & Open Access, graue Literatur \\
+\bottomrule
+\end{tabular}
+\end{center}
+\os{\newpage}
+
+\item[{\rot\bf Google Scholar: ja, aber nicht allein}]~\\[-\lblskip]
+\bi
+  \ite findet viel, auch Volltexte und graue Literatur
+  \ite eingeschränkte Suchsyntax, keine Trunkierung
+  \ite Trefferlisten nicht exakt wiederholbar
+  \ite unklar, was erfasst ist und was nicht
+  \ite Empfehlung: Ergänzung, nicht Hauptquelle
+    \parencite{gusenbauer2020academic}
+\ei
+\os{\newpage}
+\end{description}
+
+%==============================================================================
+\section{Suchbegriffe und Suchsprache}
+%==============================================================================
+\nsl{Datenbanken finden nur, was man ihnen sagt. Der erste Schritt ist
+deshalb, die Forschungsfrage in zwei bis drei Konzepte zu zerlegen und zu
+jedem Konzept die Begriffe zu sammeln, unter denen Fachleute darüber
+schreiben: Synonyme, englische Fachbegriffe, Ober- und Unterbegriffe. Viele
+Fachdatenbanken bieten dafür einen \emph{Thesaurus}, ein kontrolliertes
+Schlagwortverzeichnis (in PubMed etwa die Medical Subject Headings). Wer
+nach dem Schlagwort sucht statt nach dem Wort im Titel, findet auch
+Arbeiten, die andere Formulierungen verwenden.
+
+Die Suchbegriffe verbindet man mit booleschen Operatoren. Innerhalb eines
+Konzepts stehen die Synonyme mit \texttt{OR}, denn jedes genügt;
+zwischen den Konzepten steht \texttt{AND}, denn alle müssen vorkommen.
+\texttt{NOT} schließt aus und ist gefährlich, weil es auch relevante Arbeiten
+entfernt, in denen der ausgeschlossene Begriff nur am Rand vorkommt.
+Trunkierung (meist mit \texttt{*}) findet verschiedene Wortendungen,
+Anführungszeichen erzwingen eine feste Wortfolge.}
+\begin{description}
+\item[{\rot\bf Boolesche Operatoren}]~\\[-\lblskip]
+\begin{center}
+\resizebox{0.85\textwidth}{!}{%
+\begin{tikzpicture}[font=\sffamily]
+  \begin{scope}
+    \clip (0,0) circle (0.9);
+    \fill[rwuviolet!45] (1.1,0) circle (0.9);
+  \end{scope}
+  \draw[thick] (0,0) circle (0.9) (1.1,0) circle (0.9);
+  \node at (0.55,-1.3) {\texttt{A AND B}};
+  \node at (0.55,-1.8) {\footnotesize weniger, genauer};
+  \begin{scope}[xshift=4cm]
+    \fill[rwucyan40!70] (0,0) circle (0.9) (1.1,0) circle (0.9);
+    \draw[thick] (0,0) circle (0.9) (1.1,0) circle (0.9);
+    \node at (0.55,-1.3) {\texttt{A OR B}};
+    \node at (0.55,-1.8) {\footnotesize mehr, breiter};
+  \end{scope}
+  \begin{scope}[xshift=8cm]
+    \fill[rwuviolet!25] (0,0) circle (0.9);
+    \fill[white] (1.1,0) circle (0.9);
+    \draw[thick] (0,0) circle (0.9) (1.1,0) circle (0.9);
+    \node at (0.55,-1.3) {\texttt{A NOT B}};
+    \node at (0.55,-1.8) {\footnotesize Vorsicht: verliert Treffer};
+  \end{scope}
+  \node at (0,0) {A}; \node at (1.1,0) {B};
+  \node at (4,0) {A}; \node at (5.1,0) {B};
+  \node at (7.8,0) {A}; \node at (9.1,0) {B};
+\end{tikzpicture}}
+\end{center}
+\os{\newpage}
+
+\item[{\rot\bf Werkzeuge der Suchsprache}]~\\[-\lblskip]
+\bi
+  \ite \textbf{Trunkierung:} \texttt{learn*} findet learn, learning,
+    learner
+  \ite \textbf{Phrase:} \texttt{\symbol{34}magic trick\symbol{34}} nur als
+    feste Wortfolge
+  \ite \textbf{Klammern:} \texttt{(magic OR conjuring) AND learn*}
+  \ite \textbf{Feldsuche:} nur in Titel, Abstract oder Schlagwort
+  \ite \textbf{Thesaurus:} kontrollierte Schlagwörter der Datenbank
+  \ite Syntax unterscheidet sich je Datenbank: Hilfeseite lesen
+\ei
+\os{\newpage}
+
+\item[{\rot\bf Live-Demo: eine Beispielfrage}]~\\[-\lblskip]
+\bi
+  \ite Frage: Fördert ein Zaubereffekt im Unterricht das Behalten?
+  \ite Konzepte: \emph{Zauberkunst} -- \emph{Staunen/Neugier} --
+    \emph{Lernen}
+  \ite Suchstring:\\
+    {\small\ttfamily (magic OR conjuring OR \symbol{34}magic trick*\symbol{34})\\
+    AND (wonder OR awe OR curiosity OR surprise)\\
+    AND (learn* OR memory OR retention)}
+  \ite Was passiert mit der Trefferzahl, wenn wir ein Konzept weglassen?
+\ei
+\nsl{In der Live-Demo wird derselbe String in zwei Datenbanken und in
+Google Scholar eingegeben. Die Studierenden sollen sehen, dass die
+Trefferzahlen stark schwanken, dass AND die Menge verkleinert und OR sie
+vergrößert, und dass ein einziger zusätzlicher Begriff die Liste deutlich
+verändern kann. Die Zahlen werden live abgelesen und nicht vorab auf Folien
+geschrieben. Als Startpunkt für die Schneeballsuche eignen sich die
+Arbeiten, die das Buch selbst zitiert, etwa zur Neugier
+\parencite{loewenstein1994} oder zur Wahrnehmungspsychologie der Zauberkunst.
+Ein guter Moment für die Gegenfrage: Mit welchen Begriffen fänden wir
+Arbeiten, die \emph{keinen} Lerneffekt zeigen?}
+\os{\newpage}
+\end{description}
+
+%==============================================================================
+\section{Schneeball und Zitationsnetzwerke}
+%==============================================================================
+\nsl{Die Schlagwortsuche hat eine natürliche Grenze: Sie findet nur
+Arbeiten, deren Wortwahl man vorausgeahnt hat. Ein zweiter Weg führt über
+die Literaturlisten. Bei der \emph{Rückwärtssuche} liest man die
+Literaturliste eines Schlüsseltexts und prüft die dort zitierten Arbeiten.
+Bei der \emph{Vorwärtssuche} fragt man, welche späteren Arbeiten den
+Schlüsseltext zitieren. Die Vorwärtssuche wurde erst durch Zitationsindizes
+möglich, die Eugene Garfield in den 1950er-Jahren vorschlug
+\parencite{garfield1955citation} und auf die Web of Science zurückgeht.
+\textcite{wohlin2014snowballing} hat daraus ein geregeltes Verfahren
+gemacht: Man beginnt mit einer kleinen Startmenge, sucht in Runden
+rückwärts und vorwärts und hört auf, wenn keine neuen relevanten Arbeiten
+mehr auftauchen.
+
+Hier wird der Kruskal Count zum genauen Bild. Wer von verschiedenen
+Schlüsseltexten aus den Literaturlisten folgt, landet nach wenigen Schritten
+bei denselben häufig zitierten Arbeiten. Das ist nützlich, denn so findet
+man die Klassiker eines Gebiets. Es hat aber denselben Haken wie der Trick:
+Die Konvergenz sagt etwas über das Netz, nicht über die Wahrheit. Häufig
+zitiert wird auch, was in einer Gemeinschaft gern gelesen wird.}
+\begin{description}
+\item[{\rot\bf Rückwärts und vorwärts}]~\\[-\lblskip]
+\begin{center}
+\resizebox{0.9\textwidth}{!}{%
+\begin{tikzpicture}[font=\sffamily,>=Stealth,
+  p/.style={draw=rwugray,fill=white,rounded corners=1pt,minimum width=14mm,minimum height=8mm},
+  k/.style={draw=rwuviolet,very thick,fill=rwuviolet!15,rounded corners=1pt,minimum width=20mm,minimum height=10mm}]
+  \node[k] (k) at (0,0) {Schlüsseltext};
+  \node[p] (a1) at (-4.5,1.2) {1998};
+  \node[p] (a2) at (-4.5,0) {2004};
+  \node[p] (a3) at (-4.5,-1.2) {2009};
+  \node[p] (b1) at (4.5,1.2) {2019};
+  \node[p] (b2) at (4.5,0) {2021};
+  \node[p] (b3) at (4.5,-1.2) {2024};
+  \foreach \x in {a1,a2,a3} \draw[->,thick,rwuviolet] (k) -- (\x);
+  \foreach \x in {b1,b2,b3} \draw[->,thick,rwucyan] (\x) -- (k);
+  \node[rwuviolet,align=center] at (-4.5,-2.3) {\textbf{rückwärts}\\Literaturliste};
+  \node[rwucyan,align=center] at (4.5,-2.3) {\textbf{vorwärts}\\wer zitiert ihn?};
+  \draw[->,thick,rwugray] (-6,-3.2) -- node[below]{Zeit} (6,-3.2);
+\end{tikzpicture}}
+\end{center}
+\os{\newpage}
+
+\item[{\rot\bf Schneeball als Verfahren}]~\\[-\lblskip]
+\bi
+  \ite Startmenge: zwei bis fünf sicher relevante Texte
+  \ite Runde für Runde: rückwärts und vorwärts
+  \ite Einschlusskriterien wie bei der Schlagwortsuche
+  \ite Stopp, wenn keine neuen relevanten Treffer kommen
+    \parencite{wohlin2014snowballing}
+  \ite Vorwärtssuche: Web of Science, Scopus, Google Scholar
+    (\enquote{Zitiert von})
+\ei
+\os{\newpage}
+
+\item[{\rot\bf Konvergenz im Netz}]~\\[-\lblskip]
+\bi
+  \ite verschiedene Startpunkte führen zu denselben Klassikern
+  \ite gut: so findet man den Kern eines Gebiets
+  \ite aber: häufig zitiert heißt nicht richtig
+  \ite Zitiergemeinschaften können eine Lücke um sich herum haben
+  \ite darum Schneeball \emph{und} Schlagwortsuche kombinieren
+\ei
+\os{\newpage}
+\end{description}
+
+%==============================================================================
+\section{Graue Literatur}
+%==============================================================================
+\nsl{Als \emph{graue Literatur} bezeichnet man Texte, die nicht über
+Verlage und begutachtete Zeitschriften erscheinen: Abschlussarbeiten,
+Preprints, Berichte von Behörden, Stiftungen und Verbänden,
+Konferenzfolien, Daten- und Projektberichte. Sie ist für eine Recherche aus
+zwei Gründen wichtig. Sie ist oft aktueller als begutachtete Literatur, und
+sie enthält häufiger Ergebnisse, die keine Zeitschrift drucken wollte,
+etwa Studien ohne signifikanten Effekt. Wer sie ganz weglässt, sieht ein zu
+günstiges Bild des Forschungsstands ($\to$~Publikationsbias, LE~10). Ihr
+Nachteil ist die fehlende Begutachtung: Ihre Qualität muss man selbst
+prüfen. Damit beschäftigt sich LE~4.}
+\begin{description}
+\item[{\rot\bf Graue Literatur: Chancen und Grenzen}]~\\[-\lblskip]
+\bi
+  \ite Abschlussarbeiten, Preprints, Berichte, Konferenzbeiträge
+  \ite \textbf{Chance:} aktuell, enthält auch Nullbefunde
+  \ite \textbf{Grenze:} keine Begutachtung, oft schwer zu finden
+  \ite Fundorte: BASE, Repositorien, Preprint-Server, Websites von
+    Institutionen
+  \ite Qualität selbst prüfen ($\to$~LE~4)
+\ei
+\os{\newpage}
+\end{description}
+
+%==============================================================================
+\section{Dokumentieren, verwalten, annotieren}
+%==============================================================================
+\nsl{Das Rechercheprotokoll ist das Laborbuch der Literaturarbeit. Es hält
+für jeden Suchvorgang Datum, Datenbank, genauen Suchstring, gesetzte Filter,
+Trefferzahl und die Zahl der gesichteten und ausgewählten Arbeiten fest,
+dazu die Ein- und Ausschlusskriterien. Die PRISMA-Leitlinie verlangt für
+systematische Übersichtsarbeiten zusätzlich ein Flussdiagramm, das zeigt, wie
+aus vielen Treffern wenige eingeschlossene Arbeiten wurden
+\parencite{page2021prisma}. Für Seminararbeiten ist das ein gutes Vorbild,
+auch wenn man es nicht vollständig übernimmt.
+
+Für die gefundenen Quellen braucht man ein Literaturverwaltungsprogramm.
+Zotero und JabRef sind frei verfügbar, Citavi ist an vielen Hochschulen
+lizenziert. Sie speichern die bibliographischen Angaben, PDFs und Notizen
+und erzeugen Literaturverzeichnisse in jedem Zitierstil. Die annotierte
+Bibliographie geht einen Schritt weiter: Zu jeder Quelle steht ein kurzer
+Kommentar zu Kernaussage, Methode und Relevanz. Das Begleitbuch dieser
+Vorlesung ist selbst so gebaut. Sein Literaturverzeichnis druckt zu jeder
+Quelle ein Abstract, und das Skript übernimmt diese Form.}
+\begin{description}
+\item[{\rot\bf Das Rechercheprotokoll}]~\\[-\lblskip]
+\begin{center}
+\small
+\begin{tabular}{llllll}
+\toprule
+\textbf{Datum} & \textbf{Datenbank} & \textbf{Suchstring} & \textbf{Filter} & \textbf{Treffer} & \textbf{gewählt} \\
+\midrule
+\dots & Scopus & \texttt{(magic OR \dots) AND \dots} & ab 2000 & \dots & \dots \\
+\dots & PsycInfo & \dots & Englisch & \dots & \dots \\
+\bottomrule
+\end{tabular}
+\end{center}
+\bi
+  \ite Prüfstein: Könnte jemand anderes die Suche wiederholen?
+  \ite Ein- und Ausschlusskriterien vorab festlegen
+  \ite Vorbild für große Arbeiten: PRISMA-Flussdiagramm
+    \parencite{page2021prisma}
+\ei
+\os{\newpage}
+
+\item[{\rot\bf Literaturverwaltung}]~\\[-\lblskip]
+\bi
+  \ite \textbf{Zotero}, \textbf{JabRef}: frei; \textbf{Citavi}: oft
+    Hochschullizenz
+  \ite Angaben per Browser-Plugin oder DOI übernehmen, nie abtippen
+  \ite PDFs, Notizen und Schlagwörter an der Quelle ablegen
+  \ite Export nach BibTeX/biblatex oder Word
+  \ite ab der ersten Quelle verwenden, nicht erst beim Schreiben
+\ei
+\os{\newpage}
+
+\item[{\rot\bf Annotierte Bibliographie}]~\\[-\lblskip]
+\bi
+  \ite je Quelle zwei bis drei Sätze
+  \ite \textbf{Kernaussage:} Was wird behauptet oder gefunden?
+  \ite \textbf{Methode:} Wie wurde das gezeigt?
+  \ite \textbf{Relevanz:} Was bedeutet das für meine Frage?
+  \ite Vorbild: das Literaturverzeichnis des Begleitbuchs, mit Abstract zu
+    jeder Quelle
+\ei
+\os{\newpage}
+\end{description}
+
+%==============================================================================
+\section{Die Kehrseite: suchen, was man schon glaubt}
+%==============================================================================
+\nsl{Der Kruskal Count hat gezeigt, dass eine feste Regel aus vielen
+Startpunkten zum selben Ziel führt. Bei der Recherche ist die Regel oft die
+eigene Erwartung. Wer überzeugt ist, dass Zauberkunst das Lernen fördert,
+sucht nach \texttt{magic AND learning AND benefit}, liest die passenden
+Treffer zuerst und folgt deren Literaturlisten. So entsteht ein Netz von
+Bestätigungen, das sich wie Forschungsstand anfühlt.
+
+Das Buch beschreibt in Kapitel~5b den psychologischen Kern dieses Musters
+am 2-4-6-Test von \textcite{wason1960failure}. Die Versuchspersonen sollten
+eine Regel hinter dem Tripel 2--4--6 erraten und durften dazu eigene Tripel
+testen. Die Regel war weit gefasst (drei aufsteigende Zahlen), doch die
+meisten legten sich auf eine engere Vermutung fest und prüften nur noch
+Tripel, die zu ihr passten. Nur sechs von 29 Personen fanden die Regel ohne
+falschen Zwischenschluss. Jonathan Baron nennt die Neigung, nur die eigene
+Hypothese direkt zu prüfen, den \emph{Congruence Bias} und formuliert als
+Gegenmittel: an Alternativhypothesen denken und den Test wählen, der
+zwischen ihnen unterscheidet \parencite{baron1988diagnostic,baron2008thinking}.
+\textcite{klaymanha1987} haben gezeigt, dass diese positive Teststrategie in
+vielen Situationen vernünftig ist und erst dann in die Irre führt, wenn die
+Wahrheit breiter ist als die eigene Vermutung. Dass derselbe Mechanismus in
+Wissenschaft, Medizin und Justiz allgegenwärtig ist, dokumentiert
+\textcite{nickerson1998ubiquitous}. Für die Recherche folgt daraus eine
+Pflicht: Man sucht gezielt auch nach Arbeiten, die der eigenen These
+widersprechen könnten.}
+\begin{description}
+\item[{\rot\bf Der 2-4-6-Test}]~\\[-\lblskip]
+\bi
+  \ite Aufgabe: die Regel hinter 2--4--6 finden, eigene Tripel testen
+  \ite Regel: drei aufsteigende Zahlen
+  \ite die meisten testen nur Tripel, die zu \emph{ihrer} Vermutung passen
+    (8--10--12, 20--22--24 \dots)
+  \ite nur sechs von 29 fanden die Regel ohne falschen Zwischenschluss
+    \parencite{wason1960failure}
+\ei
+\os{\newpage}
+
+\item[{\rot\bf Congruence Bias in der Recherche}]~\\[-\lblskip]
+\bi
+  \ite Suchbegriffe enthalten schon die erwartete Antwort
+  \ite passende Treffer werden zuerst gelesen
+  \ite Schneeball folgt den Literaturlisten der Bestätigungen
+  \ite Ergebnis: ein Netz, das sich wie Forschungsstand anfühlt
+  \ite Gegenmittel: Alternativen denken, unterscheidende Suche wählen
+    \parencite{baron2008thinking}
+\ei
+\os{\newpage}
+
+\item[{\rot\bf Gegenrecherche: so geht's}]~\\[-\lblskip]
+\bi
+  \ite die Gegenhypothese als eigenes Konzept suchen
+  \ite Begriffe für Nullbefunde und Kritik:\\
+    \texttt{\symbol{34}no effect\symbol{34}},
+    \texttt{\symbol{34}null result*\symbol{34}},\\
+    \texttt{replicat*}, \texttt{critique}
+  \ite in der Vorwärtssuche gezielt kritische Repliken lesen
+  \ite im Protokoll festhalten, was die Gegenrecherche ergab
+\ei
+\os{\newpage}
+\end{description}
+
+\begin{merkbox}
+Eine Recherche ist erst dann wissenschaftlich, wenn jemand anderes sie mit
+Ihrem Protokoll wiederholen könnte und wenn Sie auch nach dem gesucht
+haben, was Ihnen widerspricht. Dass viele Wege zur selben Quelle führen,
+spricht für eine gute Suche, beweist aber noch nicht, dass die Quelle recht
+hat.
+\end{merkbox}
+\os{\newpage}
+
+%==============================================================================
+\section{Übung in der Stunde}
+%==============================================================================
+\begin{description}
+\item[{\rot\bf Rechercheprotokoll starten (30 Min.)}]~\\[-\lblskip]
+\bi
+  \ite Zerlegen Sie Ihre Forschungsfrage in Konzepte, sammeln Sie Begriffe
+    (Aufgabe~2)
+  \ite Bauen Sie einen Suchstring und einen Gegen-Suchstring (Aufgabe~3)
+  \ite Suchen Sie in zwei Datenbanken, protokollieren Sie jede Suche
+    (Aufgabe~4)
+  \ite Wählen Sie einen Schlüsseltext für die Schneeballsuche
+\ei
+\os{\newpage}
+
+\item[{\rot\bf Sicherung: Treffer sortieren (15 Min.)}]~\\[-\lblskip]
+\bi
+  \ite Ordnen Sie Ihre ersten fünf Treffer den Stufen A--E zu
+    (Aufgabe~5)
+  \ite Welche Stufe dominiert? Woran liegt das?
+  \ite Hat die Gegenrecherche etwas Neues gebracht?
+\ei
+\os{\newpage}
+\end{description}
+
+\begin{lehrhinweis}
+In der Protokollphase sind die häufigsten Fehler: nur Google Scholar, nur
+deutsche Begriffe, \texttt{AND} zwischen Synonymen, Suchstrings ohne
+Klammern und ein Protokoll, in dem der genaue String fehlt. Die Lehrperson
+geht herum und bittet einzelne Studierende, ihre Suche nach dem Protokoll
+eines Nachbarn zu wiederholen: Kommt dieselbe Trefferzahl heraus? Für die
+Sortierung gilt: Die Stufen A--E sind eine grobe Vorsortierung nach
+Publikationstyp. Ein begutachteter Artikel kann schwach sein und ein
+Behördenbericht stark. Diese Unterscheidung ist Gegenstand von LE~4 und
+sollte hier nur angekündigt werden. Hat jemand nach 30~Minuten keine
+passenden Treffer, ist die Frage oft zu eng oder zu ungewöhnlich formuliert;
+dann ein Konzept weglassen oder einen Oberbegriff wählen.
+\end{lehrhinweis}
+
+%==============================================================================
+\section{Lernziele und Aufgaben}
+%==============================================================================
+\begin{description}
+\item[{\rot\bf Nach dieser Einheit können Sie}]~\\[-\lblskip]
+\bi
+  \ite das Kruskal-Prinzip erklären und auf Suchstrategien übertragen
+  \ite eine systematische Recherche planen und dokumentieren
+  \ite Suchstrings mit booleschen Operatoren und Trunkierung bauen
+  \ite die wichtigsten Datenbanken Ihres Fachs nennen
+  \ite Treffer nach Relevanz und Publikationstyp vorsortieren
+  \ite eine Gegenrecherche durchführen
+\ei
+\os{\newpage}
+
+\item[{\rot\bf Bis zur nächsten Woche}]~\\[-\lblskip]
+\bi
+  \ite \textbf{Rechercheprotokoll} vervollständigen: Suchbegriffe,
+    Datenbanken, Treffermengen, Auswahlkriterien (10\,\% der
+    Portfolionote)
+  \ite \textbf{Annotierte Bibliographie:} fünf Quellen mit je zwei bis drei
+    Sätzen zu Kernaussage, Methode und Relevanz; mindestens eine aus der
+    Gegenrecherche
+  \ite \textbf{Tagebuch des Staunens:} Welcher Fund hat Sie bei der
+    Recherche überrascht?
+  \ite die fünf Quellen zu LE~4 mitbringen: Wir prüfen ihre Qualität
+\ei
+\os{\newpage}
+\end{description}
+
+\handoutinput{handouts/LE03}

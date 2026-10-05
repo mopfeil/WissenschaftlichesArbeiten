@@ -1,0 +1,716 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Lehreinheit 5: Hypothesen und Falsifizierbarkeit
+% Quelle: WuZ-Buch, Kap. 15 (LE 5), Kap. 5b (Popper, Wason/Congruence
+%         Bias, Horwich), Kap. 10 (2-4-6-Test), Kap. 10b (Testbarkeit),
+%         Anhang E (Kommentar zu Exposure und Grenzarbeit: Switchboard)
+% Staunmoment: Switchboard / Black Box  |  Kernbegriff: Falsifizierbarkeit
+% Geheimhaltung: Methode des Switchboards wird NICHT beschrieben.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\nsl{In LE~2 wurde aus einem Staunen eine Forschungsfrage. Jetzt wird aus
+der Frage eine Behauptung, die an der Wirklichkeit scheitern kann. Die
+Einheit beginnt mit einem Gerät, das jede Ingenieurstudentin nach zehn
+Minuten verstanden zu haben glaubt: vier Schalter, vier Lampen, sichtbare
+Leiterbahnen. Die Gruppe bildet ein Modell, sammelt Bestätigungen und
+erlebt dann, dass beliebig viele Bestätigungen ein falsches Modell nicht
+retten. Daraus entwickelt die Einheit die Unterscheidung von Induktion,
+Deduktion und Abduktion, Poppers Falsifikationsprinzip, die Formulierung
+von Null- und Alternativhypothese, Horwichs graduellen Bestätigungsbegriff
+und die Grenzen der Falsifikation (Duhem-Quine). Der Wason-2-4-6-Test
+zeigt anschließend, dass der Hang zum Bestätigen eine feste Gewohnheit
+ist, gegen die man sich methodisch schützen muss.
+\newpage}
+\os{\begin{description}
+\item[{\rot\bf Heute}]~\\[-\lblskip]
+\bi
+  \ite ein Schaltbrett, das sich nicht an seine Leiterbahnen hält
+  \ite Induktion, Deduktion, Abduktion
+  \ite Popper: Falsifikation statt Verifikation
+  \ite Null- und Alternativhypothese
+  \ite Horwich: Bestätigung hat Grade -- Duhem-Quine: Widerlegung auch
+  \ite der 2-4-6-Test und ein Raster für gute Hypothesen
+\ei
+\end{description}
+\newpage}
+
+\begin{vorbereitung}[Switchboard / Black Box]
+\textbf{Eine Woche vorher}
+\begin{checkliste}
+  \item Das \emph{Switchboard} ist ein kommerzielles Kunststück
+    \parencite{andersen2020switchboard}: eine offene Platine mit vier
+    Schaltern mit farbigen Hülsen und vier Lampen in denselben Farben,
+    sichtbar über Leiterbahnen verbunden. Gerät rechtzeitig beim
+    Fachhandel für Zauberbedarf beschaffen bzw.\ aus dem Bestand holen.
+  \item \textbf{Methode und Einstudierung nach der Anleitung des
+    Herstellers; hier bewusst nicht beschrieben.} Das Skript wird
+    öffentlich gespiegelt. Assistenzen, die das Gerät mit bedienen,
+    werden persönlich eingewiesen und zur Verschwiegenheit verpflichtet.
+  \item Batterien prüfen und einen vollständigen Satz Ersatzbatterien
+    einpacken; alle Leuchtmittel einzeln testen, Ersatzleuchtmittel
+    bereitlegen, falls der Hersteller sie liefert.
+  \item Den Ablauf mindestens zweimal vollständig proben, einmal davon
+    vor einer Testperson: Exploration durch die Gruppe, eigene
+    Behauptung \enquote{Die Farbe der Hülsen ist entscheidend}, Umstecken
+    der Hülsen, erneute Exploration, zweiter und dritter Modellwechsel.
+    Die Übergänge zwischen den Phasen so einüben, dass sie ohne Blick auf
+    Notizen sitzen.
+  \item Sprechtext für den Abschluss festlegen (siehe \enquote{Am Tag
+    selbst}). Die Haltung dazu steht in Markus Pfeils Kommentar zu
+    Exposure und Grenzarbeit (\buch{Anhang~E}): Methode nicht verraten,
+    aber die \emph{Richtung} andeuten.
+  \item Für den 2-4-6-Test genügt Tafel oder Flipchart. Die Regel
+    (\enquote{drei aufsteigende Zahlen}) nur im Kopf haben, nicht auf
+    einem Zettel am Pult.
+\end{checkliste}
+
+\textbf{Handout und Übungsblatt}
+\begin{checkliste}
+  \item Handout \enquote{Hypothesen und Falsifizierbarkeit} und
+    Übungsblatt LE~5 je einmal pro Person kopieren (Druckvorlage
+    \texttt{handouts.pdf}, Seiten zu LE~5). Das Übungsblatt enthält die
+    fünf Aussagen für die Klassifikationsübung und die
+    H\textsubscript{0}/H\textsubscript{1}-Vorlage vollständig.
+  \item Pro Kleingruppe (4--5 Personen) ein A4-Blatt
+    \enquote{Protokoll Schaltbrett} mit zwei Spalten \emph{Eingabe} und
+    \emph{Beobachtung}; die Gruppen protokollieren ihre Versuche dort.
+  \item Kleine Zettel (ca.\ A7) für die stille Regel-Notiz im
+    2-4-6-Test, einer pro Person.
+  \item Die Forschungsfragen aus LE~2 bereithalten (Rücklauf aus der
+    Hausaufgabe); jede Person braucht ihre eigene Frage für Aufgabe~3
+    des Übungsblatts.
+\end{checkliste}
+
+\textbf{Am Tag selbst}
+\begin{checkliste}
+  \item Batterietest unmittelbar vor der Stunde, nicht am Vorabend.
+  \item Das Brett auf einen Tisch stellen, um den die Gruppe stehen
+    kann. Bei großen Gruppen eine Dokumentenkamera auf das Brett richten
+    und die Exploration reihum an drei bis vier Personen delegieren.
+  \item Tafel in drei Felder teilen: \enquote{Unser Modell},
+    \enquote{Bestätigt durch}, \enquote{Was würde es widerlegen?}. Das
+    dritte Feld bleibt in der ersten Runde absichtlich leer.
+  \item Abschluss-Sprechtext (Grenzarbeit, sinngemäß): \enquote{Ich
+    verrate Ihnen nicht, wie es funktioniert. Aber ich verrate Ihnen,
+    wo Sie suchen müssten: Die Lösung liegt im Gerät. Es ist einfacher
+    gebaut, als Sie denken, und komplizierter, als Ihr Modell erlaubt.}
+    Keine weitere Andeutung; Nachfragen nach der Stunde freundlich
+    abweisen.
+\end{checkliste}
+
+\textbf{Risiken und Plan B.} Fällt eine Lampe aus, wird das nicht
+überspielt: Ein Defekt ist eine echte Beobachtung, die jedes Modell
+erklären muss, und die Gruppe darf sie protokollieren. Ist das Gerät
+ganz unbrauchbar, beginnt die Einheit mit dem 2-4-6-Test als
+Staunmoment; die Zeit der Exploration (15~Min.) geht dann in einen
+ausführlicheren 2-4-6-Test und die Klassifikationsübung. Kommt jemand der
+Methode erkennbar nahe, weder bestätigen noch dementieren, sondern die
+Vermutung wie jede andere an die Tafel schreiben und fragen, wie man sie
+prüfen würde.
+\end{vorbereitung}
+
+\begin{ablauf}
+\begin{description}
+\item[0--5 · Blitzlicht.] Aufgreifen von LE~2: \enquote{Ihre
+  Forschungsfrage ist eine Frage. Heute wird daraus eine Behauptung, die
+  sich irren kann.}
+\item[5--20 · Staunmoment.] Switchboard: Die Gruppe exploriert das Brett,
+  protokolliert Eingaben und Beobachtungen und formuliert ein Modell.
+  Dann die Behauptung der Lehrperson zur Farbe der Hülsen, Umstecken,
+  neue Exploration; zwei bis drei Modellwechsel. Schlüsselfrage:
+  \enquote{Welche Eingabe hätte Ihr Modell widerlegen können?}
+\item[20--50 · Theorie-Input.] Induktion, Deduktion, Abduktion; Popper und
+  die Falsifikation; Null- und Alternativhypothese; Horwichs graduelle
+  Bestätigung und das Widerlegungsrisiko; Grenzen (Duhem-Quine).
+\item[50--60 · Brücke zum Bias.] Wason-2-4-6 als Kurzübung: Die Gruppe
+  bestätigt, statt zu prüfen.
+\item[60--80 · Anwendung.] Klassifikationsübung mit fünf Aussagen
+  (Übungsblatt, Aufgabe~1); danach formuliert jede Person für die eigene
+  Frage H\textsubscript{0} und H\textsubscript{1} samt
+  Widerlegungsbedingung (Aufgabe~3, Beginn in der Stunde).
+\item[80--90 · Sicherung.] Kriterienraster \enquote{gute Hypothese};
+  Ausblick auf Testbarkeit und Forschungsdesign (LE~6).
+\end{description}
+\end{ablauf}
+
+%==============================================================================
+\section{Staunmoment: Das Schaltbrett}
+%==============================================================================
+\begin{staunbox}{Switchboard}
+Vier Schalter mit farbigen Hülsen, vier Lampen in denselben Farben.
+Die Leiterbahnen sind sichtbar.
+
+\emph{Finden Sie heraus, wie das Brett funktioniert. Protokollieren Sie
+jede Eingabe und jede Beobachtung. Formulieren Sie ein Modell.}
+
+\medskip
+Danach: \emph{Ich behaupte, die Leiterbahnen sind Dekoration. Entscheidend
+ist allein die Farbe der Hülse.}
+\end{staunbox}
+\os{\newpage}
+
+\begin{description}
+\item[{\rot\bf Runde 1: Ihr Modell}]~\\[-\lblskip]
+\bi
+  \ite Welches Modell haben Sie gebildet?
+  \ite Wie viele Versuche haben es bestätigt?
+  \ite Hat irgendjemand eine Eingabe gewählt, von der er \emph{erwartet}
+    hat, dass sie das Modell bricht?
+  \ite Tafel: \emph{Modell} -- \emph{Bestätigt durch} -- \emph{Was würde es
+    widerlegen?}
+\ei
+\os{\newpage}
+
+\item[{\rot\bf Runde 2 und 3: neue Modelle}]~\\[-\lblskip]
+\bi
+  \ite nach dem Umstecken ist Ihr altes Modell widerlegt -- durch
+    \emph{eine} Beobachtung
+  \ite das neue Modell (\enquote{Farbe entscheidet}) wird ebenso oft
+    bestätigt wie das alte
+  \ite und hält ebenfalls nicht
+  \ite Was wissen Sie jetzt \emph{sicher} über dieses Brett?
+\ei
+\os{\newpage}
+\end{description}
+
+\nsl{Der Ablauf folgt der Beschreibung, die Markus Pfeil in seinem
+Kommentar zu Exposure und Grenzarbeit gibt (\buch{Anhang~E}): Die
+Studierenden explorieren das Brett, bilden eine Hypothese, testen sie und
+ziehen ein Fazit. Danach erklärt die Lehrperson, die Verdrahtung habe mit
+dem Schalten nichts zu tun, entscheidend seien die Farben von Hülse und
+Lampe, und steckt die Hülsen um: Nun schaltet jeder Schalter nicht mehr
+die Lampe, mit der er sichtbar verbunden ist, sondern die gleichfarbige.
+Dieser Wechsel wird einige Male wiederholt. Was bleibt, ist die Erfahrung,
+dass schon ein einfaches Schaltbrett zu kompliziert ist, um seine
+Funktionsweise aus Bestätigungen zu erraten, und dass sich nichts davon
+beweisen lässt.
+
+Wichtig ist der Abschluss. Bleibt der Effekt ganz unkommentiert, schreiben
+Studierende ihn erfahrungsgemäß der Person zu, nicht dem Gerät, und
+verlieren damit die eigentliche Lehre: dass Systeme meist komplexer sind,
+als wir ihnen zugestehen. Der Hinweis, dass die Lösung im Gerät liegt,
+verschiebt die Wahrnehmung vom Mysterium zum Rätsel, ohne die Methode
+preiszugeben.}
+
+\begin{description}
+\item[{\rot\bf Wo liegt die Lösung?}]~\\[-\lblskip]
+\bi
+  \ite ich verrate die Methode nicht
+  \ite aber die Richtung: \textbf{die Lösung liegt im Gerät}
+  \ite Ihr Modell war zu einfach für ein Brett mit vier Schaltern
+  \ite Wie sicher sind Sie bei Systemen, die komplizierter sind als dieses?
+\ei
+\os{\newpage}
+\end{description}
+
+%==============================================================================
+\section{Drei Arten zu schließen}
+%==============================================================================
+\nsl{Beim Explorieren des Bretts haben die Gruppen drei verschiedene
+Schlussformen benutzt, meist ohne es zu bemerken. Aus einzelnen
+Beobachtungen (\enquote{Schalter Rot schaltet Lampe Rot}, mehrfach) wurde
+eine allgemeine Regel: das ist \textbf{Induktion}. Aus der Regel wurde
+vorhergesagt, was beim nächsten Versuch passieren muss: das ist
+\textbf{Deduktion}. Und als etwas Unerwartetes geschah, wurde eine
+Erklärung gesucht, die das Unerwartete verständlich machen würde
+(\enquote{Vielleicht gibt es eine zweite Leiterbahn auf der Rückseite}):
+das ist \textbf{Abduktion}, der Schluss auf die beste Erklärung, wie ihn
+Charles S.\ Peirce beschrieben hat. Wissenschaftliches Arbeiten braucht
+alle drei. Abduktion erzeugt Hypothesen, Deduktion leitet aus ihnen
+prüfbare Vorhersagen ab, und die Prüfung entscheidet, ob die Hypothese
+bleibt. Logisch zwingend ist nur die Deduktion; Induktion und Abduktion
+können bei wahren Prämissen zu falschen Schlüssen führen.}
+\begin{description}
+\item[{\rot\bf Induktion -- Deduktion -- Abduktion}]~\\[-\lblskip]
+\begin{center}
+\renewcommand{\arraystretch}{1.25}
+\begin{tabular}{p{0.16\textwidth}p{0.29\textwidth}p{0.4\textwidth}}
+\toprule
+& \textbf{Schema} & \textbf{am Schaltbrett} \\
+\midrule
+\textbf{Induktion} & viele Fälle $\to$ Regel & \enquote{Fünfmal schaltete Rot die rote Lampe, also immer.} \\
+\textbf{Deduktion} & Regel $\to$ Vorhersage & \enquote{Gelten die Bahnen, muss Schalter~2 Lampe~2 schalten.} \\
+\textbf{Abduktion} & Überraschung $\to$ beste Erklärung & \enquote{Es gibt wohl eine verborgene Verbindung.} \\
+\bottomrule
+\end{tabular}
+\end{center}
+\bi
+  \ite logisch zwingend ist nur die Deduktion
+\ei
+\os{\newpage}
+
+\item[{\rot\bf Der Forschungszyklus}]~\\[-\lblskip]
+\begin{center}
+\resizebox{0.8\textwidth}{!}{%
+\begin{tikzpicture}[font=\sffamily,>=Stealth,
+  st/.style={draw=rwuviolet,thick,fill=rwuviolet!8,rounded corners=3pt,
+    minimum width=34mm,minimum height=12mm,align=center}]
+  \node[st] (b) at (0,0) {Beobachtung\\Überraschung};
+  \node[st] (h) at (7,0) {Hypothese};
+  \node[st] (v) at (7,-3) {Vorhersage};
+  \node[st,draw=rwucyan,fill=rwucyan40!40] (t) at (0,-3) {Test};
+  \draw[->,very thick] (b) -- node[above]{Abduktion} (h);
+  \draw[->,very thick] (h) -- node[right]{Deduktion} (v);
+  \draw[->,very thick] (v) -- node[below]{Prüfung} (t);
+  \draw[->,very thick,rwugray] (t) -- node[left,align=right,xshift=-2mm]{bewährt oder\\verworfen} (b);
+\end{tikzpicture}}
+\end{center}
+\bi
+  \ite Hypothesen \emph{entstehen} durch Abduktion, sie \emph{bewähren}
+    sich in Tests
+\ei
+\os{\newpage}
+
+\item[{\rot\bf Das Induktionsproblem}]~\\[-\lblskip]
+\bi
+  \ite kein Stapel von Bestätigungen macht eine allgemeine Aussage
+    \emph{gewiss}
+  \ite tausend weiße Schwäne beweisen nicht, dass alle Schwäne weiß sind
+  \ite ein einziger schwarzer Schwan widerlegt es
+  \ite am Schaltbrett: viele Bestätigungen, dann ein Umstecken -- und
+    das Modell ist weg
+\ei
+\os{\newpage}
+\end{description}
+
+%==============================================================================
+\section{Popper: Falsifikation statt Verifikation}
+%==============================================================================
+\nsl{Karl Popper zog aus dem Induktionsproblem in der \emph{Logik der
+Forschung} eine radikale Konsequenz \parencite{popper1934logik}: Wenn sich
+allgemeine Aussagen nicht verifizieren lassen, dann besteht ihre Prüfung
+im ernsthaften Versuch, sie zu widerlegen. Eine Aussage ist
+wissenschaftlich, wenn sie prinzipiell an der Erfahrung scheitern kann.
+Sie gilt als \emph{bewährt}, solange sie strengen Widerlegungsversuchen
+standhält, und bleibt dabei vorläufig.
+
+Für das Buch ist entscheidend, dass Popper damit weniger eine Eigenschaft
+von Sätzen als eine Haltung von Menschen beschreibt (\buch{Kap.~5b}). Eine
+Theorie wird nicht dadurch unwissenschaftlich, dass sie falsch ist; falsch
+sein darf jede. Unwissenschaftlich wird sie, wenn ihre Vertreter sie gegen
+jede Widerlegung abdichten. Popper nannte das \emph{Immunisierung}. Sein
+Paradebeispiel war die Astrologie, deren Vertreter ihre Deutungen so vage
+hielten, dass nichts mehr als Widerlegung zählen konnte
+\parencite{popper1963conjectures}. Dieses Beispiel steht übrigens nicht in
+der \emph{Logik der Forschung}, sondern in \emph{Conjectures and
+Refutations}. Die falsche Zuschreibung ist ein verbreiteter Zitierfehler
+und ein gutes Argument dafür, Primärquellen selbst zu lesen (LE~4).}
+\begin{description}
+\item[{\rot\bf Poppers Kriterium}]~
+\end{description}
+\defn{falsifizierbar}{Eine Aussage ist \textbf{falsifizierbar}, wenn
+sich mindestens eine mögliche Beobachtung angeben lässt, die ihr
+widerspräche. Sie gilt als \textbf{bewährt}, solange ernsthafte
+Widerlegungsversuche gescheitert sind. Bewiesen ist sie damit nicht.}
+\bi
+  \ite falsifizierbar heißt nicht falsch, sondern \emph{prüfbar}
+  \ite Gegenbegriff: Immunisierung -- die Aussage wird gegen jede
+    Widerlegung abgedichtet
+\ei
+\os{\newpage}
+\begin{description}
+
+\item[{\rot\bf Die Asymmetrie}]~\\[-\lblskip]
+\begin{center}
+\resizebox{0.8\textwidth}{!}{%
+\begin{tikzpicture}[font=\sffamily,>=Stealth,
+  box/.style={draw=rwuviolet,thick,fill=rwuviolet!8,rounded corners=2pt,
+    minimum width=40mm,minimum height=11mm,align=center}]
+  \node[box] (h) at (0,0) {Hypothese $H$\\\enquote{alle Schwäne sind weiß}};
+  \node[box,draw=rwucyan,fill=rwucyan40!40] (j) at (-4.5,-2.8) {1000 weiße Schwäne};
+  \node[box,draw=rwucyan,fill=rwucyan40!40] (n) at (4.5,-2.8) {1 schwarzer Schwan};
+  \draw[->,thick] (j) -- (h);
+  \draw[->,thick,rwuviolet] (n) -- (h);
+  \node[below=2mm of j,align=center] {$H$ wird wahrscheinlicher};
+  \node[below=2mm of n,align=center,text=rwuviolet] {$H$ ist widerlegt};
+\end{tikzpicture}}
+\end{center}
+\bi
+  \ite Bestätigung ist graduell, Widerlegung kann schlagend sein
+\ei
+\os{\newpage}
+
+\item[{\rot\bf Riskante Vorhersagen}]~\\[-\lblskip]
+\bi
+  \ite eine Vorhersage, die auch bei falscher Theorie einträfe, prüft
+    nichts
+  \ite je genauer und unwahrscheinlicher die Vorhersage, desto mehr ist
+    ihr Eintreffen wert
+  \ite Beispiel: die Vorhersage der Position Neptuns 1846 -- für einen
+    Körper, den noch niemand gesehen hatte
+  \ite Gegenbeispiel: ein Horoskop, in dem sich jede Leserin wiederfindet
+\ei
+\os{\newpage}
+
+\item[{\rot\bf Immunisierung erkennen}]~\\[-\lblskip]
+\bi
+  \ite \enquote{Es wirkt, aber nicht unter Beobachtung.}
+  \ite \enquote{Wenn es nicht klappt, war der Glaube zu schwach.}
+  \ite Begriffe, die nachträglich so gedehnt werden, dass alles passt
+  \ite Test: \emph{Welches Ergebnis würden Sie als Widerlegung
+    akzeptieren?} Gibt es keins, ist die Aussage nicht prüfbar
+\ei
+\os{\newpage}
+\end{description}
+
+%==============================================================================
+\section{Von der Vermutung zur Hypothese}
+%==============================================================================
+\nsl{Eine Vermutung ist ein Einfall. Eine Hypothese ist eine Vermutung,
+die so präzise gefasst ist, dass man sie prüfen kann. Drei Eigenschaften
+machen den Unterschied: \emph{Präzision} (Was genau wird behauptet, über
+wen, unter welchen Bedingungen?), \emph{Testbarkeit} (Welche Beobachtung
+würde widersprechen?) und \emph{Reichweite} (Für welche Fälle soll die
+Aussage gelten?). Präzision entsteht durch \emph{Operationalisierung}: Die
+Begriffe der Hypothese werden mit beobachtbaren Messvorschriften
+verbunden. Das Konzept ist aus LE~2 bekannt; hier wird es zur Bedingung
+der Falsifizierbarkeit. \enquote{Ehrliche Menschen schlafen besser} ist in
+dieser Form kaum prüfbar, weil weder \enquote{ehrlich} noch \enquote{besser
+schlafen} festgelegt ist. Erst mit einer Messvorschrift für beides,
+etwa einem etablierten Fragebogen zur Ehrlichkeit und der mit einem
+Aktivitätstracker gemessenen Schlafdauer über zwei Wochen, entsteht eine
+Aussage, die scheitern kann.}
+\begin{description}
+\item[{\rot\bf Vermutung oder Hypothese?}]~\\[-\lblskip]
+\begin{center}
+\renewcommand{\arraystretch}{1.25}
+\begin{tabular}{p{0.18\textwidth}p{0.31\textwidth}p{0.36\textwidth}}
+\toprule
+& \textbf{Vermutung} & \textbf{Hypothese} \\
+\midrule
+Präzision & \enquote{Ehrliche schlafen besser.} & Wer ist ehrlich? Was heißt besser? -- festgelegt \\
+Testbarkeit & offen & benannte Widerlegungsbedingung \\
+Reichweite & unklar & Population, Bedingungen, Zeitraum \\
+\bottomrule
+\end{tabular}
+\end{center}
+\bi
+  \ite Operationalisierung macht aus Begriffen Messvorschriften (LE~2)
+\ei
+\os{\newpage}
+
+\item[{\rot\bf Arten von Hypothesen}]~\\[-\lblskip]
+\bi
+  \ite \textbf{Unterschiedshypothese:} Gruppe A unterscheidet sich von
+    Gruppe B in Merkmal Y
+  \ite \textbf{Zusammenhangshypothese:} X und Y hängen zusammen
+  \ite \textbf{Veränderungshypothese:} Y ändert sich zwischen
+    Messzeitpunkt 1 und 2
+  \ite \textbf{gerichtet} (\enquote{A $>$ B}) oder \textbf{ungerichtet}
+    (\enquote{A $\neq$ B})
+\ei
+\os{\newpage}
+\end{description}
+
+%==============================================================================
+\section{Null- und Alternativhypothese}
+%==============================================================================
+\nsl{In der empirischen Forschung, vor allem in der quantitativen, wird
+die eigene Vermutung als \emph{Alternativhypothese} H\textsubscript{1}
+formuliert. Ihr gegenüber steht die \emph{Nullhypothese}
+H\textsubscript{0}, die behauptet, dass es den vermuteten Unterschied oder
+Zusammenhang nicht gibt. Geprüft wird formal die Nullhypothese: Die Daten
+werden daraufhin befragt, wie gut sie mit ihr vereinbar sind. Das wirkt
+umständlich, hat aber einen guten Grund. Die Nullhypothese ist präzise
+(\enquote{Unterschied gleich null}), die Alternativhypothese meist nicht
+(\enquote{irgendein Unterschied}), und präzise Aussagen lassen sich gezielt
+unter Druck setzen. Die Rechentechnik folgt in LE~8. Hier geht es darum,
+beide Hypothesen sauber zu formulieren und vorab festzulegen, welches
+Ergebnis zur Verwerfung der eigenen Hypothese führen würde
+\parencite[vgl.][]{doering2016forschungsmethoden}.}
+\begin{description}
+\item[{\rot\bf H\textsubscript{0} und H\textsubscript{1}}]~\\[-\lblskip]
+\bi
+  \ite \textbf{H\textsubscript{1}} (Alternativhypothese): Ihre Vermutung --
+    es gibt einen Unterschied oder Zusammenhang
+  \ite \textbf{H\textsubscript{0}} (Nullhypothese): es gibt ihn nicht
+  \ite beide schließen sich aus und decken zusammen alle Fälle ab
+  \ite geprüft wird H\textsubscript{0}: Sind die Daten mit \enquote{kein
+    Effekt} gut vereinbar?
+  \ite Rechnen kommt in LE~8 -- heute: sauber formulieren
+\ei
+\os{\newpage}
+
+\item[{\rot\bf Beispiel}]~\\[-\lblskip]
+\bi
+  \ite Frage: Lernen Studierende mit Staunmoment mehr?
+  \ite H\textsubscript{1}: Wer vor einem Lehrvideo einen Zaubertrick
+    sieht, löst eine Transferaufgabe häufiger richtig als wer ihn nicht
+    sieht
+  \ite H\textsubscript{0}: Die Lösungsquoten unterscheiden sich nicht
+  \ite Widerlegungsbedingung (vorab festgelegt): gleiche oder niedrigere
+    Quote in der Trickgruppe
+\ei
+\os{\newpage}
+\end{description}
+
+\nsl{Das Beispiel ist nicht erfunden: Es ist die Leitfrage der
+Becher-Monty-Hall-Studien aus dem Buch (\buch{Kap.~12d und 12f}), die in
+LE~6 als Fallbeispiel für Forschungsdesign wiederkehren. Dort zeigt sich
+auch, wie wichtig eine vorab festgelegte Widerlegungsbedingung ist: Ein
+Zwischenstand der Feldstudie wies in die erhoffte Richtung und verschwand
+mit wachsender Stichprobe.}
+
+%==============================================================================
+\section{Horwich: Bestätigung hat Grade}
+%==============================================================================
+\nsl{Poppers Asymmetrie lässt sich wahrscheinlichkeitstheoretisch genauer
+fassen. Paul Horwich hat in \emph{Probability and Evidence} gezeigt, dass
+viele Rätsel der Wissenschaftstheorie verschwinden, sobald man Überzeugung
+als graduell behandelt \parencite{horwich1982probability}. Folgt eine
+Beobachtung $E$ logisch aus einer Hypothese $H$ und tritt sie nicht ein,
+dann ist $H$ widerlegt: $P(H\mid\neg E)=0$. Tritt $E$ dagegen ein, gilt
+nur $P(H\mid E)>P(H)$. Die Hypothese wird wahrscheinlicher, bewiesen ist
+sie nicht. Wie viel wahrscheinlicher, hängt davon ab, wie unwahrscheinlich
+$E$ ohnehin war: Impliziert $H$ die Beobachtung $E$, ist der
+Bestätigungsfaktor $P(H\mid E)/P(H) = 1/P(E)$. Eine Vorhersage, die
+sowieso jeder erwartet hätte, bringt also fast nichts.
+
+Horwichs Auflösung des Rabenparadoxons führt das an einem Bild vor
+(\buch{Kap.~5b, Horwichs Theorie der Evidenz}): Wer einen Raben prüft
+und ihn schwarz findet, hat die Hypothese \enquote{alle Raben sind schwarz}
+einem Risiko ausgesetzt. Wer ein schwarzes Objekt prüft und feststellt,
+dass es ein Rabe ist, hat nichts riskiert. Nur Beobachtungen, die ein
+Widerlegungsrisiko eingehen, haben vollen Beweiswert.}
+\begin{description}
+\item[{\rot\bf Bestätigung ist graduell}]~\\[-\lblskip]
+\bi
+  \ite tritt die vorhergesagte Beobachtung \emph{nicht} ein:
+    $P(H\mid\neg E)=0$ -- widerlegt
+  \ite tritt sie ein: nur $P(H\mid E) > P(H)$ -- wahrscheinlicher, nicht
+    bewiesen
+  \ite Stärke der Bestätigung: $P(H\mid E)\,/\,P(H) = 1/P(E)$
+  \ite \textbf{je unwahrscheinlicher die Vorhersage, desto stärker die
+    Bestätigung}
+\ei
+\os{\newpage}
+
+\item[{\rot\bf Das Widerlegungsrisiko}]~\\[-\lblskip]
+\bi
+  \ite einen \emph{Raben} prüfen und schwarz finden: echter Test
+  \ite etwas \emph{Schwarzes} prüfen und einen Raben finden: kein Test
+  \ite am Schaltbrett: \enquote{Rot schaltet Rot} zum zehnten Mal prüfen
+    ist der schwarze Gegenstand
+  \ite Regel: \emph{Wählen Sie den Versuch, dessen Ausgang Sie am
+    wenigsten sicher vorhersagen können.}
+\ei
+\os{\newpage}
+\end{description}
+
+\begin{merkbox}
+Bestätigungen sammeln ist billig. Eine Beobachtung ist nur so viel wert
+wie das Risiko, das die Hypothese mit ihr eingegangen ist. Fragen Sie
+deshalb nicht \enquote{Was spricht für meine Hypothese?}, sondern
+\enquote{Was würde mich umstimmen?}
+\end{merkbox}
+\os{\newpage}
+
+%==============================================================================
+\section{Grenzen der Falsifikation: Duhem-Quine}
+%==============================================================================
+\nsl{Auch die Widerlegung ist weniger eindeutig, als Poppers Schwan
+suggeriert. Pierre Duhem hat für die Physik gezeigt, dass eine Hypothese
+nie allein geprüft wird, sondern immer zusammen mit Hilfsannahmen über
+Messgeräte, Versuchsaufbau und Randbedingungen \parencite{duhem1906theorie}.
+Widerspricht ein Experiment der Vorhersage, sagt die Logik nur, dass
+\emph{irgendein} Glied der Kette falsch ist, nicht welches. Willard Van
+Orman Quine hat den Gedanken auf das gesamte Wissenssystem ausgeweitet
+\parencite{quine1951dogmas}. Am Schaltbrett ist das unmittelbar zu sehen:
+Leuchtete eine Lampe nicht wie vorhergesagt, konnte man das Modell
+verwerfen oder eine Hilfsannahme (\enquote{Lampe defekt}, \enquote{Batterie
+schwach}, \enquote{falsch geschaltet}). Daraus folgt nicht, dass
+Falsifikation wertlos ist. Es folgt, dass Hilfsannahmen offengelegt und, wo
+möglich, unabhängig geprüft werden müssen. Ad-hoc-Rettungen, die nur dazu
+dienen, eine Hypothese gegen ein unbequemes Ergebnis zu schützen, sind
+genau die Immunisierung, vor der Popper warnt. Imre Lakatos hat daraus ein
+Kriterium gemacht: Ein Forschungsprogramm schreitet fort, wenn seine
+Anpassungen neue, prüfbare Vorhersagen liefern, und degeneriert, wenn sie
+nur Löcher stopfen \parencite{lakatos1970falsification}.}
+\begin{description}
+\item[{\rot\bf Duhem-Quine-These}]~\\[-\lblskip]
+\bi
+  \ite geprüft wird nie $H$ allein, sondern $H$ \emph{plus} Hilfsannahmen
+    $A_1, A_2, \ldots$ (Messgerät, Aufbau, Randbedingungen)
+  \ite widerspricht das Ergebnis, ist \emph{irgendetwas} falsch --
+    aber was?
+  \ite Schaltbrett: Modell falsch -- oder Lampe defekt? Batterie
+    schwach?
+  \ite Konsequenz: Hilfsannahmen offenlegen und eigens prüfen
+\ei
+\os{\newpage}
+
+\item[{\rot\bf Rettung oder Ausrede?}]~\\[-\lblskip]
+\bi
+  \ite legitim: eine Hilfsannahme, die man \emph{unabhängig} prüfen kann
+    (Lampe tauschen, Versuch wiederholen)
+  \ite Ausrede: eine Zusatzannahme, die nur dazu dient, das Ergebnis
+    wegzuerklären
+  \ite Lakatos: fortschreitende Forschungsprogramme sagen durch ihre
+    Anpassungen \emph{Neues} voraus, degenerierende nicht
+\ei
+\os{\newpage}
+\end{description}
+
+%==============================================================================
+\section{Brücke zum Bias: der 2-4-6-Test}
+%==============================================================================
+\nsl{Dass die Gruppe am Schaltbrett fast nur bestätigende Eingaben
+gewählt hat, ist kein Zufall. Peter Wason hat diese Neigung 1960 mit einer
+einfachen Zahlenaufgabe sichtbar gemacht \parencite{wason1960failure}: Die
+Versuchspersonen sollten die Regel hinter dem Tripel \enquote{2--4--6}
+finden, indem sie eigene Tripel vorschlugen. Die Regel war weit gefasst
+(\enquote{drei aufsteigende Zahlen}); die meisten bildeten eine engere
+Hypothese und testeten nur Tripel, die dazu passten. Nur sechs von 29
+Personen fanden die Regel ohne falschen Zwischenschluss. Jonathan Baron
+nennt die Neigung, eine Hypothese ausschließlich direkt zu prüfen,
+\emph{Congruence Bias} \parencite{baron1988diagnostic}. Fair bleibt der
+Hinweis von \textcite{klaymanha1987}: Die \emph{positive Teststrategie} ist
+in vielen Umgebungen eine gute Heuristik. Sie versagt dort, wo die wahre
+Regel weiter ist als die eigene Hypothese, und das kommt in der Forschung
+häufig vor. Der Ablauf unten folgt der Unterrichtsfassung des Buchs
+(\buch{Kap.~10, Der 2-4-6-Test}), auf zehn Minuten gekürzt.}
+\begin{description}
+\item[{\rot\bf Die Regel finden}]~\\[-\lblskip]
+\begin{center}
+{\Huge\bfseries\color{rwuviolet} 2 \quad 4 \quad 6}
+\end{center}
+\bi
+  \ite diese drei Zahlen folgen einer Regel, die ich mir ausgedacht habe
+  \ite schlagen Sie eigene Tripel vor -- ich sage nur \emph{Ja} oder
+    \emph{Nein}
+  \ite nennen Sie die Regel erst, wenn Sie ganz sicher sind
+\ei
+\os{\newpage}
+\end{description}
+
+\begin{lehrhinweis}[Ablauf 2-4-6-Test (10 Min.)]
+\begin{description}
+  \item[1 Min.] \enquote{2--4--6} an die Tafel, Auftrag wie auf der Folie.
+  \item[4 Min.] Vorschläge aus dem Plenum, jeweils mit \emph{Ja} oder
+    \emph{Nein} in zwei Spalten an der Tafel protokollieren. Typisch sind
+    8--10--12, 20--22--24, 100--102--104: alles \emph{Ja}.
+  \item[1 Min.] Jede Person notiert still ihre vermutete Regel auf einem
+    Zettel.
+  \item[2 Min.] Frage: \enquote{Hat jemand ein Tripel vorgeschlagen, bei
+    dem er ein \emph{Nein} erwartet hat?} Meist niemand. Dann gezielt
+    widersprechende Tripel testen lassen: 1--2--3 (\emph{Ja}), 3--2--1
+    (\emph{Nein}), 2--4--5 (\emph{Ja}).
+  \item[2 Min.] Auflösung: \enquote{drei aufsteigende Zahlen}. Rückbezug
+    auf das Schaltbrett und auf Horwichs Raben: Die bestätigenden Tripel
+    waren schwarze Gegenstände.
+\end{description}
+\end{lehrhinweis}
+
+\begin{description}
+\item[{\rot\bf Was ist passiert?}]~\\[-\lblskip]
+\bi
+  \ite die Regel war: \textbf{drei aufsteigende Zahlen}
+  \ite fast alle Vorschläge passten zur eigenen, engeren Hypothese -- und
+    bekamen ein \emph{Ja}
+  \ite Wason 1960: nur 6 von 29 Personen fanden die Regel ohne falschen
+    Zwischenschluss
+  \ite \textbf{Congruence Bias}: man testet nur die eigene Hypothese, nie
+    die Alternativen
+  \ite Gegenmittel (Baron): Alternative benennen, dann den Test wählen,
+    der zwischen beiden \emph{unterscheidet}
+\ei
+\os{\newpage}
+\end{description}
+
+%==============================================================================
+\section{Übung in der Stunde}
+%==============================================================================
+\begin{description}
+\item[{\rot\bf Falsifizierbar oder nicht? (Kleingruppen, 10 Min.)}]~\\[-\lblskip]
+\bi
+  \ite Übungsblatt, Aufgabe~1: fünf Aussagen
+  \ite Welche sind falsifizierbar -- so, wie sie dastehen?
+  \ite für jede prüfbare Aussage: eine konkrete Widerlegungsbedingung
+  \ite für jede vage Aussage: eine präzisierte, prüfbare Fassung
+\ei
+\os{\newpage}
+
+\item[{\rot\bf Ihre eigene Hypothese (Einzelarbeit, 10 Min.)}]~\\[-\lblskip]
+\bi
+  \ite nehmen Sie Ihre Forschungsfrage aus LE~2
+  \ite formulieren Sie H\textsubscript{1} und H\textsubscript{0}
+  \ite Welche Begriffe müssen Sie operationalisieren?
+  \ite Bei welchem Ergebnis würden Sie H\textsubscript{1} verwerfen?
+  \ite Tausch mit der Nachbarin: Würde \emph{sie} Ihre
+    Widerlegungsbedingung akzeptieren?
+\ei
+\os{\newpage}
+\end{description}
+
+\begin{lehrhinweis}
+Bei der Klassifikationsübung lohnt es, auf zwei Fehler zu achten.
+Erstens wird \enquote{falsifizierbar} oft mit \enquote{falsch} oder
+\enquote{unbewiesen} verwechselt; hier hilft die Frage, welche Beobachtung
+der Aussage widersprechen würde. Zweitens halten viele Gruppen vage
+Aussagen pauschal für nicht falsifizierbar. Die bessere Antwort ist meist:
+\enquote{In dieser Form nicht prüfbar, aber präzisierbar.} Bei der eigenen
+Hypothese zeigt der Partnertausch schnell, ob die Widerlegungsbedingung
+beobachtbar ist. Formulierungen wie \enquote{wenn es nicht stimmt} oder
+\enquote{wenn kein Zusammenhang besteht} ohne Messung und Kriterium reichen
+nicht. Der vollständige Erwartungshorizont steht am Ende des
+Übungsblatts.
+\end{lehrhinweis}
+
+%==============================================================================
+\section{Sicherung: Was ist eine gute Hypothese?}
+%==============================================================================
+\begin{description}
+\item[{\rot\bf Kriterienraster}]~\\[-\lblskip]
+\begin{center}
+\renewcommand{\arraystretch}{1.2}
+\begin{tabular}{p{0.24\textwidth}p{0.64\textwidth}}
+\toprule
+\textbf{Kriterium} & \textbf{Prüffrage} \\
+\midrule
+präzise & Sind alle Begriffe operationalisiert? \\
+falsifizierbar & Welches Ergebnis würde ihr widersprechen? \\
+riskant & Wäre das Ergebnis ohne die Hypothese unwahrscheinlich? \\
+begrenzt & Für wen, wann, unter welchen Bedingungen gilt sie? \\
+begründet & Woraus folgt sie (Theorie, Literatur, Beobachtung)? \\
+offen & Sind die Hilfsannahmen benannt? \\
+\bottomrule
+\end{tabular}
+\end{center}
+\os{\newpage}
+\end{description}
+
+\begin{merkbox}
+Eine Hypothese ist gut, wenn sie scheitern \emph{kann} und Sie vorher
+sagen können, woran. Bewährt ist sie, wenn sie solche Versuche
+überstanden hat. Bewiesen ist sie nie.
+\end{merkbox}
+\os{\newpage}
+
+%==============================================================================
+\section{Lernziele und Aufgaben}
+%==============================================================================
+\begin{description}
+\item[{\rot\bf Nach dieser Einheit können Sie}]~\\[-\lblskip]
+\bi
+  \ite Induktion, Deduktion und Abduktion unterscheiden
+  \ite Hypothesen nach dem Falsifikationskriterium bewerten
+  \ite empirisch prüfbare von nicht prüfbaren Aussagen unterscheiden
+  \ite eigene Hypothesen operationalisierbar formulieren, mit
+    H\textsubscript{0}, H\textsubscript{1} und Widerlegungsbedingung
+  \ite erklären, warum Bestätigung graduell ist und Widerlegung an
+    Hilfsannahmen hängt
+\ei
+\os{\newpage}
+
+\item[{\rot\bf Bis zur nächsten Woche}]~\\[-\lblskip]
+\bi
+  \ite \textbf{Übungsblatt}, Aufgabe~1 und 2 fertigstellen
+  \ite \textbf{schriftlich} (Aufgabe~3): H\textsubscript{0} und
+    H\textsubscript{1} zu Ihrer Forschungsfrage, mit den Bedingungen, unter
+    denen Sie Ihre Hypothese verwerfen würden
+  \ite \textbf{Tagebuch des Staunens:} ein Erlebnis dieser Woche, bei dem
+    Sie etwas nur bestätigt statt geprüft haben
+  \ite Vorbereitung LE~6: Wie würden Sie Ihre Hypothese testen?
+\ei
+\os{\newpage}
+\end{description}
+
+\handoutinput{handouts/LE05}

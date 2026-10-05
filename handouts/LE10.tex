@@ -1,0 +1,183 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Handout und Uebungsblatt zu Lehreinheit 10
+% Die Studie in Aufgabe 1 ist fiktiv; alle Kennwerte im
+% Erwartungshorizont mit Python (numpy/scipy) nachgerechnet.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{handout}{Datenanalyse und Interpretation}
+
+\textbf{Worum es heute ging.} Vier frei gewählte Zahlen ergaben die
+Summe, die vorher im Umschlag lag: Geburtsjahr plus erreichtes Alter und
+Ereignisjahr plus vergangene Jahre ergeben jeweils das laufende Jahr. Die
+Wahl war frei, das Ergebnis erzwungen -- ein \emph{Force}. Beim
+Vorhersage-Trick waren alle Vorhersagen falsch, und doch ergaben die
+Fehler die Ziffern von $\pi$, weil jede Vorhersage nach dem Blick auf die
+Daten geschrieben wurde. Beides zeigt: Ein Muster, das jede Datenlage
+hervorbringt, beweist nichts.
+
+\textbf{Kernbegriffe}
+\begin{description}
+  \item[Daten, Befund, Schluss] erhobene Werte; prüfbare
+    Zusammenfassung; Deutung mit Annahmen (Schlussfolgerung). Over-Interpretation heißt, eine
+    Schlussfolgerung wie einen Befund zu formulieren.
+  \item[p-Hacking] Auswertung variieren, bis ein Ergebnis signifikant wird
+    \parencite{simmons2011falsepositive}.
+  \item[HARKing] Hypothesizing After the Results are Known: eine
+    nachträglich gebildete Hypothese als vorab aufgestellt ausgeben
+    \parencite{kerr1998harking}.
+  \item[Garden of Forking Paths] viele Entscheidungen der Auswertung
+    erzeugen Zufallstreffer, auch ohne bewusstes Probieren
+    \parencite{gelmanloken2014forking}.
+  \item[Präregistrierung] Hypothesen und Auswertungsplan vor der
+    Erhebung öffentlich festlegen \parencite{nosek2018preregistration}.
+  \item[Triangulation] einen Gegenstand mit verschiedenen Daten, Methoden,
+    Personen oder Theorien untersuchen \parencite{denzin1970research}.
+\end{description}
+
+\textbf{Zufallstreffer bei $m$ unabhängigen Tests} ($\alpha=0{,}05$)
+
+\begin{center}
+\small
+\begin{tabular}{@{}lccccccc@{}}
+\toprule
+$m$ & 1 & 2 & 5 & 10 & 14 & 20 & 50 \\
+\midrule
+$1-(1-\alpha)^m$ & 5\,\% & 9,8\,\% & 22,6\,\% & 40,1\,\% & 51,2\,\% & 64,2\,\% & 92,3\,\% \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\begin{merkbox}
+Wer erst nach dem Blick auf die Daten entscheidet, wonach er sucht, hat
+keinen Befund, sondern eine Hypothese für die nächste Studie. Zu jeder
+Deutung gehört eine Gegenhypothese.
+\end{merkbox}
+
+\textbf{Prüffragen:} Stand meine Auswertung vorher fest? Wie viele Wege
+habe ich probiert, wie viele berichte ich? Was ist die beste
+Gegenhypothese, und welche Daten würden entscheiden?
+
+\textbf{Zum Weiterlesen:} \textcite{gelmanloken2014forking};
+\textcite{nosek2018preregistration}; \textcite{ioannidis2005false}.
+\end{handout}
+
+\begin{uebungsblatt}{Befund und Deutung}
+
+\aufgabe{Befund-Übung}[in der Stunde, Kleingruppe, 20 Min.]
+\textbf{Fiktive Studie} (konstruiert für diese Übung, keine echte
+Erhebung): In einem Kurs mit 13 Terminen wurde für 24 Studierende
+festgehalten, an wie vielen Terminen sie anwesend waren (\textbf{Anw}),
+wie viele Einträge sie im Tagebuch des Staunens gemacht haben
+(\textbf{Tgb}, höchstens 13) und wie viele Punkte sie in der Klausur
+erreicht haben (\textbf{Pkt}, höchstens 60). \textbf{SG} ist der
+Studiengang (T = Technik, W = Wirtschaft).
+
+\begin{center}
+\small
+\begin{tabular}{@{}rcrrr@{\hspace{24pt}}rcrrr@{}}
+\toprule
+\textbf{Nr} & \textbf{SG} & \textbf{Anw} & \textbf{Tgb} & \textbf{Pkt} &
+\textbf{Nr} & \textbf{SG} & \textbf{Anw} & \textbf{Tgb} & \textbf{Pkt} \\
+\midrule
+ 1 & W &  8 &  6 & 38 & 13 & T &  9 &  7 & 32 \\
+ 2 & W &  8 &  3 & 34 & 14 & T & 10 &  8 & 35 \\
+ 3 & W &  7 &  4 & 28 & 15 & T &  6 &  3 & 24 \\
+ 4 & T & 11 & 11 & 45 & 16 & T &  8 &  6 & 38 \\
+ 5 & W &  9 &  9 & 36 & 17 & W & 11 &  8 & 35 \\
+ 6 & T & 10 &  9 & 38 & 18 & W &  5 &  2 & 19 \\
+ 7 & T & 12 & 10 & 48 & 19 & T & 10 &  9 & 39 \\
+ 8 & T & 13 & 12 & 51 & 20 & W & 12 & 11 & 46 \\
+ 9 & W & 11 &  9 & 36 & 21 & T &  8 &  5 & 30 \\
+10 & T &  9 &  7 & 35 & 22 & T &  9 &  8 & 40 \\
+11 & W &  8 &  6 & 36 & 23 & W &  7 &  4 & 31 \\
+12 & T &  7 &  5 & 27 & 24 & W & 13 & 12 & 47 \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+Die Studienleitung schreibt: \enquote{Wer regelmäßig Tagebuch führt
+(mindestens 8 Einträge), erreicht deutlich mehr Punkte. Das Tagebuch des
+Staunens verbessert also den Lernerfolg.}
+\begin{enumerate}
+  \item[(a)] Formulieren Sie die \emph{deskriptiven Befunde}: Mittelwerte
+    der Punkte in den Gruppen mit mindestens 8 und mit weniger als 8
+    Einträgen; wenn möglich auch der Zusammenhang zwischen Tgb und Pkt.
+  \item[(b)] Formulieren Sie \emph{zwei konkurrierende Interpretationen}
+    dieser Befunde. Welche Rolle spielt Anw?
+  \item[(c)] Welche \emph{Zusatzdaten} oder welches andere Design würde
+    zwischen Ihren Interpretationen entscheiden?
+  \item[(d)] Notieren Sie mindestens fünf Entscheidungen, die man bei der
+    Auswertung anders hätte treffen können (Weggabelungen).
+\end{enumerate}
+\schreiblinien{7}
+
+\aufgabe{Zufallstreffer berechnen}[in der Stunde, Einzelarbeit]
+Berechnen Sie die Wahrscheinlichkeit, bei $m$ unabhängigen Tests
+mindestens einen Zufallstreffer zu erhalten, für zwei Schwellen.
+
+\begin{center}
+\renewcommand{\arraystretch}{1.6}
+\begin{tabular}{|l|c|c|c|c|c|c|}
+\hline
+$m$ & 1 & 3 & 5 & 10 & 20 & 100 \\ \hline
+$\alpha=0{,}05$ & & & & & & \\ \hline
+$\alpha=0{,}005$ & & & & & & \\ \hline
+\end{tabular}
+\end{center}
+Bei wie vielen Tests ist ein Zufallstreffer mit $\alpha=0{,}05$
+wahrscheinlicher als keiner? \rule{25mm}{0.3pt}
+
+\aufgabe{Reflexion zum Semesterprojekt}[Hausaufgabe]
+Prüfen Sie Ihre bisherigen Ergebnisse: Haben Sie Ergebnisse gesucht, die
+Ihre Hypothese \emph{bestätigen}? Welche Befunde könnten Ihre Hypothese
+\emph{herausfordern}? Nennen Sie mindestens eine Weggabelung Ihrer
+eigenen Auswertung und legen Sie fest, wie Sie sich dort entscheiden --
+bevor Sie weitere Daten ansehen.
+\schreiblinien{5}
+
+\aufgabe{Tagebuch des Staunens}[Hausaufgabe]
+Beschreiben Sie eine Entscheidung, die sich frei anfühlte und es
+vielleicht nicht war. Was hat sie strukturiert?
+
+\begin{lehrhinweis}[Erwartungshorizont]
+\textbf{Aufgabe~1} (Werte mit Python nachgerechnet).
+(a)~Alle 24: Pkt Mittelwert 36,17 ($s=7{,}72$, Median 36, Spannweite
+19--51); Tgb Mittelwert 7,25 ($s=2{,}91$); Anw Mittelwert 9,21
+($s=2{,}15$). Mindestens 8 Einträge ($n=12$): Pkt Mittelwert 41,33
+($s=5{,}73$, Median 39,5); weniger als 8 ($n=12$): 31,00 ($s=5{,}78$,
+Median 31,5). Differenz 10,3 Punkte, Cohens $d\approx1{,}80$;
+$t$-Test $p\approx0{,}0002$. Korrelation Tgb--Pkt $r=0{,}89$. Aber auch
+Anw--Pkt $r=0{,}90$ und Tgb--Anw $r=0{,}95$. Die Gruppe mit mindestens 8
+Einträgen war im Mittel an 10,92 Terminen anwesend, die andere an 7,50.
+(b)~Interpretation~1: Das Tagebuch fördert das Lernen (kausale Lesart der
+Studienleitung). Interpretation~2: Eine Drittvariable wie Engagement oder
+Motivation führt sowohl zu mehr Anwesenheit und mehr Tagebucheinträgen
+als auch zu mehr Punkten; denkbar ist auch, dass Anwesenheit selbst
+wirkt und Tagebucheinträge vor allem bei Anwesenheit entstehen. Die Daten
+können beides nicht trennen: Unter den zehn Personen mit höchstens 8
+Terminen hat niemand 8 oder mehr Einträge, unter den sieben mit
+mindestens 11 Terminen haben alle 8 oder mehr. Rechnet man die Anwesenheit
+heraus, sinkt der Zusammenhang Tgb--Pkt auf eine Partialkorrelation von
+0,29 -- bei $n=24$ und dieser Kollinearität kein belastbarer Wert.
+(c)~Zufällige Zuteilung zum Tagebuch (Experiment); Vorleistungen (z.\,B.\
+Noten vor dem Kurs); Lernzeit außerhalb des Kurses; Inhalte der
+Tagebucheinträge (qualitativ, LE~9); Interviews zur Nutzung
+(Triangulation). Die Zeitfolge klären: Kamen die Einträge vor den
+Lernfortschritten?
+(d)~Grenze der Tagebuchgruppen (8, 10, Median, kontinuierlich); Punkte
+oder nur \enquote{bestanden}; Ausschluss von Nr.~18 (niedrigster Wert);
+Teilgruppe nach Studiengang (in beiden Studiengängen ist der Unterschied
+vorhanden: T 42,29 gegen 31,00, W 40,00 gegen 31,00); Kontrolle für
+Anwesenheit ja/nein; Wahl des Tests; einseitig oder zweiseitig. Wer fünf
+Gabelungen mit je zwei Optionen hat, hat bereits $2^5=32$ mögliche
+Auswertungen.
+
+\textbf{Aufgabe~2.} $\alpha=0{,}05$: $m=1$: 5,0\,\%; 3: 14,3\,\%; 5:
+22,6\,\%; 10: 40,1\,\%; 20: 64,2\,\%; 100: 99,4\,\%.
+$\alpha=0{,}005$: 0,5\,\%; 1,5\,\%; 2,5\,\%; 4,9\,\%; 9,5\,\%; 39,4\,\%.
+Ab $m=14$ Tests ist bei $\alpha=0{,}05$ ein Zufallstreffer
+wahrscheinlicher als keiner (51,2\,\%; bei $m=13$ sind es 48,7\,\%).
+
+\textbf{Aufgabe~3.} Erwartet ist eine konkrete, eigene Weggabelung mit
+einer vorab getroffenen Entscheidung, keine allgemeine Aussage.
+\end{lehrhinweis}
+\end{uebungsblatt}

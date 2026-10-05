@@ -1,0 +1,50 @@
+\documentclass[a4paper,11pt,twoside,openany]{book}
+\newif\ifslides \newif\ifhandouts
+\input{preamble}
+\usepackage[colorlinks=true,pdfpagemode=UseNone]{hyperref}
+\hypersetup{linkcolor=rwuviolet,citecolor=rwucyandark,urlcolor=rwucyandark,
+  pdftitle={Wissenschaftliches Arbeiten (WuZ) -- Skript},pdfauthor={Markus Pfeil}}
+
+% RWU-Look: violette Ueberschriften, graue Kopfzeile und Seitenzahl
+\usepackage{titlesec}
+\titleformat{\chapter}[hang]{\sffamily\Huge\bfseries\color{rwuviolet}}{\thechapter}{0.6em}{}
+\titlespacing*{\chapter}{0pt}{0pt}{18pt}
+\titleformat*{\section}{\sffamily\Large\bfseries\color{rwuviolet}}
+\titleformat*{\subsection}{\sffamily\large\bfseries\color{rwucyandark}}
+\titleformat*{\subsubsection}{\sffamily\normalsize\bfseries\color{rwucyandark}}
+\usepackage{fancyhdr}
+\fancypagestyle{rwu}{%
+  \fancyhf{}%
+  \fancyhead[LE,RO]{\color{rwugray}\small\nouppercase{\leftmark}}%
+  \fancyfoot[LE,RO]{\color{rwugray}\small\thepage}%
+  \renewcommand{\headrulewidth}{0pt}}
+\fancypagestyle{plain}{%
+  \fancyhf{}%
+  \fancyfoot[LE,RO]{\color{rwugray}\small\thepage}%
+  \renewcommand{\headrulewidth}{0pt}}
+\renewcommand{\chaptermark}[1]{\markboth{\thechapter\ \ #1}{}}
+\textwidth 170mm
+\textheight 250mm
+\topmargin -20mm
+\headheight 15pt
+\evensidemargin -5mm
+\oddsidemargin -5mm
+\parindent 0mm
+\parskip 0.6ex
+\counterwithin{figure}{chapter}
+
+\input ./mathmacros
+\input macros
+\input wuzmacros
+\pagestyle{rwu}
+
+\begin{document}
+\include{cover}
+
+\setcounter{tocdepth}{1}
+\tableofcontents
+
+\input{text.tex}
+
+\printbibliography[heading=bibintoc,title={Literatur}]
+\end{document}

@@ -1,0 +1,89 @@
+%************************************************************************
+% WuZ-spezifische Umgebungen fuer Skript, Folien und Handouts.
+% Wird nach mathmacros(-sl) und macros geladen. Die Root-Dateien setzen
+% \slidestrue (Folien) bzw. \handoutstrue (Handouts/Uebungsblaetter).
+%
+% Sichtbarkeit:
+%   staunbox, merkbox            Skript, Folien, Handouts
+%   vorbereitung, ablauf,
+%   lehrhinweis                  nur Skript (Regie fuer Lehrende)
+%   handout, uebungsblatt        Skript und Handouts (nicht Folien)
+%   \nsl{...} / \os{...}         nur Skript / nur Folien (wie Embedded Computing)
+%************************************************************************
+
+% ---- Staunmoment: die Staun-Intervention der Lehreinheit -------------
+\newtcolorbox{staunbox}[1]{enhanced,breakable,
+  colback=rwuviolet!6,colframe=rwuviolet,boxrule=0.6pt,arc=2pt,
+  fonttitle=\bfseries,coltitle=white,colbacktitle=rwuviolet,
+  title={$\bigstar$\enspace Staunmoment: #1}}
+
+% ---- Merksatz ---------------------------------------------------------
+\newtcolorbox{merkbox}[1][Merke]{enhanced,breakable,
+  colback=rwucyan40!25,colframe=rwucyan,boxrule=0.6pt,arc=2pt,
+  fonttitle=\bfseries,coltitle=black,colbacktitle=rwucyan40,
+  title={#1}}
+
+% ---- Nur Skript: Vorbereitung, Ablauf, Hinweise fuer Lehrende ---------
+\ifslides
+  \excludeversion{vorbereitung}
+  \excludeversion{ablauf}
+  \excludeversion{lehrhinweis}
+\else
+  \newtcolorbox{vorbereitung}[1][]{enhanced,breakable,
+    colback=black!3,colframe=rwugray,boxrule=0.5pt,arc=2pt,
+    borderline west={3pt}{0pt}{rwucyan},
+    fonttitle=\bfseries,coltitle=white,colbacktitle=rwugray,
+    title={Vorbereitung vor der Stunde\ifx&#1&\else: #1\fi}}
+  \newtcolorbox{ablauf}[1][Ablauf der Doppelstunde (90 Min.)]{enhanced,breakable,
+    colback=rwucyan40!12,colframe=rwucyandark,boxrule=0.5pt,arc=2pt,
+    fonttitle=\bfseries,coltitle=white,colbacktitle=rwucyandark,
+    title={#1}}
+  \newtcolorbox{lehrhinweis}[1][Hinweis für Lehrende]{enhanced,breakable,
+    colback=rwuviolet!3,colframe=rwuvioletlight,boxrule=0.5pt,arc=2pt,
+    fonttitle=\bfseries\small,coltitle=black,colbacktitle=rwuvioletlight!40,
+    title={#1}}
+\fi
+\ifhandouts
+  % Handouts gehen an Studierende: keine Regie, keine Loesungshinweise
+  \excludeversion{lehrhinweis}
+\fi
+
+% ---- Checkliste in Vorbereitungsboxen -----------------------------------
+\newenvironment{checkliste}{\begin{list}{$\square$}{\leftmargin 1.4em \labelwidth 1em
+  \labelsep 0.4em \itemsep 0.1em \parsep 0em \topsep 0.3em}}{\end{list}}
+
+% ---- Handouts und Uebungsblaetter ---------------------------------------
+% Jede Lehreinheit hat eine Datei handouts/LEnn.tex mit einem Handout und
+% einem Uebungsblatt. Im Skript wird sie am Kapitelende eingebunden, in
+% handouts.tex als Druckvorlage, auf den Folien gar nicht.
+\newcounter{wuzaufgabe}
+\newcommand{\wuzblattkopf}[2]{%
+  \clearpage
+  \noindent{\sffamily
+  \colorbox{#1}{\parbox{\dimexpr\textwidth-2\fboxsep\relax}{\color{white}\small\bfseries
+    Wissenschaftliches Arbeiten (WuZ)\hfill Lehreinheit~\thechapter}}\\[3mm]
+  {\LARGE\bfseries\color{#1}#2}\\[-1mm]
+  {\color{#1}\rule{\textwidth}{0.5mm}}}\par\medskip}
+\newenvironment{handout}[1]{\wuzblattkopf{rwuviolet}{Handout: #1}}{\par}
+\newenvironment{uebungsblatt}[1]{\setcounter{wuzaufgabe}{0}%
+  \wuzblattkopf{rwucyandark}{Übungsblatt: #1}%
+  \noindent{\small Name: \rule{55mm}{0.3pt}\hfill Datum: \rule{30mm}{0.3pt}}\par\medskip}{\par}
+% \aufgabe{Titel}[Bearbeitungszeit/Form]
+\NewDocumentCommand{\aufgabe}{m o}{\par\medskip\refstepcounter{wuzaufgabe}%
+  \noindent{\bfseries\color{rwucyandark}Aufgabe~\thewuzaufgabe: #1}%
+  \IfValueT{#2}{\hfill{\small\color{rwugray}#2}}\par\smallskip}
+% Schreiblinien fuer Antworten: \schreiblinien{Anzahl}
+\newcommand{\schreiblinien}[1]{\par\vspace{2mm}\foreach \i in {1,...,#1}{%
+  \noindent\color{rwugray!60}\rule{\textwidth}{0.3pt}\par\vspace{6mm}}\color{black}}
+
+\ifslides
+  \newcommand{\handoutinput}[1]{}
+\else
+  \newcommand{\handoutinput}[1]{\input{#1}}
+\fi
+% in handouts.tex: \handoutle{Nummer}{Datei}
+\newcommand{\handoutle}[2]{\setcounter{chapter}{#1}\input{#2}}
+
+% ---- Kleinkram -------------------------------------------------------------
+\newcommand{\LE}[1]{LE~#1}
+\newcommand{\buch}[1]{\emph{WuZ-Buch}, #1}   % Verweis auf das Begleitbuch

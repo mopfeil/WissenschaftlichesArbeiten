@@ -1,0 +1,18 @@
+# LaTeX-Build-Artefakte
+*.aux
+*.log
+*.out
+*.toc
+*.bbl
+*.blg
+*.bcf
+*.run.xml
+*.fls
+*.fdb_latexmk
+*.synctex
+*.synctex.gz
+*.synctex(busy)
+docu.pdf
+slides.pdf
+handouts.pdf
+Thumbs.db

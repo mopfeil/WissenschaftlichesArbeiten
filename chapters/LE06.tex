@@ -1,0 +1,698 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Lehreinheit 6: Forschungsdesign
+% Quelle: WuZ-Buch, Kap. 15 (LE 6), Kap. 12d (Videostudie Becher-Monty-Hall:
+%         Studienlogik, Laengendifferenz), Kap. 12f (Feldstudie, Endbefunde),
+%         Kap. 10b (Testbarkeit: Blind-Design, Prozessindikator,
+%         Parallelmessung), Kap. 4 (HCEG als Validitaetsbedrohung)
+% Staunmoment: Kontrollierte Seilroutine  |  Kernbegriff: interne Validitaet
+% Geheimhaltung: Methode der Seilroutine wird NICHT beschrieben.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\nsl{In LE~5 wurde aus der Forschungsfrage eine Hypothese mit
+Widerlegungsbedingung. Jetzt geht es um den Plan, mit dem man sie prüft.
+Ein Forschungsdesign legt fest, wer was wann unter welchen Bedingungen
+misst und womit verglichen wird. Die Einheit beginnt mit drei Seilen
+unterschiedlicher Länge, die gleich lang werden. Die Gruppe sieht das
+Kunststück zweimal: einmal so, wie es auf der Bühne gezeigt wird, und
+einmal unter Bedingungen, die sie selbst festlegt. Der Unterschied zwischen
+beiden Durchgängen ist der Unterschied zwischen einer Behauptung und einem
+Experiment. Daraus entwickelt die Einheit Designtypen, interne und externe
+Validität, Konfundierung und Kontrolle sowie die Gütekriterien von
+Messungen. Als Fallbeispiel dient die Becher-Monty-Hall-Studie aus dem
+Buch, mit einem sauberen Idealentwurf und einer Feldstudie, die zeigt, was
+in der Praxis davon übrig bleibt.
+\newpage}
+\os{\begin{description}
+\item[{\rot\bf Heute}]~\\[-\lblskip]
+\bi
+  \ite drei Seile, zwei Vorführungen
+  \ite Forschungsdesign: Variablen, Vergleich, Kausalität
+  \ite Designtypen: experimentell, quasi-experimentell, nicht-experimentell
+  \ite interne und externe Validität, Konfundierung
+  \ite Gütekriterien: Objektivität, Reliabilität, Validität
+  \ite Fallbeispiel: die Becher-Monty-Hall-Studie
+\ei
+\end{description}
+\newpage}
+
+\begin{vorbereitung}[Kontrollierte Seilroutine]
+\textbf{Eine Woche vorher}
+\begin{checkliste}
+  \item Seil-Set für eine Routine, in der drei Seile unterschiedlicher
+    Länge gleich lang werden (klassischer Effekt, im Fachhandel als
+    fertiges Set erhältlich oder nach der Standardliteratur selbst
+    zusammengestellt). Zwei vollständige Sets einpacken; Seile werden
+    schnell unansehnlich.
+  \item \textbf{Methode und Einstudierung nach der Anleitung des
+    Herstellers bzw.\ der Standardliteratur; hier bewusst nicht
+    beschrieben.} Das Skript wird öffentlich gespiegelt.
+  \item Zwei Präsentationen proben. \emph{Variante~A} wie auf der Bühne:
+    Seile zeigen, Längen behaupten, Effekt, Seile ins Publikum. Dauer etwa
+    drei Minuten. \emph{Variante~B} mit Kontrollbedingung: Die Gruppe legt
+    vorab fest, wie Ausgangs- und Endlängen geprüft werden.
+  \item Vor der Probe von Variante~B entscheiden, welche Prüfungen Sie
+    zulassen und welche Sie ausdrücklich verweigern. Faustregel: Alles,
+    was die Methode gefährden könnte, wird freundlich und offen abgelehnt
+    (\enquote{Diese Kontrolle lasse ich nicht zu.}). Die Ablehnung ist kein
+    Notbehelf, sondern der didaktische Kern der Variante.
+  \item Für Variante~B ein Maßband oder einen Zollstock (2\,m) und einen
+    Flipchart-Bogen für das Messprotokoll bereitlegen.
+  \item Das Fallbeispiel vorbereiten: \buch{Kap.~12d} (Studienlogik,
+    Beat-Plan, Längendifferenz) und \buch{Kap.~12f} (Feldstudie,
+    Ergebnisse). Zahlen nur so verwenden, wie sie dort stehen.
+\end{checkliste}
+
+\textbf{Handout und Übungsblatt}
+\begin{checkliste}
+  \item Handout \enquote{Forschungsdesign} und Übungsblatt LE~6 je einmal
+    pro Person kopieren (Druckvorlage \texttt{handouts.pdf}, Seiten zu
+    LE~6). Das Übungsblatt enthält die fiktive Studienbeschreibung für die
+    Design-Analyse und die Vorlage für die Design-Skizze vollständig.
+  \item Die H\textsubscript{0}/H\textsubscript{1}-Blätter aus LE~5
+    (Aufgabe~3) zurückgeben bzw.\ mitbringen lassen; sie sind die
+    Grundlage der eigenen Design-Skizze.
+  \item Optional statt des fiktiven Falls einen echten, kurzen
+    empirischen Artikel aus dem Fach der Gruppe auswählen (Methodenteil
+    höchstens zwei Seiten, klare Gruppenvergleiche). Dann den
+    Methodenteil pro Zweiergruppe einmal kopieren.
+\end{checkliste}
+
+\textbf{Am Tag selbst}
+\begin{checkliste}
+  \item Seile vor der Stunde vorbereiten; das Ersatzset griffbereit, aber
+    außer Sicht.
+  \item Tafel in zwei Spalten teilen: \enquote{Variante A: Was haben wir
+    gesehen?} und \enquote{Variante B: Was haben wir gemessen?}.
+  \item Für die Design-Werkstatt Zweiergruppen einteilen, die sich in der
+    Feedback-Phase gegenseitig die Skizzen vorstellen.
+\end{checkliste}
+
+\textbf{Risiken und Plan B.} Die Seilroutine ist bekannt; es kann sein,
+dass jemand sie schon gesehen hat oder die Methode kennt. Diese Person
+bitten, ihr Wissen für sich zu behalten, und den Umstand selbst nutzen:
+Vorwissen ist eine Störvariable, und genau sie hat in der
+Monty-Hall-Feldstudie alle Armunterschiede überstrahlt (siehe
+Fallbeispiel). Misslingt der Effekt, wird er nicht wiederholt; dann
+trägt Variante~B die Stunde allein, indem die Gruppe ein Messprotokoll für
+eine Behauptung entwirft, die die Lehrperson nur ankündigt. Ohne Seile
+lässt sich der Einstieg mit einer bekannten Längentäuschung
+(Müller-Lyer-Figur) erst ohne, dann mit Lineal ersetzen.
+\end{vorbereitung}
+
+\begin{ablauf}
+\begin{description}
+\item[0--5 · Blitzlicht.] Von der Hypothese (LE~5) zum Prüfplan:
+  \enquote{Wie würden Sie Ihre Hypothese testen?} Zwei, drei Antworten
+  sammeln.
+\item[5--15 · Staunmoment.] Seilroutine erst als Variante~A ohne
+  Vergleich, dann als Variante~B mit Kontrollbedingung, die die Gruppe
+  festlegt. Die Gruppe erlebt, wie die Kontrolle die Täuschung entlarvt
+  oder ihre Verweigerung die Behauptung entwertet.
+\item[15--45 · Theorie-Input.] Designtypen; interne und externe
+  Validität; Konfundierung; Gütekriterien. Fallbeispiel: das Design der
+  Becher-Monty-Hall-Videostudie und ihr Störfaktor, dann die Feldstudie.
+\item[45--75 · Design-Werkstatt.] Analyse der fiktiven Studie (UV, AV,
+  Kontrollgruppe, Konfounder; Übungsblatt, Aufgabe~1); dann Skizze eines
+  eigenen Designs zur eigenen Hypothese (Aufgabe~2); Messgüte-Check mit
+  dem Vokabular aus \buch{Kap.~10b}.
+\item[75--90 · Sicherung.] Peer-Feedback auf die Design-Skizzen in
+  Zweiergruppen; Abgabe der Skizze als benotete Teilleistung
+  terminieren.
+\end{description}
+\end{ablauf}
+
+%==============================================================================
+\section{Staunmoment: Drei Seile}
+%==============================================================================
+\begin{staunbox}{Kontrollierte Seilroutine}
+Drei Seile: kurz, mittel, lang. \emph{Ich mache sie gleich lang.}
+
+\medskip
+\textbf{Variante A:} Schauen Sie zu.
+
+\textbf{Variante B:} Diesmal bestimmen Sie, wie wir prüfen. Was wollen Sie
+vorher messen, was nachher, und womit vergleichen?
+\end{staunbox}
+\os{\newpage}
+
+\begin{description}
+\item[{\rot\bf Variante A: ohne Vergleich}]~\\[-\lblskip]
+\bi
+  \ite Was haben Sie gesehen?
+  \ite Woher wissen Sie, dass die Seile vorher verschieden lang waren?
+  \ite Woher wissen Sie, dass sie nachher gleich lang sind?
+  \ite Wer hat gemessen -- und womit?
+\ei
+\os{\newpage}
+
+\item[{\rot\bf Variante B: mit Kontrollbedingung}]~\\[-\lblskip]
+\bi
+  \ite Ihr Prüfplan: Was messen wir vorher, was nachher?
+  \ite Wer misst? Wer darf die Seile halten?
+  \ite Womit vergleichen wir: Maßband, ein unbeteiligtes Seil, eine
+    zweite Person?
+  \ite Welche Prüfung lässt die Vorführende \emph{nicht} zu -- und was
+    folgt daraus?
+\ei
+\os{\newpage}
+\end{description}
+
+\nsl{In Variante~A ist die einzige Evidenz die Vorführung selbst. Die
+Längen vorher und nachher werden behauptet und durch Zeigen
+\enquote{belegt}; gemessen hat niemand, verglichen wurde nichts. In
+Variante~B formuliert die Gruppe einen Prüfplan, bevor das Kunststück
+beginnt. Lässt die Lehrperson eine Prüfung zu, wird der Effekt an einem
+unabhängigen Maßstab gemessen. Verweigert sie eine Prüfung, wird sichtbar,
+dass die Behauptung nur unter Bedingungen gilt, die der Behauptende selbst
+kontrolliert. Für ein Kunststück ist das legitim, denn es behauptet
+nichts über die Welt. Für eine Studie wäre es ein K.-o.-Kriterium.
+Dieselbe Figur kennt das Buch vom Muskeltest der Applied Kinesiology:
+Solange der Anwender den Test kontrolliert, scheint er zu funktionieren;
+in einer Doppelblindstudie lag die Trefferquote kaum über dem Zufall
+(\buch{Kap.~10b}).}
+
+\begin{description}
+\item[{\rot\bf Was ist der Unterschied?}]~\\[-\lblskip]
+\bi
+  \ite A: Behauptung plus Vorführung -- der Behauptende kontrolliert alles
+  \ite B: Prüfplan vorab, unabhängiger Maßstab, Vergleich vorher/nachher
+  \ite eine verweigerte Kontrolle ist selbst ein Befund
+  \ite ohne Kontrollbedingung bleiben selbst grobe Täuschungen
+    unentdeckt
+\ei
+\os{\newpage}
+\end{description}
+
+%==============================================================================
+\section{Was ein Forschungsdesign leistet}
+%==============================================================================
+\nsl{Ein Forschungsdesign ist der Plan, mit dem eine Forschungsfrage
+beantwortet werden soll. Es legt fest, welche Variablen erhoben oder
+verändert werden, an wem, zu welchen Zeitpunkten und unter welchen
+Bedingungen, und vor allem, womit verglichen wird
+\parencite{doering2016forschungsmethoden}. Die \emph{unabhängige Variable}
+(UV) ist die vermutete Ursache; im Experiment wird sie gezielt variiert.
+Die \emph{abhängige Variable} (AV) ist die gemessene Wirkung.
+\emph{Störvariablen} beeinflussen die AV ebenfalls, ohne Gegenstand der
+Untersuchung zu sein. Will man aus einem Zusammenhang auf Kausalität
+schließen, müssen drei Bedingungen erfüllt sein: Ursache und Wirkung
+variieren gemeinsam, die Ursache geht der Wirkung zeitlich voraus, und
+plausible Alternativerklärungen sind ausgeschlossen
+\parencite{shadish2002experimental}. Die dritte Bedingung ist die
+schwierigste, und an ihr entscheidet sich die Qualität eines Designs.}
+\begin{description}
+\item[{\rot\bf Forschungsdesign}]~
+\end{description}
+\defn{design}{Ein \textbf{Forschungsdesign} ist der Plan einer
+Untersuchung: welche Variablen an wem, wann und unter welchen Bedingungen
+erhoben oder verändert werden und womit die Ergebnisse verglichen werden.}
+\bi
+  \ite \textbf{UV:} vermutete Ursache (im Experiment gezielt variiert)
+  \ite \textbf{AV:} gemessene Wirkung
+  \ite \textbf{Störvariable:} wirkt ebenfalls auf die AV
+\ei
+\os{\newpage}
+
+\begin{description}
+\item[{\rot\bf Wann darf man auf Kausalität schließen?}]~\\[-\lblskip]
+\bi
+  \ite \textbf{Kovariation:} Ursache und Wirkung treten gemeinsam auf
+  \ite \textbf{zeitliche Folge:} die Ursache geht der Wirkung voraus
+  \ite \textbf{keine Alternativerklärung:} nichts anderes erklärt den
+    Zusammenhang ebenso gut
+  \ite die dritte Bedingung ist die schwierigste -- sie ist der Zweck des
+    Designs
+\ei
+\os{\newpage}
+
+\item[{\rot\bf Seile als Design}]~\\[-\lblskip]
+\bi
+  \ite UV: das Kunststück (durchgeführt / nicht durchgeführt)
+  \ite AV: die Seillängen
+  \ite Variante~A: eine Messung, nachher, durch den Behauptenden
+  \ite Variante~B: Vorher- und Nachher-Messung, unabhängiger Maßstab
+  \ite Welche Alternativerklärungen schließt B aus, A nicht?
+\ei
+\os{\newpage}
+\end{description}
+
+%==============================================================================
+\section{Designtypen}
+%==============================================================================
+\nsl{Designs lassen sich danach ordnen, ob die UV aktiv variiert wird und
+ob die Zuteilung zu den Bedingungen zufällig erfolgt
+\parencite{shadish2002experimental, doering2016forschungsmethoden}. Im
+\emph{Experiment} variieren die Forschenden die UV und teilen die
+Teilnehmenden zufällig den Bedingungen zu (Randomisierung). Zufall
+verteilt bekannte und unbekannte Störvariablen im Mittel gleich auf die
+Gruppen; das macht das Experiment zum stärksten Design für
+Kausalaussagen. Im \emph{Quasi-Experiment} wird die UV variiert, aber
+vorhandene Gruppen werden verglichen (zwei Kurse, zwei Standorte); die
+Gruppen können sich schon vorher unterschieden haben. Im
+\emph{nicht-experimentellen} Design wird nichts verändert, nur erhoben;
+es zeigt Zusammenhänge, aber kaum Ursachen. Quer dazu liegt die Frage nach
+der Zeit: Ein \emph{Querschnitt} misst einmal und vergleicht Personen, ein
+\emph{Längsschnitt} misst dieselben Personen mehrfach und kann
+Veränderungen verfolgen. Die Notation von Campbell kürzt Designs ab:
+R steht für zufällige Zuteilung, X für die Intervention, O für eine
+Messung (\emph{observation}).}
+\begin{description}
+\item[{\rot\bf Drei Grundtypen}]~\\[-\lblskip]
+\begin{center}
+\renewcommand{\arraystretch}{1.25}
+\begin{tabular}{p{0.24\textwidth}p{0.17\textwidth}p{0.17\textwidth}p{0.26\textwidth}}
+\toprule
+& \textbf{UV variiert?} & \textbf{Zufall?} & \textbf{Kausalaussage} \\
+\midrule
+Experiment & ja & ja & stark \\
+Quasi-Experiment & ja & nein & eingeschränkt \\
+nicht-experimentell & nein & -- & schwach (Zusammenhang) \\
+\bottomrule
+\end{tabular}
+\end{center}
+\bi
+  \ite quer dazu: \textbf{Querschnitt} (einmal messen) oder
+    \textbf{Längsschnitt} (dieselben Personen mehrfach)
+\ei
+\os{\newpage}
+
+\item[{\rot\bf Designs in Kurzschrift}]~\\[-\lblskip]
+\begin{center}
+\renewcommand{\arraystretch}{1.3}
+\begin{tabular}{p{0.46\textwidth}cccc}
+\toprule
+\textbf{Design} & & & & \textbf{Zeit $\rightarrow$} \\
+\midrule
+One-Shot (Variante A) & & & X & O \\
+Vorher-Nachher, eine Gruppe (Variante B) & & O & X & O \\
+\midrule
+Experiment mit Kontrollgruppe & {\color{rwuviolet}R} & & X & O \\
+ & {\color{rwuviolet}R} & & & O \\
+\midrule
+Experiment mit Vortest & {\color{rwuviolet}R} & O & X & O \\
+ & {\color{rwuviolet}R} & O & & O \\
+\bottomrule
+\end{tabular}
+\end{center}
+\bi
+  \ite R = Zufallszuteilung, X = Intervention, O = Messung
+\ei
+\os{\newpage}
+\end{description}
+
+%==============================================================================
+\section{Interne Validität}
+%==============================================================================
+\nsl{Ein Design ist \emph{intern valide}, wenn sich die Veränderung der
+AV eindeutig auf die UV zurückführen lässt. Shadish, Cook und Campbell
+haben die typischen Bedrohungen zusammengestellt
+\parencite{shadish2002experimental}. Die Liste ist ein Werkzeug: Wer ein
+Design plant oder liest, geht sie Punkt für Punkt durch und fragt, welche
+Bedrohung das Design ausschließt und welche nicht. Ein Vorher-Nachher-Vergleich
+ohne Kontrollgruppe ist anfällig für fast alle; die zufällig zugeteilte
+Kontrollgruppe neutralisiert die meisten, weil Geschichte, Reifung und
+Testeffekte beide Gruppen gleich treffen.}
+\begin{description}
+\item[{\rot\bf Bedrohungen der internen Validität}]~\\[-\lblskip]
+\begin{center}
+\small
+\renewcommand{\arraystretch}{1.15}
+\begin{tabular}{p{0.24\textwidth}p{0.62\textwidth}}
+\toprule
+\textbf{Bedrohung} & \textbf{Beispiel: Lernvideo mit Vorher-Nachher-Test} \\
+\midrule
+Geschichte & in der Woche dazwischen läuft eine Doku zum Thema \\
+Reifung & die Teilnehmenden lernen ohnehin dazu \\
+Testeffekt & der Vortest übt schon für den Nachtest \\
+Instrumentierung & Nachtest ist leichter als Vortest \\
+Regression zur Mitte & nur die Schwächsten im Vortest werden ausgewählt \\
+Selektion & Freiwillige mit Interesse gegen Pflichtgruppe \\
+Ausfall & die Frustrierten brechen vor dem Nachtest ab \\
+\bottomrule
+\end{tabular}
+\end{center}
+\os{\newpage}
+\end{description}
+
+\nsl{Eine eigene Bedrohung entsteht durch die Forschenden selbst. Wenn
+die Person, die das Ergebnis erhofft, auch misst oder bewertet, können
+ihre Erwartungen die Daten verschieben, ohne dass sie es bemerkt. Der
+\enquote{Kluge Hans}, ein Pferd, das angeblich rechnen konnte, antwortete
+nur dann richtig, wenn die Fragenden die Antwort kannten und sichtbar
+waren; es las ihre unwillkürlichen Bewegungen \parencite{pfungst1907}.
+Dieselbe Logik steckt im ideomotorischen Pendel aus LE~1. Gegenmittel ist
+das \emph{Blind-Design}: Wer misst, weiß nicht, in welcher Bedingung die
+gemessene Person war. LE~7 vertieft diesen Versuchsleitereffekt.}
+\begin{description}
+\item[{\rot\bf Die Forschenden als Störvariable}]~\\[-\lblskip]
+\bi
+  \ite Der Kluge Hans (1907): ein Pferd \enquote{rechnet} -- solange die
+    Fragenden die Antwort kennen und sichtbar sind
+  \ite es reagierte auf unwillkürliche Bewegungen der Fragenden
+  \ite Seile: wer vorführt, darf nicht auch messen
+  \ite Gegenmittel: \textbf{Blind-Design} -- die Messenden kennen die
+    Bedingung nicht
+\ei
+\os{\newpage}
+\end{description}
+
+%==============================================================================
+\section{Konfundierung und Kontrolle}
+%==============================================================================
+\nsl{Von \emph{Konfundierung} spricht man, wenn eine Störvariable
+systematisch mit der UV variiert. Dann lassen sich ihre Wirkungen nicht
+mehr trennen. Wer eine Lern-App freiwillig nutzt, ist im Mittel vermutlich
+motivierter als wer sie nicht nutzt; ein Notenunterschied kann von der App
+oder von der Motivation kommen. Gegen Konfundierung gibt es fünf
+Werkzeuge: Randomisierung, Konstanthalten (alle Bedingungen gleich bis auf
+die UV), Parallelisieren oder Schichten (Gruppen nach einem bekannten
+Störmerkmal ausbalancieren), eine geeignete Kontrollgruppe und
+Blindbedingungen. Die Kontrollgruppe ist dabei nicht einfach \enquote{die
+anderen}. Eine \emph{aktive Kontrolle} erhält eine gleich lange,
+gleich aufwendige Bedingung ohne den vermuteten Wirkstoff, damit sich die
+Gruppen nur in dem unterscheiden, was untersucht wird.}
+\begin{description}
+\item[{\rot\bf Konfundierung}]~
+\end{description}
+\defn{konfundierung}{\textbf{Konfundierung} liegt vor, wenn eine
+Störvariable systematisch mit der unabhängigen Variablen variiert. Ihre
+Wirkung auf die abhängige Variable ist dann von der Wirkung der UV nicht
+mehr zu trennen.}
+\bi
+  \ite Beispiel: freiwillige App-Nutzer sind motivierter -- App oder
+    Motivation?
+  \ite die Täuschung in Variante~A: Längen und Messung lagen beim
+    Vorführenden
+\ei
+\os{\newpage}
+
+\begin{description}
+\item[{\rot\bf Fünf Werkzeuge der Kontrolle}]~\\[-\lblskip]
+\bi
+  \ite \textbf{Randomisierung:} Zufall verteilt auch unbekannte
+    Störvariablen
+  \ite \textbf{Konstanthalten:} alles gleich bis auf die UV
+  \ite \textbf{Schichten / Parallelisieren:} Gruppen nach bekanntem
+    Störmerkmal ausbalancieren
+  \ite \textbf{Kontrollgruppe}, möglichst \emph{aktiv}: gleich lang,
+    gleich aufwendig, ohne Wirkstoff
+  \ite \textbf{Blindbedingungen:} Teilnehmende und Messende kennen die
+    Bedingung nicht
+\ei
+\os{\newpage}
+\end{description}
+
+%==============================================================================
+\section{Externe Validität}
+%==============================================================================
+\nsl{Ein intern valides Ergebnis gilt zunächst nur für die untersuchten
+Personen, unter den untersuchten Bedingungen, zum untersuchten Zeitpunkt.
+\emph{Externe Validität} fragt, wie weit es sich auf andere Personen,
+Situationen und Zeiten übertragen lässt \parencite{shadish2002experimental}.
+Zwischen beiden besteht ein Zielkonflikt: Je strenger ein Labor alles
+konstant hält, desto künstlicher wird die Situation. Das Buch nennt eine
+besonders tückische Form dieses Problems: den \emph{Hot-Cold-Empathy-Gap}
+\parencite{loewenstein1996visceral}. Wer im ruhigen Labor vorhersagen
+soll, wie er unter Stress, Zeitdruck oder Erregung entscheiden würde,
+beschreibt sein rationalisiertes Selbstbild. Umfragen zu zustandsabhängigem
+Verhalten sind deshalb strukturell unzuverlässig, solange dieser Abstand
+nicht methodisch adressiert wird (\buch{Kap.~4, HCEG}).}
+\begin{description}
+\item[{\rot\bf Externe Validität}]~\\[-\lblskip]
+\bi
+  \ite gilt das Ergebnis auch für andere Personen, Orte, Zeiten?
+  \ite Zielkonflikt: je kontrollierter das Labor, desto künstlicher die
+    Situation
+  \ite Gelegenheitsstichproben (Freunde, Kommilitonen) sagen wenig über
+    die Allgemeinbevölkerung
+  \ite \textbf{Hot-Cold-Empathy-Gap}: im ruhigen Labor sagt man falsch
+    voraus, wie man unter Stress handelt
+\ei
+\os{\newpage}
+\end{description}
+
+%==============================================================================
+\section{Gütekriterien der Messung}
+%==============================================================================
+\nsl{Auch das beste Design hilft nicht, wenn die AV schlecht gemessen
+wird. Die klassische Testtheorie nennt drei Hauptgütekriterien
+\parencite{doering2016forschungsmethoden}. \emph{Objektivität}: Das
+Ergebnis hängt nicht davon ab, wer die Messung durchführt, auswertet und
+interpretiert. \emph{Reliabilität}: Die Messung ist zuverlässig, eine
+Wiederholung unter gleichen Bedingungen liefert dasselbe Ergebnis.
+\emph{Validität}: Die Messung erfasst tatsächlich das gemeinte Konstrukt.
+Die Kriterien bauen aufeinander auf: Ohne Objektivität keine
+Reliabilität, ohne Reliabilität keine Validität. Das Buch ergänzt diese
+Begriffe in \buch{Kap.~10b} um ein praktisches Vokabular, das bei
+schwer messbaren Konstrukten wie Staunen oder Stress hilft: Ein
+\emph{Blind-Design} schaltet Erwartungen der Messenden aus. Ein
+\emph{Prozessindikator} ist ein Relativmaß für Veränderung innerhalb einer
+Person und einer Sitzung, kein Wahrheitsdetektor. Eine
+\emph{Parallelmessung} erhebt dasselbe Konstrukt mit mehreren,
+unabhängigen Verfahren (etwa Selbstbericht und Herzratenvariabilität),
+damit ein Befund nicht an einem einzigen Instrument hängt. Auf der Ebene
+des ganzen Designs heißt dieselbe Idee \emph{Triangulation}.}
+\begin{description}
+\item[{\rot\bf Drei Gütekriterien}]~\\[-\lblskip]
+\begin{center}
+\resizebox{0.86\textwidth}{!}{%
+\begin{tikzpicture}[font=\sffamily,>=Stealth,
+  st/.style={draw=rwuviolet,thick,fill=rwuviolet!8,rounded corners=3pt,
+    minimum width=42mm,minimum height=17mm,align=center}]
+  \node[st] (o) at (0,0) {\textbf{Objektivität}\\unabhängig davon,\\wer misst};
+  \node[st] (r) at (5.4,0) {\textbf{Reliabilität}\\Wiederholung liefert\\dasselbe};
+  \node[st,draw=rwucyan,fill=rwucyan40!40] (v) at (10.8,0) {\textbf{Validität}\\misst, was\\gemeint ist};
+  \draw[->,very thick] (o) -- (r);
+  \draw[->,very thick] (r) -- (v);
+\end{tikzpicture}}
+\end{center}
+\bi
+  \ite jedes Kriterium setzt das vorige voraus
+  \ite Seile: Maßband (objektiv, reliabel) gegen Augenmaß des Vorführenden
+\ei
+\os{\newpage}
+
+\item[{\rot\bf Messgüte-Vokabular aus dem Buch}]~\\[-\lblskip]
+\bi
+  \ite \textbf{Blind-Design:} wer misst, kennt die Bedingung nicht
+  \ite \textbf{Prozessindikator:} Relativmaß für Veränderung in einer
+    Person und Sitzung -- kein Wahrheitsdetektor
+  \ite \textbf{Parallelmessung:} dasselbe Konstrukt mit mehreren
+    Verfahren (Selbstbericht, Verhalten, Physiologie)
+  \ite \textbf{Triangulation:} dieselbe Idee für das ganze Design --
+    mehrere Methoden, Datenquellen, Perspektiven
+\ei
+\os{\newpage}
+\end{description}
+
+%==============================================================================
+\section{Fallbeispiel: die Becher-Monty-Hall-Studie}
+%==============================================================================
+\nsl{Das Buch enthält ein vollständig ausgearbeitetes Forschungsdesign zu
+seiner eigenen Leitthese, dass Staunen das Lernen begünstigt
+(\buch{Kap.~12d}). Der Lerngegenstand ist das Monty-Hall-Problem, der
+Staunmoment ein Becher-Zauberkunststück. Die Studie ist als
+Zwischensubjekt-Design mit zufälliger Zuteilung angelegt. Beide Gruppen
+sehen dasselbe, rund 13-minütige Erklärvideo; die Treatment-Gruppe sieht
+zusätzlich, direkt nach dem Einstieg, einen rund zweiminütigen
+Becher-Zaubertrick. Bei der Kontrollgruppe ist genau dieser Block
+herausgeschnitten, alles Übrige ist identisch. Der Lehrteil nimmt mit
+keinem Satz Bezug auf den Trick, damit er in beiden Fassungen wortgleich
+und vollständig bleibt. Ein Manipulationscheck prüft, ob der Trick
+überhaupt Staunen ausgelöst hat; gemessen werden außerdem Verständnis,
+Transfer auf eine neu eingekleidete Aufgabe und Kalibrierung des eigenen
+Urteils.
+
+Der Entwurf benennt seinen Störfaktor selbst: Durch den reinen
+Herausschnitt ist die Kontrollfassung rund zwei Minuten kürzer
+(Treatment ca.~15:00, Kontrolle ca.~13:00). Länge und gemeinsame
+Aufmerksamkeitszeit sind damit konfundiert. Die Abhilfe ist eine
+längengleiche \emph{aktive Kontrolle}: An die Stelle des Tricks tritt ein
+gleich langer, bewusst nicht staunenswerter Becher-Einschub, etwa ein
+nüchternes Umstapeln mit sachlichem Kommentar
+(\buch{Abschnitt~12d, Studienlogik}).}
+\begin{description}
+\item[{\rot\bf Der Idealentwurf (Kap.~12d)}]~\\[-\lblskip]
+\bi
+  \ite Zwischensubjekt-Design, zufällige Zuteilung
+  \ite UV: Staunmoment (Becher-Zaubertrick) ja / nein
+  \ite derselbe Film, ein Block herausgeschnitten -- sonst alles
+    identisch
+  \ite AV: Verständnis, Transfer, Kalibrierung
+  \ite Manipulationscheck: Hat der Trick überhaupt Staunen ausgelöst?
+\ei
+\os{\newpage}
+
+\item[{\rot\bf Der Störfaktor}]~\\[-\lblskip]
+\begin{center}
+\resizebox{0.9\textwidth}{!}{%
+\begin{tikzpicture}[font=\sffamily]
+  \def\u{0.6}
+  \node[anchor=east] at (-0.2,0) {Treatment};
+  \node[anchor=east] at (-0.2,-1) {Kontrolle};
+  \node[anchor=east] at (-0.2,-2) {aktive Kontrolle};
+  \fill[rwugray!40] (0,-0.3) rectangle (1.33*\u,0.3);
+  \fill[rwuviolet] (1.33*\u,-0.3) rectangle (3.33*\u,0.3);
+  \fill[rwugray!40] (3.33*\u,-0.3) rectangle (15*\u,0.3);
+  \fill[rwugray!40] (0,-1.3) rectangle (13*\u,-0.7);
+  \fill[rwugray!40] (0,-2.3) rectangle (1.33*\u,-1.7);
+  \fill[rwucyan] (1.33*\u,-2.3) rectangle (3.33*\u,-1.7);
+  \fill[rwugray!40] (3.33*\u,-2.3) rectangle (15*\u,-1.7);
+  \node[anchor=west] at (15*\u+0.1,0) {ca.\ 15:00};
+  \node[anchor=west] at (13*\u+0.1,-1) {ca.\ 13:00};
+  \node[anchor=west] at (15*\u+0.1,-2) {ca.\ 15:00};
+  \node[text=rwuviolet,above] at (2.33*\u,0.3) {Trick};
+  \node[text=rwucyan,below] at (2.33*\u,-2.3) {neutraler Einschub};
+\end{tikzpicture}}
+\end{center}
+\bi
+  \ite Herausschneiden macht die Kontrolle \emph{kürzer}: Länge ist
+    konfundiert
+  \ite Abhilfe: gleich langer, nicht staunenswerter Einschub
+\ei
+\os{\newpage}
+\end{description}
+
+\nsl{Umgesetzt wurde der Entwurf als Online-Feldstudie mit drei Armen
+(\buch{Kap.~12f}): U1 als Kontrolle ohne Zaubertrick, U2 mit dem
+Becher-Zaubertrick als Spiel auf der Landingpage vor dem Fragebogen und
+U3 mit dem in das Video integrierten, unaufgelösten Trick. Gegenüber dem
+Idealentwurf ersetzt U2 die empfohlene längengleiche aktive Kontrolle
+durch eine Platzierungsvariante. Die Zuteilung erfolgte zufällig über
+eine Landingpage, die Feldzeit lief vom 3.~bis 31.~Juli 2026. Am Ende
+lagen 32 auswertbare Fälle vor (13/9/10).
+
+Die Befunde sind für eine Einheit über Forschungsdesign lehrreicher, als
+es ein Erfolg gewesen wäre. Erstens ist der Manipulationscheck
+gescheitert: Das Staunen liegt in den drei Armen bei 3{,}89 / 3{,}76 /
+3{,}87, also praktisch gleichauf. Wenn die Intervention die vermutete
+Ursache nicht messbar bewegt, sind alle nachgelagerten Fragen nach ihrer
+Wirkung unbeantwortbar. Zweitens zeigte ein Zwischenstand am 16.~Juli
+noch genau die erhoffte Abstufung (3{,}83 / 4{,}08 / 4{,}28), die sich
+danach einebnete; hätte die Erhebung früher geendet, stünde ein schöner,
+falscher Befund in der Welt. Drittens war der stärkste Zusammenhang einer,
+den die Studie gar nicht untersuchen wollte: Wer das Monty-Hall-Problem
+schon kannte, lag zu 92~Prozent richtig, wer es nicht kannte, zu rund der
+Hälfte. Bei $n=32$ genügen wenige ungleich verteilte Vorwissensträger, um
+jeden Armunterschied zu erzeugen oder zu tilgen. Viertens war die
+Teststärke von Anfang an unzureichend: Für einen mittleren Effekt
+($d=0{,}5$) hätte es rund 64 Personen pro Arm gebraucht, erreicht wurden
+9 bis 13. Das Buch zieht daraus selbst die Konsequenzen für eine
+Folgestudie: Fallzahl vorab planen, nach Vorwissen geschichtet
+randomisieren und den Manipulationscheck reparieren.}
+\begin{description}
+\item[{\rot\bf Die Feldstudie (Kap.~12f)}]~\\[-\lblskip]
+\bi
+  \ite drei Arme: U1 Kontrolle, U2 Trick vorab, U3 Trick im Video
+  \ite U2 statt der aktiven Kontrolle: eine Platzierungsvariante
+  \ite 32 auswertbare Fälle (13 / 9 / 10)
+  \ite Manipulationscheck gescheitert: Staunen 3{,}89 / 3{,}76 / 3{,}87
+  \ite Zwischenstand 16.~Juli: 3{,}83 / 4{,}08 / 4{,}28 -- danach
+    eingeebnet
+\ei
+\os{\newpage}
+
+\item[{\rot\bf Was das Design daraus lernt}]~\\[-\lblskip]
+\bi
+  \ite \textbf{Vorwissen} überstrahlt alles: 92\,\% richtig mit, rund die
+    Hälfte ohne Vorwissen
+  \ite \textbf{Teststärke}: für $d=0{,}5$ rund 64 pro Arm nötig, erreicht
+    9 bis 13
+  \ite Folgestudie: Fallzahl vorab planen
+  \ite nach Vorwissen \emph{geschichtet} randomisieren
+  \ite Manipulationscheck reparieren (z.\,B.\ Verweildauer,
+    verhaltensnahe Maße)
+\ei
+\os{\newpage}
+\end{description}
+
+\begin{merkbox}
+Ohne Vergleich ist jede Beobachtung eine Vorführung. Ein Design ist so
+gut wie die Alternativerklärungen, die es ausschließt -- und eine
+Intervention ist erst dann geprüft, wenn der Manipulationscheck zeigt,
+dass sie überhaupt gewirkt hat.
+\end{merkbox}
+\os{\newpage}
+
+%==============================================================================
+\section{Design-Werkstatt}
+%==============================================================================
+\begin{description}
+\item[{\rot\bf Teil 1: Ein Design analysieren (Zweiergruppen, 15 Min.)}]~\\[-\lblskip]
+\bi
+  \ite Übungsblatt, Aufgabe~1: die (fiktive) Lern-App-Studie
+  \ite Was sind UV und AV? Welcher Designtyp?
+  \ite Gibt es eine Kontrollgruppe -- und taugt sie?
+  \ite Welche Konfounder sehen Sie? Welche Bedrohungen der internen
+    Validität?
+  \ite Wie müsste das Design aussehen, damit die Schlussfolgerung trägt?
+\ei
+\os{\newpage}
+
+\item[{\rot\bf Teil 2: Ihr eigenes Design (Einzelarbeit, 15 Min.)}]~\\[-\lblskip]
+\bi
+  \ite Ausgangspunkt: Ihre H\textsubscript{1} aus LE~5
+  \ite Übungsblatt, Aufgabe~2: Design-Skizze ausfüllen
+  \ite Messgüte-Check: objektiv? reliabel? valide? blind? parallel
+    gemessen?
+  \ite Welche Bedrohung der internen Validität bleibt -- und warum
+    nehmen Sie sie in Kauf?
+\ei
+\os{\newpage}
+
+\item[{\rot\bf Peer-Feedback (Zweiergruppen, 10 Min.)}]~\\[-\lblskip]
+\bi
+  \ite stellen Sie Ihr Design in drei Minuten vor
+  \ite die Partnerin sucht \emph{eine} Alternativerklärung, die Ihr
+    Design nicht ausschließt
+  \ite gemeinsam: Welche Änderung würde sie ausschließen?
+\ei
+\os{\newpage}
+\end{description}
+
+\begin{lehrhinweis}
+Bei der Analyse der fiktiven Studie finden die meisten Gruppen die
+Selbstselektion schnell. Lohnend ist es, nach den weniger offensichtlichen
+Konfoundern zu fragen: das Tutorium, das nur die App-Gruppe besucht hat,
+und die nicht blinde Korrektur durch den App-Entwickler. Bei den eigenen
+Designs ist der häufigste Fehler eine Kontrollgruppe, die sich in mehr als
+einer Hinsicht von der Experimentalgruppe unterscheidet; hier hilft die
+Frage \enquote{Was genau ist bei der Kontrollgruppe anders, und ist das
+\emph{nur} Ihre UV?}. Wer ein nicht-experimentelles Design wählt, muss das
+nicht ändern, sollte aber in der Begründung zeigen, dass ihm die Grenzen
+der Kausalaussage klar sind. Statt der fiktiven Studie kann auch der
+Methodenteil eines echten Artikels analysiert werden; als realer Fall aus
+dem Buch eignet sich die Feldstudie aus \buch{Kap.~12f}, die ihre
+Abweichungen vom Idealentwurf selbst offenlegt.
+\end{lehrhinweis}
+
+%==============================================================================
+\section{Lernziele und Aufgaben}
+%==============================================================================
+\begin{description}
+\item[{\rot\bf Nach dieser Einheit können Sie}]~\\[-\lblskip]
+\bi
+  \ite UV, AV und Störvariablen in einem Design benennen
+  \ite experimentelle, quasi-experimentelle und nicht-experimentelle
+    Designs unterscheiden
+  \ite Bedrohungen der internen Validität erkennen und Gegenmittel
+    benennen
+  \ite Objektivität, Reliabilität und Validität einer Messung prüfen
+  \ite ein angemessenes Design für Ihre Fragestellung auswählen und
+    begründen
+\ei
+\os{\newpage}
+
+\item[{\rot\bf Bis zur nächsten Woche}]~\\[-\lblskip]
+\bi
+  \ite \textbf{Fallstudie} (Aufgabe~1) fertigstellen
+  \ite \textbf{Design-Skizze} (Aufgabe~2): Design für Ihre eigene
+    Hypothese, Begründung auf höchstens einer Seite -- benotete
+    Teilleistung
+  \ite Feedback Ihrer Partnerin einarbeiten
+  \ite \textbf{Tagebuch des Staunens:} eine Behauptung aus Werbung oder
+    Nachrichten, der ein Vergleich fehlt
+\ei
+\os{\newpage}
+\end{description}
+
+\handoutinput{handouts/LE06}

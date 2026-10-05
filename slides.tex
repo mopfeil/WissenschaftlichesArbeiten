@@ -1,0 +1,81 @@
+\documentclass[12pt,a5paper,landscape,openany]{book}
+\newif\ifslides \newif\ifhandouts
+\slidestrue
+\input{preamble}
+\usepackage{fancyhdr}
+\usepackage[colorlinks=true,pdfpagemode=FullScreen]{hyperref}
+\hypersetup{linkcolor=rwuviolet,citecolor=rwucyandark,urlcolor=rwucyandark,
+  pdftitle={Wissenschaftliches Arbeiten (WuZ) -- Folien},pdfauthor={Markus Pfeil}}
+
+\textwidth 195mm
+\textheight 132mm
+\topmargin -21mm
+\headheight 0mm
+\headsep 0mm
+\evensidemargin -20mm
+\oddsidemargin -20mm
+\parindent 0em
+\parskip 1.5ex
+\footskip 6mm
+\setcounter{tocdepth}{0}
+\counterwithin{figure}{chapter}
+
+\input ./mathmacros
+\input ./mathmacros-sl
+\input macros
+\input wuzmacros
+
+% RWU-Fusszeile: Logo links, Veranstaltung Mitte, Seitenzahl rechts
+\newcommand{\rwufoot}{%
+  \fancyhf{}%
+  \renewcommand{\headrulewidth}{0pt}%
+  \renewcommand{\footrulewidth}{0pt}%
+  \fancyfoot[L]{\raisebox{-0.6mm}{\rwulogo[height=3mm]}}%
+  \fancyfoot[C]{\color{rwugray}\scriptsize Wissenschaftliches Arbeiten (WuZ)}%
+  \fancyfoot[R]{\color{rwugray}\scriptsize\thepage}}
+\fancypagestyle{rwu}{\rwufoot}
+\fancypagestyle{plain}{\rwufoot}
+\pagestyle{rwu}
+
+\begin{document}
+\pagecolor{\pagecol}
+
+\sffamily\Large
+\thispagestyle{empty}
+\vspace*{-2mm}
+\rwulogo[height=1.6cm]
+
+\vspace*{1.0cm}
+{\color{rwuviolet}\rule{\textwidth}{0.7mm}}
+
+\vspace*{5mm}
+{\fontsize{28}{34}\selectfont\bfseries\color{rwuviolet} Wissenschaftliches Arbeiten}
+
+\vspace*{2mm}
+{\Large\color{rwucyandark} Wissenschaft und Zauberkunst -- Folien zur Vorlesung}
+
+\vspace*{6mm}
+{\large Prof. Dr. Markus Pfeil}
+
+\vspace*{3mm}
+{\large Wintersemester 2026/27}
+
+\vfill
+{\scriptsize\color{rwugray} \copyright~~M. Pfeil}
+\newpage
+
+\begin{multicols}{2}\normalsize \parskip -2mm
+\tableofcontents
+\end{multicols}
+
+\renewcommand{\chapter}[1]{\refstepcounter{chapter}\newpage
+       \textcolor{headcol}{\begin{center}\Huge\bfseries
+      \thechapter~ #1\end{center}}\addcontentsline{toc}{chapter}{#1}
+}
+
+\input{text.tex}
+
+\newpage
+\textcolor{headcol}{\begin{center}\Huge\bfseries Literatur\end{center}}\addcontentsline{toc}{chapter}{Literatur}
+\printbibliography[heading=none]
+\end{document}

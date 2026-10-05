@@ -1,0 +1,227 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Handout und Uebungsblatt zu Lehreinheit 8
+% Datensatz (Aufgabe 2) ist fiktiv; Kennwerte im Erwartungshorizont mit
+% Python (numpy/scipy) nachgerechnet.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{handout}{Quantitative Methoden und Statistik}
+
+\textbf{Worum es heute ging.} Drei Becher, eine Kugel: Die Spielleitung
+öffnet wissentlich einen leeren Becher. Wechseln gewinnt in zwei von drei
+Fällen, obwohl \enquote{zwei Becher, also fifty-fifty} sich zwingend
+anfühlt. Öffnet die Spielleitung dagegen blind, ist es tatsächlich egal.
+Dasselbe Bild, zwei Prozesse, zwei Wahrscheinlichkeiten. Statistik ist
+das Werkzeug, mit dem wir solche Täuschungen der Intuition prüfen.
+
+\textbf{Kernbegriffe}
+\begin{description}
+  \item[Bedingte Wahrscheinlichkeit] $P(A\mid B)$: Wahrscheinlichkeit
+    von $A$, wenn $B$ bekannt ist. Die Richtung zählt:
+    $P(\text{Daten}\mid H)\neq P(H\mid\text{Daten})$.
+  \item[Deskriptiv / Inferenz] Daten beschreiben bzw.\ von der Stichprobe
+    auf die Grundgesamtheit schließen.
+  \item[p-Wert] Wahrscheinlichkeit für mindestens so extreme Daten,
+    \emph{falls} die Nullhypothese stimmt. Kein Maß für die Wahrheit
+    einer Hypothese und keins für die Größe eines Effekts
+    \parencite{wassersteinlazar2016asa}.
+  \item[Effektgröße] Größe eines Unterschieds unabhängig von $n$, z.\,B.\
+    Cohens $d$ (0,2 klein, 0,5 mittel, 0,8 groß).
+  \item[Power] Wahrscheinlichkeit, einen vorhandenen Effekt zu finden.
+    Für $d=0{,}5$ und Power 0,80 braucht ein $t$-Test 64 Personen pro
+    Gruppe.
+\end{description}
+
+\textbf{Welcher Kennwert passt?}
+
+\begin{center}
+\small
+\begin{tabular}{@{}llll@{}}
+\toprule
+\textbf{Skala} & \textbf{Beispiel} & \textbf{Lage} & \textbf{Streuung} \\
+\midrule
+nominal & Strategie, Vorwissen ja/nein & Modus & Häufigkeiten \\
+ordinal & Staunen 1--5 & Median & Quartile, $\mathit{IQR}$ \\
+metrisch & Ausschlag in mm & Mittelwert, Median & $s$, $\mathit{IQR}$, Spannweite \\
+\bottomrule
+\end{tabular}
+\end{center}
+Ausreißerregel nach \textcite{tukey1977eda}: Werte, die mehr als
+$1{,}5\cdot\mathit{IQR}$ unter $Q_1$ oder über $Q_3$ liegen.
+
+\begin{merkbox}
+Erst fragen, wie die Daten zustande kamen, dann rechnen. Ein kleiner
+p-Wert ist kein Beweis, und unter vielen Tests ist er fast garantiert.
+\end{merkbox}
+
+\textbf{Riskante Vorhersagen.} Folgt eine Beobachtung $E$ aus der
+Hypothese $H$, dann gilt $P(H\mid E)/P(H)=1/P(E)$: Je unwahrscheinlicher
+die Vorhersage war, desto mehr beweist ihr Eintreffen
+\parencite{horwich1982probability}.
+
+\textbf{Zum Weiterlesen:} \textcite{doeringbortz2016}, Kap.~12;
+\textcite{wassersteinlazar2016asa}; zum Ziegenproblem
+\textcite{mhall_krauss2003}.
+\end{handout}
+
+\begin{uebungsblatt}{Becher, Daten, p-Werte}
+
+\aufgabe{Monty Hall in Paaren}[in der Stunde, Paare, 10 Min.]
+Die Spielleitung würfelt verdeckt die Lage der Kugel (1--2: A, 3--4: B,
+5--6: C), die spielende Person zeigt auf einen Becher, die Spielleitung
+öffnet einen \emph{leeren}, nicht gewählten Becher. Ungerade Runden:
+bleiben, gerade Runden: wechseln. Kreuzen Sie an, ob gewonnen wurde.
+
+\begin{center}
+\small
+\renewcommand{\arraystretch}{1.25}
+\begin{tabular}{|c|c|c|c||c|c|c|c|}
+\hline
+\textbf{Rd.} & \textbf{Strategie} & \textbf{Kugel} & \textbf{gewonnen} &
+\textbf{Rd.} & \textbf{Strategie} & \textbf{Kugel} & \textbf{gewonnen} \\ \hline
+1 & bleiben & & & 13 & bleiben & & \\ \hline
+2 & wechseln & & & 14 & wechseln & & \\ \hline
+3 & bleiben & & & 15 & bleiben & & \\ \hline
+4 & wechseln & & & 16 & wechseln & & \\ \hline
+5 & bleiben & & & 17 & bleiben & & \\ \hline
+6 & wechseln & & & 18 & wechseln & & \\ \hline
+7 & bleiben & & & 19 & bleiben & & \\ \hline
+8 & wechseln & & & 20 & wechseln & & \\ \hline
+9 & bleiben & & & 21 & bleiben & & \\ \hline
+10 & wechseln & & & 22 & wechseln & & \\ \hline
+11 & bleiben & & & 23 & bleiben & & \\ \hline
+12 & wechseln & & & 24 & wechseln & & \\ \hline
+\end{tabular}
+\end{center}
+Summe: \textbf{bleiben} \rule{12mm}{0.3pt} von \rule{12mm}{0.3pt}
+gewonnen \qquad \textbf{wechseln} \rule{12mm}{0.3pt} von
+\rule{12mm}{0.3pt} gewonnen \qquad Kurs gesamt (Tafel):
+\rule{25mm}{0.3pt}
+
+\aufgabe{Datensatz-Analyse}[in der Stunde und Hausaufgabe, Kleingruppe]
+\textbf{Fiktiver Datensatz} (konstruiert für diese Übung, keine echte
+Erhebung): 50 Personen haben ein Ideomotor-Pendel gehalten (vgl.\ LE~1).
+Gemessen wurde der größte Ausschlag in Millimetern (\textbf{mm}), danach
+gaben die Personen an, wie stark sie gestaunt haben (\textbf{St}, 1 = gar
+nicht bis 5 = sehr), und ob sie den Pendeleffekt vorher kannten
+(\textbf{VW}, 1 = ja, 0 = nein).
+
+\begin{center}
+\footnotesize
+\setlength{\tabcolsep}{3.2pt}
+\begin{tabular}{@{}rrrr@{\hspace{9pt}}rrrr@{\hspace{9pt}}rrrr@{\hspace{9pt}}rrrr@{\hspace{9pt}}rrrr@{}}
+\toprule
+\textbf{Nr} & \textbf{mm} & \textbf{St} & \textbf{VW} &
+\textbf{Nr} & \textbf{mm} & \textbf{St} & \textbf{VW} &
+\textbf{Nr} & \textbf{mm} & \textbf{St} & \textbf{VW} &
+\textbf{Nr} & \textbf{mm} & \textbf{St} & \textbf{VW} &
+\textbf{Nr} & \textbf{mm} & \textbf{St} & \textbf{VW} \\
+\midrule
+ 1 & 11 & 3 & 0 & 11 &  9 & 3 & 0 & 21 & 10 & 2 & 1 & 31 & 43 & 3 & 1 & 41 & 47 & 4 & 0 \\
+ 2 &  5 & 2 & 0 & 12 & 24 & 2 & 0 & 22 & 26 & 4 & 1 & 32 & 57 & 4 & 0 & 42 & 59 & 3 & 0 \\
+ 3 & 15 & 3 & 1 & 13 & 24 & 4 & 1 & 23 & 39 & 4 & 0 & 33 & 21 & 3 & 0 & 43 & 26 & 3 & 0 \\
+ 4 & 41 & 4 & 1 & 14 &  8 & 2 & 0 & 24 & 15 & 4 & 0 & 34 & 96 & 5 & 0 & 44 & 31 & 4 & 1 \\
+ 5 & 37 & 3 & 0 & 15 & 16 & 2 & 1 & 25 & 13 & 3 & 0 & 35 & 49 & 4 & 0 & 45 & 23 & 2 & 0 \\
+ 6 & 39 & 5 & 0 & 16 & 25 & 4 & 0 & 26 & 13 & 3 & 0 & 36 & 30 & 4 & 0 & 46 & 20 & 3 & 1 \\
+ 7 & 18 & 3 & 0 & 17 & 19 & 5 & 0 & 27 & 66 & 5 & 0 & 37 & 23 & 4 & 0 & 47 & 12 & 1 & 1 \\
+ 8 &  0 & 1 & 0 & 18 & 53 & 4 & 1 & 28 & 35 & 3 & 1 & 38 & 53 & 4 & 0 & 48 & 36 & 4 & 1 \\
+ 9 & 16 & 2 & 1 & 19 &  5 & 2 & 1 & 29 & 38 & 5 & 0 & 39 & 18 & 2 & 0 & 49 & 18 & 3 & 0 \\
+10 & 31 & 4 & 1 & 20 & 45 & 5 & 0 & 30 & 26 & 3 & 1 & 40 & 73 & 5 & 0 & 50 & 40 & 4 & 0 \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\begin{enumerate}
+  \item Bestimmen Sie für jede Variable das Skalenniveau.
+  \item Berechnen Sie für \textbf{mm}: Minimum, Maximum, Spannweite,
+    Median, $Q_1$, $Q_3$, $\mathit{IQR}$ und Mittelwert. Geben Sie an,
+    wie Sie die Quartile bestimmt haben.
+  \item Zeichnen Sie ein Histogramm (Klassenbreite 10\,mm) und einen
+    Boxplot. Gibt es Ausreißer nach der $1{,}5\cdot\mathit{IQR}$-Regel?
+    Was würden Sie mit ihnen tun?
+  \item Berechnen Sie Mittelwert und Median von \textbf{mm} ohne den
+    Ausreißer. Welcher Kennwert reagiert stärker, und warum?
+  \item Fassen Sie \textbf{St} sinnvoll zusammen. Ist ein Mittelwert
+    zulässig?
+  \item Vergleichen Sie \textbf{mm} zwischen Personen mit und ohne
+    Vorwissen mit Mittelwert \emph{und} Median. Was fällt auf?
+\end{enumerate}
+\schreiblinien{6}
+
+\aufgabe{Eine Zeitungsmeldung lesen}[in der Stunde, Plenum]
+\textbf{Fiktive Meldung} (konstruiert für diese Übung):
+
+\begin{quote}\small
+\emph{Zaubertricks machen klüger -- jetzt bewiesen.} Wer vor dem Lernen
+einen Zaubertrick sieht, behält mehr. Das zeigt eine Online-Befragung
+unter 112 Studierenden. Die Forschenden erhoben 23 Merkmale des
+Lernverhaltens. Bei der Frage \enquote{Ich konnte mich gut
+konzentrieren} lag die Gruppe mit Zaubertrick signifikant vorn ($p =
+0{,}04$). \enquote{Damit ist der Nutzen von Magie im Hörsaal
+wissenschaftlich belegt}, sagt die Studienleiterin.
+\end{quote}
+Beantworten Sie: Was wurde gemessen, an wem? Was wird behauptet? Wird
+eine Effektgröße genannt? Wie viele Vergleiche wurden gerechnet, und was
+folgt daraus für den einen signifikanten Befund?
+\schreiblinien{4}
+
+\aufgabe{Methodische Kurzeinschätzung}[Hausaufgabe, max.\ 10 Sätze]
+Finden Sie in einer Tageszeitung oder einem Nachrichtenportal einen
+Artikel, der eine Studie mit $p<0{,}05$ als \enquote{Beweis} darstellt.
+Schreiben Sie eine methodische Kurzeinschätzung mit Quellenangabe. Nutzen
+Sie die vier Fragen aus Aufgabe~3.
+
+\aufgabe{Tagebuch des Staunens}[Hausaufgabe]
+Wann hat Ihr Gefühl für Wahrscheinlichkeit Sie zuletzt getäuscht?
+Notieren Sie Erwartung, Ereignis und den passenden Begriff aus dieser
+Einheit.
+
+\begin{lehrhinweis}[Erwartungshorizont]
+\textbf{Aufgabe~1.} Erwartet sind pro Paar etwa 8 von 12 Gewinnen beim
+Wechseln und 4 von 12 beim Bleiben. Einzelne Paare streuen stark (die
+Standardabweichung der Gewinnzahl bei 12 Wechselrunden beträgt etwa 1,6),
+manche Paare finden sogar das Gegenteil. Erst der Kurs-Pool zeigt das
+Muster stabil. Das ist der Anlass, über Stichprobengröße zu sprechen.
+
+\textbf{Aufgabe~2} (Werte mit Python nachgerechnet).
+(1)~Nr: nominal (Kennung); mm: Verhältnisskala; St: ordinal; VW: nominal
+(dichotom).
+(2)~$n=50$; Minimum 0, Maximum 96, Spannweite 96\,mm; Median 25,5\,mm;
+Mittelwert 29,94\,mm; Standardabweichung $s=19{,}32$\,mm. Quartile als
+Median der unteren bzw.\ oberen Hälfte: $Q_1=16$, $Q_3=40$,
+$\mathit{IQR}=24$. Mit linearer Interpolation (z.\,B.\ Excel
+\texttt{QUARTILE.INKL}) ergibt sich $Q_3=39{,}75$ und
+$\mathit{IQR}=23{,}75$; beides ist richtig, wenn das Verfahren genannt
+wird. Modus: 18 und 26 (je dreimal).
+(3)~Klassenhäufigkeiten 0--9: 5; 10--19: 13; 20--29: 10; 30--39: 9;
+40--49: 6; 50--59: 4; 60--69: 1; 70--79: 1; 80--89: 0; 90--99: 1. Die
+Verteilung ist rechtsschief. Zäune: $16-36=-20$ und $40+36=76$. Einziger
+Ausreißer ist Nr.~34 mit 96\,mm; 73\,mm (Nr.~40) liegt knapp innerhalb.
+Mit Interpolation liegen die Zäune bei $-19{,}6$ und $75{,}4$; Ergebnis
+gleich. Gute Antworten löschen den Wert nicht stillschweigend, sondern
+prüfen ihn (Messfehler? jemand hat bewusst geschwungen?) und berichten
+beide Auswertungen.
+(4)~Ohne Nr.~34: Mittelwert 28,59\,mm, Median 25,0\,mm, $s=16{,}98$\,mm.
+Der Mittelwert sinkt um 1,35\,mm, der Median um 0,5\,mm, die
+Standardabweichung um 2,3\,mm.
+(5)~Häufigkeiten St: 1: 2; 2: 9; 3: 15; 4: 17; 5: 7. Median 3, Modus 4.
+Ein Mittelwert (3,36) ist streng genommen nicht zulässig, weil die
+Abstände der Stufen unbekannt sind; wer ihn angibt, sollte das begründen.
+Optional: Spearmans Rangkorrelation zwischen mm und St beträgt
+$\rho=0{,}71$.
+(6)~Mit Vorwissen ($n=17$): Mittelwert 25,88\,mm, Median 26\,mm,
+$s=13{,}06$. Ohne Vorwissen ($n=33$): Mittelwert 32,03\,mm, Median
+25\,mm, $s=21{,}75$. Der Mittelwert legt einen Unterschied von gut 6\,mm
+nahe, der Median fast keinen; die Gruppe ohne Vorwissen streut stärker
+und enthält die beiden größten Werte (73 und 96\,mm). Die erwartete
+Antwort: Aus diesen Daten folgt kein belastbarer Gruppenunterschied, und
+die Wahl des Kennwerts bestimmt die Geschichte, die man erzählen könnte.
+
+\textbf{Aufgabe~3.} Gemessen: Selbstauskunft, keine Lernleistung;
+Online-Befragung, unklar, ob die Gruppen zufällig gebildet wurden. 23
+Merkmale: Bei $\alpha=0{,}05$ erwartet man unter reinem Zufall gut einen
+\enquote{signifikanten} Befund ($23\cdot0{,}05\approx1{,}2$); die
+Wahrscheinlichkeit für mindestens einen liegt bei $1-0{,}95^{23}\approx
+69\,\%$. Keine Effektgröße. \enquote{Bewiesen} ist nichts; allenfalls
+liegt eine Hypothese für eine präregistrierte Folgestudie vor (Brücke zu
+LE~10).
+\end{lehrhinweis}
+\end{uebungsblatt}
