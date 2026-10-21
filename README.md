@@ -11,7 +11,7 @@ der Woche vorwegnimmt.
 |------------------|---------------------------------------------------------------|
 | `pdf/`           | Skript, Folien und Handouts, fertig zum Lesen und Drucken     |
 | `chapters/`      | Quelltext der Lehreinheiten (LE00 Modul, LE01–LE13, Anhang)   |
-| `handouts/`      | Handout und Übungsblatt je Lehreinheit                        |
+| `handouts/`      | Handout und Übungsblatt (Teil A/B) je Lehreinheit             |
 | `fonts/`         | Barlow Semi Condensed, die RWU-Hausschrift (SIL OFL)          |
 | `tools/`         | Hilfsskripte (Literaturliste aus dem Buch, Prüfskripte)       |
 
@@ -23,6 +23,14 @@ der Woche vorwegnimmt.
 - [Folien (A5 quer)](pdf/WuZ_WissArbeiten_Folien.pdf) – was in der Stunde gezeigt wird
 - [Handouts und Übungsblätter (A4)](pdf/WuZ_WissArbeiten_Handouts.pdf) – Druckvorlage
   für die Studierenden, ohne Regie- und Lösungshinweise
+- Getrennt zum Austeilen, je Lehreinheit eine PDF ([Übungsblätter](pdf/Uebungsblaetter/),
+  [Zusammenfassungen](pdf/Zusammenfassungen/)):
+  - Übungsblatt Teil A: zu Beginn der Stunde, verrät den Staunmoment nicht
+  - Übungsblatt Teil B: nach dem Staunmoment (Reflexion, Hausaufgaben)
+  - Zusammenfassung (Handout): am Ende der Stunde
+  - Sammeldateien: [alle Teil A](pdf/WuZ_WissArbeiten_Uebungsblaetter_A.pdf),
+    [alle Teil B](pdf/WuZ_WissArbeiten_Uebungsblaetter_B.pdf),
+    [alle Zusammenfassungen](pdf/WuZ_WissArbeiten_Zusammenfassungen.pdf)
 
 ## Die 13 Lehreinheiten
 
@@ -49,6 +57,7 @@ make            baut docu.pdf (Skript), slides.pdf (Folien), handouts.pdf
 make script     nur das Skript
 make slides     nur die Folien
 make handouts   nur Handouts und Übungsblätter
+make einzeln    Übungsblatt A, B und Zusammenfassung getrennt, je LE (make -j8 einzeln)
 make publish    baut alles und kopiert die PDFs nach pdf/
 make clean      entfernt LaTeX-Hilfsdateien
 ```
@@ -74,7 +83,7 @@ Skript und Folien stammen aus denselben Dateien (wie im Projekt Embedded Computi
 - `\nsl{...}`: nur im Skript
 - `\os{...}`: nur auf den Folien (meist `\os{\newpage}` = Folienwechsel)
 - Umgebungen `vorbereitung`, `ablauf`, `lehrhinweis`: nur im Skript
-- `handout`, `uebungsblatt`: im Skript und in `handouts.tex`
+- `handout`, `uebungsblatt` (Teil A), `uebungsblattb` (Teil B): im Skript und in `handouts.tex`
 
 ## Literatur
 

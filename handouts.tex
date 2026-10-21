@@ -1,6 +1,13 @@
 \documentclass[a4paper,11pt,oneside,openany]{book}
 % Druckvorlage: alle Handouts und Uebungsblaetter fuer die Studierenden,
 % ohne Regie- und Loesungshinweise (lehrhinweis ist hier ausgeblendet).
+% Einzelne PDFs (siehe Makefile, make einzeln) setzen vorab
+%   \def\wuzle{3}            nur Lehreinheit 3
+%   \def\wuzteil{uebunga}    nur Uebungsblatt Teil A (Austeilen zu Stundenbeginn)
+%   \def\wuzteil{uebungb}    nur Uebungsblatt Teil B (nach dem Staunmoment)
+%   \def\wuzteil{handout}    nur Handouts (Zusammenfassung nach der Stunde)
+\providecommand{\wuzle}{}
+\providecommand{\wuzteil}{alles}
 \newif\ifslides \newif\ifhandouts
 \handoutstrue
 \input{preamble}
@@ -27,9 +34,14 @@
 \input macros
 \input wuzmacros
 \pagestyle{rwu}
+\def\wuzteilhandout{handout}\def\wuzteila{uebunga}\def\wuzteilb{uebungb}
+\ifx\wuzteil\wuzteilhandout \excludeversion{uebungsblatt}\excludeversion{uebungsblattb}\fi
+\ifx\wuzteil\wuzteila \excludeversion{handout}\excludeversion{uebungsblattb}\fi
+\ifx\wuzteil\wuzteilb \excludeversion{handout}\excludeversion{uebungsblatt}\fi
 
 \begin{document}
 \sffamily
+\ifx\wuzle\empty
 \handoutle{1}{handouts/LE01}
 \handoutle{2}{handouts/LE02}
 \handoutle{3}{handouts/LE03}
@@ -43,4 +55,7 @@
 \handoutle{11}{handouts/LE11}
 \handoutle{12}{handouts/LE12}
 \handoutle{13}{handouts/LE13}
+\else
+\handoutle{\wuzle}{handouts/LE\ifnum\wuzle<10 0\fi\wuzle}
+\fi
 \end{document}

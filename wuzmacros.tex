@@ -54,8 +54,13 @@
 
 % ---- Handouts und Uebungsblaetter ---------------------------------------
 % Jede Lehreinheit hat eine Datei handouts/LEnn.tex mit einem Handout und
-% einem Uebungsblatt. Im Skript wird sie am Kapitelende eingebunden, in
-% handouts.tex als Druckvorlage, auf den Folien gar nicht.
+% einem Uebungsblatt in zwei Teilen. Im Skript wird sie am Kapitelende
+% eingebunden, in handouts.tex als Druckvorlage, auf den Folien gar nicht.
+%   uebungsblatt{Titel}           Teil A: wird zu Beginn der Stunde ausgeteilt,
+%                                 darf den Staunmoment nicht vorwegnehmen
+%   uebungsblattb{n}{Titel}       Teil B: nach dem Staunmoment; n = Nummer der
+%                                 ersten Aufgabe (zaehlt Teil A weiter, auch
+%                                 wenn Teil B allein gedruckt wird)
 \newcounter{wuzaufgabe}
 \newcommand{\wuzblattkopf}[2]{%
   \clearpage
@@ -66,7 +71,10 @@
   {\color{#1}\rule{\textwidth}{0.5mm}}}\par\medskip}
 \newenvironment{handout}[1]{\wuzblattkopf{rwuviolet}{Handout: #1}}{\par}
 \newenvironment{uebungsblatt}[1]{\setcounter{wuzaufgabe}{0}%
-  \wuzblattkopf{rwucyandark}{Übungsblatt: #1}%
+  \wuzblattkopf{rwucyandark}{Übungsblatt A: #1}%
+  \noindent{\small Name: \rule{55mm}{0.3pt}\hfill Datum: \rule{30mm}{0.3pt}}\par\medskip}{\par}
+\newenvironment{uebungsblattb}[2]{\setcounter{wuzaufgabe}{\numexpr#1-1\relax}%
+  \wuzblattkopf{rwucyandark}{Übungsblatt B: #2}%
   \noindent{\small Name: \rule{55mm}{0.3pt}\hfill Datum: \rule{30mm}{0.3pt}}\par\medskip}{\par}
 % \aufgabe{Titel}[Bearbeitungszeit/Form]
 \NewDocumentCommand{\aufgabe}{m o}{\par\medskip\refstepcounter{wuzaufgabe}%

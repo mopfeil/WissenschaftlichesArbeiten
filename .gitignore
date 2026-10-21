@@ -17,3 +17,4 @@ slides.pdf
 handouts.pdf
 Thumbs.db
 __pycache__/
+build/
