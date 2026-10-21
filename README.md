@@ -31,6 +31,8 @@ der Woche vorwegnimmt.
   - Sammeldateien: [alle Teil A](pdf/WuZ_WissArbeiten_Uebungsblaetter_A.pdf),
     [alle Teil B](pdf/WuZ_WissArbeiten_Uebungsblaetter_B.pdf),
     [alle Zusammenfassungen](pdf/WuZ_WissArbeiten_Zusammenfassungen.pdf)
+- Englische Übungsblätter (Worksheets A/B) für LE 1–4:
+  [pdf/Worksheets_EN/](pdf/Worksheets_EN/), Quelltext in `handouts/en/`
 
 ## Die 13 Lehreinheiten
 
@@ -58,6 +60,7 @@ make script     nur das Skript
 make slides     nur die Folien
 make handouts   nur Handouts und Übungsblätter
 make einzeln    Übungsblatt A, B und Zusammenfassung getrennt, je LE (make -j8 einzeln)
+make english    englische Übungsblätter A und B (LE 1–4) nach pdf/Worksheets_EN/
 make publish    baut alles und kopiert die PDFs nach pdf/
 make clean      entfernt LaTeX-Hilfsdateien
 ```

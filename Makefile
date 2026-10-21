@@ -9,7 +9,7 @@ else
 LATEXMK = latexmk -lualatex -interaction=nonstopmode -halt-on-error
 endif
 
-.PHONY: all script slides handouts einzeln publish clean
+.PHONY: all script slides handouts einzeln english publish clean
 
 all: script slides handouts
 
@@ -34,7 +34,7 @@ SAMMEL  = pdf/WuZ_WissArbeiten_Uebungsblaetter_A.pdf pdf/WuZ_WissArbeiten_Uebung
 HDEPS   = handouts.tex preamble.tex wuzmacros.tex refs.bib refs_extra.bib
 # $(call teil,jobname,LE-Nummer oder leer,uebunga|uebungb|handout,Ziel)
 teil = $(LATEXMK) -outdir=build -jobname=$(1) \
-	-usepretex='\def\wuzle{$(2)}\def\wuzteil{$(3)}' handouts.tex && \
+	-usepretex='\def\wuzle{$(2)}\def\wuzteil{$(3)}$(5)' handouts.tex && \
 	mkdir -p $(dir $(4)) && cp build/$(1).pdf $(4)
 
 einzeln: $(UEB) $(ZUS) $(SAMMEL)
@@ -57,8 +57,21 @@ pdf/WuZ_WissArbeiten_Uebungsblaetter_B.pdf: handouts/*.tex $(HDEPS)
 pdf/WuZ_WissArbeiten_Zusammenfassungen.pdf: handouts/*.tex $(HDEPS)
 	$(call teil,Zusammenfassungen,,handout,$@)
 
+# Englische Uebungsblaetter (Worksheets) aus handouts/en/, bisher LE 1-4
+LES_EN  = 01 02 03 04
+UEB_EN  = $(patsubst %,pdf/Worksheets_EN/LE%_Worksheet_A.pdf,$(LES_EN)) \
+          $(patsubst %,pdf/Worksheets_EN/LE%_Worksheet_B.pdf,$(LES_EN))
+
+english: $(UEB_EN)
+
+pdf/Worksheets_EN/LE%_Worksheet_A.pdf: handouts/en/LE%.tex $(HDEPS)
+	$(call teil,LE$*_Worksheet_A,$(patsubst 0%,%,$*),uebunga,$@,\def\wuzsprache{en})
+
+pdf/Worksheets_EN/LE%_Worksheet_B.pdf: handouts/en/LE%.tex $(HDEPS)
+	$(call teil,LE$*_Worksheet_B,$(patsubst 0%,%,$*),uebungb,$@,\def\wuzsprache{en})
+
 # Kopiert die PDFs nach pdf/ (versionierte Fassungen, verlinkt in README.md)
-publish: all einzeln
+publish: all einzeln english
 	cp docu.pdf pdf/WuZ_WissArbeiten_Skript.pdf
 	cp slides.pdf pdf/WuZ_WissArbeiten_Folien.pdf
 	cp handouts.pdf pdf/WuZ_WissArbeiten_Handouts.pdf

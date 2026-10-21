@@ -61,24 +61,31 @@
 %   uebungsblattb{n}{Titel}       Teil B: nach dem Staunmoment; n = Nummer der
 %                                 ersten Aufgabe (zaehlt Teil A weiter, auch
 %                                 wenn Teil B allein gedruckt wird)
+% Beschriftungen; handouts.tex ueberschreibt sie fuer die englische Fassung
+\providecommand{\wuzkurs}{Wissenschaftliches Arbeiten (WuZ)}
+\providecommand{\wuzlename}{Lehreinheit}
+\providecommand{\wuzblattname}{Übungsblatt}
+\providecommand{\wuzaufgabename}{Aufgabe}
+\providecommand{\wuzpersonname}{Name}
+\providecommand{\wuzdatumname}{Datum}
 \newcounter{wuzaufgabe}
 \newcommand{\wuzblattkopf}[2]{%
   \clearpage
   \noindent{\sffamily
   \colorbox{#1}{\parbox{\dimexpr\textwidth-2\fboxsep\relax}{\color{white}\small\bfseries
-    Wissenschaftliches Arbeiten (WuZ)\hfill Lehreinheit~\thechapter}}\\[3mm]
+    \wuzkurs\hfill\wuzlename~\thechapter}}\\[3mm]
   {\LARGE\bfseries\color{#1}#2}\\[-1mm]
   {\color{#1}\rule{\textwidth}{0.5mm}}}\par\medskip}
 \newenvironment{handout}[1]{\wuzblattkopf{rwuviolet}{Handout: #1}}{\par}
 \newenvironment{uebungsblatt}[1]{\setcounter{wuzaufgabe}{0}%
-  \wuzblattkopf{rwucyandark}{Übungsblatt A: #1}%
-  \noindent{\small Name: \rule{55mm}{0.3pt}\hfill Datum: \rule{30mm}{0.3pt}}\par\medskip}{\par}
+  \wuzblattkopf{rwucyandark}{\wuzblattname~A: #1}%
+  \noindent{\small \wuzpersonname: \rule{55mm}{0.3pt}\hfill \wuzdatumname: \rule{30mm}{0.3pt}}\par\medskip}{\par}
 \newenvironment{uebungsblattb}[2]{\setcounter{wuzaufgabe}{\numexpr#1-1\relax}%
-  \wuzblattkopf{rwucyandark}{Übungsblatt B: #2}%
-  \noindent{\small Name: \rule{55mm}{0.3pt}\hfill Datum: \rule{30mm}{0.3pt}}\par\medskip}{\par}
+  \wuzblattkopf{rwucyandark}{\wuzblattname~B: #2}%
+  \noindent{\small \wuzpersonname: \rule{55mm}{0.3pt}\hfill \wuzdatumname: \rule{30mm}{0.3pt}}\par\medskip}{\par}
 % \aufgabe{Titel}[Bearbeitungszeit/Form]
 \NewDocumentCommand{\aufgabe}{m o}{\par\medskip\refstepcounter{wuzaufgabe}%
-  \noindent{\bfseries\color{rwucyandark}Aufgabe~\thewuzaufgabe: #1}%
+  \noindent{\bfseries\color{rwucyandark}\wuzaufgabename~\thewuzaufgabe: #1}%
   \IfValueT{#2}{\hfill{\small\color{rwugray}#2}}\par\smallskip}
 % Schreiblinien fuer Antworten: \schreiblinien{Anzahl}
 \newcommand{\schreiblinien}[1]{\par\vspace{2mm}\foreach \i in {1,...,#1}{%

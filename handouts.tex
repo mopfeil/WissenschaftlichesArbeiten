@@ -6,8 +6,23 @@
 %   \def\wuzteil{uebunga}    nur Uebungsblatt Teil A (Austeilen zu Stundenbeginn)
 %   \def\wuzteil{uebungb}    nur Uebungsblatt Teil B (nach dem Staunmoment)
 %   \def\wuzteil{handout}    nur Handouts (Zusammenfassung nach der Stunde)
+%   \def\wuzsprache{en}      englische Uebungsblaetter aus handouts/en/
+%                            (nur LE 1-4, nur mit uebunga/uebungb)
 \providecommand{\wuzle}{}
 \providecommand{\wuzteil}{alles}
+\providecommand{\wuzsprache}{de}
+\def\wuzspracheen{en}
+\ifx\wuzsprache\wuzspracheen
+  \def\wuzkurs{Academic Research Methods (WuZ)}
+  \def\wuzlename{Unit}
+  \def\wuzblattname{Worksheet}
+  \def\wuzaufgabename{Task}
+  \def\wuzpersonname{Name}
+  \def\wuzdatumname{Date}
+  \def\wuzhandoutdir{handouts/en/}
+\else
+  \def\wuzhandoutdir{handouts/}
+\fi
 \newif\ifslides \newif\ifhandouts
 \handoutstrue
 \input{preamble}
@@ -19,7 +34,7 @@
   \fancyhf{}%
   \renewcommand{\headrulewidth}{0pt}%
   \fancyfoot[L]{\raisebox{-0.6mm}{\rwulogo[height=3.5mm]}}%
-  \fancyfoot[C]{\color{rwugray}\scriptsize Wissenschaftliches Arbeiten (WuZ) \textperiodcentered{} Prof.\ Dr.\ Markus Pfeil}%
+  \fancyfoot[C]{\color{rwugray}\scriptsize \wuzkurs{} \textperiodcentered{} Prof.\ Dr.\ Markus Pfeil}%
   \fancyfoot[R]{\color{rwugray}\scriptsize\thepage}}
 \textwidth 170mm
 \textheight 255mm
@@ -41,6 +56,7 @@
 
 \begin{document}
 \sffamily
+\ifx\wuzsprache\wuzspracheen \selectlanguage{english}\fi
 \ifx\wuzle\empty
 \handoutle{1}{handouts/LE01}
 \handoutle{2}{handouts/LE02}
@@ -56,6 +72,6 @@
 \handoutle{12}{handouts/LE12}
 \handoutle{13}{handouts/LE13}
 \else
-\handoutle{\wuzle}{handouts/LE\ifnum\wuzle<10 0\fi\wuzle}
+\handoutle{\wuzle}{\wuzhandoutdir LE\ifnum\wuzle<10 0\fi\wuzle}
 \fi
 \end{document}
