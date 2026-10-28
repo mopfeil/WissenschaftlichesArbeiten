@@ -49,6 +49,21 @@
 \input ./mathmacros
 \input macros
 \input wuzmacros
+\usepackage{pdfpages}
+% Volltexte zu Uebungsblatt C, LE 4 (Studie CC BY 4.0, Wikipedia CC BY-SA 4.0);
+% nur in der Druckvorlage, im Skript stehen nur die Angaben
+\renewcommand{\LEvierVolltexte}{%
+  \includepdf[pages=-,scale=0.92,pagecommand={\thispagestyle{rwu}}]{handouts/material/LE04_White2019_SciRep.pdf}%
+  \clearpage
+  {\bfseries\color{rwucyandark}Wikipedia: \enquote{Health}, section \enquote{Determinants}}\par
+  {\small\color{rwugray}Revision of 26~September 2026,
+  \url{https://en.wikipedia.org/w/index.php?title=Health&oldid=1376907986}.
+  Text by Wikipedia contributors (see the article history), licensed
+  CC~BY-SA~4.0 (\url{https://creativecommons.org/licenses/by-sa/4.0/});
+  images removed, layout changed. Subsections omitted.}\par\medskip
+  \begin{otherlanguage}{english}\small
+  \input{handouts/material/LE04_wikipedia_health}
+  \end{otherlanguage}}
 \pagestyle{rwu}
 \def\wuzteilhandout{handout}\def\wuzteila{uebunga}\def\wuzteilb{uebungb}\def\wuzteilc{uebungc}
 \ifx\wuzteil\wuzteilhandout \excludeversion{uebungsblatt}\excludeversion{uebungsblattb}\excludeversion{uebungsblattc}\fi

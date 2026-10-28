@@ -33,7 +33,7 @@ UEB_C   = pdf/Uebungsblaetter/LE04_Uebungsblatt_C.pdf
 ZUS     = $(patsubst %,pdf/Zusammenfassungen/LE%_Zusammenfassung.pdf,$(LES))
 SAMMEL  = pdf/WuZ_WissArbeiten_Uebungsblaetter_A.pdf pdf/WuZ_WissArbeiten_Uebungsblaetter_B.pdf \
           pdf/WuZ_WissArbeiten_Zusammenfassungen.pdf
-HDEPS   = handouts.tex preamble.tex wuzmacros.tex refs.bib refs_extra.bib
+HDEPS   = handouts.tex preamble.tex wuzmacros.tex refs.bib refs_extra.bib $(wildcard handouts/material/*)
 # $(call teil,jobname,LE-Nummer oder leer,uebunga|uebungb|handout,Ziel)
 teil = $(LATEXMK) -outdir=build -jobname=$(1) \
 	-usepretex='\def\wuzle{$(2)}\def\wuzteil{$(3)}$(5)' handouts.tex && \

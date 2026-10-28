@@ -86,6 +86,8 @@
   \wuzblattkopf{rwucyandark}{\wuzblattname~B: #2}%
   \noindent{\small \wuzpersonname: \rule{55mm}{0.3pt}\hfill \wuzdatumname: \rule{30mm}{0.3pt}}\par\medskip}{\par}
 \newenvironment{uebungsblattc}[1]{\wuzblattkopf{rwucyandark}{\wuzblattname~C: #1}}{\par}
+% Volltexte zu Blatt C (LE 4); im Skript leer, handouts.tex definiert sie
+\providecommand{\LEvierVolltexte}{}
 % \aufgabe{Titel}[Bearbeitungszeit/Form]
 \NewDocumentCommand{\aufgabe}{m o}{\par\medskip\refstepcounter{wuzaufgabe}%
   \noindent{\bfseries\color{rwucyandark}\wuzaufgabename~\thewuzaufgabe: #1}%
