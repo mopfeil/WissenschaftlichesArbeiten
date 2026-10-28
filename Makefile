@@ -70,10 +70,14 @@ pdf/Worksheets_EN/LE%_Worksheet_A.pdf: handouts/en/LE%.tex $(HDEPS)
 pdf/Worksheets_EN/LE%_Worksheet_B.pdf: handouts/en/LE%.tex $(HDEPS)
 	$(call teil,LE$*_Worksheet_B,$(patsubst 0%,%,$*),uebungb,$@,\def\wuzsprache{en})
 
+# Python mit python-pptx fuer die PPTX-Fassung der Folien (ein Bild je Seite)
+PPTXPY ?= $(HOME)/.local/share/lecture-tools/venv/bin/python
+
 # Kopiert die PDFs nach pdf/ (versionierte Fassungen, verlinkt in README.md)
 publish: all einzeln english
 	cp docu.pdf pdf/WuZ_WissArbeiten_Skript.pdf
 	cp slides.pdf pdf/WuZ_WissArbeiten_Folien.pdf
+	$(PPTXPY) tools/pdf2pptx.py slides.pdf pdf/WuZ_WissArbeiten_Folien.pptx
 	cp handouts.pdf pdf/WuZ_WissArbeiten_Handouts.pdf
 
 clean:

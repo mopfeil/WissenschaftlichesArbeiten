@@ -20,7 +20,8 @@ der Woche vorwegnimmt.
 - [Skript (A4)](pdf/WuZ_WissArbeiten_Skript.pdf) – vollständige Fassung für Lehrende:
   Theorie, Folieninhalte, Vorbereitung jedes Kunststücks, Ablauf der
   Doppelstunde, Handouts, Übungsblätter mit Erwartungshorizont
-- [Folien (A5 quer)](pdf/WuZ_WissArbeiten_Folien.pdf) – was in der Stunde gezeigt wird
+- [Folien (A5 quer)](pdf/WuZ_WissArbeiten_Folien.pdf) – was in der Stunde gezeigt wird,
+  auch als [PPTX](pdf/WuZ_WissArbeiten_Folien.pptx) zum Präsentieren (ein Bild je Folie)
 - [Handouts und Übungsblätter (A4)](pdf/WuZ_WissArbeiten_Handouts.pdf) – Druckvorlage
   für die Studierenden, ohne Regie- und Lösungshinweise
 - Getrennt zum Austeilen, je Lehreinheit eine PDF ([Übungsblätter](pdf/Uebungsblaetter/),
