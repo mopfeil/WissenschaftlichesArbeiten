@@ -1,12 +1,12 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Englische Fassung des Uebungsblatts zu Lehreinheit 4 (Teil A und B).
+% Englische Fassung des Uebungsblatts zu Lehreinheit 4 (Teil A, B und C).
 % Vorlage: handouts/LE04.tex. Nur in handouts.tex mit \def\wuzsprache{en}.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{uebungsblatt}{Source Criticism and SIFT}
 
 \aufgabe{SIFT grid for three sources}[in class, small groups, 30 min.; finish as homework]
-The instructor provides three sources: (1)~a peer-reviewed study, (2)~a
-newspaper article, (3)~a Wikipedia entry. First enter the exact details,
+The instructor provides three sources (Worksheet~C): (1)~a peer-reviewed
+study, (2)~a newspaper article, (3)~a Wikipedia entry. First enter the exact details,
 then your findings for each step. In step~T, trace at least one number back
 to the original study. On the type of source: \emph{primary} = own data
 (study), \emph{secondary} = summarises studies (review, meta-analysis),
@@ -125,3 +125,80 @@ retractions, check in what sense the paper is cited
 \parencite{dora2012,hicks2015leiden}.
 \end{lehrhinweis}
 \end{uebungsblattb}
+
+\begin{uebungsblattc}{Three Sources for the SIFT Exercise}
+
+Work through these three sources with the SIFT grid (Worksheet~A,
+Task~1). They are linked: the newspaper article and the Wikipedia entry
+both refer to the same study. Open the links via the QR codes and enter
+the details in the grid yourself.
+
+\newcommand{\LEvierQuelle}[4]{%
+\par\medskip\noindent
+\begin{minipage}[t]{0.76\textwidth}
+{\bfseries\color{rwucyandark}#1}\par\smallskip
+#2\par\smallskip
+{\small\url{#3}}
+\end{minipage}\hfill
+\begin{minipage}[t]{0.2\textwidth}\vspace{0pt}\raggedleft
+\qrcode[nolink,height=2.6cm]{#4}
+\end{minipage}\par\medskip}
+
+\LEvierQuelle{(1) The study}
+{White, M.\,P., Alcock, I., Grellier, J., Wheeler, B.\,W., Hartig, T.,
+Warber, S.\,L., Bone, A., Depledge, M.\,H. \& Fleming, L.\,E. (2019).
+Spending at least 120 minutes a week in nature is associated with good
+health and wellbeing. \emph{Scientific Reports, 9}, Article~7730. Open
+access.}
+{https://doi.org/10.1038/s41598-019-44097-3}
+{https://doi.org/10.1038/s41598-019-44097-3}
+
+\LEvierQuelle{(2) The newspaper article}
+{Carrington, D. (13~June 2019). Two-hour `dose' of nature significantly
+boosts health -- study. \emph{The Guardian}, Environment section.}
+{https://www.theguardian.com/environment/2019/jun/13/two-hour-dose-nature-weekly-boosts-health-study-finds}
+{https://www.theguardian.com/environment/2019/jun/13/two-hour-dose-nature-weekly-boosts-health-study-finds}
+
+\LEvierQuelle{(3) The Wikipedia entry}
+{\enquote{Health}, English Wikipedia, revision of 26~September 2026
+(permanent link, so that all groups check the same version). Find the
+sentence that cites the study (section on the environment as a
+determinant of health).}
+{https://en.wikipedia.org/w/index.php?title=Health&oldid=1376907986}
+{https://en.wikipedia.org/w/index.php?title=Health\&oldid=1376907986}
+
+\LEvierQuelle{Extra for step T: the press release}
+{University of Exeter (June 2019). Two hours a week is key dose of nature
+for health and wellbeing. Press release of the university where the study
+was carried out.}
+{https://news-archive.exeter.ac.uk/2019/june/title_720059_en.html}
+{https://news-archive.exeter.ac.uk/2019/june/title_720059_en.html}
+
+\textbf{For fast groups:} Compare the headline with the study's title.
+Which word was changed, and what does the change claim?
+
+\begin{lehrhinweis}[Expected answers for the three sources]
+Chain checked in October 2026: the Guardian names \emph{Scientific
+Reports} and links the study; Wikipedia cites it with its DOI.
+\textbf{S:} causal headline with a precise dose (\enquote{two-hour dose},
+\enquote{significantly boosts}); it sounds measured and fits familiar
+guidelines (150~minutes of exercise, \enquote{5 a day}): beware of
+confirmation bias. \textbf{I:} environment desk of a reputable paper, but
+the article closely follows the university's press release.
+\textbf{F:} the article never mentions the cross-sectional design or
+reverse causation; Wikipedia \enquote{Health} says \enquote{It has been
+demonstrated} and \enquote{positive health benefits}, stronger than the
+study. \textbf{T:} the study says \enquote{associated}, not
+\enquote{boosts}: cross-sectional survey, self-report, $n = 19{,}806$.
+The authors cannot rule out that healthier people spend more time in
+nature; time in nature explains only about 1\,\% of the variance.
+\enquote{Significantly} in the paper means statistically significant, in
+the headline it reads as \enquote{strongly}. The number 120 is partly an
+artefact: time was grouped in 60-minute blocks, and 78\,\% of answers in
+the 120--179~min block were exactly 120 (round hours). Link to apophenia:
+a \enquote{threshold} is read into categorised data. \textbf{Weight:}
+study medium (large, peer-reviewed, but correlational and called
+preliminary by its authors), newspaper low to medium, Wikipedia low
+(tertiary, overstated).
+\end{lehrhinweis}
+\end{uebungsblattc}

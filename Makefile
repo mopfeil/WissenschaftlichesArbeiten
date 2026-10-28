@@ -28,6 +28,8 @@ handouts:
 LES     = 01 02 03 04 05 06 07 08 09 10 11 12 13
 UEB     = $(patsubst %,pdf/Uebungsblaetter/LE%_Uebungsblatt_A.pdf,$(LES)) \
           $(patsubst %,pdf/Uebungsblaetter/LE%_Uebungsblatt_B.pdf,$(LES))
+# Teil C (Material zum Austeilen) gibt es bisher nur fuer LE 4
+UEB_C   = pdf/Uebungsblaetter/LE04_Uebungsblatt_C.pdf
 ZUS     = $(patsubst %,pdf/Zusammenfassungen/LE%_Zusammenfassung.pdf,$(LES))
 SAMMEL  = pdf/WuZ_WissArbeiten_Uebungsblaetter_A.pdf pdf/WuZ_WissArbeiten_Uebungsblaetter_B.pdf \
           pdf/WuZ_WissArbeiten_Zusammenfassungen.pdf
@@ -37,13 +39,16 @@ teil = $(LATEXMK) -outdir=build -jobname=$(1) \
 	-usepretex='\def\wuzle{$(2)}\def\wuzteil{$(3)}$(5)' handouts.tex && \
 	mkdir -p $(dir $(4)) && cp build/$(1).pdf $(4)
 
-einzeln: $(UEB) $(ZUS) $(SAMMEL)
+einzeln: $(UEB) $(UEB_C) $(ZUS) $(SAMMEL)
 
 pdf/Uebungsblaetter/LE%_Uebungsblatt_A.pdf: handouts/LE%.tex $(HDEPS)
 	$(call teil,LE$*_Uebungsblatt_A,$(patsubst 0%,%,$*),uebunga,$@)
 
 pdf/Uebungsblaetter/LE%_Uebungsblatt_B.pdf: handouts/LE%.tex $(HDEPS)
 	$(call teil,LE$*_Uebungsblatt_B,$(patsubst 0%,%,$*),uebungb,$@)
+
+pdf/Uebungsblaetter/LE%_Uebungsblatt_C.pdf: handouts/LE%.tex $(HDEPS)
+	$(call teil,LE$*_Uebungsblatt_C,$(patsubst 0%,%,$*),uebungc,$@)
 
 pdf/Zusammenfassungen/LE%_Zusammenfassung.pdf: handouts/LE%.tex $(HDEPS)
 	$(call teil,LE$*_Zusammenfassung,$(patsubst 0%,%,$*),handout,$@)
@@ -60,7 +65,8 @@ pdf/WuZ_WissArbeiten_Zusammenfassungen.pdf: handouts/*.tex $(HDEPS)
 # Englische Uebungsblaetter (Worksheets) aus handouts/en/, bisher LE 1-4
 LES_EN  = 01 02 03 04
 UEB_EN  = $(patsubst %,pdf/Worksheets_EN/LE%_Worksheet_A.pdf,$(LES_EN)) \
-          $(patsubst %,pdf/Worksheets_EN/LE%_Worksheet_B.pdf,$(LES_EN))
+          $(patsubst %,pdf/Worksheets_EN/LE%_Worksheet_B.pdf,$(LES_EN)) \
+          pdf/Worksheets_EN/LE04_Worksheet_C.pdf
 
 english: $(UEB_EN)
 
@@ -72,6 +78,9 @@ pdf/Worksheets_EN/LE%_Worksheet_B.pdf: handouts/en/LE%.tex $(HDEPS)
 
 # Python mit python-pptx fuer die PPTX-Fassung der Folien (ein Bild je Seite)
 PPTXPY ?= $(HOME)/.local/share/lecture-tools/venv/bin/python
+
+pdf/Worksheets_EN/LE%_Worksheet_C.pdf: handouts/en/LE%.tex $(HDEPS)
+	$(call teil,LE$*_Worksheet_C,$(patsubst 0%,%,$*),uebungc,$@,\def\wuzsprache{en})
 
 # Kopiert die PDFs nach pdf/ (versionierte Fassungen, verlinkt in README.md)
 publish: all einzeln english

@@ -28,11 +28,12 @@ der Woche vorwegnimmt.
   [Zusammenfassungen](pdf/Zusammenfassungen/)):
   - Übungsblatt Teil A: zu Beginn der Stunde, verrät den Staunmoment nicht
   - Übungsblatt Teil B: nach dem Staunmoment (Reflexion, Hausaufgaben)
+  - Übungsblatt Teil C (bisher nur LE 4): die drei Quellen für die SIFT-Übung mit QR-Codes
   - Zusammenfassung (Handout): am Ende der Stunde
   - Sammeldateien: [alle Teil A](pdf/WuZ_WissArbeiten_Uebungsblaetter_A.pdf),
     [alle Teil B](pdf/WuZ_WissArbeiten_Uebungsblaetter_B.pdf),
     [alle Zusammenfassungen](pdf/WuZ_WissArbeiten_Zusammenfassungen.pdf)
-- Englische Übungsblätter (Worksheets A/B) für LE 1–4:
+- Englische Übungsblätter (Worksheets A/B) für LE 1–4, Worksheet C für LE 4:
   [pdf/Worksheets_EN/](pdf/Worksheets_EN/), Quelltext in `handouts/en/`
 
 ## Die 13 Lehreinheiten

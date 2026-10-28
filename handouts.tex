@@ -5,9 +5,10 @@
 %   \def\wuzle{3}            nur Lehreinheit 3
 %   \def\wuzteil{uebunga}    nur Uebungsblatt Teil A (Austeilen zu Stundenbeginn)
 %   \def\wuzteil{uebungb}    nur Uebungsblatt Teil B (nach dem Staunmoment)
+%   \def\wuzteil{uebungc}    nur Uebungsblatt Teil C (Material, bisher nur LE 4)
 %   \def\wuzteil{handout}    nur Handouts (Zusammenfassung nach der Stunde)
 %   \def\wuzsprache{en}      englische Uebungsblaetter aus handouts/en/
-%                            (nur LE 1-4, nur mit uebunga/uebungb)
+%                            (nur LE 1-4, nur mit uebunga/uebungb/uebungc)
 \providecommand{\wuzle}{}
 \providecommand{\wuzteil}{alles}
 \providecommand{\wuzsprache}{de}
@@ -49,10 +50,11 @@
 \input macros
 \input wuzmacros
 \pagestyle{rwu}
-\def\wuzteilhandout{handout}\def\wuzteila{uebunga}\def\wuzteilb{uebungb}
-\ifx\wuzteil\wuzteilhandout \excludeversion{uebungsblatt}\excludeversion{uebungsblattb}\fi
-\ifx\wuzteil\wuzteila \excludeversion{handout}\excludeversion{uebungsblattb}\fi
-\ifx\wuzteil\wuzteilb \excludeversion{handout}\excludeversion{uebungsblatt}\fi
+\def\wuzteilhandout{handout}\def\wuzteila{uebunga}\def\wuzteilb{uebungb}\def\wuzteilc{uebungc}
+\ifx\wuzteil\wuzteilhandout \excludeversion{uebungsblatt}\excludeversion{uebungsblattb}\excludeversion{uebungsblattc}\fi
+\ifx\wuzteil\wuzteila \excludeversion{handout}\excludeversion{uebungsblattb}\excludeversion{uebungsblattc}\fi
+\ifx\wuzteil\wuzteilb \excludeversion{handout}\excludeversion{uebungsblatt}\excludeversion{uebungsblattc}\fi
+\ifx\wuzteil\wuzteilc \excludeversion{handout}\excludeversion{uebungsblatt}\excludeversion{uebungsblattb}\fi
 
 \begin{document}
 \sffamily

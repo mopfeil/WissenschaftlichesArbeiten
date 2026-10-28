@@ -1,5 +1,5 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Handout und Uebungsblatt zu Lehreinheit 4 (Quellenkritik)
+% Handout und Uebungsblatt (Teil A, B, C) zu Lehreinheit 4 (Quellenkritik)
 % Im Skript am Kapitelende, in handouts.tex als Druckvorlage.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{handout}{Quellenkritik}
@@ -63,8 +63,8 @@ Gegenposition.
 \begin{uebungsblatt}{Quellenkritik und SIFT}
 
 \aufgabe{SIFT-Raster für drei Quellen}[in der Stunde, Kleingruppe, 30 Min.; Fertigstellung als Hausaufgabe]
-Die Lehrperson gibt drei Quellen vor: (1)~eine Peer-Review-Studie,
-(2)~einen Zeitungsartikel, (3)~einen Wikipedia-Eintrag. Tragen Sie
+Die Lehrperson gibt drei Quellen vor (Übungsblatt~C): (1)~eine
+Peer-Review-Studie, (2)~einen Zeitungsartikel, (3)~einen Wikipedia-Eintrag. Tragen Sie
 zuerst die genauen Angaben ein, dann Ihre Befunde zu jedem Schritt.
 Verfolgen Sie in Schritt~T mindestens eine Zahl bis zur Originalstudie.
 Zur Art der Quelle: \emph{primär} = eigene Daten (Studie),
@@ -187,3 +187,84 @@ und Widerrufe suchen, in welchem Sinn zitiert wird
 \parencite{dora2012,hicks2015leiden}.
 \end{lehrhinweis}
 \end{uebungsblattb}
+
+\begin{uebungsblattc}{Drei Quellen für die SIFT-Übung}
+
+Diese drei Quellen bearbeiten Sie mit dem SIFT-Raster (Übungsblatt~A,
+Aufgabe~1). Sie hängen zusammen: Zeitungsartikel und Wikipedia-Eintrag
+berufen sich auf dieselbe Studie. Öffnen Sie die Links über die QR-Codes
+und tragen Sie die Angaben selbst ins Raster ein.
+
+\newcommand{\LEvierQuelle}[4]{%
+\par\medskip\noindent
+\begin{minipage}[t]{0.76\textwidth}
+{\bfseries\color{rwucyandark}#1}\par\smallskip
+#2\par\smallskip
+{\small\url{#3}}
+\end{minipage}\hfill
+\begin{minipage}[t]{0.2\textwidth}\vspace{0pt}\raggedleft
+\qrcode[nolink,height=2.6cm]{#4}
+\end{minipage}\par\medskip}
+
+\LEvierQuelle{(1) Die Studie}
+{White, M.\,P., Alcock, I., Grellier, J., Wheeler, B.\,W., Hartig, T.,
+Warber, S.\,L., Bone, A., Depledge, M.\,H. \& Fleming, L.\,E. (2019).
+Spending at least 120 minutes a week in nature is associated with good
+health and wellbeing. \emph{Scientific Reports, 9}, Artikel~7730. Frei
+zugänglich (Open Access).}
+{https://doi.org/10.1038/s41598-019-44097-3}
+{https://doi.org/10.1038/s41598-019-44097-3}
+
+\LEvierQuelle{(2) Der Zeitungsartikel}
+{DER SPIEGEL (13.\,6.\,2019). Waldbaden und Spazierengehen: Ab zwei
+Stunden pro Woche macht die Natur gesund, sagen Forscher. Ressort
+Gesundheit.}
+{https://www.spiegel.de/gesundheit/ernaehrung/120-minuten-natur-pro-woche-sind-gesund-a-1272293.html}
+{https://www.spiegel.de/gesundheit/ernaehrung/120-minuten-natur-pro-woche-sind-gesund-a-1272293.html}
+
+\LEvierQuelle{(3) Der Wikipedia-Eintrag}
+{\enquote{Health}, englischsprachige Wikipedia, Fassung vom 26.\,9.\,2026
+(permanenter Link, damit alle Gruppen dieselbe Fassung prüfen). Suchen Sie
+den Satz, der die Studie zitiert (Abschnitt zur Umwelt als
+Gesundheitsfaktor).}
+{https://en.wikipedia.org/w/index.php?title=Health&oldid=1376907986}
+{https://en.wikipedia.org/w/index.php?title=Health\&oldid=1376907986}
+
+\LEvierQuelle{Zusatz für Schritt T: die Pressemitteilung}
+{University of Exeter (Juni 2019). Two hours a week is key dose of nature
+for health and wellbeing. Pressemitteilung der Hochschule, an der die
+Studie entstand.}
+{https://news-archive.exeter.ac.uk/2019/june/title_720059_en.html}
+{https://news-archive.exeter.ac.uk/2019/june/title_720059_en.html}
+
+\textbf{Für schnelle Gruppen:} Gibt es in der deutschsprachigen Wikipedia
+einen Eintrag, der diese Studie zitiert? Was folgt daraus für Ihre Suche
+in Schritt~F?
+
+\begin{lehrhinweis}[Erwartungshorizont zu den drei Quellen]
+Die Kette ist geprüft (Oktober 2026): Der SPIEGEL nennt die University of
+Exeter und \emph{Scientific Reports}, verlinkt die Studie aber nicht; die
+Wikipedia zitiert sie mit DOI. \textbf{S:} Die Überschrift ist kausal und
+nennt eine genaue Dosis (\enquote{ab zwei Stunden}); das klingt gemessen
+und passt zu Bekanntem (150~Minuten Bewegung, \enquote{5 am Tag}), also
+Vorsicht vor dem Bestätigungsfehler. \textbf{I:} Der Artikel ist nicht
+namentlich gezeichnet und folgt eng der Pressemitteilung; die Hochschule
+hat ein Interesse an Aufmerksamkeit. \textbf{F:} Im SPIEGEL-Text selbst
+steht es vorsichtiger als in der Überschrift (\enquote{relativ klein},
+umgekehrte Wirkrichtung nicht ausgeschlossen). Die deutschsprachige
+Wikipedia zitiert die Studie nicht; der englische Eintrag
+\enquote{Health} schreibt \enquote{It has been demonstrated} und
+\enquote{positive health benefits}, also stärker als die Studie.
+\textbf{T:} Die Studie schreibt \enquote{associated}, nicht
+\enquote{macht gesund}: Querschnittsbefragung, Selbstauskunft,
+$n = 19\,806$. Die Autoren können nicht ausschließen, dass gesündere
+Menschen mehr Zeit in der Natur verbringen; die Zeit in der Natur erklärt
+nur rund 1\,\% der Varianz. Die Zahl 120 ist zum Teil ein Artefakt: Die
+Zeit wurde in 60-Minuten-Blöcke eingeteilt, und 78\,\% der Angaben im
+Block 120--179 Minuten lauten genau 120 (runde Stunden). Brücke zur
+Apophänie: Eine \enquote{Schwelle} wird in kategorisierte Daten
+hineingelesen. \textbf{Gewicht:} Studie mittel (groß, begutachtet, aber
+korrelativ, von den Autoren selbst als vorläufig bezeichnet), Zeitung
+gering bis mittel, Wikipedia gering (tertiär, überzeichnet).
+\end{lehrhinweis}
+\end{uebungsblattc}

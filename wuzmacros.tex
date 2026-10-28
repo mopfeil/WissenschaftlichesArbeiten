@@ -61,6 +61,8 @@
 %   uebungsblattb{n}{Titel}       Teil B: nach dem Staunmoment; n = Nummer der
 %                                 ersten Aufgabe (zaehlt Teil A weiter, auch
 %                                 wenn Teil B allein gedruckt wird)
+%   uebungsblattc{Titel}          Teil C (optional): Material zum Austeilen,
+%                                 etwa die Quellen fuer eine Gruppenaufgabe
 % Beschriftungen; handouts.tex ueberschreibt sie fuer die englische Fassung
 \providecommand{\wuzkurs}{Wissenschaftliches Arbeiten (WuZ)}
 \providecommand{\wuzlename}{Lehreinheit}
@@ -83,6 +85,7 @@
 \newenvironment{uebungsblattb}[2]{\setcounter{wuzaufgabe}{\numexpr#1-1\relax}%
   \wuzblattkopf{rwucyandark}{\wuzblattname~B: #2}%
   \noindent{\small \wuzpersonname: \rule{55mm}{0.3pt}\hfill \wuzdatumname: \rule{30mm}{0.3pt}}\par\medskip}{\par}
+\newenvironment{uebungsblattc}[1]{\wuzblattkopf{rwucyandark}{\wuzblattname~C: #1}}{\par}
 % \aufgabe{Titel}[Bearbeitungszeit/Form]
 \NewDocumentCommand{\aufgabe}{m o}{\par\medskip\refstepcounter{wuzaufgabe}%
   \noindent{\bfseries\color{rwucyandark}\wuzaufgabename~\thewuzaufgabe: #1}%
