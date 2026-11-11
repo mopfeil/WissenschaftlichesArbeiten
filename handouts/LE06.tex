@@ -28,6 +28,13 @@ kann nicht & $H_0$ stützen; sagen, wie wahrscheinlich $H$ ist & ohne offen gele
 
 \textbf{Kernbegriffe}
 \begin{description}\itemsep 0pt
+  \item[Standardabweichung, Standardfehler] $s$: typischer Abstand der
+    \emph{Werte} vom Mittelwert. $\mathit{SE}=s/\sqrt{n}$: wie genau der
+    \emph{Mittelwert} bestimmt ist; schrumpft mit wachsendem $n$.
+  \item[Zentraler Grenzwertsatz] Mittelwerte vieler unabhängiger Werte
+    sind annähernd normalverteilt, egal wie die Einzelwerte verteilt sind.
+  \item[Konfidenzintervall] Schätzwert $\pm1{,}96\,\mathit{SE}$; das
+    Verfahren fängt den wahren Wert in 95\,\% der Wiederholungen ein.
   \item[Bedingte Wahrscheinlichkeit] $P(A\mid B)$. Die Richtung zählt:
     $P(\text{Daten}\mid H)\neq P(H\mid\text{Daten})$.
   \item[p-Wert] Wahrscheinlichkeit für mindestens so extreme Daten,
@@ -106,50 +113,33 @@ gewonnen \qquad \textbf{wechseln} \rule{12mm}{0.3pt} von
 \rule{12mm}{0.3pt} gewonnen \qquad Kurs gesamt (Tafel):
 \rule{25mm}{0.3pt}
 
-\aufgabe{Würfel-Detektive}[in der Stunde, Paare, 10 Min.]
-Die werfende Person öffnet den Umschlag und liest die Karte \emph{für
-sich}: \enquote{fair} (Treffer ist nur die 6) oder \enquote{gezinkt}
-(Treffer sind 5 und 6). Sie würfelt 30-mal verdeckt unter einem Becher und
-sagt nur \enquote{Treffer} oder \enquote{kein Treffer}. Die Detektivin
-führt die Strichliste. Bekannt ist: Jeder fünfte Umschlag ist gezinkt.
+\aufgabe{Würfel-Mittelwerte: der Zentrale Grenzwertsatz}[in der Stunde, einzeln, 8 Min.]
+Würfeln Sie fünfmal und notieren Sie die Augenzahlen. Berechnen Sie den
+Mittelwert. Wiederholen Sie das viermal und tragen Sie alle vier
+Mittelwerte als Punkte auf der Zahlengerade an der Tafel ein.
 
 \begin{center}
-\renewcommand{\arraystretch}{1.6}
-\begin{tabular}{|p{0.3\textwidth}|p{0.55\textwidth}|}
+\renewcommand{\arraystretch}{1.5}
+\begin{tabular}{|c|c|c|c|c|c||c|}
 \hline
-Treffer (Strichliste) & \\ \hline
-Kein Treffer (Strichliste) & \\ \hline
+\textbf{Serie} & \textbf{1.} & \textbf{2.} & \textbf{3.} & \textbf{4.} & \textbf{5.} & \textbf{Mittelwert} \\ \hline
+1 & \hspace{8mm} & \hspace{8mm} & \hspace{8mm} & \hspace{8mm} & \hspace{8mm} & \hspace{18mm} \\ \hline
+2 & & & & & & \\ \hline
+3 & & & & & & \\ \hline
+4 & & & & & & \\ \hline
 \end{tabular}
 \end{center}
-
-\begin{center}
-\footnotesize
-\setlength{\tabcolsep}{3.5pt}
-\begin{tabular}{@{}l*{12}{c}@{}}
-\toprule
-Treffer $k$ & 3 & 4 & 5 & 6 & 7 & 8 & 9 & 10 & 11 & 12 & 13 & 14 \\
-\midrule
-$p=P(X\geq k\mid\text{fair})$ & 0,90 & 0,76 & 0,58 & 0,38 & 0,22 & 0,11 & 0,051 & 0,020 & 0,007 & 0,002 & 0,0005 & 0,0001 \\
-$\mathit{BF}_{10}=2^k\cdot0{,}8^{30-k}$ & 0,02 & 0,05 & 0,12 & 0,30 & 0,76 & 1,9 & 4,7 & 11,8 & 30 & 74 & 184 & 461 \\
-$P(\text{gezinkt})$ bei $1:4$ & 0,5\,\% & 1\,\% & 3\,\% & 7\,\% & 16\,\% & 32\,\% & 54\,\% & 75\,\% & 88\,\% & 95\,\% & 98\,\% & 99\,\% \\
-\bottomrule
-\end{tabular}
-\end{center}
-
 \begin{enumerate}
-  \item \textbf{Frequentistisch:} $H_0$: fair. p-Wert für Ihr $k$:
-    \rule{20mm}{0.3pt}. Bei $\alpha=0{,}05$ ist der Würfel
-    \quad $\square$ signifikant gezinkt \quad $\square$ nicht auffällig.
-  \item \textbf{Bayesianisch:} $\mathit{BF}_{10}$ = \rule{18mm}{0.3pt};
-    Chance vorher $1:4$, Chance nachher \rule{18mm}{0.3pt};\\
-    $P(\text{gezinkt})$ = \rule{18mm}{0.3pt}. Rechnen Sie einmal selbst
-    nach, ohne die letzte Zeile der Tabelle.
-  \item Umschlag öffnen. Wer hatte recht? Tragen Sie Ihr Paar an der Tafel
-    in die Vierfeldertafel ein.
-  \item Wie sähe Ihr Bayes-Urteil aus, wenn nur einer von 100 Würfeln
-    gezinkt wäre? Und Ihr Testurteil?
+  \item \emph{Vor} dem Würfeln: Ein einzelner Wurf hat Mittelwert 3,5 und
+    Standardabweichung 1,71. Wie groß ist der Standardfehler eines
+    Mittelwerts aus 5 Würfen? Zwischen welchen Werten sollten etwa 95\,\%
+    der Punkte an der Tafel liegen?
+  \item Stimmt Ihre Vorhersage mit dem Bild an der Tafel überein? Welche
+    Form hat es?
+  \item Wie würde das Bild aussehen, wenn jeder Punkt der Mittelwert aus
+    20 Würfen wäre?
 \end{enumerate}
-\schreiblinien{2}
+\schreiblinien{3}
 
 \aufgabe{Datensatz-Analyse}[Hausaufgabe, Kleingruppe]
 \textbf{Fiktiver Datensatz} (konstruiert für diese Übung, keine echte
@@ -197,16 +187,68 @@ nicht bis 5 = sehr), und ob sie den Pendeleffekt vorher kannten
     Ausreißer. Welcher Kennwert reagiert stärker, und warum?
   \item Fassen Sie \textbf{St} sinnvoll zusammen. Ist ein Mittelwert
     zulässig?
+  \item Berechnen Sie den Standardfehler des Mittelwerts von \textbf{mm}
+    und ein 95-\%-Konfidenzintervall. Was sagt das Intervall, was nicht?
   \item Vergleichen Sie \textbf{mm} zwischen Personen mit und ohne
     Vorwissen mit Mittelwert \emph{und} Median. Was fällt auf?
-  \item Rechnen Sie für denselben Vergleich einen $t$-Test (gepoolte
-    Standardabweichung) und den Bayes-Faktor nach der Faustformel vom
-    Handout. Was sagen beide Ergebnisse, und was sagen sie nicht?
+  \item Rechnen Sie für denselben Vergleich einen $t$-Test von Hand
+    (gepoolte Standardabweichung). Nach Sitzung~2: Ergänzen Sie den
+    Bayes-Faktor nach der Faustformel. Was sagen beide Ergebnisse, und was
+    sagen sie nicht?
 \end{enumerate}
 \schreiblinien{6}
 \end{uebungsblatt}
 
-\begin{uebungsblattb}{4}{Basisrate, Glaubwürdigkeit, Projekt}
+\begin{uebungsblattb}{4}{Würfel-Detektive, Basisrate, Glaubwürdigkeit, Projekt}
+
+\aufgabe{Würfel-Detektive}[in der Stunde, Paare, 10 Min.]
+\textbf{Rollen:} W = Werferin, D = Detektivin. \textbf{1.}~W öffnet den
+Umschlag und liest die Karte \emph{allein}: \enquote{fair} (Treffer ist nur
+die 6) oder \enquote{gezinkt} (Treffer sind 5 und 6). \textbf{2.}~W würfelt
+verdeckt unter einem Becher und sagt nur \enquote{Treffer} oder
+\enquote{kein Treffer}. \textbf{3.}~D macht einen Strich, nach genau
+\textbf{30} Würfen ist Schluss. \textbf{4.}~D wertet beide Wege aus und
+entscheidet. \textbf{5.}~Erst dann deckt W die Karte auf. Bekannt ist:
+Jeder fünfte Umschlag ist gezinkt (Basisrate $1:4$).
+
+\begin{center}
+\renewcommand{\arraystretch}{1.6}
+\begin{tabular}{|p{0.3\textwidth}|p{0.55\textwidth}|}
+\hline
+Treffer (Strichliste) & \\ \hline
+Kein Treffer (Strichliste) & \\ \hline
+\end{tabular}
+\end{center}
+
+\begin{center}
+\footnotesize
+\setlength{\tabcolsep}{3.5pt}
+\begin{tabular}{@{}l*{12}{c}@{}}
+\toprule
+Treffer $k$ & 3 & 4 & 5 & 6 & 7 & 8 & 9 & 10 & 11 & 12 & 13 & 14 \\
+\midrule
+$p=P(X\geq k\mid\text{fair})$ & 0,90 & 0,76 & 0,58 & 0,38 & 0,22 & 0,11 & 0,051 & 0,020 & 0,007 & 0,002 & 0,0005 & 0,0001 \\
+$\mathit{BF}_{10}=2^k\cdot0{,}8^{30-k}$ & 0,02 & 0,05 & 0,12 & 0,30 & 0,76 & 1,9 & 4,7 & 11,8 & 30 & 74 & 184 & 461 \\
+$P(\text{gezinkt})$ bei $1:4$ & 0,5\,\% & 1\,\% & 3\,\% & 7\,\% & 16\,\% & 32\,\% & 54\,\% & 75\,\% & 88\,\% & 95\,\% & 98\,\% & 99\,\% \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\begin{enumerate}
+  \item \textbf{Frequentistisch:} $H_0$: fair. p-Wert für Ihr $k$:
+    \rule{20mm}{0.3pt}. Bei $\alpha=0{,}05$ ist der Würfel
+    \quad $\square$ signifikant gezinkt \quad $\square$ nicht auffällig.
+  \item \textbf{Bayesianisch:} $\mathit{BF}_{10}$ = \rule{18mm}{0.3pt};
+    Chance vorher $1:4$, Chance nachher \rule{18mm}{0.3pt};\\
+    $P(\text{gezinkt})$ = \rule{18mm}{0.3pt}. Rechnen Sie einmal selbst
+    nach, ohne die letzte Zeile der Tabelle.
+  \item Umschlag öffnen. Wer hatte recht? Tragen Sie Ihr Paar an der Tafel
+    in die Vierfeldertafel ein.
+  \item Wie sähe Ihr Bayes-Urteil aus, wenn nur einer von 100 Würfeln
+    gezinkt wäre? Und Ihr Testurteil?
+\end{enumerate}
+\schreiblinien{2}
+
 
 \aufgabe{Basisrate: Taxi und Test}[Hausaufgabe]
 In einer Stadt fahren 85\,\% grüne und 15\,\% blaue Taxis. Nach einem
@@ -331,19 +373,13 @@ Standardabweichung der Gewinnzahl bei 12 Wechselrunden beträgt etwa 1,6),
 manche Paare finden sogar das Gegenteil. Erst der Kurs-Pool zeigt das
 Muster stabil. Das ist der Anlass, über Stichprobengröße zu sprechen.
 
-\textbf{Aufgabe~2.} Tabellenwerte exakt mit $B(30,\tfrac16)$ bzw.\
-$B(30,\tfrac13)$ gerechnet. Signifikant ($\alpha=0{,}05$, einseitig) ist
-ein Würfel ab 10 Treffern. Ein fairer Würfel erreicht das mit 2,0\,\%, ein
-gezinkter mit 57\,\%. Die Bayes-Regel \enquote{gezinkt, wenn
-$P(\text{gezinkt})>50\,\%$} greift bei Basisrate $1:4$ ab 9 Treffern
-(fair: 5,1\,\%, gezinkt: 71\,\%). Nachrechnen für $k=10$:
-$2^{10}=1024$, $0{,}8^{20}=0{,}0115$, $\mathit{BF}_{10}=11{,}8$; Chance
-$11{,}8:4$, also $11{,}8/15{,}8=75\,\%$. (4)~Bei Basisrate $1:99$ und
-$k=10$: $11{,}8:99$, also 11\,\%. Der Würfel ist dann trotz
-\enquote{signifikant} wahrscheinlich fair; das Testurteil ändert sich
-nicht, weil der Test die Basisrate nicht kennt. Bei 15 Paaren streut die
-Vierfeldertafel stark; erwartet sind 0--1 falsche Alarme und 1--2 erkannte
-von 3 gezinkten Würfeln.
+\textbf{Aufgabe~2.} (1)~$\mathit{SE}=1{,}71/\sqrt5\approx0{,}76$;
+etwa 95\,\% der Mittelwerte zwischen $3{,}5\pm2\cdot0{,}76$, also 2,0 und
+5,0. (2)~Das Bild ist eine Glocke um 3,5, obwohl einzelne Würfe
+gleichverteilt sind; von 120 Punkten liegen im Mittel etwa vier
+außerhalb von 2,0 bis 5,0 (exakt 3,2\,\% je Punkt; die Normalnäherung
+sagt 5\,\%). (3)~Mit 20 Würfen: $\mathit{SE}\approx0{,}38$, die
+Glocke wäre halb so breit (etwa 2,7 bis 4,3).
 
 \textbf{Aufgabe~3} (Werte mit Python nachgerechnet).
 (1)~Nr: nominal (Kennung); mm: Verhältnisskala; St: ordinal; VW: nominal
@@ -378,9 +414,16 @@ nahe, der Median fast keinen; die Gruppe ohne Vorwissen streut stärker
 und enthält die beiden größten Werte (73 und 96\,mm). Die erwartete
 Antwort: Aus diesen Daten folgt kein belastbarer Gruppenunterschied, und
 die Wahl des Kennwerts bestimmt die Geschichte, die man erzählen könnte.
-(7)~Gepoolte Standardabweichung $s_p=19{,}3$\,mm, $\mathit{SE}=s_p\sqrt{1/33+1/17}=5{,}76$\,mm,
+(7)~$\mathit{SE}=19{,}32/\sqrt{50}\approx2{,}73$\,mm; 95-\%-Intervall
+$29{,}94\pm1{,}96\cdot2{,}73$, also 24,6 bis 35,3\,mm (mit $t_{49}=2{,}01$:
+24,4 bis 35,4\,mm). Das Intervall beschreibt die Unsicherheit des
+\emph{Mittelwerts}, nicht die Streuung der Personen: Die meisten
+Einzelwerte liegen außerhalb. Wegen der schiefen Verteilung trägt hier der
+Zentrale Grenzwertsatz; bei $n=50$ ist das vertretbar.
+(8)~Gepoolte Standardabweichung $s_p=19{,}3$\,mm, $\mathit{SE}=s_p\sqrt{1/33+1/17}=5{,}76$\,mm,
 $t=(32{,}03-25{,}88)/5{,}76=1{,}07$, $\mathit{df}=48$, $p=0{,}29$;
-$d=0{,}32$. Welch-Test: $t=1{,}25$, $p=0{,}22$. Faustformel:
+$d=0{,}32$. 95-\%-Intervall des Unterschieds: $6{,}15\pm2{,}01\cdot5{,}76$,
+also $-5{,}4$ bis $17{,}7$\,mm, es schließt null deutlich ein. Welch-Test: $t=1{,}25$, $p=0{,}22$. Nach Sitzung~2, Faustformel:
 $\mathit{BF}_{01}\approx\sqrt{50}\,(1+1{,}14/48)^{-25}\approx 7{,}07\cdot0{,}56\approx3{,}9$;
 JASP (JZS, $r=\sqrt2/2$) liefert $\mathit{BF}_{01}=2{,}1$. Erwartete
 Deutung: kein signifikanter Unterschied; die Daten sprechen leicht für
@@ -388,7 +431,21 @@ Deutung: kein signifikanter Unterschied; die Daten sprechen leicht für
 (Nr.~34) treibt den Mittelwertunterschied; der $t$-Test vergleicht
 Mittelwerte und erbt diese Empfindlichkeit.
 
-\textbf{Aufgabe~4.} (1)~Die meisten schätzen 80\,\%. (2)~Von 100 Unfällen
+\textbf{Aufgabe~4.} Tabellenwerte exakt mit $B(30,\tfrac16)$ bzw.\
+$B(30,\tfrac13)$ gerechnet. Signifikant ($\alpha=0{,}05$, einseitig) ist
+ein Würfel ab 10 Treffern. Ein fairer Würfel erreicht das mit 2,0\,\%, ein
+gezinkter mit 57\,\%. Die Bayes-Regel \enquote{gezinkt, wenn
+$P(\text{gezinkt})>50\,\%$} greift bei Basisrate $1:4$ ab 9 Treffern
+(fair: 5,1\,\%, gezinkt: 71\,\%). Nachrechnen für $k=10$:
+$2^{10}=1024$, $0{,}8^{20}=0{,}0115$, $\mathit{BF}_{10}=11{,}8$; Chance
+$11{,}8:4$, also $11{,}8/15{,}8=75\,\%$. (4)~Bei Basisrate $1:99$ und
+$k=10$: $11{,}8:99$, also 11\,\%. Der Würfel ist dann trotz
+\enquote{signifikant} wahrscheinlich fair; das Testurteil ändert sich
+nicht, weil der Test die Basisrate nicht kennt. Bei 15 Paaren streut die
+Vierfeldertafel stark; erwartet sind 0--1 falsche Alarme und 1--2 erkannte
+von 3 gezinkten Würfeln.
+
+\textbf{Aufgabe~5.} (1)~Die meisten schätzen 80\,\%. (2)~Von 100 Unfällen
 sind 15 mit blauen Taxis, davon erkennt der Zeuge 12 als blau; von 85
 grünen hält er 17 für blau. $P(\text{blau}\mid\text{\enquote{blau}})=12/29\approx41\,\%$.
 (3)~Prior-Chance $15:85$, $\mathit{BF}=0{,}8/0{,}2=4$, Posterior
@@ -397,10 +454,10 @@ $60:85$, also 41\,\%. (4)~$60:85\times4=240:85$, also 74\,\%.
 stimmt das Bauchgefühl. Der Bayes-Faktor des Zeugen bleibt 4; er
 beschreibt den Zeugen, nicht die Stadt.
 
-\textbf{Aufgabe~5.} Siehe den Hinweis zu den Behauptungskarten im
+\textbf{Aufgabe~6.} Siehe den Hinweis zu den Behauptungskarten im
 Abschnitt \enquote{Glaubwürdigkeits-Check}.
 
-\textbf{Aufgabe~6.} Gemessen: Selbstauskunft, keine Lernleistung;
+\textbf{Aufgabe~7.} Gemessen: Selbstauskunft, keine Lernleistung;
 Online-Befragung, unklar, ob die Gruppen zufällig gebildet wurden. 23
 Merkmale: Bei $\alpha=0{,}05$ erwartet man unter reinem Zufall gut einen
 \enquote{signifikanten} Befund ($23\cdot0{,}05\approx1{,}2$); die
@@ -411,7 +468,7 @@ Konzentrations-Selbstauskunft, sonst nichts} niedrig. \enquote{Bewiesen}
 ist nichts; allenfalls liegt eine Hypothese für eine präregistrierte
 Folgestudie vor (Brücke zu LE~10).
 
-\textbf{Aufgabe~7.} Ein gutes Gegenteil ist eine eigene Hypothese mit
+\textbf{Aufgabe~8.} Ein gutes Gegenteil ist eine eigene Hypothese mit
 eigener Begründung, keine bloße Verneinung. Das Weder-noch sollte
 mindestens eine Störvariable enthalten, die in LE~7 kontrolliert werden
 kann. Entscheidend ist (1): Eine Beobachtung, die alle Positionen gleich
@@ -420,7 +477,7 @@ Bei der Karte wird nicht die Zeichnung bewertet, sondern ob jedes
 Element einen Beleg oder eine Zahl trägt und ob offene Drachen ehrlich
 stehen bleiben.
 
-\textbf{Aufgabe~8.} Gute Pläne nennen eine konkrete Zielgröße, einen
+\textbf{Aufgabe~9.} Gute Pläne nennen eine konkrete Zielgröße, einen
 begründeten kleinsten Effekt und ein $n$, das sich wirklich rekrutieren
 lässt. Häufigste Einsicht: Mit 15--20 Personen pro Gruppe ist nur ein
 großer Effekt zu finden; sinnvolle Antworten sind Messwiederholung, eine

@@ -1,16 +1,22 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Lehreinheit 6: Statistik -- Signifikanztest und Bayes
+% Lehreinheit 6: Statistik -- Signifikanztest und Bayes (zwei Sitzungen)
 % (früher LE 8 "Quantitative Methoden und Statistik"; vorgezogen,
 %  damit die Studierenden beim Forschungsdesign in LE 7 wissen, welche
 %  Fragen ihre Studie beantworten kann)
+% Sitzung 1: Monty Hall, Beschreiben, Standardabweichung, Standardfehler,
+%            Zentraler Grenzwertsatz, Konfidenzintervall, Signifikanztest
+% Sitzung 2: Basisrate, Bayes, Wuerfel-Detektive, Glaubwuerdigkeits-Check,
+%            Power, Diamant und Landkarte
 % Quelle: WuZ-Buch, Kap. 15 (Buch-LE 8), Kap. 12d (Becher-Monty-Hall,
 %         Beats 2--6), Kap. 12f (Feldstudie, nur Zahlen aus dem Buch),
 %         Kap. 5b (Satz von Bayes, Horwich), Abschnitt 10d (p-Hacking)
 % Staunmoment: Monty Hall mit drei Bechern (optional Chop Cup)
-% Kernbegriffe: Bedingte Wahrscheinlichkeit, Basisrate, Bayes-Faktor
+% Kernbegriffe: Standardfehler, Bedingte Wahrscheinlichkeit, Basisrate,
+%               Bayes-Faktor
 % Alle Rechenbeispiele (Wuerfel, t-Test, Bayes-Faktoren, Power) mit
 % Python (scipy) nachgerechnet; JZS-Bayes-Faktoren nach Rouder et al. 2009
-% mit r = sqrt(2)/2 (Voreinstellung in JASP).
+% mit r = sqrt(2)/2 (Voreinstellung in JASP). Grafiken figures/LE06_*.pdf
+% erzeugt tools/le06_figuren.py.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \nsl{Bis hierher hat das Semester gefragt, wie man eine Frage stellt, wie
 man Quellen prüft und wie man aus einer Vermutung eine Hypothese macht,
@@ -18,48 +24,53 @@ die scheitern kann. Bevor in LE~7 das Forschungsdesign gebaut wird, führt
 diese Einheit das Werkzeug ein, mit dem man Daten befragt: die Statistik.
 Sie kommt bewusst vor dem Design, denn wer weiß, welche Fragen sich mit
 zwanzig oder dreißig Versuchspersonen überhaupt beantworten lassen, plant
-anders.
+anders. Weil die Grundbegriffe sorgfältig eingeführt werden sollen,
+umfasst die Einheit \textbf{zwei Doppelstunden}.
 
-Die Einheit beginnt mit drei Bechern und einer Abstimmung, bei der die
-Mehrheit fast immer danebenliegt. Das ist der eigentliche Grund, warum es
-Statistik gibt: Unser Gefühl für Wahrscheinlichkeiten ist schlecht
-geeicht, und zwar nicht zufällig, sondern systematisch. Von dort führt sie
-zu zwei Arten, Daten zu befragen. Die \emph{frequentistische} fragt, wie
-überraschend die Daten wären, wenn nichts dahintersteckt
-(Signifikanztest, p-Wert, $t$-Test). Die \emph{bayesianische} fragt, wie
-stark die Daten zwischen zwei Hypothesen unterscheiden und was man danach
-glauben sollte (Bayes-Faktor, Posterior). Der Unterschied wird an
-Beispielen sichtbar, die sich direkt auf der Folie rechnen lassen: ein
-möglicherweise gezinkter Würfel, ein kleiner $t$-Test, ein medizinischer
-Test und eine Behauptung aus dem Netz, deren Glaubwürdigkeit man mit einer
-Suchmaschine prüft. Durch alle Beispiele zieht sich die \emph{Basisrate}:
-Wie häufig ist das Gesuchte überhaupt? Ohne sie lässt sich weder ein
-positiver Test noch ein signifikanter Befund deuten. Die Studierenden
-rechnen in der Stunde selbst, als Würfel-Detektive und beim
-Glaubwürdigkeits-Check. Zum Schluss lernen sie eine Arbeitsabfolge, mit
-der man eine eigene Idee in Gegenhypothesen zerlegt (die Diamond-Technik
-aus dem Coaching, übersetzt in Forschungsfragen), und halten das
-Ergebnis auf einer Landkarte fest, die direkt in die Design-Skizze von
-LE~7 führt.
+Die \emph{erste Sitzung} beginnt mit drei Bechern und einer Abstimmung,
+bei der die Mehrheit fast immer danebenliegt. Das ist der eigentliche
+Grund, warum es Statistik gibt: Unser Gefühl für Wahrscheinlichkeiten ist
+schlecht geeicht, und zwar nicht zufällig, sondern systematisch. Von dort
+baut die Sitzung das Handwerkszeug auf: Lage und Streuung,
+Standardabweichung, den Unterschied zwischen Stichprobe und
+Grundgesamtheit, den Standardfehler, den Zentralen Grenzwertsatz, der
+erklärt, warum Mittelwerte so verlässlich normalverteilt sind, das
+Konfidenzintervall und schließlich den Signifikanztest mit p-Wert und
+$t$-Test. Die Studierenden würfeln den Grenzwertsatz selbst an die Tafel.
+
+Die \emph{zweite Sitzung} stellt der frequentistischen Frage (Wie
+überraschend wären die Daten, wenn nichts dahintersteckt?) die
+bayesianische gegenüber (Wie stark unterscheiden die Daten zwischen zwei
+Hypothesen, und was sollte man danach glauben?). Durch alle Beispiele zieht
+sich die \emph{Basisrate}: Wie häufig ist das Gesuchte überhaupt? Ohne sie
+lässt sich weder ein positiver Test noch ein signifikanter Befund deuten.
+Die Studierenden rechnen selbst, als Würfel-Detektive und beim
+Glaubwürdigkeits-Check einer Behauptung aus dem Netz. Zum Schluss lernen
+sie eine Arbeitsabfolge, mit der man eine eigene Idee in Gegenhypothesen
+zerlegt (die Diamond-Technik aus dem Coaching, übersetzt in
+Forschungsfragen), und halten das Ergebnis auf einer Landkarte fest, die
+direkt in die Design-Skizze von LE~7 führt.
+
+Die Grafiken der Einheit sind mit Python erzeugt
+(\texttt{tools/le06\_figuren.py}); die Simulationen haben feste
+Startwerte und lassen sich für eigene Varianten leicht abwandeln.
 \newpage}
 \os{\begin{description}
-\item[{\rot\bf Heute}]~\\[-\lblskip]
+\item[{\rot\bf Heute (Sitzung 1 von 2)}]~\\[-\lblskip]
 \bi
   \ite drei Becher, eine Kugel: wechseln oder bleiben?
   \ite bedingte Wahrscheinlichkeit: warum das Sichtbare täuscht
-  \ite Daten beschreiben: Skalen, Lage, Streuung (kurz)
-  \ite frequentistisch prüfen: p-Wert, Würfeltest, $t$-Test von Hand
-  \ite die Basisrate: das vergessene Vorwissen
-  \ite bayesianisch prüfen: Bayes-Faktor und Posterior
-  \ite selbst rechnen: Würfel-Detektive, Glaubwürdigkeits-Check
-  \ite Welche Fragen kann Ihr Projekt beantworten?
-  \ite schwierige Fragen zerlegen: Diamant und Landkarte
+  \ite Daten beschreiben: Skalen, Lage, Standardabweichung
+  \ite von der Stichprobe zur Grundgesamtheit: Standardfehler,
+    Zentraler Grenzwertsatz, Konfidenzintervall
+  \ite der Signifikanztest: Kurs-Pool, $t$-Test von Hand, zwei Arten,
+    sich zu irren
 \ei
 \end{description}
 \newpage}
 
-\begin{vorbereitung}[Monty Hall mit drei Bechern (optional: Chop Cup), Würfel-Detektive]
-\textbf{Eine Woche vorher}
+\begin{vorbereitung}[Monty Hall mit drei Bechern (optional: Chop Cup), Würfel-Experimente]
+\textbf{Eine Woche vor Sitzung~1}
 \begin{checkliste}
   \item Für die Vorführung: drei \emph{undurchsichtige}, gleich aussehende
     Becher und eine gut sichtbare Kugel (Schaumstoffball, Walnuss). Die
@@ -69,17 +80,8 @@ LE~7 führt.
     Pappbecher, eine Kugel (Papierkugel, Erbse, Münze) und ein Würfel.
     Bei 30 Studierenden 15 Sets plus drei Reserve. Pappbecher und Würfel
     gibt es im Haushalts- bzw.\ Spielwarenhandel. Würfel und Becher werden
-    für die Würfel-Detektive wiederverwendet.
-  \item Für die Würfel-Detektive je Paar einen verschlossenen Umschlag
-    mit einer Rollenkarte vorbereiten. Auf vier von fünf Karten steht
-    \enquote{\emph{fair}: Treffer ist nur die 6}, auf jeder fünften
-    \enquote{\emph{gezinkt}: Treffer sind 5 und 6}. Bei 15 Paaren also
-    12 faire und 3 gezinkte Karten. Die Umschläge mischen; welches Paar
-    welche Karte hat, weiß auch die Lehrperson nicht. So ist die
-    Trefferwahrscheinlichkeit genau $\tfrac16$ bzw.\ $\tfrac13$, und die
-    Basisrate (ein Fünftel) ist bekannt. Echte Mogelwürfel aus dem
-    Scherzartikelhandel gehen auch, ihre Schieflage ist aber unbekannt;
-    dann fehlt dem Bayes-Faktor die konkrete Alternativhypothese.
+    für das Grenzwertsatz-Experiment (Sitzung~1) und die Würfel-Detektive
+    (Sitzung~2) wiederverwendet.
   \item Die drei Fälle und die Gegenprobe mit dem blinden Moderator
     (Buch, Kap.~12d, Beats~2--6) so oft mit echten Bechern durchspielen,
     dass sie ohne Folie frei erklärt werden können.
@@ -90,36 +92,57 @@ LE~7 führt.
     beschrieben. Die Routine muss sitzen, bevor sie vor Publikum gezeigt
     wird: mindestens zehn Durchläufe vor dem Spiegel und einer vor
     einer Testperson.
+  \item Für das Grenzwertsatz-Experiment an der Tafel eine Zahlengerade von
+    1 bis 6 in Schritten von 0,2 vorzeichnen (Plan~B: Flipchart oder
+    eine geteilte Tabelle, in die alle ihre Mittelwerte eintragen).
+  \item Rechenbeispiele der Folien einmal selbst mit dem Taschenrechner
+    durchrechnen, damit sie live an der Tafel gelingen.
+\end{checkliste}
+
+\textbf{Eine Woche vor Sitzung~2}
+\begin{checkliste}
+  \item Für die Würfel-Detektive je Paar einen verschlossenen Umschlag
+    mit einer Rollenkarte vorbereiten. Auf vier von fünf Karten steht
+    \enquote{\emph{fair}: Treffer ist nur die 6}, auf jeder fünften
+    \enquote{\emph{gezinkt}: Treffer sind 5 und 6}. Bei 15 Paaren also
+    12 faire und 3 gezinkte Karten. Die Umschläge mischen; welches Paar
+    welche Karte hat, weiß auch die Lehrperson nicht. So ist die
+    Trefferwahrscheinlichkeit genau $\tfrac16$ bzw.\ $\tfrac13$, und die
+    Basisrate (ein Fünftel) ist bekannt. Echte Mogelwürfel aus dem
+    Scherzartikelhandel gehen auch, ihre Schieflage ist aber unbekannt;
+    dann fehlt dem Bayes-Faktor die konkrete Alternativhypothese.
   \item Für den Glaubwürdigkeits-Check fünf bis sechs Behauptungen auf
     Karten schreiben (Vorschläge im Hinweis zum Glaubwürdigkeits-Check),
     darunter mindestens zwei zutreffende. Die Studierenden per Mail
     bitten, ein Smartphone oder Notebook mitzubringen; WLAN prüfen.
   \item Für die Landkarten-Hausaufgabe A3-Blätter bereitlegen (je
     Person eins) oder in der Ankündigung darum bitten.
-  \item Rechenbeispiele der Folien einmal selbst mit dem Taschenrechner
-    durchrechnen, damit sie live an der Tafel gelingen.
 \end{checkliste}
 
 \textbf{Handout und Übungsblatt}
 \begin{checkliste}
   \item Handout \enquote{Statistik: Signifikanztest und Bayes} sowie
     Übungsblatt LE~6 Teil~A und Teil~B je einmal pro Person kopieren
-    (Druckvorlage \texttt{handouts.pdf}, Seiten zu LE~6). Teil~A liegt zu
-    Beginn aus: Strichliste für das Monty-Hall-Spiel, Strichliste und
-    Rechentabellen für die Würfel-Detektive und der fiktive Datensatz
-    ($n=50$) für die Hausaufgabe. Teil~B (Basisrate,
-    Glaubwürdigkeits-Check, Zeitungsmeldung, Projektfrage) wird nach der
-    Bayes-Phase ausgeteilt.
+    (Druckvorlage \texttt{handouts.pdf}, Seiten zu LE~6). \textbf{Teil~A}
+    liegt zu Beginn von Sitzung~1 aus: Strichliste für das
+    Monty-Hall-Spiel, das Grenzwertsatz-Experiment und der fiktive
+    Datensatz ($n=50$) für die Hausaufgabe. \textbf{Teil~B} liegt zu
+    Beginn von Sitzung~2 aus: Würfel-Detektive mit Rechentabelle,
+    Basisrate, Glaubwürdigkeits-Check, Zeitungsmeldung, Diamant und
+    Auswertungsplan. Das Handout gibt es nach Sitzung~2.
   \item Taschenrechner bzw.\ Smartphone-Rechner erlauben; die
-    Rechnungen auf den Folien brauchen nur Grundrechenarten und Potenzen.
+    Rechnungen auf den Folien brauchen nur Grundrechenarten, Wurzeln und
+    Potenzen.
 \end{checkliste}
 
 \textbf{Am Tag selbst}
 \begin{checkliste}
-  \item Tafel in vier Felder teilen: \emph{Abstimmung} (wechseln /
-    bleiben / egal), \emph{Kursdaten Becher}, \emph{Kursdaten Würfel}
-    (Vierfeldertafel fair/gezinkt $\times$ signifikant/nicht
-    signifikant), \emph{Fragen}.
+  \item Sitzung~1: Tafel in vier Felder teilen: \emph{Abstimmung}
+    (wechseln / bleiben / egal), \emph{Kursdaten Becher},
+    \emph{Würfel-Mittelwerte} (Zahlengerade), \emph{Fragen}.
+  \item Sitzung~2: Feld für die Vierfeldertafel der Würfel-Detektive
+    (fair/gezinkt $\times$ signifikant/nicht signifikant) und eine Spalte
+    \enquote{Bayes-Urteil}.
   \item Becher-Sets vor Beginn auf die Tische verteilen, aber gestapelt
     lassen, damit niemand vorher experimentiert. Die Umschläge erst zu
     Beginn der Würfelübung austeilen.
@@ -135,18 +158,16 @@ Abstimmung fragen, wer das Rätsel schon kennt, und beide Gruppen
 getrennt auszählen. Die Feldstudie des Buchs zeigt, wie stark Vorwissen
 wirkt (Kap.~12f; siehe Abschnitt \enquote{Effektgröße und Power}).
 Laufen die Paarspiele schleppend, nach 15 Durchgängen abbrechen; der
-Kurs-Pool reicht dann immer noch für die Rechnung. Wird die Zeit knapp,
-wird der Glaubwürdigkeits-Check im Plenum an einer einzigen Behauptung
-vorgeführt und als Hausaufgabe (Teil~B, Aufgabe~5) zu Ende gebracht; die
-Würfel-Detektive sollten dagegen nicht ausfallen, weil sie Fehler 1.~Art,
-Power und Basisrate in einer einzigen Vierfeldertafel erlebbar machen.
-Diamant und Landkarte brauchen mindestens acht Minuten; reicht die Zeit
-nicht, wird nur der Diamant gezeigt und die Karte ganz in die Hausaufgabe
-verlegt. Die Münzwurf-\enquote{Hellseher}-Demo ist optional; sie kehrt in LE~10
-ausführlich wieder.
+Kurs-Pool reicht dann immer noch für die Rechnung. In Sitzung~2 gilt:
+Wird die Zeit knapp, wird der Glaubwürdigkeits-Check im Plenum an einer
+einzigen Behauptung vorgeführt und als Hausaufgabe (Teil~B, Aufgabe~6) zu
+Ende gebracht; die Würfel-Detektive sollten dagegen nicht ausfallen, weil
+sie Fehler 1.~Art, Power und Basisrate in einer einzigen Vierfeldertafel
+erlebbar machen. Die Münzwurf-\enquote{Hellseher}-Demo ist optional; sie
+kehrt in LE~10 ausführlich wieder.
 \end{vorbereitung}
 
-\begin{ablauf}
+\begin{ablauf}[Ablauf der ersten Doppelstunde (90 Min.)]
 \begin{description}
 \item[0--10 · Staunmoment.] Optional die Chop-Cup-Routine. Dann
   Monty Hall live mit drei Bechern; Abstimmung wechseln / bleiben / egal.
@@ -155,28 +176,47 @@ ausführlich wieder.
   Regeln (Würfel legt die Kugel, Strategie wechselt jede Runde),
   Strichliste auf dem Übungsblatt Teil~A (Aufgabe~1). Summen an die
   Tafel.
-\item[20--28 · Auflösung und Überblick.] Die drei Fälle, der blinde
-  Moderator, bedingte Wahrscheinlichkeit. Beschreiben und Schließen,
-  Skalenniveaus, Lage und Streuung nur im Überblick; vertieft wird das in
-  der Hausaufgabe (Datensatz-Analyse, Aufgabe~3).
-\item[28--40 · Frequentistisch.] Logik des Signifikanztests am Kurs-Pool;
-  Würfeltest; $t$-Test von Hand; zwei Arten, sich zu irren; was der
-  p-Wert nicht sagt.
-\item[40--52 · Basisrate und Bayes.] Medizintest mit natürlichen
-  Häufigkeiten; wie viele signifikante Befunde stimmen; Bayes in
-  Chancenform; derselbe Würfel bayesianisch; Bayes-Faktor zum $t$-Test;
-  Vergleich der beiden Schulen.
-\item[52--62 · Würfel-Detektive.] Paare, 30 Würfe, beide Auswertungen
-  (Teil~A, Aufgabe~2), Auflösung, Vierfeldertafel an der Tafel.
-\item[62--74 · Glaubwürdigkeits-Check.] Teil~B austeilen. Das
-  Schokoladen-Beispiel vorrechnen, dann Kleingruppen mit je einer
-  Behauptung und einer Suchmaschine (Aufgabe~5); zwei Gruppen berichten.
-\item[74--80 · Was kann Ihr Projekt beantworten?] Effektgröße, Power,
+\item[20--30 · Auflösung.] Die drei Fälle, der blinde Moderator, bedingte
+  Wahrscheinlichkeit. Beschreiben und Schließen, Skalenniveaus.
+\item[30--42 · Lage und Streuung.] Mittelwert und Median, die
+  Standardabweichung Schritt für Schritt an der Tafel, Boxplot und
+  Ausreißer.
+\item[42--62 · Von der Stichprobe zur Grundgesamtheit.] Parameter und
+  Kennwerte, Standardfehler, Grenzwertsatz-Experiment mit Würfeln
+  (Teil~A, Aufgabe~2), Normalverteilung und $z$-Wert,
+  Konfidenzintervall.
+\item[62--85 · Der Signifikanztest.] Logik; der Kurs-Pool Schritt für
+  Schritt mit den echten Kursdaten; $t$-Test von Hand; zwei Arten, sich
+  zu irren; was der p-Wert nicht sagt.
+\item[85--90 · Ausblick.] Hausaufgabe Datensatz-Analyse (Teil~A,
+  Aufgabe~3); Vorschau auf Sitzung~2: Was fehlt dem p-Wert?
+\end{description}
+\end{ablauf}
+
+\begin{ablauf}[Ablauf der zweiten Doppelstunde (90 Min.)]
+\begin{description}
+\item[0--5 · Rückblick.] Teil~B austeilen. Eine Frage an den Kurs:
+  \enquote{$p=0{,}02$ -- wie wahrscheinlich ist $H_0$?} Antworten
+  sammeln, nicht auflösen.
+\item[5--15 · Zwei Arten, Daten zu befragen.] Würfeltest frequentistisch;
+  der Medizintest als Baum mit natürlichen Häufigkeiten.
+\item[15--32 · Basisrate und Bayes.] Wie viele signifikante Befunde
+  stimmen; Bayes in Chancenform; derselbe Würfel bayesianisch; der
+  Posterior wandert mit den Daten; Bayes-Faktor zum $t$-Test; Vergleich
+  der beiden Schulen.
+\item[32--47 · Würfel-Detektive.] Spielregeln erklären, Paare, 30 Würfe,
+  beide Auswertungen (Teil~B, Aufgabe~4), Auflösung, Vierfeldertafel an
+  der Tafel.
+\item[47--60 · Glaubwürdigkeits-Check.] Das Schokoladen-Beispiel
+  vorrechnen, dann Kleingruppen mit je einer Behauptung und einer
+  Suchmaschine (Aufgabe~6); zwei Gruppen berichten.
+\item[60--68 · Was kann Ihr Projekt beantworten?] Effektgröße, Power,
   Folgerungen für das Design.
-\item[80--90 · Diamant und Landkarte.] Den Diamanten zum
+\item[68--88 · Diamant und Landkarte.] Den Diamanten zum
   Zaubertrick-Beispiel gemeinsam an der Tafel füllen, Tabelle
-  \enquote{Welche Beobachtung trennt?}, Beispielkarte zeigen;
-  Hausaufgaben (eigener Diamant und eigene Karte, Teil~B, Aufgabe~7).
+  \enquote{Welche Beobachtung trennt?}, Beispielkarte zeigen; Beginn des
+  eigenen Diamanten in Paaren (Aufgabe~8).
+\item[88--90 · Hausaufgaben.] Handout austeilen.
 \end{description}
 \end{ablauf}
 
@@ -421,9 +461,44 @@ den Mittelwert.}
     liegen darunter
   \ite \textbf{Quartilsabstand} $\mathit{IQR} = Q_3 - Q_1$: Breite der
     mittleren Hälfte
-  \ite \textbf{Standardabweichung}
-    $s = \sqrt{\tfrac{1}{n-1}\sum (x_i-\bar{x})^2}$
+  \ite \textbf{Varianz} $s^2$: mittlere quadrierte Abweichung vom
+    Mittelwert
+  \ite \textbf{Standardabweichung} $s=\sqrt{s^2}$: typischer Abstand
+    eines Werts vom Mittelwert, in der Einheit der Daten
 \ei
+\os{\newpage}
+
+\item[{\rot\bf Die Standardabweichung Schritt für Schritt}]~\\
+Acht Personen, behaltene Begriffe (von 20) nach einem Lehrvideo:
+\begin{center}
+\small
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{@{}l*{8}{r}|r@{}}
+\toprule
+Wert $x_i$ & 13 & 10 & 15 & 11 & 14 & 11 & 15 & 11 & $\Sigma=100$ \\
+Abweichung $x_i-\bar{x}$ & 0,5 & $-2{,}5$ & 2,5 & $-1{,}5$ & 1,5 & $-1{,}5$ & 2,5 & $-1{,}5$ & 0 \\
+Quadrat $(x_i-\bar{x})^2$ & 0,25 & 6,25 & 6,25 & 2,25 & 2,25 & 2,25 & 6,25 & 2,25 & 28 \\
+\bottomrule
+\end{tabular}
+\end{center}
+\bi
+  \ite Mittelwert $\bar{x}=100/8=12{,}5$
+  \ite Abweichungen summieren sich immer zu 0 $\Rightarrow$ erst
+    quadrieren, dann mitteln
+  \ite Varianz $s^2 = 28\,/\,(8-1) = 4$, Standardabweichung $s = \sqrt{4}
+    = 2$
+  \ite Probe: 5 von 8 Werten liegen in $\bar{x}\pm s$, also zwischen 10,5
+    und 14,5
+\ei
+\nsl{Die Daten sind dieselben wie im $t$-Test-Beispiel weiter unten
+(Gruppe mit Zaubertrick); wer die Standardabweichung hier an der Tafel
+gerechnet hat, kennt beim $t$-Test schon die Hälfte. Geteilt wird durch
+$n-1$ statt durch $n$, weil die Abweichungen vom \emph{Stichproben}mittel
+gemessen werden, das selbst aus den Daten geschätzt ist und deshalb immer
+etwas näher an den Werten liegt als das wahre Mittel; ohne die Korrektur
+würde die Streuung der Grundgesamtheit systematisch unterschätzt. Bei
+normalverteilten Daten liegen etwa zwei Drittel der Werte innerhalb von
+$\bar{x}\pm s$; die Probe auf der Folie (5 von 8) passt dazu.}
 \os{\newpage}
 
 \item[{\rot\bf Boxplot und Ausreißerregel}]~\\[-\lblskip]
@@ -487,58 +562,133 @@ Datensatz, desto eher sollte man alle Punkte zeigen.}
 \end{description}
 
 %==============================================================================
-\section{Zwei Arten, Daten zu befragen}
+\section{Von der Stichprobe zur Grundgesamtheit}
 %==============================================================================
-\nsl{Für den Schritt von der Stichprobe zur Aussage gibt es zwei große
-Denkschulen. Die \emph{frequentistische} Statistik versteht
-Wahrscheinlichkeit als relative Häufigkeit in gedachten Wiederholungen.
-Sie fragt: Wie oft kämen Daten wie unsere heraus, wenn die Nullhypothese
-stimmt? Über Hypothesen selbst spricht sie keine Wahrscheinlichkeiten
-aus; eine Hypothese ist wahr oder falsch, nur die Daten schwanken. Die
-\emph{bayesianische} Statistik versteht Wahrscheinlichkeit als Grad
-begründeter Überzeugung. Sie fragt: Wie viel besser sagt die eine
-Hypothese die Daten voraus als die andere, und was sollte ich danach
-glauben? Dafür braucht sie eine Ausgangseinschätzung, den Prior, und
-der ist oft nichts anderes als eine \emph{Basisrate}. Beide Schulen
-rechnen mit denselben Daten. Sie beantworten aber verschiedene Fragen,
-und wer ein Projekt plant, sollte vorher wissen, welche davon ihn
-interessiert. Ein gut lesbarer Vergleich beider Schulen mit
-Rechenbeispielen steht bei \textcite{wagenmakers2007practical}.}
+\nsl{Die Strichlisten des Kurses sind eine \emph{Stichprobe}. Was uns
+eigentlich interessiert, ist die \emph{Grundgesamtheit}: alle denkbaren
+Runden dieses Spiels, alle Studierenden, die ein Lehrvideo sehen könnten.
+Deren Kennzahlen heißen \emph{Parameter} und werden mit griechischen
+Buchstaben geschrieben ($\mu$, $\sigma$, $\pi$); sie sind unbekannt. Aus
+der Stichprobe berechnen wir \emph{Kennwerte} ($\bar{x}$, $s$, $\hat{p}$)
+und schätzen damit die Parameter. Jede neue Stichprobe liefert etwas
+andere Kennwerte. Wie stark sie von Stichprobe zu Stichprobe schwanken,
+misst der \emph{Standardfehler}. Er ist die wichtigste Zahl der
+schließenden Statistik, und er wird oft mit der Standardabweichung
+verwechselt: Die Standardabweichung beschreibt, wie verschieden die
+\emph{einzelnen Werte} sind; der Standardfehler beschreibt, wie genau der
+\emph{Mittelwert} bestimmt ist. Die Standardabweichung bleibt bei
+wachsendem $n$ ungefähr gleich, der Standardfehler schrumpft mit
+$1/\sqrt{n}$.
+
+Dass man mit Mittelwerten so bequem rechnen kann, verdankt sich dem
+\emph{Zentralen Grenzwertsatz}: Mittelwerte (und Summen, und Anteile) aus
+hinreichend großen Stichproben unabhängiger Werte sind annähernd
+normalverteilt, mit dem Mittelwert der Grundgesamtheit als Zentrum und dem
+Standardfehler als Breite, und zwar weitgehend unabhängig davon, wie die
+einzelnen Werte verteilt sind. Wie groß \enquote{hinreichend} ist, hängt
+von der Schiefe der Grundverteilung ab: Bei Würfeln genügen fünf Werte,
+bei stark schiefen Verteilungen braucht es dreißig und mehr. Der Satz ist
+der Grund, warum Konfidenzintervalle und $t$-Tests auch dann
+funktionieren, wenn die Rohdaten nicht glockenförmig aussehen.}
 \begin{description}
-\item[{\rot\bf Dieselben Daten, zwei Fragen}]~\\[-\lblskip]
+\item[{\rot\bf Stichprobe und Grundgesamtheit}]~\\[-\lblskip]
 \begin{center}
-\begin{tabular}{p{0.42\textwidth}p{0.42\textwidth}}
+\small
+\begin{tabular}{@{}lcc@{}}
 \toprule
-\textbf{frequentistisch} & \textbf{bayesianisch} \\
+ & \textbf{Grundgesamtheit (Parameter)} & \textbf{Stichprobe (Kennwert)} \\
+ & unbekannt, fest & bekannt, schwankt \\
 \midrule
-Wie überraschend wären diese Daten, \emph{wenn} $H_0$ stimmt? &
-Welche Hypothese sagt diese Daten besser voraus? \\
-$P(\text{Daten}\mid H_0)$ & $P(H\mid\text{Daten})$ \\
-Ergebnis: p-Wert, Konfidenzintervall & Ergebnis: Bayes-Faktor, Posterior \\
-braucht: $H_0$, $\alpha$, geplantes $n$ & braucht: $H_0$, $H_1$, Prior
-(Basisrate) \\
+Mittelwert & $\mu$ & $\bar{x}$ \\
+Standardabweichung & $\sigma$ & $s$ \\
+Anteil (z.\,B.\ Gewinnquote) & $\pi$ & $\hat{p}$ \\
 \bottomrule
 \end{tabular}
 \end{center}
 \bi
-  \ite Leitbeispiel für beide: Ist dieser Würfel gezinkt?
+  \ite Monty Hall: $\pi$ = Gewinnquote beim Wechseln in \emph{allen}
+    denkbaren Runden, $\hat{p}$ = Quote in unseren Runden
+  \ite Kernfrage: Wie weit kann $\hat{p}$ \emph{zufällig} von $\pi$
+    abweichen?
 \ei
 \os{\newpage}
-\end{description}
 
-%==============================================================================
-\section{Normalverteilung und Signifikanztest}
-%==============================================================================
-\nsl{Viele Messgrößen, die sich aus vielen kleinen, voneinander
-unabhängigen Einflüssen zusammensetzen, verteilen sich annähernd
-glockenförmig. Für diese Normalverteilung gilt eine einfache Faustregel:
-Etwa 68\,\% der Werte liegen innerhalb einer Standardabweichung um den
-Mittelwert, etwa 95\,\% innerhalb von zwei. Wichtiger als die
-Verteilung einzelner Messwerte ist für die Inferenzstatistik eine andere
-Tatsache: Mittelwerte und Anteile aus hinreichend großen Stichproben sind
-näherungsweise normalverteilt, auch wenn die einzelnen Werte es nicht
-sind. Darauf beruhen die meisten Standardtests.}
-\begin{description}
+\item[{\rot\bf Der Standardfehler}]~\\[-\lblskip]
+\bi
+  \ite \textbf{Standardabweichung} $s$: Wie verschieden sind die
+    \emph{einzelnen Werte}?
+  \ite \textbf{Standardfehler} $\mathit{SE}$: Wie stark würde der
+    \emph{Mittelwert} schwanken, wenn man die Studie wiederholt?
+  \ite für einen Mittelwert: $\mathit{SE}=s\,/\,\sqrt{n}$; für einen
+    Anteil: $\mathit{SE}=\sqrt{\hat{p}\,(1-\hat{p})\,/\,n}$
+  \ite Beispiel: $s=2$, $n=8$ $\Rightarrow$ $\mathit{SE}=2/\sqrt8\approx0{,}71$
+  \ite viermal so viele Personen $\Rightarrow$ halber Standardfehler
+\ei
+\os{\newpage}
+
+\item[{\rot\bf Standardabweichung und Standardfehler im Bild}]~\\
+\begin{center}
+\includegraphics[width=0.97\linewidth]{figures/LE06_sd_se.pdf}
+\end{center}
+\bi
+  \ite einzelne Würfe streuen immer gleich stark ($s=1{,}71$), Mittelwerte
+    umso weniger, je mehr Würfe sie zusammenfassen
+\ei
+\nsl{Die Grafik zeigt je 400 simulierte Stichproben. Links: einzelne
+Würfe (oben), Mittelwerte aus 5 Würfen (Mitte) und aus 30 Würfen (unten);
+der Strich darüber markiert jeweils $3{,}5\pm2\,\mathit{SE}$. Rechts:
+Die Standardabweichung eines Wurfs bleibt bei 1,71, ganz gleich, wie viele
+Würfe man macht; der Standardfehler des Mittelwerts fällt von 1,71 über
+0,76 ($n=5$) auf 0,31 ($n=30$).}
+\os{\newpage}
+
+\item[{\rot\bf Der Zentrale Grenzwertsatz}]~\\[-\lblskip]
+\bi
+  \ite Mittelwerte aus $n$ unabhängigen Werten sind für großes $n$
+    annähernd \textbf{normalverteilt}
+  \ite Zentrum: $\mu$, Breite: der Standardfehler $\sigma/\sqrt{n}$
+  \ite \textbf{egal, wie die einzelnen Werte verteilt sind} -- gleichmäßig,
+    schief, mit Ausreißern
+  \ite deshalb funktionieren Konfidenzintervall und $t$-Test auch bei
+    nicht glockenförmigen Daten
+  \ite \enquote{großes $n$}: bei Würfeln ab etwa 5, bei sehr schiefen
+    Daten ab 30 und mehr
+\ei
+\os{\newpage}
+
+\item[{\rot\bf Der Grenzwertsatz im Bild}]~\\
+\begin{center}
+\includegraphics[width=0.97\linewidth]{figures/LE06_zgs.pdf}
+\end{center}
+\nsl{Je 20\,000 simulierte Stichproben. Oben die Würfel: Ein einzelner
+Wurf ist gleichverteilt, schon der Mittelwert aus zwei Würfen ist
+dreieckig, ab fünf Würfen glockenförmig. Unten eine stark rechtsschiefe
+Verteilung mit Mittelwert 30, wie sie bei Pendelausschlägen in
+Millimetern vorkommt (Exponentialverteilung): Hier braucht der
+Mittelwert deutlich mehr Werte, bis er der eingezeichneten
+Normalverteilung folgt.}
+\os{\newpage}
+
+\item[{\rot\bf Selbst würfeln: Mittelwerte an der Tafel}]~\\[-\lblskip]
+\bi
+  \ite jede Person würfelt \textbf{fünfmal} und berechnet den Mittelwert
+    (Teil~A, Aufgabe~2)
+  \ite das viermal, dann alle vier Mittelwerte als Punkte auf die
+    Zahlengerade an der Tafel
+  \ite Vorhersage vorher: Zentrum 3,5, Standardfehler
+    $1{,}71/\sqrt5\approx0{,}76$
+  \ite also liegen etwa 95\,\% der Punkte zwischen
+    $3{,}5\pm2\cdot0{,}76$, d.\,h.\ zwischen 2,0 und 5,0
+  \ite stimmt die Vorhersage? Wie sähe das Bild mit 20 Würfen aus?
+\ei
+\nsl{Das Experiment dauert etwa acht Minuten. Mit 30 Personen entstehen
+120 Punkte, genug für eine erkennbare Glocke. Die Standardabweichung eines
+einzelnen Wurfs ist $\sqrt{35/12}\approx1{,}71$. Mit 20 Würfen wäre der
+Standardfehler $1{,}71/\sqrt{20}\approx0{,}38$, die Glocke also halb so
+breit. Wer mag, lässt die Hälfte des Kurses mit zwei Würfen pro
+Mittelwert arbeiten und vergleicht die beiden Bilder.}
+\os{\newpage}
+
 \item[{\rot\bf Die Normalverteilung}]~\\[-\lblskip]
 \begin{center}
 \resizebox{0.75\textwidth}{!}{%
@@ -556,6 +706,65 @@ sind. Darauf beruhen die meisten Standardtests.}
 \end{center}
 \os{\newpage}
 
+\item[{\rot\bf Der $z$-Wert: Abstand in Standardfehlern}]~\\[-\lblskip]
+\bi
+  \ite $z = (\text{Kennwert} - \text{Erwartung})\,/\,\mathit{SE}$
+  \ite misst, wie viele Standardfehler ein Ergebnis von dem entfernt ist,
+    was man erwartet hat
+  \ite bei Normalverteilung: $|z|>1{,}96$ kommt nur in 5\,\% der Fälle
+    vor, $|z|>3$ in 0,3\,\%
+  \ite Beispiel Würfel: Mittelwert aus 5 Würfen ist 5,2;
+    $z=(5{,}2-3{,}5)/0{,}76\approx2{,}2$ -- auffällig
+\ei
+\os{\newpage}
+
+\item[{\rot\bf Das Konfidenzintervall}]~\\[-\lblskip]
+\bi
+  \ite \textbf{Schätzwert $\pm$ 1,96 Standardfehler} (bei kleinem $n$: $t$
+    statt 1,96)
+  \ite Lehrvideo-Gruppe: $12{,}5 \pm 2{,}36\cdot0{,}71$, also etwa 10,8
+    bis 14,2 Begriffe
+  \ite Bedeutung: Das \emph{Verfahren} fängt den wahren Wert in 95\,\% aller
+    Wiederholungen ein
+  \ite \emph{nicht}: \enquote{Mit 95\,\% liegt $\mu$ in diesem
+    Intervall} -- das wäre eine bayesianische Aussage (Sitzung~2)
+  \ite ein Intervall sagt mehr als ein p-Wert: Es zeigt, welche Werte mit
+    den Daten verträglich sind
+\ei
+\nsl{Für $n=8$ ist der kritische Wert der $t$-Verteilung mit 7
+Freiheitsgraden 2,36 statt 1,96; die $t$-Verteilung hat breitere Ränder,
+weil auch die Standardabweichung nur geschätzt ist. Ab etwa 30 Werten
+ist der Unterschied klein. Die Deutung des Konfidenzintervalls ist eine
+der häufigsten Fehlerquellen: Für ein \emph{einzelnes} berechnetes
+Intervall ist der wahre Wert entweder drin oder nicht. Die 95\,\%
+beschreiben das Verfahren über viele Wiederholungen, wie die nächste
+Folie zeigt.}
+\os{\newpage}
+
+\item[{\rot\bf Was \enquote{95\,\%} bedeutet}]~\\
+\begin{center}
+\includegraphics[width=0.97\linewidth]{figures/LE06_konfidenz.pdf}
+\end{center}
+\nsl{Simulation: 40 Kurse spielen je 150 Wechselrunden, die wahre
+Gewinnquote ist $\tfrac23$. Jeder Kurs berechnet sein 95-\%-Intervall
+($\hat{p}\pm1{,}96\,\mathit{SE}$). Im Mittel verfehlen 2 von 40 Intervallen
+den wahren Wert; in dieser Simulation sind es 3. Kein einzelner Kurs kann
+wissen, ob er zu den Pechvögeln gehört.}
+\os{\newpage}
+\end{description}
+
+%==============================================================================
+\section{Der Signifikanztest}
+%==============================================================================
+\nsl{Der Signifikanztest dreht die Frage des Konfidenzintervalls um. Statt
+zu fragen, welche Werte mit den Daten verträglich sind, nimmt er einen
+bestimmten Wert an, die Nullhypothese, und fragt, wie überraschend die
+Daten wären, wenn dieser Wert stimmt. Das Maß dafür ist der p-Wert. Die
+Rechnung folgt immer demselben Muster: Erwartung unter $H_0$,
+Standardfehler unter $H_0$, Abstand in Standardfehlern, Wahrscheinlichkeit
+für einen mindestens so großen Abstand. Am Kurs-Pool lässt sich jeder
+Schritt mit dem Taschenrechner nachvollziehen.}
+\begin{description}
 \item[{\rot\bf Die Logik des Signifikanztests}]~\\[-\lblskip]
 \bi
   \ite \textbf{Nullhypothese} $H_0$: Es gibt keinen Effekt
@@ -568,43 +777,69 @@ sind. Darauf beruhen die meisten Standardtests.}
 \ei
 \os{\newpage}
 
-\item[{\rot\bf Rechenbeispiel: Kurs-Pool}]~\\[-\lblskip]
+\item[{\rot\bf Der Kurs-Pool: Was haben wir gemessen?}]~\\[-\lblskip]
 \bi
-  \ite angenommen, der Kurs hat 150 Wechsel-Runden gespielt und 97 davon
-    gewonnen (64,7\,\%)
-  \ite unter $H_0$ (Chance $\tfrac12$) erwartet man 75
-  \ite Binomialtest, zweiseitig: $p \approx 0{,}0004$
-  \ite 95-\%-Konfidenzintervall für die Gewinnquote: etwa 57\,\% bis
-    72\,\%
-  \ite der Wert $\tfrac23$ liegt im Intervall, $\tfrac12$ nicht
+  \ite jedes Paar hat etwa 12 Wechselrunden gespielt -- zu wenig für ein
+    Urteil (siehe die Streuung an der Tafel)
+  \ite darum legen wir \textbf{alle Wechselrunden des Kurses zusammen}:
+    der Kurs-Pool
+  \ite Rechenbeispiel: 15 Paare $\times$ 10 Wechselrunden = \textbf{150
+    Runden}, davon \textbf{97 gewonnen}
+  \ite Quote $\hat{p}=97/150=64{,}7\,\%$
+  \ite Frage: Kann das Zufall sein, wenn Wechseln in Wahrheit egal ist
+    ($\pi=\tfrac12$)?
 \ei
-\nsl{Die Zahlen sind ein konstruiertes Rechenbeispiel (exakter
-Binomialtest gegen $\tfrac12$, Wilson-Intervall). In der Stunde wird mit
-den echten Kursdaten gerechnet; eine Tabellenkalkulation oder ein
-Online-Rechner für den Binomialtest genügt. Wichtig ist der letzte Punkt
-der Folie: Das Konfidenzintervall sagt mehr als der p-Wert, weil es zeigt,
-welche Gewinnquoten mit den Daten verträglich sind.}
+\nsl{In der Stunde werden die echten Summen von der Tafel eingesetzt; die
+Folien rechnen mit konstruierten Zahlen, damit die Rechnung vorbereitet
+ist. Zehn Wechselrunden pro Paar sind realistisch, wenn nach 20 Runden
+abgebrochen wird. Die Pointe des Pools: Kein einzelnes Paar kann mit
+seinen 10 bis 12 Runden zwischen $\tfrac12$ und $\tfrac23$ sicher
+unterscheiden, der Kurs zusammen sehr wohl. Das ist der Standardfehler
+in Aktion.}
 \os{\newpage}
 
-\item[{\rot\bf Ist dieser Würfel gezinkt? (frequentistisch)}]~\\[-\lblskip]
+\item[{\rot\bf Der Kurs-Pool Schritt für Schritt}]~\\[-\lblskip]
+\begin{center}
+\small
+\begin{tabular}{@{}lp{0.42\textwidth}l@{}}
+\toprule
+\textbf{Schritt} & \textbf{Frage} & \textbf{Rechnung} \\
+\midrule
+1 & Was erwarten wir, wenn $H_0$ stimmt? & $150\cdot\tfrac12 = 75$ Gewinne \\
+2 & Wie stark schwankt die Gewinnzahl unter $H_0$? & $\sqrt{150\cdot\tfrac12\cdot\tfrac12}\approx6{,}1$ \\
+3 & Wie weit liegen wir daneben? & $z=(97-75)/6{,}1\approx3{,}6$ \\
+4 & Wie oft käme das unter $H_0$ vor? & $p\approx0{,}0004$ (zweiseitig) \\
+5 & Urteil bei $\alpha=0{,}05$? & $p<0{,}05$: $H_0$ verwerfen \\
+6 & Welche Quoten passen zu den Daten? & $0{,}647\pm1{,}96\sqrt{\tfrac{0{,}647\cdot0{,}353}{150}}$ \\
+ & & $=0{,}647\pm0{,}077$: \textbf{57\,\% bis 72\,\%} \\
+\bottomrule
+\end{tabular}
+\end{center}
 \bi
-  \ite 30 Würfe, \textbf{10 Sechsen}; bei einem fairen Würfel erwartet
-    man 5
-  \ite $H_0$: Der Würfel ist fair, $P(6)=\tfrac16$
-  \ite p-Wert: $P(\text{10 oder mehr Sechsen}\mid H_0) = 0{,}020$
-    (Binomialverteilung, einseitig)
-  \ite $p<0{,}05$: $H_0$ wird verworfen, \enquote{signifikant gezinkt}
-  \ite mit \textbf{9 Sechsen}: $p=0{,}051$, nicht signifikant
+  \ite $\tfrac23$ liegt im Intervall, $\tfrac12$ nicht
 \ei
-\nsl{Die Werte sind exakt mit der Binomialverteilung $B(30,\tfrac16)$
-gerechnet; die Tabelle auf dem Übungsblatt (Teil~A, Aufgabe~2) enthält
-$P(X\geq k)$ für alle relevanten $k$. Einseitig wird hier getestet, weil
-die Frage gerichtet ist (\emph{zu viele} Sechsen). Zweiseitig ergäbe sich
-bei 10 Sechsen $p\approx0{,}024$. Der Sprung von 9 auf 10 Sechsen zeigt,
-wie willkürlich die Schwelle ist: Eine einzige Sechs mehr oder weniger
-entscheidet über \enquote{signifikant}. Die Frage, wie \emph{wahrscheinlich}
-der Würfel gezinkt ist, beantwortet der Test nicht; dafür fehlt ihm die
-Information, wie viele gezinkte Würfel es überhaupt gibt.}
+\nsl{Schritt~2 ist die Standardabweichung der Binomialverteilung,
+$\sqrt{n\,\pi\,(1-\pi)}$; in Anteilen ausgedrückt ist das der
+Standardfehler $\sqrt{0{,}25/150}\approx0{,}041$. Ein Abstand von 3,6
+Standardfehlern ist nach der Normalverteilung sehr selten
+($p\approx0{,}0003$); der exakte Binomialtest liefert $p\approx0{,}0004$.
+Beides genügt; in der Stunde reicht der Hinweis, dass alles jenseits von
+etwa 2 Standardfehlern bei $\alpha=0{,}05$ signifikant ist. Das
+Intervall in Schritt~6 ist das einfache Wald-Intervall; das genauere
+Wilson-Intervall ergibt praktisch dieselben Grenzen. Die Grafik auf der
+nächsten Folie zeigt Schritt 1 bis 4 auf einen Blick.}
+\os{\newpage}
+
+\item[{\rot\bf Der Kurs-Pool im Bild}]~\\
+\begin{center}
+\includegraphics[width=0.97\linewidth]{figures/LE06_kurspool.pdf}
+\end{center}
+\bi
+  \ite violett: so verteilen sich die Gewinne, wenn Wechseln egal ist;
+    cyan: wenn Wechseln $\tfrac23$ bringt
+  \ite 97 liegt fast außerhalb der violetten Verteilung, mitten in der
+    cyanfarbenen
+\ei
 \os{\newpage}
 
 \item[{\rot\bf Der $t$-Test von Hand}]~\\
@@ -626,8 +861,8 @@ ohne Zaubertrick & 8, 12, 9, 11, 8, 13, 8, 11 & 10{,}0 & 2{,}0 \\
     $\mathit{SE} = s\cdot\sqrt{\tfrac1{n_1}+\tfrac1{n_2}} = 2\cdot\sqrt{\tfrac14} = 1{,}0$
   \ite $t = (\bar{x}_1-\bar{x}_2)\,/\,\mathit{SE} = 2{,}5\,/\,1{,}0 = 2{,}5$
     mit $\mathit{df} = n_1+n_2-2 = 14$
-  \ite kritischer Wert ($\alpha=0{,}05$, zweiseitig): $2{,}14$
-    $\Rightarrow$ signifikant, $p = 0{,}025$
+  \ite kritischer Wert ($\alpha=0{,}05$, zweiseitig) aus der
+    $t$-Verteilung: $2{,}14$ $\Rightarrow$ signifikant, $p = 0{,}025$
   \ite Effektgröße $d = 2{,}5\,/\,2{,}0 = 1{,}25$ (groß)
 \ei
 \nsl{Die Daten sind konstruiert, damit sich alles im Kopf rechnen lässt:
@@ -662,7 +897,24 @@ klingt als \enquote{$p=0{,}025$}.}
     Effekt}
 \ei
 \os{\newpage}
+\item[{\rot\bf Fehler 1. und 2. Art im Bild}]~\\
+\begin{center}
+\includegraphics[width=0.97\linewidth]{figures/LE06_fehlerarten.pdf}
+\end{center}
+\bi
+  \ite die Schwelle legt $\alpha$ fest; wie viel Power bleibt, hängt von
+    Effekt und $n$ ab
+  \ite mit $d=0{,}5$ und je 20 Personen wird der Effekt in zwei von drei
+    Studien übersehen
+\ei
+\nsl{Normalnäherung für den Zwei-Gruppen-Test: Unter $H_1$ ist die
+Teststatistik um $d\sqrt{n/2}=0{,}5\cdot\sqrt{10}\approx1{,}58$
+verschoben. Die Power ist die Fläche der cyanfarbenen Kurve rechts vom
+kritischen Wert, hier etwa 35\,\% (exakt mit der $t$-Verteilung 34\,\%,
+siehe die Power-Tabelle in Sitzung~2).}
+\os{\newpage}
 \end{description}
+
 
 %==============================================================================
 \section{Was der p-Wert nicht sagt}
@@ -702,6 +954,126 @@ Bayes; dafür braucht man aber eine Vorab-Einschätzung der Hypothese. Ist
 diese niedrig, bleibt die Hypothese auch nach einem kleinen p-Wert
 unsicher. Das erklärt, warum überraschende Einzelbefunde so oft nicht
 replizieren \parencite{ioannidis2005false,opensciencecollaboration2015}.}
+\os{\newpage}
+\end{description}
+
+\begin{merkbox}[Sitzung 1 in vier Sätzen]
+Die Standardabweichung beschreibt die Daten, der Standardfehler die
+Genauigkeit eines Mittelwerts; er schrumpft mit $\sqrt{n}$. Dank des
+Zentralen Grenzwertsatzes sind Mittelwerte annähernd normalverteilt. Ein
+Konfidenzintervall zeigt, welche Werte mit den Daten verträglich sind.
+Ein p-Wert sagt, wie überraschend die Daten wären, wenn $H_0$ stimmt --
+und nicht, wie wahrscheinlich $H_0$ ist.
+\end{merkbox}
+\os{\newpage}
+
+\os{\begin{description}
+\item[{\rot\bf Datensatz-Analyse (Hausaufgabe, Kleingruppen)}]~\\[-\lblskip]
+\bi
+  \ite Datensatz auf dem Übungsblatt Teil~A: Pendelausschlag von 50 Personen
+    (fiktiv)
+  \ite welches Skalenniveau hat jede Variable?
+  \ite Median, Quartile, Mittelwert, Standardabweichung; Histogramm und
+    Boxplot: Gibt es Ausreißer?
+  \ite Standardfehler und 95-\%-Konfidenzintervall des Mittelwerts
+  \ite unterscheiden sich Personen mit und ohne Vorwissen? $t$-Test von
+    Hand
+\ei
+\newpage
+\item[{\rot\bf Bis zur nächsten Sitzung}]~\\[-\lblskip]
+\bi
+  \ite \textbf{Datensatz-Analyse} (Übungsblatt Teil~A, Aufgabe~3),
+    einschließlich Standardfehler, Konfidenzintervall und $t$-Test
+  \ite \textbf{Tagebuch des Staunens}: Wann hat Ihr Gefühl für
+    Wahrscheinlichkeit Sie zuletzt getäuscht?
+  \ite Denkfrage für Sitzung~2: $p=0{,}02$ -- wie wahrscheinlich ist
+    dann $H_0$?
+\ei
+\end{description}
+\newpage}
+
+%==============================================================================
+\section{Zweite Sitzung: Testen mit Vorwissen}
+%==============================================================================
+\nsl{Die zweite Sitzung beginnt mit der Denkfrage vom Ende der ersten:
+Wenn $p=0{,}02$ ist, wie wahrscheinlich ist dann die Nullhypothese? Die
+meisten Antworten lauten \enquote{2\,\%}, und sie sind falsch. Was zur
+richtigen Antwort fehlt, ist das Vorwissen: Wie plausibel war die
+Hypothese vorher, wie häufig ist das Gesuchte überhaupt? Die Sitzung
+führt deshalb die Basisrate und die bayesianische Statistik ein, lässt die
+Studierenden beide Denkweisen am Würfel gegeneinander rechnen und endet
+mit Werkzeugen für das eigene Projekt.}
+\os{\begin{description}
+\item[{\rot\bf Heute (Sitzung 2 von 2)}]~\\[-\lblskip]
+\bi
+  \ite $p=0{,}02$ -- wie wahrscheinlich ist $H_0$?
+  \ite die Basisrate: das vergessene Vorwissen
+  \ite bayesianisch prüfen: Bayes-Faktor, Posterior, Chancenform
+  \ite selbst rechnen: Würfel-Detektive, Glaubwürdigkeits-Check
+  \ite Welche Fragen kann Ihr Projekt beantworten?
+  \ite schwierige Fragen zerlegen: Diamant und Landkarte
+\ei
+\end{description}
+\newpage}
+
+%==============================================================================
+\section{Zwei Arten, Daten zu befragen}
+%==============================================================================
+\nsl{Für den Schritt von der Stichprobe zur Aussage gibt es zwei große
+Denkschulen. Die \emph{frequentistische} Statistik versteht
+Wahrscheinlichkeit als relative Häufigkeit in gedachten Wiederholungen.
+Sie fragt: Wie oft kämen Daten wie unsere heraus, wenn die Nullhypothese
+stimmt? Über Hypothesen selbst spricht sie keine Wahrscheinlichkeiten
+aus; eine Hypothese ist wahr oder falsch, nur die Daten schwanken. Die
+\emph{bayesianische} Statistik versteht Wahrscheinlichkeit als Grad
+begründeter Überzeugung. Sie fragt: Wie viel besser sagt die eine
+Hypothese die Daten voraus als die andere, und was sollte ich danach
+glauben? Dafür braucht sie eine Ausgangseinschätzung, den Prior, und
+der ist oft nichts anderes als eine \emph{Basisrate}. Beide Schulen
+rechnen mit denselben Daten. Sie beantworten aber verschiedene Fragen,
+und wer ein Projekt plant, sollte vorher wissen, welche davon ihn
+interessiert. Ein gut lesbarer Vergleich beider Schulen mit
+Rechenbeispielen steht bei \textcite{wagenmakers2007practical}.}
+\begin{description}
+\item[{\rot\bf Dieselben Daten, zwei Fragen}]~\\[-\lblskip]
+\begin{center}
+\begin{tabular}{p{0.42\textwidth}p{0.42\textwidth}}
+\toprule
+\textbf{frequentistisch} & \textbf{bayesianisch} \\
+\midrule
+Wie überraschend wären diese Daten, \emph{wenn} $H_0$ stimmt? &
+Welche Hypothese sagt diese Daten besser voraus? \\
+$P(\text{Daten}\mid H_0)$ & $P(H\mid\text{Daten})$ \\
+Ergebnis: p-Wert, Konfidenzintervall & Ergebnis: Bayes-Faktor, Posterior \\
+braucht: $H_0$, $\alpha$, geplantes $n$ & braucht: $H_0$, $H_1$, Prior
+(Basisrate) \\
+\bottomrule
+\end{tabular}
+\end{center}
+\bi
+  \ite Leitbeispiel für beide: Ist dieser Würfel gezinkt?
+\ei
+\os{\newpage}
+
+\item[{\rot\bf Ist dieser Würfel gezinkt? (frequentistisch)}]~\\[-\lblskip]
+\bi
+  \ite 30 Würfe, \textbf{10 Sechsen}; bei einem fairen Würfel erwartet
+    man 5
+  \ite $H_0$: Der Würfel ist fair, $P(6)=\tfrac16$
+  \ite p-Wert: $P(\text{10 oder mehr Sechsen}\mid H_0) = 0{,}020$
+    (Binomialverteilung, einseitig)
+  \ite $p<0{,}05$: $H_0$ wird verworfen, \enquote{signifikant gezinkt}
+  \ite mit \textbf{9 Sechsen}: $p=0{,}051$, nicht signifikant
+\ei
+\nsl{Die Werte sind exakt mit der Binomialverteilung $B(30,\tfrac16)$
+gerechnet; die Tabelle auf dem Übungsblatt (Teil~B, Aufgabe~4) enthält
+$P(X\geq k)$ für alle relevanten $k$. Einseitig wird hier getestet, weil
+die Frage gerichtet ist (\emph{zu viele} Sechsen). Zweiseitig ergäbe sich
+bei 10 Sechsen $p\approx0{,}024$. Der Sprung von 9 auf 10 Sechsen zeigt,
+wie willkürlich die Schwelle ist: Eine einzige Sechs mehr oder weniger
+entscheidet über \enquote{signifikant}. Die Frage, wie \emph{wahrscheinlich}
+der Würfel gezinkt ist, beantwortet der Test nicht; dafür fehlt ihm die
+Information, wie viele gezinkte Würfel es überhaupt gibt.}
 \os{\newpage}
 \end{description}
 
@@ -893,6 +1265,42 @@ Mogelwürfel nicht. Dann setzt man eine Verteilung möglicher Schieflagen
 an, und der Bayes-Faktor hängt von dieser Wahl ab. Das ist der ehrliche
 Preis der bayesianischen Antwort.}
 \os{\newpage}
+\item[{\rot\bf Der Posterior wandert mit jedem Wurf}]~\\
+\begin{center}
+\includegraphics[width=0.97\linewidth]{figures/LE06_posterior_pfade.pdf}
+\end{center}
+\bi
+  \ite alle starten bei der Basisrate 20\,\%; jeder Wurf verschiebt die
+    Überzeugung ein Stück
+  \ite nach 30 Würfen sind manche Würfel klar, andere noch unentschieden
+\ei
+\nsl{Je fünf simulierte faire und gezinkte Würfel, Prior $1:4$. Die
+Kurven zeigen nach jedem Wurf $P(\text{gezinkt})$. Gut zu sehen: Faire
+Würfel sinken langsam, weil ein Nicht-Treffer die Chance nur mit 0,8
+multipliziert; gezinkte steigen in Sprüngen, aber nicht jeder gezinkte
+Würfel ist nach 30 Würfen über 50\,\%. Der Bayes-Faktor hat keine feste
+Stichprobengröße: Man könnte weiterwürfeln, bis die Kurve eine vorher
+festgelegte Grenze erreicht (vgl.\ die Stoppregel bei
+\textcite{schoenbrodt2017sequential}).}
+\os{\newpage}
+
+\item[{\rot\bf Bayes für eine Quote: Wie gut ist Wechseln?}]~\\
+\begin{center}
+\includegraphics[width=0.97\linewidth]{figures/LE06_posterior_quote.pdf}
+\end{center}
+\bi
+  \ite mit jeder Runde wird die Kurve schmaler: aus Vermutung wird Wissen
+  \ite nach 150 Runden: mit 95\,\% zwischen 59\,\% und 74\,\% --
+    \emph{diese} Aussage darf Bayes machen
+\ei
+\nsl{Prior ist die Gleichverteilung (jede Quote gleich plausibel);
+nach $k$ Gewinnen in $n$ Runden ist der Posterior eine Beta-Verteilung
+mit den Parametern $k+1$ und $n-k+1$. Zum Rechnen genügt die Grafik:
+Wichtig ist, dass das bayesianische 95-\%-Intervall (\enquote{Glaubwürdigkeitsintervall})
+genau die Aussage macht, die man dem Konfidenzintervall oft fälschlich
+zuschreibt. Bei einem flachen Prior und vielen Daten liegen beide
+Intervalle zahlenmäßig nahe beieinander.}
+\os{\newpage}
 
 \item[{\rot\bf Bayes-Faktor zum $t$-Test}]~\\[-\lblskip]
 \bi
@@ -1011,29 +1419,110 @@ anderen stützen. Was man danach glauben sollte, bestimmen die Daten
 %==============================================================================
 \section{Übung: Würfel-Detektive}
 %==============================================================================
-\nsl{Die Übung macht in zehn Minuten erlebbar, was die Folien behauptet
-haben: dass ein Test mit $\alpha=0{,}05$ manchmal falschen Alarm gibt, dass
-er bei kleinem $n$ viele echte Effekte übersieht und dass man ohne
-Basisrate nicht sagen kann, wie viele seiner Alarme stimmen. Jedes Paar
-erhält einen verschlossenen Umschlag. Die werfende Person liest die Karte
-für sich: \enquote{fair} (Treffer ist nur die 6) oder \enquote{gezinkt}
-(Treffer sind 5 und 6). Gewürfelt wird verdeckt unter einem der
-Pappbecher; gemeldet wird nur \enquote{Treffer} oder \enquote{kein
-Treffer}. Die Detektivin führt die Strichliste und wertet aus. Ein
-Fünftel der Umschläge ist gezinkt; diese Basisrate wird vorher
-angesagt.}
+\nsl{Die Übung macht in einer Viertelstunde erlebbar, was die Folien
+behauptet haben: dass ein Test mit $\alpha=0{,}05$ manchmal falschen Alarm
+gibt, dass er bei kleinem $n$ viele echte Effekte übersieht und dass man
+ohne Basisrate nicht sagen kann, wie viele seiner Alarme stimmen.
+
+Das Spiel braucht keine präparierten Würfel. Ob ein Würfel
+\enquote{gezinkt} ist, entscheidet eine Karte im Umschlag, die nur die
+werfende Person kennt: Bei \enquote{fair} zählt nur die 6 als Treffer
+(Wahrscheinlichkeit $\tfrac16$), bei \enquote{gezinkt} zählen 5 und 6
+(Wahrscheinlichkeit $\tfrac13$). Für die Detektivin ist das von einem
+echten gezinkten Würfel nicht zu unterscheiden, denn sie sieht den Würfel
+nicht, sondern hört nur \enquote{Treffer} oder \enquote{kein Treffer}.
+Damit sind beide Hypothesen exakt bekannt, und die Basisrate (jeder fünfte
+Umschlag) ebenfalls. Die Regeln auf der dritten Folie sind wichtig: Wer
+nach 15 Würfen aufhört, weil es \enquote{schon klar} ist, verändert die
+Fehlerrate des Tests; genau das ist Optional Stopping aus dem Vergleich der
+beiden Schulen.}
 \begin{description}
-\item[{\rot\bf Würfel-Detektive (Paare, 10 Min.)}]~\\[-\lblskip]
+\item[{\rot\bf Würfel-Detektive: das Spiel}]~\\[-\lblskip]
 \bi
-  \ite Umschlag: Die werfende Person liest die Karte \textbf{für sich}
-    (fair oder gezinkt)
-  \ite verdeckt würfeln, nur \enquote{Treffer} oder \enquote{kein
-    Treffer} sagen; die Detektivin führt die Strichliste (Teil~A,
-    Aufgabe~2)
-  \ite 30 Würfe, dann auswerten: \textbf{(a)} p-Wert aus der Tabelle,
-    Urteil bei $\alpha=0{,}05$ \textbf{(b)} Bayes-Faktor $2^k\cdot0{,}8^{30-k}$,
-    Basisrate $1:4$, $P(\text{gezinkt})$
-  \ite erst dann den Umschlag öffnen
+  \ite jedes Paar bekommt einen Würfel, der \textbf{vielleicht gezinkt}
+    ist
+  \ite \enquote{gezinkt} heißt hier: ein \textbf{Treffer} kommt doppelt
+    so oft (Chance $\tfrac13$ statt $\tfrac16$)
+  \ite ob Ihr Würfel gezinkt ist, steht auf einer Karte im Umschlag
+  \ite \textbf{bekannt}: 3 von 15 Umschlägen sind gezinkt, also jeder
+    fünfte (Basisrate $1:4$)
+  \ite Ihre Aufgabe: aus 30 Würfen herausfinden, ob Ihr Würfel gezinkt
+    ist -- einmal mit Test, einmal mit Bayes
+\ei
+\os{\newpage}
+
+\item[{\rot\bf Ablauf in sechs Schritten}]~\\
+\begin{center}
+\resizebox{0.97\linewidth}{!}{%
+\begin{tikzpicture}[font=\sffamily\small,>=Stealth,
+  st/.style={draw=rwuviolet,thick,fill=rwuviolet!6,rounded corners=2pt,
+    text width=36mm,align=center,minimum height=22mm},
+  num/.style={circle,fill=rwuviolet,text=white,font=\sffamily\bfseries\small,inner sep=1.5pt}]
+  \node[st] (a) at (0,4.3)   {\textbf{Rollen}\\W = Werferin\\D = Detektivin};
+  \node[st] (b) at (4.9,4.3) {\textbf{W} öffnet den Umschlag und liest die Karte \emph{allein}};
+  \node[st] (c) at (9.8,4.3) {\textbf{W} würfelt verdeckt unter dem Becher und sagt nur \enquote{Treffer} oder \enquote{kein Treffer}};
+  \node[st] (d) at (9.8,0)   {\textbf{D} macht einen Strich; nach \textbf{30} Würfen ist Schluss};
+  \node[st] (e) at (4.9,0)   {\textbf{D} wertet aus: p-Wert \emph{und} $P(\text{gezinkt})$, dann Urteil};
+  \node[st,draw=rwucyandark,fill=rwucyan40!50] (f) at (0,0) {\textbf{W} deckt die Karte auf; Ergebnis an die Tafel};
+  \foreach \n/\k in {a/1,b/2,c/3,d/4,e/5,f/6} \node[num] at (\n.north west) {\k};
+  \draw[->,thick,rwuviolet] (a) -- (b);
+  \draw[->,thick,rwuviolet] (b) -- (c);
+  \draw[->,thick,rwuviolet] (c) -- node[right]{\,30-mal} (d);
+  \draw[->,thick,rwuviolet] (d) -- (e);
+  \draw[->,thick,rwuviolet] (e) -- (f);
+\end{tikzpicture}}
+\end{center}
+\bi
+  \ite \textbf{Treffer} bei Karte \enquote{fair}: nur die 6 \quad bei
+    Karte \enquote{gezinkt}: 5 oder 6
+\ei
+\os{\newpage}
+
+\item[{\rot\bf Spielregeln, damit der Test ehrlich bleibt}]~\\[-\lblskip]
+\bi
+  \ite W zeigt die Karte erst nach dem Urteil -- auch kein Grinsen, kein
+    Zögern
+  \ite W meldet jeden Wurf wahrheitsgemäß, D sieht den Würfel nie
+  \ite \textbf{immer genau 30 Würfe}, auch wenn es \enquote{schon klar}
+    ist: Die Stichprobengröße steht vorher fest
+  \ite D entscheidet \emph{vor} dem Aufdecken und schreibt beide Urteile
+    auf (Teil~B, Aufgabe~4)
+  \ite dauert etwa 5 Minuten Würfeln und 5 Minuten Rechnen
+\ei
+\os{\newpage}
+
+\item[{\rot\bf Auswertung am Beispiel: 9 Treffer in 30 Würfen}]~\\[-\lblskip]
+\begin{center}
+\small
+\begin{tabular}{@{}p{0.43\textwidth}p{0.47\textwidth}@{}}
+\toprule
+\textbf{(a) Test} & \textbf{(b) Bayes} \\
+\midrule
+$H_0$: fair, Treffer mit $\tfrac16$; erwartet 5 &
+Faktor je Treffer $\times2$, je Nicht-Treffer $\times0{,}8$ \\
+aus der Tabelle: $P(X\geq9\mid\text{fair}) = 0{,}051$ &
+$\mathit{BF}_{10}=2^9\cdot0{,}8^{21}=512\cdot0{,}0092\approx4{,}7$ \\
+$0{,}051>0{,}05$: \textbf{nicht signifikant} &
+Chance $1:4\times4{,}7 = 4{,}7:4$ $\Rightarrow$ $P\approx\textbf{54\,\%}$ \\
+Urteil: \enquote{kein Befund} &
+Urteil: \enquote{eher gezinkt, aber unsicher} \\
+\bottomrule
+\end{tabular}
+\end{center}
+\bi
+  \ite dieselben Daten, zwei verschiedene Fragen, zwei verschiedene
+    Antworten
+  \ite mit 10 Treffern: Test signifikant ($p=0{,}020$), Bayes 75\,\%
+\ei
+\os{\newpage}
+
+\item[{\rot\bf Was der Kurs erwarten kann}]~\\
+\begin{center}
+\includegraphics[width=0.97\linewidth]{figures/LE06_wuerfel_verteilungen.pdf}
+\end{center}
+\bi
+  \ite die Verteilungen überlappen stark: 30 Würfe sind wenig
+  \ite der Test erkennt nur gut die Hälfte der gezinkten Würfel
 \ei
 \os{\newpage}
 
@@ -1136,7 +1625,7 @@ der Autor erklärt öffentlich, die Studie sei ein absichtlicher Fake & $\times\
   \ite jede Gruppe zieht eine Behauptungskarte
   \ite Basisrate \emph{vor} der Suche festlegen und begründen
   \ite 8 Minuten suchen, jeden Fund mit Faktor in die Tabelle
-    (Teil~B, Aufgabe~5)
+    (Teil~B, Aufgabe~6)
   \ite Ergebnis: $P(\text{stimmt})$ -- und welcher Fund hat am meisten
     bewegt?
   \ite Vergleich: Wo lagen zwei Gruppen mit denselben Funden verschieden,
@@ -1588,7 +2077,7 @@ schadet, warum?} führt zur stärkeren Gegenhypothese. Das
 \enquote{Was müsste passieren, damit Idee und Gegenteil \emph{beide}
 falsch sind?}. Für die Landkarte reicht in der Stunde das Zeigen des
 Beispiels; die eigene Karte entsteht als Hausaufgabe (Teil~B,
-Aufgabe~7) auf einem A3-Blatt und wird in LE~7 zur Design-Skizze
+Aufgabe~8) auf einem A3-Blatt und wird in LE~7 zur Design-Skizze
 mitgebracht. Wer mag, darf zeichnen; bewertet wird nicht die Grafik,
 sondern ob jedes Element einen Beleg trägt. Eine Grenze sollte man
 offen ansprechen: Der Diamant stammt aus dem Coaching, wo er
@@ -1652,24 +2141,12 @@ ausgesucht hat.
 \os{\newpage}
 
 %==============================================================================
-\section{Übungen zum Weiterrechnen}
+\section{Zeitungsstatistik lesen}
 %==============================================================================
 \begin{description}
-\item[{\rot\bf Datensatz-Analyse (Hausaufgabe, Kleingruppen)}]~\\[-\lblskip]
-\bi
-  \ite Datensatz auf dem Übungsblatt Teil~A: Pendelausschlag von 50 Personen
-    (fiktiv)
-  \ite welches Skalenniveau hat jede Variable?
-  \ite Median, Quartile, Mittelwert, Spannweite bestimmen
-  \ite Histogramm und Boxplot zeichnen: Gibt es Ausreißer?
-  \ite unterscheiden sich Personen mit und ohne Vorwissen? $t$-Test
-    \emph{und} Bayes-Faktor
-\ei
-\os{\newpage}
-
 \item[{\rot\bf Zeitungsstatistik lesen}]~\\[-\lblskip]
 \bi
-  \ite Übungsblatt Teil~B, Aufgabe~6, oder eine aktuelle Meldung
+  \ite Übungsblatt Teil~B, Aufgabe~7, oder eine aktuelle Meldung
   \ite Was wurde gemessen, an wem, an wie vielen?
   \ite Was wird behauptet: Beschreibung, Unterschied, Ursache?
   \ite Wird eine Effektgröße genannt oder nur \enquote{signifikant}?
@@ -1681,16 +2158,17 @@ ausgesucht hat.
 
 \begin{lehrhinweis}
 Die vollständig nachgerechneten Lösungen stehen im Erwartungshorizont am
-Ende von Teil~B des Übungsblatts. Bei der Datensatz-Analyse sollte man in
-der Besprechung (zu Beginn von LE~7 oder in der Sprechstunde) drei Stellen
-gezielt aufgreifen:
+Ende von Teil~B des Übungsblatts. Bei der Datensatz-Analyse (Hausaufgabe
+nach Sitzung~1) sollte man in der Besprechung (zu Beginn von Sitzung~2
+oder in der Sprechstunde) drei Stellen gezielt aufgreifen:
 (1)~Quartile hängen vom Berechnungsverfahren ab; Taschenrechner,
 Tabellenkalkulation und Handrechnung liefern leicht verschiedene Werte.
 Das ist kein Fehler, muss aber angegeben werden. (2)~Der Vergleich der
 Vorwissensgruppen kippt je nach Kennwert: Der Mittelwert spricht für einen
 Unterschied, der Median nicht. Ursache sind der Ausreißer und die größere
 Streuung in der Gruppe ohne Vorwissen. Der $t$-Test ist nicht
-signifikant, der Bayes-Faktor spricht leicht für \enquote{kein
+signifikant; das Konfidenzintervall des Unterschieds reicht weit über
+null hinaus. Der Bayes-Faktor (Sitzung~2) spricht leicht für \enquote{kein
 Unterschied}, ist aber zu klein, um das zu belegen. (3)~Die Staunen-Werte
 sind ordinal; ein Mittelwert wird oft trotzdem berechnet. Bei der
 Zeitungsstatistik genügt es, wenn die Gruppe mindestens zwei der Fragen
@@ -1705,6 +2183,10 @@ auf der Folie beantworten kann und benennt, welche Information fehlt.
 \bi
   \ite das Monty-Hall-Problem mit bedingter Wahrscheinlichkeit erklären
   \ite deskriptive und schließende Statistik unterscheiden
+  \ite Standardabweichung und Standardfehler berechnen und
+    unterscheiden
+  \ite den Zentralen Grenzwertsatz erklären und ein Konfidenzintervall
+    richtig deuten
   \ite einen Binomialtest und einen $t$-Test von Hand rechnen und
     typische Fehldeutungen des p-Werts benennen
   \ite mit Basisrate und Bayes-Faktor in Chancenform rechnen und
@@ -1720,12 +2202,11 @@ auf der Folie beantworten kann und benennt, welche Information fehlt.
 
 \item[{\rot\bf Bis zur nächsten Woche}]~\\[-\lblskip]
 \bi
-  \ite \textbf{Datensatz-Analyse} (Übungsblatt Teil~A, Aufgabe~3)
-  \ite \textbf{Basisrate} (Teil~B, Aufgabe~4): Taxi und Test
-  \ite \textbf{Zeitungsmeldung} methodisch lesen (Teil~B, Aufgabe~6)
+  \ite \textbf{Basisrate} (Teil~B, Aufgabe~5): Taxi und Zeuge
+  \ite \textbf{Zeitungsmeldung} methodisch lesen (Teil~B, Aufgabe~7)
   \ite \textbf{Diamant und Landkarte} für Ihre eigene Idee (Teil~B,
-    Aufgabe~7), auf A3, mitbringen zu LE~7
-  \ite \textbf{Auswertungsplan} für Ihr Projekt (Teil~B, Aufgabe~8):
+    Aufgabe~8), auf A3, mitbringen zu LE~7
+  \ite \textbf{Auswertungsplan} für Ihr Projekt (Teil~B, Aufgabe~9):
     Zielgröße, kleinster interessanter Effekt, realistisches $n$, Power
     -- Sie brauchen ihn für die Design-Skizze in LE~7
   \ite \textbf{Tagebuch des Staunens}: Wann hat Ihr Gefühl für
@@ -1735,3 +2216,4 @@ auf der Folie beantworten kann und benennt, welche Information fehlt.
 \end{description}
 
 \handoutinput{handouts/LE06}
+

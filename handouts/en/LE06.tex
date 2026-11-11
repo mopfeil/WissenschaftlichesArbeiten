@@ -39,50 +39,32 @@ Total: \textbf{stay} won \rule{12mm}{0.3pt} of \rule{12mm}{0.3pt}
 \qquad \textbf{switch} won \rule{12mm}{0.3pt} of \rule{12mm}{0.3pt}
 \qquad whole class (board): \rule{25mm}{0.3pt}
 
-\aufgabe{Dice detectives}[in class, pairs, 10 min.]
-The roller opens the envelope and reads the card \emph{privately}:
-\enquote{fair} (only a 6 counts as a hit) or \enquote{loaded} (5 and 6
-count as hits). The roller throws the die 30 times, hidden under a cup,
-and only says \enquote{hit} or \enquote{no hit}. The detective keeps the
-tally. Known in advance: one envelope in five is loaded.
+\aufgabe{Means of dice: the central limit theorem}[in class, individual work, 8 min.]
+Roll a die five times and write down the results. Compute the mean.
+Repeat this four times and mark all four means as dots on the number line
+on the board.
 
 \begin{center}
-\renewcommand{\arraystretch}{1.6}
-\begin{tabular}{|p{0.3\textwidth}|p{0.55\textwidth}|}
+\renewcommand{\arraystretch}{1.5}
+\begin{tabular}{|c|c|c|c|c|c||c|}
 \hline
-Hit (tally) & \\ \hline
-No hit (tally) & \\ \hline
+\textbf{Series} & \textbf{1st} & \textbf{2nd} & \textbf{3rd} & \textbf{4th} & \textbf{5th} & \textbf{Mean} \\ \hline
+1 & \hspace{8mm} & \hspace{8mm} & \hspace{8mm} & \hspace{8mm} & \hspace{8mm} & \hspace{18mm} \\ \hline
+2 & & & & & & \\ \hline
+3 & & & & & & \\ \hline
+4 & & & & & & \\ \hline
 \end{tabular}
 \end{center}
-
-\begin{center}
-\footnotesize
-\setlength{\tabcolsep}{3.5pt}
-\begin{tabular}{@{}l*{12}{c}@{}}
-\toprule
-Hits $k$ & 3 & 4 & 5 & 6 & 7 & 8 & 9 & 10 & 11 & 12 & 13 & 14 \\
-\midrule
-$p=P(X\geq k\mid\text{fair})$ & 0.90 & 0.76 & 0.58 & 0.38 & 0.22 & 0.11 & 0.051 & 0.020 & 0.007 & 0.002 & 0.0005 & 0.0001 \\
-$\mathit{BF}_{10}=2^k\cdot0.8^{30-k}$ & 0.02 & 0.05 & 0.12 & 0.30 & 0.76 & 1.9 & 4.7 & 11.8 & 30 & 74 & 184 & 461 \\
-$P(\text{loaded})$ at $1:4$ & 0.5\,\% & 1\,\% & 3\,\% & 7\,\% & 16\,\% & 32\,\% & 54\,\% & 75\,\% & 88\,\% & 95\,\% & 98\,\% & 99\,\% \\
-\bottomrule
-\end{tabular}
-\end{center}
-
 \begin{enumerate}
-  \item \textbf{Frequentist:} $H_0$: fair. p-value for your $k$:
-    \rule{20mm}{0.3pt}. At $\alpha=0.05$ the die is
-    $\square$ significantly loaded \quad $\square$ not significant.
-  \item \textbf{Bayesian:} $\mathit{BF}_{10}$ = \rule{18mm}{0.3pt};
-    prior odds $1:4$, posterior odds \rule{18mm}{0.3pt};\\
-    $P(\text{loaded})$ = \rule{18mm}{0.3pt}. Do the calculation once
-    yourself, without the last row of the table.
-  \item Open the envelope. Who was right? Enter your pair in the
-    two-by-two table on the board.
-  \item What would your Bayesian verdict be if only one die in 100 were
-    loaded? And your test verdict?
+  \item \emph{Before} rolling: a single roll has mean 3.5 and standard
+    deviation 1.71. What is the standard error of a mean of 5 rolls?
+    Between which values should about 95\,\% of the dots on the board lie?
+  \item Does your prediction match the picture on the board? What shape
+    does it have?
+  \item What would the picture look like if every dot were the mean of 20
+    rolls?
 \end{enumerate}
-\schreiblinien{2}
+\schreiblinien{3}
 
 \aufgabe{Analysing a data set}[homework, small groups]
 \textbf{Fictitious data set} (constructed for this exercise, not a real
@@ -129,12 +111,15 @@ before (\textbf{PK} for prior knowledge, 1 = yes, 0 = no).
   \item Compute the mean and median of \textbf{mm} without the outlier.
     Which statistic reacts more strongly, and why?
   \item Summarise \textbf{W} in a sensible way. Is a mean admissible?
+  \item Compute the standard error of the mean of \textbf{mm} and a 95\,\%
+    confidence interval. What does the interval say, and what does it not
+    say?
   \item Compare \textbf{mm} between people with and without prior
     knowledge, using the mean \emph{and} the median. What do you notice?
-  \item For the same comparison, compute a $t$-test with the pooled
-    standard deviation and the Bayes factor from the rule of thumb
-    \parencite{wagenmakers2007practical}, where $N$ is the total number of
-    people:
+  \item For the same comparison, compute a $t$-test by hand with the
+    pooled standard deviation. After session~2, add the Bayes factor from
+    the rule of thumb \parencite{wagenmakers2007practical}, where $N$ is the
+    total number of people:
     \[t=\frac{\bar{x}_1-\bar{x}_2}{s_p\sqrt{1/n_1+1/n_2}},\quad
       \mathit{df}=n_1+n_2-2,\qquad
       \mathit{BF}_{01}\approx\sqrt{N}\,\Bigl(1+\frac{t^2}{\mathit{df}}\Bigr)^{-N/2}\] What do the two results say, and what do they not say?
@@ -142,7 +127,56 @@ before (\textbf{PK} for prior knowledge, 1 = yes, 0 = no).
 \schreiblinien{6}
 \end{uebungsblatt}
 
-\begin{uebungsblattb}{4}{Base Rates, Credibility, Your Project}
+\begin{uebungsblattb}{4}{Dice Detectives, Base Rates, Credibility, Your Project}
+
+\aufgabe{Dice detectives}[in class, pairs, 10 min.]
+\textbf{Roles:} R = roller, D = detective. \textbf{1.}~R opens the
+envelope and reads the card \emph{alone}: \enquote{fair} (only a 6 counts
+as a hit) or \enquote{loaded} (5 and 6 count as hits). \textbf{2.}~R rolls
+the die hidden under a cup and only says \enquote{hit} or \enquote{no
+hit}. \textbf{3.}~D makes a tally mark; stop after exactly \textbf{30}
+rolls. \textbf{4.}~D does both analyses and decides. \textbf{5.}~Only then
+does R reveal the card. Known in advance: one envelope in five is loaded
+(base rate $1:4$).
+
+\begin{center}
+\renewcommand{\arraystretch}{1.6}
+\begin{tabular}{|p{0.3\textwidth}|p{0.55\textwidth}|}
+\hline
+Hit (tally) & \\ \hline
+No hit (tally) & \\ \hline
+\end{tabular}
+\end{center}
+
+\begin{center}
+\footnotesize
+\setlength{\tabcolsep}{3.5pt}
+\begin{tabular}{@{}l*{12}{c}@{}}
+\toprule
+Hits $k$ & 3 & 4 & 5 & 6 & 7 & 8 & 9 & 10 & 11 & 12 & 13 & 14 \\
+\midrule
+$p=P(X\geq k\mid\text{fair})$ & 0.90 & 0.76 & 0.58 & 0.38 & 0.22 & 0.11 & 0.051 & 0.020 & 0.007 & 0.002 & 0.0005 & 0.0001 \\
+$\mathit{BF}_{10}=2^k\cdot0.8^{30-k}$ & 0.02 & 0.05 & 0.12 & 0.30 & 0.76 & 1.9 & 4.7 & 11.8 & 30 & 74 & 184 & 461 \\
+$P(\text{loaded})$ at $1:4$ & 0.5\,\% & 1\,\% & 3\,\% & 7\,\% & 16\,\% & 32\,\% & 54\,\% & 75\,\% & 88\,\% & 95\,\% & 98\,\% & 99\,\% \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\begin{enumerate}
+  \item \textbf{Frequentist:} $H_0$: fair. p-value for your $k$:
+    \rule{20mm}{0.3pt}. At $\alpha=0.05$ the die is
+    $\square$ significantly loaded \quad $\square$ not significant.
+  \item \textbf{Bayesian:} $\mathit{BF}_{10}$ = \rule{18mm}{0.3pt};
+    prior odds $1:4$, posterior odds \rule{18mm}{0.3pt};\\
+    $P(\text{loaded})$ = \rule{18mm}{0.3pt}. Do the calculation once
+    yourself, without the last row of the table.
+  \item Open the envelope. Who was right? Enter your pair in the
+    two-by-two table on the board.
+  \item What would your Bayesian verdict be if only one die in 100 were
+    loaded? And your test verdict?
+\end{enumerate}
+\schreiblinien{2}
+
 
 \aufgabe{Base rate: the taxi and the witness}[homework]
 In a city, 85\,\% of taxis are green and 15\,\% are blue. After a
@@ -264,18 +298,13 @@ standard deviation of the number of wins in 12 switch rounds is about
 pattern reliably. This is the starting point for talking about sample
 size.
 
-\textbf{Task~2.} Table values computed exactly with $B(30,\tfrac16)$ and
-$B(30,\tfrac13)$. A die is significant ($\alpha=0.05$, one-sided) from
-10 hits on. A fair die gets there with 2.0\,\%, a loaded one with
-57\,\%. The Bayesian rule \enquote{loaded if $P(\text{loaded})>50\,\%$}
-applies at base rate $1:4$ from 9 hits on (fair: 5.1\,\%, loaded:
-71\,\%). Check for $k=10$: $2^{10}=1024$, $0.8^{20}=0.0115$,
-$\mathit{BF}_{10}=11.8$; odds $11.8:4$, i.e.\ $11.8/15.8=75\,\%$.
-(4)~At base rate $1:99$ and $k=10$: $11.8:99$, i.e.\ 11\,\%. Despite
-being \enquote{significant}, the die is then probably fair; the test
-verdict does not change because the test does not know the base rate.
-With 15 pairs the two-by-two table varies a lot; expected are 0--1 false
-alarms and 1--2 of 3 loaded dice detected.
+\textbf{Task~2.} (1)~$\mathit{SE}=1.71/\sqrt5\approx0.76$; about
+95\,\% of the means between $3.5\pm2\cdot0.76$, i.e.\ 2.0 and 5.0.
+(2)~The picture is a bell around 3.5, although single rolls are uniformly
+distributed; of 120 dots, on average about four lie outside 2.0 to 5.0
+(exactly 3.2\,\% per dot; the normal approximation says 5\,\%). (3)~With
+20 rolls: $\mathit{SE}\approx0.38$, the bell would be half as wide (about
+2.7 to 4.3).
 
 \textbf{Task~3} (values checked with Python).
 (1)~No: nominal (identifier); mm: ratio scale; W: ordinal; PK: nominal
@@ -307,10 +336,17 @@ the median almost none; the group without prior knowledge varies more
 and contains the two largest values (73 and 96\,mm). Expected answer:
 these data show no robust group difference, and the choice of statistic
 determines the story one could tell.
-(7)~Pooled standard deviation $s_p=19.3$\,mm,
+(7)~$\mathit{SE}=19.32/\sqrt{50}\approx2.73$\,mm; 95\,\% interval
+$29.94\pm1.96\cdot2.73$, i.e.\ 24.6 to 35.3\,mm (with $t_{49}=2.01$: 24.4
+to 35.4\,mm). The interval describes the uncertainty of the \emph{mean},
+not the spread of the people: most individual values lie outside it.
+Because the distribution is skewed, the central limit theorem does the
+work here; with $n=50$ that is acceptable.
+(8)~Pooled standard deviation $s_p=19.3$\,mm,
 $\mathit{SE}=s_p\sqrt{1/33+1/17}=5.76$\,mm,
-$t=(32.03-25.88)/5.76=1.07$, $\mathit{df}=48$, $p=0.29$; $d=0.32$.
-Welch test: $t=1.25$, $p=0.22$. Rule of thumb:
+$t=(32.03-25.88)/5.76=1.07$, $\mathit{df}=48$, $p=0.29$; $d=0.32$. 95\,\% interval of the difference:
+$6.15\pm2.01\cdot5.76$, i.e.\ $-5.4$ to $17.7$\,mm, clearly including zero.
+Welch test: $t=1.25$, $p=0.22$. After session~2, rule of thumb:
 $\mathit{BF}_{01}\approx\sqrt{50}\,(1+1.14/48)^{-25}\approx7.07\cdot0.56\approx3.9$;
 JASP (JZS, $r=\sqrt2/2$) gives $\mathit{BF}_{01}=2.1$. Expected
 interpretation: no significant difference; the data lean slightly
@@ -318,7 +354,20 @@ towards \enquote{no difference} but do not establish it. The outlier
 (no.~34) drives the difference in means; the $t$-test compares means and
 inherits this sensitivity.
 
-\textbf{Task~4.} (1)~Most people say 80\,\%. (2)~Of 100 accidents, 15
+\textbf{Task~4.} Table values computed exactly with $B(30,\tfrac16)$ and
+$B(30,\tfrac13)$. A die is significant ($\alpha=0.05$, one-sided) from
+10 hits on. A fair die gets there with 2.0\,\%, a loaded one with
+57\,\%. The Bayesian rule \enquote{loaded if $P(\text{loaded})>50\,\%$}
+applies at base rate $1:4$ from 9 hits on (fair: 5.1\,\%, loaded:
+71\,\%). Check for $k=10$: $2^{10}=1024$, $0.8^{20}=0.0115$,
+$\mathit{BF}_{10}=11.8$; odds $11.8:4$, i.e.\ $11.8/15.8=75\,\%$.
+(4)~At base rate $1:99$ and $k=10$: $11.8:99$, i.e.\ 11\,\%. Despite
+being \enquote{significant}, the die is then probably fair; the test
+verdict does not change because the test does not know the base rate.
+With 15 pairs the two-by-two table varies a lot; expected are 0--1 false
+alarms and 1--2 of 3 loaded dice detected.
+
+\textbf{Task~5.} (1)~Most people say 80\,\%. (2)~Of 100 accidents, 15
 involve blue taxis, of which the witness identifies 12 as blue; of the 85
 green ones he calls 17 blue.
 $P(\text{blue}\mid\text{\enquote{blue}})=12/29\approx41\,\%$. (3)~Prior
@@ -328,14 +377,14 @@ $4:1$, i.e.\ 80\,\%: the gut feeling is only right when the base rates
 are equal. The witness's Bayes factor stays at 4; it describes the
 witness, not the city.
 
-\textbf{Task~5.} No \enquote{correct} number is expected. Good groups
+\textbf{Task~6.} No \enquote{correct} number is expected. Good groups
 justify their base rate before searching, treat copied reports as a
 single finding, and give the largest factors to findings that would only
 be expected if the claim were true (or false): reviews, fact checks with
 sources, the original study itself. Adjusting the base rate after the
 search would count the same evidence twice.
 
-\textbf{Task~6.} Measured: self-report, not learning performance; online
+\textbf{Task~7.} Measured: self-report, not learning performance; online
 survey, unclear whether the groups were randomised. 23 aspects: at
 $\alpha=0.05$, pure chance is expected to produce just over one
 \enquote{significant} result ($23\cdot0.05\approx1.2$); the probability of
@@ -345,7 +394,7 @@ improves exactly the concentration self-report and nothing else} it is
 low. Nothing is \enquote{proven}; at best there is a hypothesis for a
 preregistered follow-up study (link to Unit~10).
 
-\textbf{Task~7.} A good opposite is a hypothesis of its own with its own
+\textbf{Task~8.} A good opposite is a hypothesis of its own with its own
 reasoning, not a mere negation. The \enquote{neither} position should
 contain at least one confounder that can be controlled in Unit~7. Key
 point (1): an observation that all positions expect equally well is
@@ -353,7 +402,7 @@ worthless as evidence; good answers notice this themselves. For the map,
 the drawing is not graded, but whether every element carries a source or
 a number and whether open dragons are honestly left standing.
 
-\textbf{Task~8.} Good plans name a concrete outcome variable, a justified
+\textbf{Task~9.} Good plans name a concrete outcome variable, a justified
 smallest effect and an $n$ that can actually be recruited. The most
 common insight: with 15--20 people per group only a large effect can be
 found; sensible responses are repeated measures, a metric rather than a

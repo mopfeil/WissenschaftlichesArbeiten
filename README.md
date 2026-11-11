@@ -38,6 +38,10 @@ der Woche vorwegnimmt.
 
 ## Die 13 Lehreinheiten
 
+LE 6 (Statistik) umfasst zwei Doppelstunden, das Semester also 14 Termine.
+Ihre Grafiken erzeugt `python3 tools/le06_figuren.py` (numpy, scipy, matplotlib)
+nach `figures/LE06_*.pdf`.
+
 | LE | Thema                              | Staunmoment                        | Kernbegriff                 |
 |----|------------------------------------|------------------------------------|-----------------------------|
 | 1  | Staunen als Erkenntnishaltung      | Ideomotor-Pendel                   | Prediction Error            |
@@ -45,7 +49,7 @@ der Woche vorwegnimmt.
 | 3  | Literaturrecherche                 | Kruskal Count                      | Suchstrategie               |
 | 4  | Quellenkritik                      | Apophenie / Das letzte Abendmahl   | Apophenie / Bias            |
 | 5  | Hypothesen und Falsifizierbarkeit  | Switchboard / Black Box            | Falsifikation               |
-| 6  | Statistik: Signifikanztest und Bayes | Monty Hall / Gezinkte Würfel     | Basisrate und Bayes-Faktor  |
+| 6  | Statistik: Signifikanztest und Bayes (2 Termine) | Monty Hall / Würfel | Standardfehler, Basisrate, Bayes-Faktor |
 | 7  | Forschungsdesign                   | Kontrollierte Seilroutine          | Experimentelle Kontrolle    |
 | 8  | Kognitive Verzerrungen             | Charpentier-Illusion               | Confirmation Bias           |
 | 9  | Qualitative Methoden               | Das Patter                         | Intersubjektivität          |
