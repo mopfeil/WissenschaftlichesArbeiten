@@ -1,170 +1,430 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Handout und Uebungsblatt zu Lehreinheit 6
-% Im Skript am Kapitelende, in handouts.tex als Druckvorlage.
+% Handout und Uebungsblatt zu Lehreinheit 6 (frueher LE 8)
+% Datensatz (Aufgabe 3) ist fiktiv; Kennwerte, Wuerfeltabelle (Aufgabe 2),
+% t-Tests, Bayes-Faktoren und Power im Erwartungshorizont mit Python
+% (numpy/scipy) nachgerechnet.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{handout}{Forschungsdesign}
+\begin{handout}{Statistik: Signifikanztest und Bayes}
 
-\textbf{Worum es heute ging.} Drei Seile wurden gleich lang, zweimal. Beim
-ersten Mal gab es nur die Vorführung: Wer behauptete, zeigte auch, und
-niemand maß. Beim zweiten Mal legten Sie vorher fest, wie geprüft wird.
-Ohne Vergleich bleiben selbst grobe Täuschungen unentdeckt; eine
-verweigerte Kontrolle ist selbst ein Befund.
-
-\textbf{Kernbegriffe}
-\begin{description}
-  \item[Forschungsdesign] Plan einer Untersuchung: welche Variablen an
-    wem, wann und unter welchen Bedingungen erhoben oder verändert werden
-    und womit verglichen wird.
-  \item[UV / AV / Störvariable] vermutete Ursache / gemessene Wirkung /
-    weiterer Einfluss auf die AV.
-  \item[Konfundierung] eine Störvariable variiert systematisch mit der
-    UV; ihre Wirkung ist nicht mehr abtrennbar.
-  \item[Interne Validität] die Veränderung der AV ist eindeutig auf die
-    UV zurückzuführen \parencite{shadish2002experimental}.
-  \item[Externe Validität] das Ergebnis lässt sich auf andere Personen,
-    Situationen und Zeiten übertragen.
-  \item[Objektivität, Reliabilität, Validität] unabhängig von der
-    messenden Person; bei Wiederholung gleich; misst das Gemeinte.
-  \item[Blind-Design, Parallelmessung] Messende kennen die Bedingung
-    nicht; dasselbe Konstrukt wird mit mehreren Verfahren erhoben.
-\end{description}
-
-\textbf{Designtypen}
+\textbf{Worum es heute ging.} Drei Becher, eine Kugel: Die Spielleitung
+öffnet wissentlich einen leeren Becher, Wechseln gewinnt in zwei von drei
+Fällen. Öffnet sie blind, ist es egal. Dasselbe Bild, zwei Prozesse, zwei
+Wahrscheinlichkeiten. Statistik prüft solche Täuschungen der Intuition, und
+zwar auf zwei Arten.
 
 \begin{center}
 \small
-\begin{tabular}{p{0.24\textwidth}p{0.14\textwidth}p{0.1\textwidth}p{0.36\textwidth}}
+\begin{tabular}{@{}p{0.2\textwidth}p{0.36\textwidth}p{0.36\textwidth}@{}}
 \toprule
-& \textbf{UV variiert} & \textbf{Zufall} & \textbf{Kurzschrift (R, X, O)} \\
+ & \textbf{frequentistisch} & \textbf{bayesianisch} \\
 \midrule
-Experiment & ja & ja & R\,X\,O \;/\; R\;\;\,O \\
-Quasi-Experiment & ja & nein & \phantom{R\,}X\,O \;/\; \phantom{R\,X\,}O \\
-nicht-experimentell & nein & -- & nur O (Zusammenhänge) \\
+Frage & Wie überraschend wären die Daten, wenn $H_0$ stimmt? & Welche Hypothese sagt die Daten besser voraus? \\
+Ergebnis & p-Wert, Konfidenzintervall & Bayes-Faktor, Posterior \\
+braucht & $H_0$, $\alpha$, $n$ vorab festgelegt & $H_0$, konkrete $H_1$, Prior (Basisrate) \\
+kann nicht & $H_0$ stützen; sagen, wie wahrscheinlich $H$ ist & ohne offen gelegten Prior auskommen \\
 \bottomrule
 \end{tabular}
 \end{center}
 
-\textbf{Bedrohungen der internen Validität:} Geschichte, Reifung,
-Testeffekt, Instrumentierung, Regression zur Mitte, Selektion, Ausfall
--- und die Erwartungen der Forschenden.
+\textbf{Kernbegriffe}
+\begin{description}\itemsep 0pt
+  \item[Bedingte Wahrscheinlichkeit] $P(A\mid B)$. Die Richtung zählt:
+    $P(\text{Daten}\mid H)\neq P(H\mid\text{Daten})$.
+  \item[p-Wert] Wahrscheinlichkeit für mindestens so extreme Daten,
+    \emph{falls} $H_0$ stimmt. Kein Maß für die Wahrheit einer Hypothese
+    und keins für die Größe eines Effekts \parencite{wassersteinlazar2016asa}.
+  \item[Basisrate] Wie häufig ist das Gesuchte, bevor man hinschaut? Ohne
+    sie lässt sich kein positiver Test und kein signifikanter Befund deuten.
+  \item[Bayes-Faktor] $\mathit{BF}_{10}=P(\text{Daten}\mid H_1)/P(\text{Daten}\mid H_0)$:
+    1--3 kaum der Rede wert, 3--20 positiv, über 20 stark
+    \parencite{kassraftery1995}; unter 1 spricht für $H_0$.
+  \item[Effektgröße, Power] Cohens $d$ (0,2 klein, 0,5 mittel, 0,8 groß);
+    Power = Chance, einen vorhandenen Effekt zu finden. Für $d=0{,}5$ und
+    Power 0,80: 64 Personen pro Gruppe.
+\end{description}
 
-\textbf{Fünf Werkzeuge der Kontrolle:} Randomisierung, Konstanthalten,
-Schichten/Parallelisieren, (aktive) Kontrollgruppe, Blindbedingungen.
+\textbf{Rechnen in drei Zeilen}
+\begin{itemize}\itemsep 0pt
+  \item Chancenform: \emph{Chance nachher = Chance vorher} $\times$
+    $\mathit{BF}_{10}$; Chance $a:b$ = Wahrscheinlichkeit $a/(a+b)$.
+    Würfel, 10 Sechsen in 30 Würfen, \enquote{gezinkt} = $P(6)=\tfrac13$:
+    $\mathit{BF}_{10}=2^{10}\cdot0{,}8^{20}\approx12$; bei Basisrate $1:4$
+    also $12:4$, rund 75\,\%.
+  \item $t$-Test, zwei Gruppen: $t=(\bar{x}_1-\bar{x}_2)\,/\,(s_p\sqrt{1/n_1+1/n_2})$,
+    $\mathit{df}=n_1+n_2-2$; $d=(\bar{x}_1-\bar{x}_2)/s_p$.
+  \item Faustformel \parencite{wagenmakers2007practical}:
+    $\mathit{BF}_{01}\approx\sqrt{N}\,(1+t^2/\mathit{df})^{-N/2}$, $N$ = alle
+    Personen. Genauer: JASP.
+\end{itemize}
+Skalen: nominal (Modus), ordinal (Median, Quartile), metrisch (Mittelwert,
+$s$). Ausreißer nach \textcite{tukey1977eda}: mehr als
+$1{,}5\cdot\mathit{IQR}$ unter $Q_1$ oder über $Q_3$.
 
 \begin{merkbox}
-Ein Design ist so gut wie die Alternativerklärungen, die es ausschließt.
-Fragen Sie bei jeder Kontrollgruppe: Unterscheidet sie sich \emph{nur} in
-der UV?
+Erst fragen, wie die Daten zustande kamen, dann rechnen. Ein kleiner
+p-Wert ist kein Beweis; was man glauben sollte, bestimmen die Daten
+\emph{und} die Basisrate. Und vor jeder Studie: Kann mein $n$ die Frage
+überhaupt beantworten?
 \end{merkbox}
 
-\textbf{Zum Weiterlesen:} \textcite{doering2016forschungsmethoden},
-Kapitel zu Untersuchungsdesign und Gütekriterien;
-\textcite{shadish2002experimental}, Kap.~1--2.
+\textbf{Zum Weiterlesen:} \textcite{doeringbortz2016}, Kap.~12;
+\textcite{wagenmakers2007practical}; \textcite{gigerenzerhoffrage1995};
+zum Ziegenproblem \textcite{mhall_krauss2003}.
 \end{handout}
 
-\begin{uebungsblatt}{Forschungsdesign}
+\begin{uebungsblatt}{Becher, Würfel und Daten}
 
-\aufgabe{Fallstudie: Ein Design analysieren}[in der Stunde, Zweiergruppe, 15 Min.]
-\textit{Die folgende Studie ist fiktiv und für diese Übung konstruiert;
-alle Zahlen sind erfunden.}
+\aufgabe{Monty Hall in Paaren}[in der Stunde, Paare, 10 Min.]
+Die Spielleitung würfelt verdeckt die Lage der Kugel (1--2: A, 3--4: B,
+5--6: C), die spielende Person zeigt auf einen Becher, die Spielleitung
+öffnet einen \emph{leeren}, nicht gewählten Becher. Ungerade Runden:
+bleiben, gerade Runden: wechseln. Kreuzen Sie an, ob gewonnen wurde.
 
 \begin{center}
-\fbox{\parbox{0.92\textwidth}{\small
-\textbf{\enquote{Lern-App verbessert Mathematiknoten um 0,7}}\\[1mm]
-Im Wintersemester bietet eine Hochschule zur Vorlesung Mathematik~1 eine
-neue Übungs-App an, die der Dozent der Vorlesung selbst entwickelt hat.
-Die Nutzung ist freiwillig; 64 von 212 Studierenden melden sich an. Zur
-Einführung der App bietet der Dozent für die Angemeldeten ein
-wöchentliches Tutorium an, in dem mit der App geübt wird. Am
-Semesterende schreiben alle 212 Studierenden dieselbe Klausur, die der
-Dozent selbst korrigiert; auf den Bögen stehen Name und Matrikelnummer.
-Die App-Gruppe erreicht im Mittel die Note 2,3, die übrigen 148
-Studierenden die Note 3,0. Im Pressetext der Hochschule heißt es:
-\enquote{Die App verbessert die Note um 0,7. Sie wird ab dem nächsten
-Semester für alle Erstsemester verpflichtend.}
-}}
+\small
+\renewcommand{\arraystretch}{1.25}
+\begin{tabular}{|c|c|c|c||c|c|c|c|}
+\hline
+\textbf{Rd.} & \textbf{Strategie} & \textbf{Kugel} & \textbf{gewonnen} &
+\textbf{Rd.} & \textbf{Strategie} & \textbf{Kugel} & \textbf{gewonnen} \\ \hline
+1 & bleiben & & & 13 & bleiben & & \\ \hline
+2 & wechseln & & & 14 & wechseln & & \\ \hline
+3 & bleiben & & & 15 & bleiben & & \\ \hline
+4 & wechseln & & & 16 & wechseln & & \\ \hline
+5 & bleiben & & & 17 & bleiben & & \\ \hline
+6 & wechseln & & & 18 & wechseln & & \\ \hline
+7 & bleiben & & & 19 & bleiben & & \\ \hline
+8 & wechseln & & & 20 & wechseln & & \\ \hline
+9 & bleiben & & & 21 & bleiben & & \\ \hline
+10 & wechseln & & & 22 & wechseln & & \\ \hline
+11 & bleiben & & & 23 & bleiben & & \\ \hline
+12 & wechseln & & & 24 & wechseln & & \\ \hline
+\end{tabular}
+\end{center}
+Summe: \textbf{bleiben} \rule{12mm}{0.3pt} von \rule{12mm}{0.3pt}
+gewonnen \qquad \textbf{wechseln} \rule{12mm}{0.3pt} von
+\rule{12mm}{0.3pt} gewonnen \qquad Kurs gesamt (Tafel):
+\rule{25mm}{0.3pt}
+
+\aufgabe{Würfel-Detektive}[in der Stunde, Paare, 10 Min.]
+Die werfende Person öffnet den Umschlag und liest die Karte \emph{für
+sich}: \enquote{fair} (Treffer ist nur die 6) oder \enquote{gezinkt}
+(Treffer sind 5 und 6). Sie würfelt 30-mal verdeckt unter einem Becher und
+sagt nur \enquote{Treffer} oder \enquote{kein Treffer}. Die Detektivin
+führt die Strichliste. Bekannt ist: Jeder fünfte Umschlag ist gezinkt.
+
+\begin{center}
+\renewcommand{\arraystretch}{1.6}
+\begin{tabular}{|p{0.3\textwidth}|p{0.55\textwidth}|}
+\hline
+Treffer (Strichliste) & \\ \hline
+Kein Treffer (Strichliste) & \\ \hline
+\end{tabular}
+\end{center}
+
+\begin{center}
+\footnotesize
+\setlength{\tabcolsep}{3.5pt}
+\begin{tabular}{@{}l*{12}{c}@{}}
+\toprule
+Treffer $k$ & 3 & 4 & 5 & 6 & 7 & 8 & 9 & 10 & 11 & 12 & 13 & 14 \\
+\midrule
+$p=P(X\geq k\mid\text{fair})$ & 0,90 & 0,76 & 0,58 & 0,38 & 0,22 & 0,11 & 0,051 & 0,020 & 0,007 & 0,002 & 0,0005 & 0,0001 \\
+$\mathit{BF}_{10}=2^k\cdot0{,}8^{30-k}$ & 0,02 & 0,05 & 0,12 & 0,30 & 0,76 & 1,9 & 4,7 & 11,8 & 30 & 74 & 184 & 461 \\
+$P(\text{gezinkt})$ bei $1:4$ & 0,5\,\% & 1\,\% & 3\,\% & 7\,\% & 16\,\% & 32\,\% & 54\,\% & 75\,\% & 88\,\% & 95\,\% & 98\,\% & 99\,\% \\
+\bottomrule
+\end{tabular}
 \end{center}
 
 \begin{enumerate}
-  \item Benennen Sie UV und AV (unabhängige und abhängige Variable). Wie
-    ist die AV gemessen worden?
-  \item Welcher Designtyp liegt vor? Schreiben Sie das Design in der
-    Kurzschrift R/X/O (eine Zeile je Gruppe; R = zufällige Zuteilung,
-    X = Behandlung, O = Messung).
-  \item Gibt es eine Kontrollgruppe? In welchen Merkmalen unterscheidet
-    sie sich von der App-Gruppe außer in der App-Nutzung?
-  \item Nennen Sie mindestens drei Konfounder bzw.\ Bedrohungen der
-    internen Validität und ordnen Sie sie Fachbegriffen zu (etwa Selektion,
-    Geschichte, Reifung, Testeffekt, Instrumentierung, Ausfall,
-    Erwartungen der Forschenden).
-  \item Ist die Messung objektiv? Was wäre ein Blind-Design?
-  \item Skizzieren Sie ein verbessertes Design, das die Aussage des
-    Pressetexts prüfen könnte.
+  \item \textbf{Frequentistisch:} $H_0$: fair. p-Wert für Ihr $k$:
+    \rule{20mm}{0.3pt}. Bei $\alpha=0{,}05$ ist der Würfel
+    \quad $\square$ signifikant gezinkt \quad $\square$ nicht auffällig.
+  \item \textbf{Bayesianisch:} $\mathit{BF}_{10}$ = \rule{18mm}{0.3pt};
+    Chance vorher $1:4$, Chance nachher \rule{18mm}{0.3pt};\\
+    $P(\text{gezinkt})$ = \rule{18mm}{0.3pt}. Rechnen Sie einmal selbst
+    nach, ohne die letzte Zeile der Tabelle.
+  \item Umschlag öffnen. Wer hatte recht? Tragen Sie Ihr Paar an der Tafel
+    in die Vierfeldertafel ein.
+  \item Wie sähe Ihr Bayes-Urteil aus, wenn nur einer von 100 Würfeln
+    gezinkt wäre? Und Ihr Testurteil?
 \end{enumerate}
-\schreiblinien{9}
+\schreiblinien{2}
 
-\aufgabe{Design-Skizze zu Ihrer Hypothese}[Beginn in der Stunde, Abgabe bis LE~7, benotet]
-Füllen Sie die Vorlage aus und begründen Sie Ihre Wahl auf höchstens einer
-weiteren Seite.
+\aufgabe{Datensatz-Analyse}[Hausaufgabe, Kleingruppe]
+\textbf{Fiktiver Datensatz} (konstruiert für diese Übung, keine echte
+Erhebung): 50 Personen haben ein Ideomotor-Pendel gehalten (vgl.\ LE~1).
+Gemessen wurde der größte Ausschlag in Millimetern (\textbf{mm}), danach
+gaben die Personen an, wie stark sie gestaunt haben (\textbf{St}, 1 = gar
+nicht bis 5 = sehr), und ob sie den Pendeleffekt vorher kannten
+(\textbf{VW}, 1 = ja, 0 = nein).
 
 \begin{center}
-\renewcommand{\arraystretch}{1.5}
-\begin{tabular}{|p{0.3\textwidth}|p{0.6\textwidth}|}
-\hline
-H\textsubscript{1} (aus LE~5) & \\[6mm] \hline
-UV und ihre Stufen & \\ \hline
-AV und Messinstrument & \\ \hline
-Designtyp (experimentell / quasi / nicht-experimentell; Quer- oder Längsschnitt) & \\ \hline
-Design in Kurzschrift (R / X / O) & \\ \hline
-Stichprobe: wer, wie viele, wie rekrutiert? & \\ \hline
-Zuteilung zu den Bedingungen & \\ \hline
-Kontrollbedingung (aktiv?) & \\ \hline
-Wichtigste Störvariablen und wie ich sie kontrolliere & \\[8mm] \hline
-Messgüte: objektiv? reliabel? valide? blind? Parallelmessung? & \\[8mm] \hline
-Verbleibende Bedrohung, die ich in Kauf nehme & \\ \hline
+\footnotesize
+\setlength{\tabcolsep}{3.2pt}
+\begin{tabular}{@{}rrrr@{\hspace{9pt}}rrrr@{\hspace{9pt}}rrrr@{\hspace{9pt}}rrrr@{\hspace{9pt}}rrrr@{}}
+\toprule
+\textbf{Nr} & \textbf{mm} & \textbf{St} & \textbf{VW} &
+\textbf{Nr} & \textbf{mm} & \textbf{St} & \textbf{VW} &
+\textbf{Nr} & \textbf{mm} & \textbf{St} & \textbf{VW} &
+\textbf{Nr} & \textbf{mm} & \textbf{St} & \textbf{VW} &
+\textbf{Nr} & \textbf{mm} & \textbf{St} & \textbf{VW} \\
+\midrule
+ 1 & 11 & 3 & 0 & 11 &  9 & 3 & 0 & 21 & 10 & 2 & 1 & 31 & 43 & 3 & 1 & 41 & 47 & 4 & 0 \\
+ 2 &  5 & 2 & 0 & 12 & 24 & 2 & 0 & 22 & 26 & 4 & 1 & 32 & 57 & 4 & 0 & 42 & 59 & 3 & 0 \\
+ 3 & 15 & 3 & 1 & 13 & 24 & 4 & 1 & 23 & 39 & 4 & 0 & 33 & 21 & 3 & 0 & 43 & 26 & 3 & 0 \\
+ 4 & 41 & 4 & 1 & 14 &  8 & 2 & 0 & 24 & 15 & 4 & 0 & 34 & 96 & 5 & 0 & 44 & 31 & 4 & 1 \\
+ 5 & 37 & 3 & 0 & 15 & 16 & 2 & 1 & 25 & 13 & 3 & 0 & 35 & 49 & 4 & 0 & 45 & 23 & 2 & 0 \\
+ 6 & 39 & 5 & 0 & 16 & 25 & 4 & 0 & 26 & 13 & 3 & 0 & 36 & 30 & 4 & 0 & 46 & 20 & 3 & 1 \\
+ 7 & 18 & 3 & 0 & 17 & 19 & 5 & 0 & 27 & 66 & 5 & 0 & 37 & 23 & 4 & 0 & 47 & 12 & 1 & 1 \\
+ 8 &  0 & 1 & 0 & 18 & 53 & 4 & 1 & 28 & 35 & 3 & 1 & 38 & 53 & 4 & 0 & 48 & 36 & 4 & 1 \\
+ 9 & 16 & 2 & 1 & 19 &  5 & 2 & 1 & 29 & 38 & 5 & 0 & 39 & 18 & 2 & 0 & 49 & 18 & 3 & 0 \\
+10 & 31 & 4 & 1 & 20 & 45 & 5 & 0 & 30 & 26 & 3 & 1 & 40 & 73 & 5 & 0 & 50 & 40 & 4 & 0 \\
+\bottomrule
 \end{tabular}
 \end{center}
+
+\begin{enumerate}
+  \item Bestimmen Sie für jede Variable das Skalenniveau.
+  \item Berechnen Sie für \textbf{mm}: Minimum, Maximum, Spannweite,
+    Median, $Q_1$, $Q_3$, $\mathit{IQR}$ und Mittelwert. Geben Sie an,
+    wie Sie die Quartile bestimmt haben.
+  \item Zeichnen Sie ein Histogramm (Klassenbreite 10\,mm) und einen
+    Boxplot. Gibt es Ausreißer nach der $1{,}5\cdot\mathit{IQR}$-Regel
+    (Werte mehr als $1{,}5\cdot\mathit{IQR}$ unter $Q_1$ oder über
+    $Q_3$)? Was würden Sie mit ihnen tun?
+  \item Berechnen Sie Mittelwert und Median von \textbf{mm} ohne den
+    Ausreißer. Welcher Kennwert reagiert stärker, und warum?
+  \item Fassen Sie \textbf{St} sinnvoll zusammen. Ist ein Mittelwert
+    zulässig?
+  \item Vergleichen Sie \textbf{mm} zwischen Personen mit und ohne
+    Vorwissen mit Mittelwert \emph{und} Median. Was fällt auf?
+  \item Rechnen Sie für denselben Vergleich einen $t$-Test (gepoolte
+    Standardabweichung) und den Bayes-Faktor nach der Faustformel vom
+    Handout. Was sagen beide Ergebnisse, und was sagen sie nicht?
+\end{enumerate}
+\schreiblinien{6}
 \end{uebungsblatt}
 
-\begin{uebungsblattb}{3}{Feedback und Transfer}
+\begin{uebungsblattb}{4}{Basisrate, Glaubwürdigkeit, Projekt}
 
-\aufgabe{Peer-Feedback}[in der Stunde, Zweiergruppe, 10 Min.]
-Notieren Sie für die Skizze Ihrer Partnerin bzw.\ Ihres Partners:
+\aufgabe{Basisrate: Taxi und Test}[Hausaufgabe]
+In einer Stadt fahren 85\,\% grüne und 15\,\% blaue Taxis. Nach einem
+Unfall mit Fahrerflucht sagt ein Zeuge, das Taxi sei blau gewesen. Tests
+zeigen: Unter den Sichtbedingungen jener Nacht erkennt er die Farbe in
+80\,\% der Fälle richtig \parencite{tversky1982evidential}.
+\begin{enumerate}
+  \item Schätzen Sie zuerst aus dem Bauch: Wie wahrscheinlich war das
+    Taxi blau?
+  \item Rechnen Sie mit natürlichen Häufigkeiten (100 Unfälle) und
+    zeichnen Sie den Baum wie auf der Folie zum Medizintest.
+  \item Rechnen Sie dasselbe in Chancenform: Prior-Chance, Bayes-Faktor
+    des Zeugen, Posterior-Chance.
+  \item Ein zweiter, unabhängiger Zeuge mit derselben Treffsicherheit sagt
+    ebenfalls \enquote{blau}. Wie wahrscheinlich ist es jetzt?
+  \item In einer anderen Stadt sind die Hälfte der Taxis blau. Was ändert
+    sich bei einem Zeugen, was nicht?
+\end{enumerate}
+\schreiblinien{5}
+
+\aufgabe{Glaubwürdigkeits-Check mit der Suchmaschine}[in der Stunde, Kleingruppe, 12 Min.]
+Behauptung (Karte): \rule{0.7\textwidth}{0.3pt}
+
+Basisrate \emph{vor} der Suche: Von 100 Behauptungen dieser Art stimmen
+etwa \rule{12mm}{0.3pt}, weil\\ \rule{\textwidth}{0.3pt}
+
 \begin{center}
-\renewcommand{\arraystretch}{2}
-\begin{tabular}{|p{0.42\textwidth}|p{0.48\textwidth}|}
+\small
+\renewcommand{\arraystretch}{1.7}
+\begin{tabular}{|p{0.38\textwidth}|p{0.3\textwidth}|c|c|}
 \hline
-Eine Alternativerklärung, die das Design nicht ausschließt & \\ \hline
-Eine Änderung, die sie ausschließen würde & \\ \hline
-Was an dem Design überzeugt & \\ \hline
+\textbf{Fund} (Quelle, was steht dort?) & \textbf{erwartbar, wenn wahr? wenn falsch?} & \textbf{Faktor} & \textbf{Chance} \\ \hline
+Start: Basisrate & & -- & \hspace{12mm} \\ \hline
+ & & & \\ \hline
+ & & & \\ \hline
+ & & & \\ \hline
+ & & & \\ \hline
+\end{tabular}
+\end{center}
+Faktoren grob: $\times10$, $\times3$, $\times1$, $\times\tfrac13$,
+$\times\tfrac1{10}$. Nur unabhängige Funde multiplizieren; zehn Seiten mit
+derselben Pressemitteilung sind \emph{ein} Fund.
+Ergebnis: $P(\text{stimmt})\approx$ \rule{15mm}{0.3pt}. Welcher Fund hat
+am meisten bewegt?
+\schreiblinien{2}
+
+\aufgabe{Eine Zeitungsmeldung lesen}[Hausaufgabe]
+\textbf{Fiktive Meldung} (konstruiert für diese Übung):
+
+\begin{quote}\small
+\emph{Zaubertricks machen klüger -- jetzt bewiesen.} Wer vor dem Lernen
+einen Zaubertrick sieht, behält mehr. Das zeigt eine Online-Befragung
+unter 112 Studierenden. Die Forschenden erhoben 23 Merkmale des
+Lernverhaltens. Bei der Frage \enquote{Ich konnte mich gut
+konzentrieren} lag die Gruppe mit Zaubertrick signifikant vorn ($p =
+0{,}04$). \enquote{Damit ist der Nutzen von Magie im Hörsaal
+wissenschaftlich belegt}, sagt die Studienleiterin.
+\end{quote}
+Beantworten Sie: Was wurde gemessen, an wem? Was wird behauptet? Wird
+eine Effektgröße genannt? Wie viele Vergleiche wurden gerechnet, und was
+folgt daraus für den einen signifikanten Befund? Welche Basisrate würden
+Sie für die Behauptung ansetzen? Wer mag, wendet dieselben Fragen auf
+einen echten Artikel an, der eine Studie mit $p<0{,}05$ als
+\enquote{Beweis} darstellt.
+\schreiblinien{4}
+
+\aufgabe{Diamant und Landkarte für Ihre Idee}[Hausaufgabe, A3, mitbringen zu LE~7]
+Nehmen Sie Ihre Hypothese aus LE~5 als \emph{Idee} und füllen Sie den
+Diamanten. Notieren Sie an jeder Position, welche Beobachtung sie
+\emph{erlaubt} und welche sie \emph{verbietet}.
+
+\begin{center}
+\begin{tikzpicture}[font=\sffamily\footnotesize,
+  dia/.style={draw=rwuviolet,thick,rounded corners=2pt,
+    text width=52mm,minimum height=24mm,align=left,anchor=center}]
+  \node[dia] (a) at (-4.4,0) {\textbf{Idee}\\[18mm]};
+  \node[dia] (b) at (4.4,0) {\textbf{Gegenteil}\\[18mm]};
+  \node[dia] (c) at (0,3.0) {\textbf{Sowohl-als-auch}\\[18mm]};
+  \node[dia] (d) at (0,-3.0) {\textbf{Weder-noch}\\[18mm]};
+  \draw[rwuviolet,thick] (a) -- (c) -- (b) -- (d) -- (a);
+\end{tikzpicture}
+\end{center}
+\begin{enumerate}
+  \item Welche Beobachtung trennt Idee und Gegenteil? Welche trennt die
+    Idee vom Weder-noch? Schätzen Sie grob, wie wahrscheinlich die
+    Beobachtung unter jeder Position ist, und berechnen Sie den
+    Bayes-Faktor.
+  \item Formulieren Sie den neuen, geschärften Satz.
+  \item Zeichnen Sie auf A3 die Landkarte Ihrer Untersuchung
+    (Legende auf der Folie): Startdorf, Wege, Nebel, Drachen, Brücken,
+    Sackgassen, weiße Flecken, Ziel. Jedes Element trägt eine Quelle oder
+    eine Zahl.
+\end{enumerate}
+\schreiblinien{3}
+
+\aufgabe{Auswertungsplan für Ihr Projekt}[Hausaufgabe, Grundlage der Design-Skizze in LE~7]
+\begin{center}
+\renewcommand{\arraystretch}{1.5}
+\begin{tabular}{|p{0.38\textwidth}|p{0.52\textwidth}|}
+\hline
+H\textsubscript{1} (aus LE~5) & \\[6mm] \hline
+Zielgröße und Skalenniveau & \\ \hline
+Vergleich: zwei Gruppen, Messwiederholung oder Anteile? & \\ \hline
+kleinster Effekt, der Sie interessieren würde & \\ \hline
+realistisches $n$ (wer, wie viele?) & \\ \hline
+Power laut Tabelle auf der Folie & \\ \hline
+Auswertung: Test, Schätzung mit Intervall oder Bayes-Faktor mit Stoppregel? & \\ \hline
+Basisrate Ihrer Hypothese: Wie überraschend wäre es, wenn sie stimmt? & \\ \hline
+Folgerung: Passt die Frage zum $n$, oder ändern Sie Frage oder Design? & \\[6mm] \hline
 \end{tabular}
 \end{center}
 
 \aufgabe{Tagebuch des Staunens}[Hausaufgabe]
-Finden Sie in Werbung, Nachrichten oder sozialen Medien eine
-Wirkungsbehauptung, der ein Vergleich fehlt. Welche Kontrollbedingung
-bräuchte man, um sie zu prüfen?
+Wann hat Ihr Gefühl für Wahrscheinlichkeit Sie zuletzt getäuscht?
+Notieren Sie Erwartung, Ereignis und den passenden Begriff aus dieser
+Einheit.
 
 \begin{lehrhinweis}[Erwartungshorizont]
-\textbf{Aufgabe~1.} UV: App-Nutzung (ja/nein, selbst gewählt); AV:
-Klausurnote, korrigiert vom Entwickler der App, nicht anonymisiert. Design:
-quasi-experimentell bzw.\ nicht-experimenteller Gruppenvergleich ohne
-Vortest (X\,O / \phantom{X\,}O), keine Randomisierung. Die
-\enquote{Kontrollgruppe} unterscheidet sich in Motivation und vermutlich
-Vorkenntnissen (Selbstselektion), im zusätzlichen Tutorium (Konfundierung
-der UV mit Übungszeit und Betreuung) und darin, wie der Korrektor sie
-wahrnimmt (Versuchsleitereffekt, fehlende Objektivität). Weitere Punkte:
-kein Vortest, also keine Aussage über Veränderung; mögliche
-Neuheitseffekte; Übertragung von Freiwilligen auf eine Pflichtnutzung ist
-fraglich (externe Validität). Verbessertes Design: zufällige Zuteilung
-(ggf.\ geschichtet nach Vorkenntnissen aus einem Eingangstest), Tutorium
-für beide Gruppen gleich lang mit herkömmlichen Übungen (aktive
-Kontrolle), anonymisierte Klausur, Korrektur durch eine Person, die die
-Gruppenzugehörigkeit nicht kennt (Blind-Design).
-\textbf{Aufgabe~2.} Bewertet werden: Passung von Design und Hypothese
-(Kausalbehauptung erfordert experimentelles oder gut begründetes
-quasi-experimentelles Design), eine Kontrollbedingung, die sich nur in der
-UV unterscheidet, ein konkretes Messinstrument, mindestens zwei benannte
-und kontrollierte Störvariablen, eine ehrlich benannte Restbedrohung.
+\textbf{Aufgabe~1.} Erwartet sind pro Paar etwa 8 von 12 Gewinnen beim
+Wechseln und 4 von 12 beim Bleiben. Einzelne Paare streuen stark (die
+Standardabweichung der Gewinnzahl bei 12 Wechselrunden beträgt etwa 1,6),
+manche Paare finden sogar das Gegenteil. Erst der Kurs-Pool zeigt das
+Muster stabil. Das ist der Anlass, über Stichprobengröße zu sprechen.
+
+\textbf{Aufgabe~2.} Tabellenwerte exakt mit $B(30,\tfrac16)$ bzw.\
+$B(30,\tfrac13)$ gerechnet. Signifikant ($\alpha=0{,}05$, einseitig) ist
+ein Würfel ab 10 Treffern. Ein fairer Würfel erreicht das mit 2,0\,\%, ein
+gezinkter mit 57\,\%. Die Bayes-Regel \enquote{gezinkt, wenn
+$P(\text{gezinkt})>50\,\%$} greift bei Basisrate $1:4$ ab 9 Treffern
+(fair: 5,1\,\%, gezinkt: 71\,\%). Nachrechnen für $k=10$:
+$2^{10}=1024$, $0{,}8^{20}=0{,}0115$, $\mathit{BF}_{10}=11{,}8$; Chance
+$11{,}8:4$, also $11{,}8/15{,}8=75\,\%$. (4)~Bei Basisrate $1:99$ und
+$k=10$: $11{,}8:99$, also 11\,\%. Der Würfel ist dann trotz
+\enquote{signifikant} wahrscheinlich fair; das Testurteil ändert sich
+nicht, weil der Test die Basisrate nicht kennt. Bei 15 Paaren streut die
+Vierfeldertafel stark; erwartet sind 0--1 falsche Alarme und 1--2 erkannte
+von 3 gezinkten Würfeln.
+
+\textbf{Aufgabe~3} (Werte mit Python nachgerechnet).
+(1)~Nr: nominal (Kennung); mm: Verhältnisskala; St: ordinal; VW: nominal
+(dichotom).
+(2)~$n=50$; Minimum 0, Maximum 96, Spannweite 96\,mm; Median 25,5\,mm;
+Mittelwert 29,94\,mm; Standardabweichung $s=19{,}32$\,mm. Quartile als
+Median der unteren bzw.\ oberen Hälfte: $Q_1=16$, $Q_3=40$,
+$\mathit{IQR}=24$. Mit linearer Interpolation (z.\,B.\ Excel
+\texttt{QUARTILE.INKL}) ergibt sich $Q_3=39{,}75$ und
+$\mathit{IQR}=23{,}75$; beides ist richtig, wenn das Verfahren genannt
+wird. Modus: 18 und 26 (je dreimal).
+(3)~Klassenhäufigkeiten 0--9: 5; 10--19: 13; 20--29: 10; 30--39: 9;
+40--49: 6; 50--59: 4; 60--69: 1; 70--79: 1; 80--89: 0; 90--99: 1. Die
+Verteilung ist rechtsschief. Zäune: $16-36=-20$ und $40+36=76$. Einziger
+Ausreißer ist Nr.~34 mit 96\,mm; 73\,mm (Nr.~40) liegt knapp innerhalb.
+Mit Interpolation liegen die Zäune bei $-19{,}6$ und $75{,}4$; Ergebnis
+gleich. Gute Antworten löschen den Wert nicht stillschweigend, sondern
+prüfen ihn (Messfehler? jemand hat bewusst geschwungen?) und berichten
+beide Auswertungen.
+(4)~Ohne Nr.~34: Mittelwert 28,59\,mm, Median 25,0\,mm, $s=16{,}98$\,mm.
+Der Mittelwert sinkt um 1,35\,mm, der Median um 0,5\,mm, die
+Standardabweichung um 2,3\,mm.
+(5)~Häufigkeiten St: 1: 2; 2: 9; 3: 15; 4: 17; 5: 7. Median 3, Modus 4.
+Ein Mittelwert (3,36) ist streng genommen nicht zulässig, weil die
+Abstände der Stufen unbekannt sind; wer ihn angibt, sollte das begründen.
+Optional: Spearmans Rangkorrelation zwischen mm und St beträgt
+$\rho=0{,}71$.
+(6)~Mit Vorwissen ($n=17$): Mittelwert 25,88\,mm, Median 26\,mm,
+$s=13{,}06$. Ohne Vorwissen ($n=33$): Mittelwert 32,03\,mm, Median
+25\,mm, $s=21{,}75$. Der Mittelwert legt einen Unterschied von gut 6\,mm
+nahe, der Median fast keinen; die Gruppe ohne Vorwissen streut stärker
+und enthält die beiden größten Werte (73 und 96\,mm). Die erwartete
+Antwort: Aus diesen Daten folgt kein belastbarer Gruppenunterschied, und
+die Wahl des Kennwerts bestimmt die Geschichte, die man erzählen könnte.
+(7)~Gepoolte Standardabweichung $s_p=19{,}3$\,mm, $\mathit{SE}=s_p\sqrt{1/33+1/17}=5{,}76$\,mm,
+$t=(32{,}03-25{,}88)/5{,}76=1{,}07$, $\mathit{df}=48$, $p=0{,}29$;
+$d=0{,}32$. Welch-Test: $t=1{,}25$, $p=0{,}22$. Faustformel:
+$\mathit{BF}_{01}\approx\sqrt{50}\,(1+1{,}14/48)^{-25}\approx 7{,}07\cdot0{,}56\approx3{,}9$;
+JASP (JZS, $r=\sqrt2/2$) liefert $\mathit{BF}_{01}=2{,}1$. Erwartete
+Deutung: kein signifikanter Unterschied; die Daten sprechen leicht für
+\enquote{kein Unterschied}, belegen ihn aber nicht. Der Ausreißer
+(Nr.~34) treibt den Mittelwertunterschied; der $t$-Test vergleicht
+Mittelwerte und erbt diese Empfindlichkeit.
+
+\textbf{Aufgabe~4.} (1)~Die meisten schätzen 80\,\%. (2)~Von 100 Unfällen
+sind 15 mit blauen Taxis, davon erkennt der Zeuge 12 als blau; von 85
+grünen hält er 17 für blau. $P(\text{blau}\mid\text{\enquote{blau}})=12/29\approx41\,\%$.
+(3)~Prior-Chance $15:85$, $\mathit{BF}=0{,}8/0{,}2=4$, Posterior
+$60:85$, also 41\,\%. (4)~$60:85\times4=240:85$, also 74\,\%.
+(5)~Prior $1:1$, Posterior $4:1$, also 80\,\%: Nur bei gleicher Basisrate
+stimmt das Bauchgefühl. Der Bayes-Faktor des Zeugen bleibt 4; er
+beschreibt den Zeugen, nicht die Stadt.
+
+\textbf{Aufgabe~5.} Siehe den Hinweis zu den Behauptungskarten im
+Abschnitt \enquote{Glaubwürdigkeits-Check}.
+
+\textbf{Aufgabe~6.} Gemessen: Selbstauskunft, keine Lernleistung;
+Online-Befragung, unklar, ob die Gruppen zufällig gebildet wurden. 23
+Merkmale: Bei $\alpha=0{,}05$ erwartet man unter reinem Zufall gut einen
+\enquote{signifikanten} Befund ($23\cdot0{,}05\approx1{,}2$); die
+Wahrscheinlichkeit für mindestens einen liegt bei $1-0{,}95^{23}\approx
+69\,\%$. Keine Effektgröße. Die Basisrate für \enquote{ein Zaubertrick
+verbessert das Lernen} ist offen, für \enquote{er verbessert genau die
+Konzentrations-Selbstauskunft, sonst nichts} niedrig. \enquote{Bewiesen}
+ist nichts; allenfalls liegt eine Hypothese für eine präregistrierte
+Folgestudie vor (Brücke zu LE~10).
+
+\textbf{Aufgabe~7.} Ein gutes Gegenteil ist eine eigene Hypothese mit
+eigener Begründung, keine bloße Verneinung. Das Weder-noch sollte
+mindestens eine Störvariable enthalten, die in LE~7 kontrolliert werden
+kann. Entscheidend ist (1): Eine Beobachtung, die alle Positionen gleich
+gut erwarten, ist als Beleg wertlos; gute Lösungen erkennen das selbst.
+Bei der Karte wird nicht die Zeichnung bewertet, sondern ob jedes
+Element einen Beleg oder eine Zahl trägt und ob offene Drachen ehrlich
+stehen bleiben.
+
+\textbf{Aufgabe~8.} Gute Pläne nennen eine konkrete Zielgröße, einen
+begründeten kleinsten Effekt und ein $n$, das sich wirklich rekrutieren
+lässt. Häufigste Einsicht: Mit 15--20 Personen pro Gruppe ist nur ein
+großer Effekt zu finden; sinnvolle Antworten sind Messwiederholung, eine
+metrische statt einer Ja/Nein-Zielgröße, eine Schätzfrage statt eines
+Tests oder ein sequentieller Bayes-Faktor mit Höchstzahl.
 \end{lehrhinweis}
 \end{uebungsblattb}

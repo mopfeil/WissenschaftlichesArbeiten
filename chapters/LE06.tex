@@ -1,671 +1,1700 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Lehreinheit 6: Forschungsdesign
-% Quelle: WuZ-Buch, Kap. 15 (LE 6), Kap. 12d (Videostudie Becher-Monty-Hall:
-%         Studienlogik, Laengendifferenz), Kap. 12f (Feldstudie, Endbefunde),
-%         Kap. 10b (Testbarkeit: Blind-Design, Prozessindikator,
-%         Parallelmessung), Kap. 4 (HCEG als Validitaetsbedrohung)
-% Staunmoment: Kontrollierte Seilroutine  |  Kernbegriff: interne Validitaet
-% Geheimhaltung: Methode der Seilroutine wird NICHT beschrieben.
+% Lehreinheit 6: Statistik -- Signifikanztest und Bayes
+% (früher LE 8 "Quantitative Methoden und Statistik"; vorgezogen,
+%  damit die Studierenden beim Forschungsdesign in LE 7 wissen, welche
+%  Fragen ihre Studie beantworten kann)
+% Quelle: WuZ-Buch, Kap. 15 (Buch-LE 8), Kap. 12d (Becher-Monty-Hall,
+%         Beats 2--6), Kap. 12f (Feldstudie, nur Zahlen aus dem Buch),
+%         Kap. 5b (Satz von Bayes, Horwich), Abschnitt 10d (p-Hacking)
+% Staunmoment: Monty Hall mit drei Bechern (optional Chop Cup)
+% Kernbegriffe: Bedingte Wahrscheinlichkeit, Basisrate, Bayes-Faktor
+% Alle Rechenbeispiele (Wuerfel, t-Test, Bayes-Faktoren, Power) mit
+% Python (scipy) nachgerechnet; JZS-Bayes-Faktoren nach Rouder et al. 2009
+% mit r = sqrt(2)/2 (Voreinstellung in JASP).
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\nsl{In LE~5 wurde aus der Forschungsfrage eine Hypothese mit
-Widerlegungsbedingung. Jetzt geht es um den Plan, mit dem man sie prüft.
-Ein Forschungsdesign legt fest, wer was wann unter welchen Bedingungen
-misst und womit verglichen wird. Die Einheit beginnt mit drei Seilen
-unterschiedlicher Länge, die gleich lang werden. Die Gruppe sieht das
-Kunststück zweimal: einmal so, wie es auf der Bühne gezeigt wird, und
-einmal unter Bedingungen, die sie selbst festlegt. Der Unterschied zwischen
-beiden Durchgängen ist der Unterschied zwischen einer Behauptung und einem
-Experiment. Daraus entwickelt die Einheit Designtypen, interne und externe
-Validität, Konfundierung und Kontrolle sowie die Gütekriterien von
-Messungen. Als Fallbeispiel dient die Becher-Monty-Hall-Studie aus dem
-Buch, mit einem sauberen Idealentwurf und einer Feldstudie, die zeigt, was
-in der Praxis davon übrig bleibt.
+\nsl{Bis hierher hat das Semester gefragt, wie man eine Frage stellt, wie
+man Quellen prüft und wie man aus einer Vermutung eine Hypothese macht,
+die scheitern kann. Bevor in LE~7 das Forschungsdesign gebaut wird, führt
+diese Einheit das Werkzeug ein, mit dem man Daten befragt: die Statistik.
+Sie kommt bewusst vor dem Design, denn wer weiß, welche Fragen sich mit
+zwanzig oder dreißig Versuchspersonen überhaupt beantworten lassen, plant
+anders.
+
+Die Einheit beginnt mit drei Bechern und einer Abstimmung, bei der die
+Mehrheit fast immer danebenliegt. Das ist der eigentliche Grund, warum es
+Statistik gibt: Unser Gefühl für Wahrscheinlichkeiten ist schlecht
+geeicht, und zwar nicht zufällig, sondern systematisch. Von dort führt sie
+zu zwei Arten, Daten zu befragen. Die \emph{frequentistische} fragt, wie
+überraschend die Daten wären, wenn nichts dahintersteckt
+(Signifikanztest, p-Wert, $t$-Test). Die \emph{bayesianische} fragt, wie
+stark die Daten zwischen zwei Hypothesen unterscheiden und was man danach
+glauben sollte (Bayes-Faktor, Posterior). Der Unterschied wird an
+Beispielen sichtbar, die sich direkt auf der Folie rechnen lassen: ein
+möglicherweise gezinkter Würfel, ein kleiner $t$-Test, ein medizinischer
+Test und eine Behauptung aus dem Netz, deren Glaubwürdigkeit man mit einer
+Suchmaschine prüft. Durch alle Beispiele zieht sich die \emph{Basisrate}:
+Wie häufig ist das Gesuchte überhaupt? Ohne sie lässt sich weder ein
+positiver Test noch ein signifikanter Befund deuten. Die Studierenden
+rechnen in der Stunde selbst, als Würfel-Detektive und beim
+Glaubwürdigkeits-Check. Zum Schluss lernen sie eine Arbeitsabfolge, mit
+der man eine eigene Idee in Gegenhypothesen zerlegt (die Diamond-Technik
+aus dem Coaching, übersetzt in Forschungsfragen), und halten das
+Ergebnis auf einer Landkarte fest, die direkt in die Design-Skizze von
+LE~7 führt.
 \newpage}
 \os{\begin{description}
 \item[{\rot\bf Heute}]~\\[-\lblskip]
 \bi
-  \ite drei Seile, zwei Vorführungen
-  \ite Forschungsdesign: Variablen, Vergleich, Kausalität
-  \ite Designtypen: experimentell, quasi-experimentell, nicht-experimentell
-  \ite interne und externe Validität, Konfundierung
-  \ite Gütekriterien: Objektivität, Reliabilität, Validität
-  \ite Fallbeispiel: die Becher-Monty-Hall-Studie
+  \ite drei Becher, eine Kugel: wechseln oder bleiben?
+  \ite bedingte Wahrscheinlichkeit: warum das Sichtbare täuscht
+  \ite Daten beschreiben: Skalen, Lage, Streuung (kurz)
+  \ite frequentistisch prüfen: p-Wert, Würfeltest, $t$-Test von Hand
+  \ite die Basisrate: das vergessene Vorwissen
+  \ite bayesianisch prüfen: Bayes-Faktor und Posterior
+  \ite selbst rechnen: Würfel-Detektive, Glaubwürdigkeits-Check
+  \ite Welche Fragen kann Ihr Projekt beantworten?
+  \ite schwierige Fragen zerlegen: Diamant und Landkarte
 \ei
 \end{description}
 \newpage}
 
-\begin{vorbereitung}[Kontrollierte Seilroutine]
+\begin{vorbereitung}[Monty Hall mit drei Bechern (optional: Chop Cup), Würfel-Detektive]
 \textbf{Eine Woche vorher}
 \begin{checkliste}
-  \item Seil-Set für eine Routine, in der drei Seile unterschiedlicher
-    Länge gleich lang werden (klassischer Effekt, im Fachhandel als
-    fertiges Set erhältlich oder nach der Standardliteratur selbst
-    zusammengestellt). Zwei vollständige Sets einpacken; Seile werden
-    schnell unansehnlich.
-  \item \textbf{Methode und Einstudierung nach der Anleitung des
+  \item Für die Vorführung: drei \emph{undurchsichtige}, gleich aussehende
+    Becher und eine gut sichtbare Kugel (Schaumstoffball, Walnuss). Die
+    Becher müssen von hinten im Saal zu sehen sein; bei großen Räumen eine
+    Dokumentenkamera einplanen.
+  \item Für das Nachspielen in Paaren: je Paar drei undurchsichtige
+    Pappbecher, eine Kugel (Papierkugel, Erbse, Münze) und ein Würfel.
+    Bei 30 Studierenden 15 Sets plus drei Reserve. Pappbecher und Würfel
+    gibt es im Haushalts- bzw.\ Spielwarenhandel. Würfel und Becher werden
+    für die Würfel-Detektive wiederverwendet.
+  \item Für die Würfel-Detektive je Paar einen verschlossenen Umschlag
+    mit einer Rollenkarte vorbereiten. Auf vier von fünf Karten steht
+    \enquote{\emph{fair}: Treffer ist nur die 6}, auf jeder fünften
+    \enquote{\emph{gezinkt}: Treffer sind 5 und 6}. Bei 15 Paaren also
+    12 faire und 3 gezinkte Karten. Die Umschläge mischen; welches Paar
+    welche Karte hat, weiß auch die Lehrperson nicht. So ist die
+    Trefferwahrscheinlichkeit genau $\tfrac16$ bzw.\ $\tfrac13$, und die
+    Basisrate (ein Fünftel) ist bekannt. Echte Mogelwürfel aus dem
+    Scherzartikelhandel gehen auch, ihre Schieflage ist aber unbekannt;
+    dann fehlt dem Bayes-Faktor die konkrete Alternativhypothese.
+  \item Die drei Fälle und die Gegenprobe mit dem blinden Moderator
+    (Buch, Kap.~12d, Beats~2--6) so oft mit echten Bechern durchspielen,
+    dass sie ohne Folie frei erklärt werden können.
+  \item Optional als Staunmoment des Vortragenden: eine
+    \emph{Chop-Cup-Routine} (ca.\ 2 Min.). Das Requisit gibt es im
+    Zauberfachhandel. Methode und Einstudierung nach der Anleitung des
     Herstellers bzw.\ der Standardliteratur; hier bewusst nicht
-    beschrieben.} Das Skript wird öffentlich gespiegelt.
-  \item Zwei Präsentationen proben. \emph{Variante~A} wie auf der Bühne:
-    Seile zeigen, Längen behaupten, Effekt, Seile ins Publikum. Dauer etwa
-    drei Minuten. \emph{Variante~B} mit Kontrollbedingung: Die Gruppe legt
-    vorab fest, wie Ausgangs- und Endlängen geprüft werden.
-  \item Vor der Probe von Variante~B entscheiden, welche Prüfungen Sie
-    zulassen und welche Sie ausdrücklich verweigern. Faustregel: Alles,
-    was die Methode gefährden könnte, wird freundlich und offen abgelehnt
-    (\enquote{Diese Kontrolle lasse ich nicht zu.}). Die Ablehnung ist kein
-    Notbehelf, sondern der didaktische Kern der Variante.
-  \item Für Variante~B ein Maßband oder einen Zollstock (2\,m) und einen
-    Flipchart-Bogen für das Messprotokoll bereitlegen.
-  \item Das Fallbeispiel vorbereiten: \buch{Kap.~12d} (Studienlogik,
-    Beat-Plan, Längendifferenz) und \buch{Kap.~12f} (Feldstudie,
-    Ergebnisse). Zahlen nur so verwenden, wie sie dort stehen.
+    beschrieben. Die Routine muss sitzen, bevor sie vor Publikum gezeigt
+    wird: mindestens zehn Durchläufe vor dem Spiegel und einer vor
+    einer Testperson.
+  \item Für den Glaubwürdigkeits-Check fünf bis sechs Behauptungen auf
+    Karten schreiben (Vorschläge im Hinweis zum Glaubwürdigkeits-Check),
+    darunter mindestens zwei zutreffende. Die Studierenden per Mail
+    bitten, ein Smartphone oder Notebook mitzubringen; WLAN prüfen.
+  \item Für die Landkarten-Hausaufgabe A3-Blätter bereitlegen (je
+    Person eins) oder in der Ankündigung darum bitten.
+  \item Rechenbeispiele der Folien einmal selbst mit dem Taschenrechner
+    durchrechnen, damit sie live an der Tafel gelingen.
 \end{checkliste}
 
 \textbf{Handout und Übungsblatt}
 \begin{checkliste}
-  \item Handout \enquote{Forschungsdesign} sowie Übungsblatt LE~6 Teil~A
-    und Teil~B je einmal pro Person kopieren (Druckvorlage
-    \texttt{handouts.pdf}, Seiten zu LE~6). Teil~A enthält die fiktive
-    Studienbeschreibung für die Design-Analyse und die Vorlage für die
-    Design-Skizze vollständig und liegt zu Beginn aus; Teil~B
-    (Peer-Feedback, Tagebuch) wird zur Sicherung ausgeteilt.
-  \item Die H\textsubscript{0}/H\textsubscript{1}-Blätter aus LE~5
-    (Aufgabe~3) zurückgeben bzw.\ mitbringen lassen; sie sind die
-    Grundlage der eigenen Design-Skizze.
-  \item Optional statt des fiktiven Falls einen echten, kurzen
-    empirischen Artikel aus dem Fach der Gruppe auswählen (Methodenteil
-    höchstens zwei Seiten, klare Gruppenvergleiche). Dann den
-    Methodenteil pro Zweiergruppe einmal kopieren.
+  \item Handout \enquote{Statistik: Signifikanztest und Bayes} sowie
+    Übungsblatt LE~6 Teil~A und Teil~B je einmal pro Person kopieren
+    (Druckvorlage \texttt{handouts.pdf}, Seiten zu LE~6). Teil~A liegt zu
+    Beginn aus: Strichliste für das Monty-Hall-Spiel, Strichliste und
+    Rechentabellen für die Würfel-Detektive und der fiktive Datensatz
+    ($n=50$) für die Hausaufgabe. Teil~B (Basisrate,
+    Glaubwürdigkeits-Check, Zeitungsmeldung, Projektfrage) wird nach der
+    Bayes-Phase ausgeteilt.
+  \item Taschenrechner bzw.\ Smartphone-Rechner erlauben; die
+    Rechnungen auf den Folien brauchen nur Grundrechenarten und Potenzen.
 \end{checkliste}
 
 \textbf{Am Tag selbst}
 \begin{checkliste}
-  \item Seile vor der Stunde vorbereiten; das Ersatzset griffbereit, aber
-    außer Sicht.
-  \item Tafel in zwei Spalten teilen: \enquote{Variante A: Was haben wir
-    gesehen?} und \enquote{Variante B: Was haben wir gemessen?}.
-  \item Für die Design-Werkstatt Zweiergruppen einteilen, die sich in der
-    Feedback-Phase gegenseitig die Skizzen vorstellen.
+  \item Tafel in vier Felder teilen: \emph{Abstimmung} (wechseln /
+    bleiben / egal), \emph{Kursdaten Becher}, \emph{Kursdaten Würfel}
+    (Vierfeldertafel fair/gezinkt $\times$ signifikant/nicht
+    signifikant), \emph{Fragen}.
+  \item Becher-Sets vor Beginn auf die Tische verteilen, aber gestapelt
+    lassen, damit niemand vorher experimentiert. Die Umschläge erst zu
+    Beginn der Würfelübung austeilen.
+  \item Falls die Chop-Cup-Routine gezeigt wird: das präparierte Requisit
+    danach sichtbar wegräumen und das Monty-Hall-Spiel mit gewöhnlichen
+    Bechern spielen, die man den Studierenden in die Hand gibt. Ein Spiel,
+    dessen Requisiten man misstraut, liefert keine brauchbaren Daten.
 \end{checkliste}
 
-\textbf{Risiken und Plan B.} Die Seilroutine ist bekannt; es kann sein,
-dass jemand sie schon gesehen hat oder die Methode kennt. Diese Person
-bitten, ihr Wissen für sich zu behalten, und den Umstand selbst nutzen:
-Vorwissen ist eine Störvariable, und genau sie hat in der
-Monty-Hall-Feldstudie alle Armunterschiede überstrahlt (siehe
-Fallbeispiel). Misslingt der Effekt, wird er nicht wiederholt; dann
-trägt Variante~B die Stunde allein, indem die Gruppe ein Messprotokoll für
-eine Behauptung entwirft, die die Lehrperson nur ankündigt. Ohne Seile
-lässt sich der Einstieg mit einer bekannten Längentäuschung
-(Müller-Lyer-Figur) erst ohne, dann mit Lineal ersetzen.
+\textbf{Risiken und Plan B.} Ein Teil des Kurses kennt das
+Ziegenproblem. Das schadet nicht, es ist ein Datum: Vor der
+Abstimmung fragen, wer das Rätsel schon kennt, und beide Gruppen
+getrennt auszählen. Die Feldstudie des Buchs zeigt, wie stark Vorwissen
+wirkt (Kap.~12f; siehe Abschnitt \enquote{Effektgröße und Power}).
+Laufen die Paarspiele schleppend, nach 15 Durchgängen abbrechen; der
+Kurs-Pool reicht dann immer noch für die Rechnung. Wird die Zeit knapp,
+wird der Glaubwürdigkeits-Check im Plenum an einer einzigen Behauptung
+vorgeführt und als Hausaufgabe (Teil~B, Aufgabe~5) zu Ende gebracht; die
+Würfel-Detektive sollten dagegen nicht ausfallen, weil sie Fehler 1.~Art,
+Power und Basisrate in einer einzigen Vierfeldertafel erlebbar machen.
+Diamant und Landkarte brauchen mindestens acht Minuten; reicht die Zeit
+nicht, wird nur der Diamant gezeigt und die Karte ganz in die Hausaufgabe
+verlegt. Die Münzwurf-\enquote{Hellseher}-Demo ist optional; sie kehrt in LE~10
+ausführlich wieder.
 \end{vorbereitung}
 
 \begin{ablauf}
 \begin{description}
-\item[0--5 · Blitzlicht.] Von der Hypothese (LE~5) zum Prüfplan:
-  \enquote{Wie würden Sie Ihre Hypothese testen?} Zwei, drei Antworten
-  sammeln.
-\item[5--15 · Staunmoment.] Seilroutine erst als Variante~A ohne
-  Vergleich, dann als Variante~B mit Kontrollbedingung, die die Gruppe
-  festlegt. Die Gruppe erlebt, wie die Kontrolle die Täuschung entlarvt
-  oder ihre Verweigerung die Behauptung entwertet.
-\item[15--45 · Theorie-Input.] Designtypen; interne und externe
-  Validität; Konfundierung; Gütekriterien. Fallbeispiel: das Design der
-  Becher-Monty-Hall-Videostudie und ihr Störfaktor, dann die Feldstudie.
-\item[45--75 · Design-Werkstatt.] Analyse der fiktiven Studie (UV, AV,
-  Kontrollgruppe, Konfounder; Übungsblatt Teil~A, Aufgabe~1); dann
-  Skizze eines eigenen Designs zur eigenen Hypothese (Aufgabe~2);
-  Messgüte-Check mit
-  dem Vokabular aus \buch{Kap.~10b}.
-\item[75--90 · Sicherung.] Übungsblatt Teil~B austeilen; Peer-Feedback
-  auf die Design-Skizzen in Zweiergruppen (Aufgabe~3); Abgabe der Skizze
-  als benotete Teilleistung terminieren.
+\item[0--10 · Staunmoment.] Optional die Chop-Cup-Routine. Dann
+  Monty Hall live mit drei Bechern; Abstimmung wechseln / bleiben / egal.
+  Ergebnis an die Tafel, ohne Kommentar.
+\item[10--20 · Nachspielen.] 20--24 Durchgänge in Paaren nach festen
+  Regeln (Würfel legt die Kugel, Strategie wechselt jede Runde),
+  Strichliste auf dem Übungsblatt Teil~A (Aufgabe~1). Summen an die
+  Tafel.
+\item[20--28 · Auflösung und Überblick.] Die drei Fälle, der blinde
+  Moderator, bedingte Wahrscheinlichkeit. Beschreiben und Schließen,
+  Skalenniveaus, Lage und Streuung nur im Überblick; vertieft wird das in
+  der Hausaufgabe (Datensatz-Analyse, Aufgabe~3).
+\item[28--40 · Frequentistisch.] Logik des Signifikanztests am Kurs-Pool;
+  Würfeltest; $t$-Test von Hand; zwei Arten, sich zu irren; was der
+  p-Wert nicht sagt.
+\item[40--52 · Basisrate und Bayes.] Medizintest mit natürlichen
+  Häufigkeiten; wie viele signifikante Befunde stimmen; Bayes in
+  Chancenform; derselbe Würfel bayesianisch; Bayes-Faktor zum $t$-Test;
+  Vergleich der beiden Schulen.
+\item[52--62 · Würfel-Detektive.] Paare, 30 Würfe, beide Auswertungen
+  (Teil~A, Aufgabe~2), Auflösung, Vierfeldertafel an der Tafel.
+\item[62--74 · Glaubwürdigkeits-Check.] Teil~B austeilen. Das
+  Schokoladen-Beispiel vorrechnen, dann Kleingruppen mit je einer
+  Behauptung und einer Suchmaschine (Aufgabe~5); zwei Gruppen berichten.
+\item[74--80 · Was kann Ihr Projekt beantworten?] Effektgröße, Power,
+  Folgerungen für das Design.
+\item[80--90 · Diamant und Landkarte.] Den Diamanten zum
+  Zaubertrick-Beispiel gemeinsam an der Tafel füllen, Tabelle
+  \enquote{Welche Beobachtung trennt?}, Beispielkarte zeigen;
+  Hausaufgaben (eigener Diamant und eigene Karte, Teil~B, Aufgabe~7).
 \end{description}
 \end{ablauf}
 
 %==============================================================================
-\section{Staunmoment: Drei Seile}
+\section{Staunmoment: Drei Becher}
 %==============================================================================
-\begin{staunbox}{Kontrollierte Seilroutine}
-Drei Seile: kurz, mittel, lang. \emph{Ich mache sie gleich lang.}
+\begin{staunbox}{Wechseln oder bleiben?}
+Unter einem von drei Bechern liegt eine Kugel. Sie zeigen auf einen.
+Ich weiß, wo die Kugel ist, und hebe einen \emph{anderen}, leeren Becher
+hoch.
 
-\medskip
-\textbf{Variante A:} Schauen Sie zu.
-
-\textbf{Variante B:} Diesmal bestimmen Sie, wie wir prüfen. Was wollen Sie
-vorher messen, was nachher, und womit vergleichen?
+\emph{Bleiben Sie bei Ihrem Becher -- oder wechseln Sie zum anderen?
+Oder ist es egal?}
 \end{staunbox}
 \os{\newpage}
 
 \begin{description}
-\item[{\rot\bf Variante A: ohne Vergleich}]~\\[-\lblskip]
+\item[{\rot\bf Abstimmung}]~\\[-\lblskip]
 \bi
-  \ite Was haben Sie gesehen?
-  \ite Woher wissen Sie, dass die Seile vorher verschieden lang waren?
-  \ite Woher wissen Sie, dass sie nachher gleich lang sind?
-  \ite Wer hat gemessen -- und womit?
+  \ite Hand hoch: \textbf{bleiben} -- \textbf{wechseln} -- \textbf{egal}
+  \ite Wer kennt das Rätsel schon? (getrennt zählen)
+  \ite Wie sicher sind Sie? Schätzen Sie in Prozent.
 \ei
+\nsl{Die Abstimmung wird an der Tafel festgehalten und vorerst nicht
+kommentiert. In der Regel stimmt die Mehrheit für \enquote{egal}, oft mit
+hoher Sicherheit. Das Rätsel ist als \emph{Ziegenproblem} bekannt
+geworden; es geht auf \textcite{mhall_selvin1975} zurück und wurde durch
+die Kolumne von \textcite{mhall_vossavant1990} berühmt, auf die zahlreiche
+Leserbriefe mit der Behauptung antworteten, die Lösung sei falsch.
+\textcite{mhall_krauss2003} zeigen, wie hartnäckig die Fehlintuition ist
+und welche Darstellungen helfen.}
 \os{\newpage}
 
-\item[{\rot\bf Variante B: mit Kontrollbedingung}]~\\[-\lblskip]
+\item[{\rot\bf Nachspielen: die Regeln}]~\\[-\lblskip]
 \bi
-  \ite Ihr Prüfplan: Was messen wir vorher, was nachher?
-  \ite Wer misst? Wer darf die Seile halten?
-  \ite Womit vergleichen wir: Maßband, ein unbeteiligtes Seil, eine
-    zweite Person?
-  \ite Welche Prüfung lässt die Vorführende \emph{nicht} zu -- und was
-    folgt daraus?
+  \ite in Paaren: eine Person ist \emph{Spielleitung}, eine spielt
+  \ite Spielleitung würfelt verdeckt: 1--2 Becher A, 3--4 B, 5--6 C
+  \ite Spielleitung kennt die Lage und öffnet immer einen \emph{leeren}
+    Becher, nie den gewählten
+  \ite ungerade Runden: \textbf{bleiben}, gerade Runden: \textbf{wechseln}
+  \ite 20--30 Runden, Strichliste auf dem Übungsblatt Teil~A
 \ei
-\os{\newpage}
-\end{description}
-
-\nsl{In Variante~A ist die einzige Evidenz die Vorführung selbst. Die
-Längen vorher und nachher werden behauptet und durch Zeigen
-\enquote{belegt}; gemessen hat niemand, verglichen wurde nichts. In
-Variante~B formuliert die Gruppe einen Prüfplan, bevor das Kunststück
-beginnt. Lässt die Lehrperson eine Prüfung zu, wird der Effekt an einem
-unabhängigen Maßstab gemessen. Verweigert sie eine Prüfung, wird sichtbar,
-dass die Behauptung nur unter Bedingungen gilt, die der Behauptende selbst
-kontrolliert. Für ein Kunststück ist das legitim, denn es behauptet
-nichts über die Welt. Für eine Studie wäre es ein K.-o.-Kriterium.
-Dieselbe Figur kennt das Buch vom Muskeltest der Applied Kinesiology:
-Solange der Anwender den Test kontrolliert, scheint er zu funktionieren;
-in einer Doppelblindstudie lag die Trefferquote kaum über dem Zufall
-(\buch{Kap.~10b}).}
-
-\begin{description}
-\item[{\rot\bf Was ist der Unterschied?}]~\\[-\lblskip]
-\bi
-  \ite A: Behauptung plus Vorführung -- der Behauptende kontrolliert alles
-  \ite B: Prüfplan vorab, unabhängiger Maßstab, Vergleich vorher/nachher
-  \ite eine verweigerte Kontrolle ist selbst ein Befund
-  \ite ohne Kontrollbedingung bleiben selbst grobe Täuschungen
-    unentdeckt
-\ei
-\os{\newpage}
-\end{description}
-
-%==============================================================================
-\section{Was ein Forschungsdesign leistet}
-%==============================================================================
-\nsl{Ein Forschungsdesign ist der Plan, mit dem eine Forschungsfrage
-beantwortet werden soll. Es legt fest, welche Variablen erhoben oder
-verändert werden, an wem, zu welchen Zeitpunkten und unter welchen
-Bedingungen, und vor allem, womit verglichen wird
-\parencite{doering2016forschungsmethoden}. Die \emph{unabhängige Variable}
-(UV) ist die vermutete Ursache; im Experiment wird sie gezielt variiert.
-Die \emph{abhängige Variable} (AV) ist die gemessene Wirkung.
-\emph{Störvariablen} beeinflussen die AV ebenfalls, ohne Gegenstand der
-Untersuchung zu sein. Will man aus einem Zusammenhang auf Kausalität
-schließen, müssen drei Bedingungen erfüllt sein: Ursache und Wirkung
-variieren gemeinsam, die Ursache geht der Wirkung zeitlich voraus, und
-plausible Alternativerklärungen sind ausgeschlossen
-\parencite{shadish2002experimental}. Die dritte Bedingung ist die
-schwierigste, und an ihr entscheidet sich die Qualität eines Designs.}
-\begin{description}
-\item[{\rot\bf Forschungsdesign}]~
-\end{description}
-\defn{design}{Ein \textbf{Forschungsdesign} ist der Plan einer
-Untersuchung: welche Variablen an wem, wann und unter welchen Bedingungen
-erhoben oder verändert werden und womit die Ergebnisse verglichen werden.}
-\bi
-  \ite \textbf{UV:} vermutete Ursache (im Experiment gezielt variiert)
-  \ite \textbf{AV:} gemessene Wirkung
-  \ite \textbf{Störvariable:} wirkt ebenfalls auf die AV
-\ei
+\nsl{Die Regeln sind bereits ein kleines Forschungsdesign. Der Würfel
+sorgt für eine zufällige Lage der Kugel, damit die Spielleitung nicht
+unbewusst Lieblingsbecher bevorzugt. Die feste Abfolge von Bleiben und
+Wechseln verhindert, dass die spielende Person ihre Strategie nach Gefühl
+wählt und damit die Vergleichbarkeit der beiden Strategien zerstört. Hat
+die spielende Person zufällig den Becher mit der Kugel gewählt, entscheidet
+ein zweiter Wurf (gerade oder ungerade), welchen der beiden leeren Becher
+die Spielleitung öffnet.}
 \os{\newpage}
 
-\begin{description}
-\item[{\rot\bf Wann darf man auf Kausalität schließen?}]~\\[-\lblskip]
+\item[{\rot\bf Was sagen die Daten?}]~\\[-\lblskip]
 \bi
-  \ite \textbf{Kovariation:} Ursache und Wirkung treten gemeinsam auf
-  \ite \textbf{zeitliche Folge:} die Ursache geht der Wirkung voraus
-  \ite \textbf{keine Alternativerklärung:} nichts anderes erklärt den
-    Zusammenhang ebenso gut
-  \ite die dritte Bedingung ist die schwierigste -- sie ist der Zweck des
-    Designs
+  \ite Kursdaten an der Tafel: Gewinne beim \textbf{Bleiben} und beim
+    \textbf{Wechseln}
+  \ite Passt das zu \enquote{egal}?
+  \ite Was müsste herauskommen, wenn es egal wäre?
+  \ite Wie groß darf die Abweichung sein, bevor wir \enquote{egal}
+    aufgeben?
 \ei
-\os{\newpage}
-
-\item[{\rot\bf Seile als Design}]~\\[-\lblskip]
-\bi
-  \ite UV: das Kunststück (durchgeführt / nicht durchgeführt)
-  \ite AV: die Seillängen
-  \ite Variante~A: eine Messung, nachher, durch den Behauptenden
-  \ite Variante~B: Vorher- und Nachher-Messung, unabhängiger Maßstab
-  \ite Welche Alternativerklärungen schließt B aus, A nicht?
-\ei
+\nsl{Mit der letzten Frage ist die Einheit beim Kern der
+schließenden Statistik angekommen, noch bevor das Wort fällt. Die Gruppe
+hat eine Hypothese (\enquote{egal}, also Gewinnchance $\tfrac{1}{2}$ beim
+Wechseln), eine Stichprobe (die Strichlisten) und eine Abweichung, deren
+Gewicht sie beurteilen muss.}
 \os{\newpage}
 \end{description}
 
 %==============================================================================
-\section{Designtypen}
+\section{Auflösung: bedingte Wahrscheinlichkeit}
 %==============================================================================
-\nsl{Designs lassen sich danach ordnen, ob die UV aktiv variiert wird und
-ob die Zuteilung zu den Bedingungen zufällig erfolgt
-\parencite{shadish2002experimental, doering2016forschungsmethoden}. Im
-\emph{Experiment} variieren die Forschenden die UV und teilen die
-Teilnehmenden zufällig den Bedingungen zu (Randomisierung). Zufall
-verteilt bekannte und unbekannte Störvariablen im Mittel gleich auf die
-Gruppen; das macht das Experiment zum stärksten Design für
-Kausalaussagen. Im \emph{Quasi-Experiment} wird die UV variiert, aber
-vorhandene Gruppen werden verglichen (zwei Kurse, zwei Standorte); die
-Gruppen können sich schon vorher unterschieden haben. Im
-\emph{nicht-experimentellen} Design wird nichts verändert, nur erhoben;
-es zeigt Zusammenhänge, aber kaum Ursachen. Quer dazu liegt die Frage nach
-der Zeit: Ein \emph{Querschnitt} misst einmal und vergleicht Personen, ein
-\emph{Längsschnitt} misst dieselben Personen mehrfach und kann
-Veränderungen verfolgen. Die Notation von Campbell kürzt Designs ab:
-R steht für zufällige Zuteilung, X für die Intervention, O für eine
-Messung (\emph{observation}).}
+\nsl{Die Auflösung folgt der Becher-Erklärung aus dem Buch (Kap.~12d,
+Beats~2--6). Der Vorgang hat zwei Stufen: Zuerst liegt die Kugel zufällig
+unter einem von drei Bechern, jeder mit Wahrscheinlichkeit $\tfrac{1}{3}$.
+Dann öffnet die Spielleitung einen Becher, aber nicht irgendeinen: nie den
+gewählten und nie den mit der Kugel. Die Fehlintuition \enquote{zwei
+Becher, also fifty-fifty} beruht auf der stillen Annahme, die beiden
+übrigen Becher seien gleichberechtigt. Das sind sie nicht. Der gewählte
+Becher wurde nie angefasst; der andere ist der Überlebende einer Auswahl,
+die mit Wissen getroffen wurde.}
 \begin{description}
-\item[{\rot\bf Drei Grundtypen}]~\\[-\lblskip]
+\item[{\rot\bf Die drei Fälle}]~\\[-\lblskip]
 \begin{center}
-\renewcommand{\arraystretch}{1.25}
-\begin{tabular}{p{0.24\textwidth}p{0.17\textwidth}p{0.17\textwidth}p{0.26\textwidth}}
+\begin{tabular}{@{}llll@{}}
 \toprule
-& \textbf{UV variiert?} & \textbf{Zufall?} & \textbf{Kausalaussage} \\
+\textbf{Kugel liegt \dots} & \textbf{Wahrsch.} & \textbf{Spielleitung öffnet} & \textbf{Wechseln} \\
 \midrule
-Experiment & ja & ja & stark \\
-Quasi-Experiment & ja & nein & eingeschränkt \\
-nicht-experimentell & nein & -- & schwach (Zusammenhang) \\
+unter Ihrem Becher 1 & $\tfrac13$ & Becher 2 oder 3 & verliert \\
+unter Becher 2 & $\tfrac13$ & zwingend Becher 3 & gewinnt \\
+unter Becher 3 & $\tfrac13$ & zwingend Becher 2 & gewinnt \\
 \bottomrule
 \end{tabular}
 \end{center}
 \bi
-  \ite quer dazu: \textbf{Querschnitt} (einmal messen) oder
-    \textbf{Längsschnitt} (dieselben Personen mehrfach)
+  \ite in zwei von drei Fällen \emph{zwingt} die Lage der Kugel die
+    Spielleitung, den richtigen Becher übrig zu lassen
+  \ite Wechseln gewinnt mit $\tfrac23$, Bleiben mit $\tfrac13$
 \ei
 \os{\newpage}
 
-\item[{\rot\bf Designs in Kurzschrift}]~\\[-\lblskip]
-\begin{center}
-\renewcommand{\arraystretch}{1.3}
-\begin{tabular}{p{0.46\textwidth}cccc}
-\toprule
-\textbf{Design} & & & & \textbf{Zeit $\rightarrow$} \\
-\midrule
-One-Shot (Variante A) & & & X & O \\
-Vorher-Nachher, eine Gruppe (Variante B) & & O & X & O \\
-\midrule
-Experiment mit Kontrollgruppe & {\color{rwuviolet}R} & & X & O \\
- & {\color{rwuviolet}R} & & & O \\
-\midrule
-Experiment mit Vortest & {\color{rwuviolet}R} & O & X & O \\
- & {\color{rwuviolet}R} & O & & O \\
-\bottomrule
-\end{tabular}
-\end{center}
+\item[{\rot\bf Versteckte Information}]~\\[-\lblskip]
 \bi
-  \ite R = Zufallszuteilung, X = Intervention, O = Messung
-\ei
-\os{\newpage}
-\end{description}
-
-%==============================================================================
-\section{Interne Validität}
-%==============================================================================
-\nsl{Ein Design ist \emph{intern valide}, wenn sich die Veränderung der
-AV eindeutig auf die UV zurückführen lässt. Shadish, Cook und Campbell
-haben die typischen Bedrohungen zusammengestellt
-\parencite{shadish2002experimental}. Die Liste ist ein Werkzeug: Wer ein
-Design plant oder liest, geht sie Punkt für Punkt durch und fragt, welche
-Bedrohung das Design ausschließt und welche nicht. Ein Vorher-Nachher-Vergleich
-ohne Kontrollgruppe ist anfällig für fast alle; die zufällig zugeteilte
-Kontrollgruppe neutralisiert die meisten, weil Geschichte, Reifung und
-Testeffekte beide Gruppen gleich treffen.}
-\begin{description}
-\item[{\rot\bf Bedrohungen der internen Validität}]~\\[-\lblskip]
-\begin{center}
-\small
-\renewcommand{\arraystretch}{1.15}
-\begin{tabular}{p{0.24\textwidth}p{0.62\textwidth}}
-\toprule
-\textbf{Bedrohung} & \textbf{Beispiel: Lernvideo mit Vorher-Nachher-Test} \\
-\midrule
-Geschichte & in der Woche dazwischen läuft eine Doku zum Thema \\
-Reifung & die Teilnehmenden lernen ohnehin dazu \\
-Testeffekt & der Vortest übt schon für den Nachtest \\
-Instrumentierung & Nachtest ist leichter als Vortest \\
-Regression zur Mitte & nur die Schwächsten im Vortest werden ausgewählt \\
-Selektion & Freiwillige mit Interesse gegen Pflichtgruppe \\
-Ausfall & die Frustrierten brechen vor dem Nachtest ab \\
-\bottomrule
-\end{tabular}
-\end{center}
-\os{\newpage}
-\end{description}
-
-\nsl{Eine eigene Bedrohung entsteht durch die Forschenden selbst. Wenn
-die Person, die das Ergebnis erhofft, auch misst oder bewertet, können
-ihre Erwartungen die Daten verschieben, ohne dass sie es bemerkt. Der
-\enquote{Kluge Hans}, ein Pferd, das angeblich rechnen konnte, antwortete
-nur dann richtig, wenn die Fragenden die Antwort kannten und sichtbar
-waren; es las ihre unwillkürlichen Bewegungen \parencite{pfungst1907}.
-Dieselbe Logik steckt im ideomotorischen Pendel aus LE~1. Gegenmittel ist
-das \emph{Blind-Design}: Wer misst, weiß nicht, in welcher Bedingung die
-gemessene Person war. LE~7 vertieft diesen Versuchsleitereffekt.}
-\begin{description}
-\item[{\rot\bf Die Forschenden als Störvariable}]~\\[-\lblskip]
-\bi
-  \ite Der Kluge Hans (1907): ein Pferd \enquote{rechnet} -- solange die
-    Fragenden die Antwort kennen und sichtbar sind
-  \ite es reagierte auf unwillkürliche Bewegungen der Fragenden
-  \ite Seile: wer vorführt, darf nicht auch messen
-  \ite Gegenmittel: \textbf{Blind-Design} -- die Messenden kennen die
-    Bedingung nicht
-\ei
-\os{\newpage}
-\end{description}
-
-%==============================================================================
-\section{Konfundierung und Kontrolle}
-%==============================================================================
-\nsl{Von \emph{Konfundierung} spricht man, wenn eine Störvariable
-systematisch mit der UV variiert. Dann lassen sich ihre Wirkungen nicht
-mehr trennen. Wer eine Lern-App freiwillig nutzt, ist im Mittel vermutlich
-motivierter als wer sie nicht nutzt; ein Notenunterschied kann von der App
-oder von der Motivation kommen. Gegen Konfundierung gibt es fünf
-Werkzeuge: Randomisierung, Konstanthalten (alle Bedingungen gleich bis auf
-die UV), Parallelisieren oder Schichten (Gruppen nach einem bekannten
-Störmerkmal ausbalancieren), eine geeignete Kontrollgruppe und
-Blindbedingungen. Die Kontrollgruppe ist dabei nicht einfach \enquote{die
-anderen}. Eine \emph{aktive Kontrolle} erhält eine gleich lange,
-gleich aufwendige Bedingung ohne den vermuteten Wirkstoff, damit sich die
-Gruppen nur in dem unterscheiden, was untersucht wird.}
-\begin{description}
-\item[{\rot\bf Konfundierung}]~
-\end{description}
-\defn{konfundierung}{\textbf{Konfundierung} liegt vor, wenn eine
-Störvariable systematisch mit der unabhängigen Variablen variiert. Ihre
-Wirkung auf die abhängige Variable ist dann von der Wirkung der UV nicht
-mehr zu trennen.}
-\bi
-  \ite Beispiel: freiwillige App-Nutzer sind motivierter -- App oder
-    Motivation?
-  \ite die Täuschung in Variante~A: Längen und Messung lagen beim
-    Vorführenden
+  \ite Ihr Becher hatte $\tfrac13$ und behält es: Die Spielleitung
+    hätte ihn ohnehin nie geöffnet
+  \ite die $\tfrac23$ der beiden anderen Becher sammeln sich auf dem
+    einen, der übrig bleibt
+  \ite die Spielleitung sagt kein Wort über die Kugel, aber die
+    \emph{Art ihrer Auswahl} trägt Information
 \ei
 \os{\newpage}
 
-\begin{description}
-\item[{\rot\bf Fünf Werkzeuge der Kontrolle}]~\\[-\lblskip]
+\item[{\rot\bf Gegenprobe: der blinde Moderator}]~\\[-\lblskip]
 \bi
-  \ite \textbf{Randomisierung:} Zufall verteilt auch unbekannte
-    Störvariablen
-  \ite \textbf{Konstanthalten:} alles gleich bis auf die UV
-  \ite \textbf{Schichten / Parallelisieren:} Gruppen nach bekanntem
-    Störmerkmal ausbalancieren
-  \ite \textbf{Kontrollgruppe}, möglichst \emph{aktiv}: gleich lang,
-    gleich aufwendig, ohne Wirkstoff
-  \ite \textbf{Blindbedingungen:} Teilnehmende und Messende kennen die
-    Bedingung nicht
+  \ite die Spielleitung weiß \emph{nicht}, wo die Kugel ist, und öffnet
+    zufällig einen anderen Becher
+  \ite zufällig ist er leer: Das Bild ist exakt dasselbe wie vorher
+  \ite jetzt, und nur jetzt, ist es tatsächlich egal
+  \ite \textbf{dasselbe Sichtbare, zwei verschiedene Prozesse, zwei
+    verschiedene Wahrscheinlichkeiten}
 \ei
-\os{\newpage}
-\end{description}
-
-%==============================================================================
-\section{Externe Validität}
-%==============================================================================
-\nsl{Ein intern valides Ergebnis gilt zunächst nur für die untersuchten
-Personen, unter den untersuchten Bedingungen, zum untersuchten Zeitpunkt.
-\emph{Externe Validität} fragt, wie weit es sich auf andere Personen,
-Situationen und Zeiten übertragen lässt \parencite{shadish2002experimental}.
-Zwischen beiden besteht ein Zielkonflikt: Je strenger ein Labor alles
-konstant hält, desto künstlicher wird die Situation. Das Buch nennt eine
-besonders tückische Form dieses Problems: den \emph{Hot-Cold-Empathy-Gap}
-\parencite{loewenstein1996visceral}. Wer im ruhigen Labor vorhersagen
-soll, wie er unter Stress, Zeitdruck oder Erregung entscheiden würde,
-beschreibt sein rationalisiertes Selbstbild. Umfragen zu zustandsabhängigem
-Verhalten sind deshalb strukturell unzuverlässig, solange dieser Abstand
-nicht methodisch adressiert wird (\buch{Kap.~4, HCEG}).}
-\begin{description}
-\item[{\rot\bf Externe Validität}]~\\[-\lblskip]
-\bi
-  \ite gilt das Ergebnis auch für andere Personen, Orte, Zeiten?
-  \ite Zielkonflikt: je kontrollierter das Labor, desto künstlicher die
-    Situation
-  \ite Gelegenheitsstichproben (Freunde, Kommilitonen) sagen wenig über
-    die Allgemeinbevölkerung
-  \ite \textbf{Hot-Cold-Empathy-Gap}: im ruhigen Labor sagt man falsch
-    voraus, wie man unter Stress handelt
-\ei
-\os{\newpage}
-\end{description}
-
-%==============================================================================
-\section{Gütekriterien der Messung}
-%==============================================================================
-\nsl{Auch das beste Design hilft nicht, wenn die AV schlecht gemessen
-wird. Die klassische Testtheorie nennt drei Hauptgütekriterien
-\parencite{doering2016forschungsmethoden}. \emph{Objektivität}: Das
-Ergebnis hängt nicht davon ab, wer die Messung durchführt, auswertet und
-interpretiert. \emph{Reliabilität}: Die Messung ist zuverlässig, eine
-Wiederholung unter gleichen Bedingungen liefert dasselbe Ergebnis.
-\emph{Validität}: Die Messung erfasst tatsächlich das gemeinte Konstrukt.
-Die Kriterien bauen aufeinander auf: Ohne Objektivität keine
-Reliabilität, ohne Reliabilität keine Validität. Das Buch ergänzt diese
-Begriffe in \buch{Kap.~10b} um ein praktisches Vokabular, das bei
-schwer messbaren Konstrukten wie Staunen oder Stress hilft: Ein
-\emph{Blind-Design} schaltet Erwartungen der Messenden aus. Ein
-\emph{Prozessindikator} ist ein Relativmaß für Veränderung innerhalb einer
-Person und einer Sitzung, kein Wahrheitsdetektor. Eine
-\emph{Parallelmessung} erhebt dasselbe Konstrukt mit mehreren,
-unabhängigen Verfahren (etwa Selbstbericht und Herzratenvariabilität),
-damit ein Befund nicht an einem einzigen Instrument hängt. Auf der Ebene
-des ganzen Designs heißt dieselbe Idee \emph{Triangulation}.}
-\begin{description}
-\item[{\rot\bf Drei Gütekriterien}]~\\[-\lblskip]
-\begin{center}
-\resizebox{0.86\textwidth}{!}{%
-\begin{tikzpicture}[font=\sffamily,>=Stealth,
-  st/.style={draw=rwuviolet,thick,fill=rwuviolet!8,rounded corners=3pt,
-    minimum width=42mm,minimum height=17mm,align=center}]
-  \node[st] (o) at (0,0) {\textbf{Objektivität}\\unabhängig davon,\\wer misst};
-  \node[st] (r) at (5.4,0) {\textbf{Reliabilität}\\Wiederholung liefert\\dasselbe};
-  \node[st,draw=rwucyan,fill=rwucyan40!40] (v) at (10.8,0) {\textbf{Validität}\\misst, was\\gemeint ist};
-  \draw[->,very thick] (o) -- (r);
-  \draw[->,very thick] (r) -- (v);
-\end{tikzpicture}}
-\end{center}
-\bi
-  \ite jedes Kriterium setzt das vorige voraus
-  \ite Seile: Maßband (objektiv, reliabel) gegen Augenmaß des Vorführenden
-\ei
+\nsl{Die Präzisierung aus dem Buch gehört dazu: Beim blinden Moderator
+gilt fifty-fifty \emph{unter der Bedingung}, dass er zufällig einen leeren
+Becher erwischt hat; deckt er die Kugel auf, ist die Runde hinfällig. Der
+Unterschied zwischen beiden Spielvarianten liegt allein darin, ob der
+zweite Schritt an die Lage der Kugel gekoppelt ist. Für die Statistik ist
+das die wichtigste Lehre des Rätsels: Wer nur auf das Ergebnis schaut,
+kann die beiden Fälle nicht unterscheiden. Wer fragt, wie die Daten
+zustande gekommen sind, kann es.}
 \os{\newpage}
 
-\item[{\rot\bf Messgüte-Vokabular aus dem Buch}]~\\[-\lblskip]
+\item[{\rot\bf Bedingte Wahrscheinlichkeit}]~\\
+\defn{bedingtewkt}{Die \textbf{bedingte Wahrscheinlichkeit} $P(A\mid B)$
+ist die Wahrscheinlichkeit von $A$ unter der Voraussetzung, dass $B$
+eingetreten ist:
+$P(A\mid B) = P(A\cap B)\,/\,P(B)$.}
 \bi
-  \ite \textbf{Blind-Design:} wer misst, kennt die Bedingung nicht
-  \ite \textbf{Prozessindikator:} Relativmaß für Veränderung in einer
-    Person und Sitzung -- kein Wahrheitsdetektor
-  \ite \textbf{Parallelmessung:} dasselbe Konstrukt mit mehreren
-    Verfahren (Selbstbericht, Verhalten, Physiologie)
-  \ite \textbf{Triangulation:} dieselbe Idee für das ganze Design --
-    mehrere Methoden, Datenquellen, Perspektiven
-\ei
-\os{\newpage}
-\end{description}
-
-%==============================================================================
-\section{Fallbeispiel: die Becher-Monty-Hall-Studie}
-%==============================================================================
-\nsl{Das Buch enthält ein vollständig ausgearbeitetes Forschungsdesign zu
-seiner eigenen Leitthese, dass Staunen das Lernen begünstigt
-(\buch{Kap.~12d}). Der Lerngegenstand ist das Monty-Hall-Problem, der
-Staunmoment ein Becher-Zauberkunststück. Die Studie ist als
-Zwischensubjekt-Design mit zufälliger Zuteilung angelegt. Beide Gruppen
-sehen dasselbe, rund 13-minütige Erklärvideo; die Treatment-Gruppe sieht
-zusätzlich, direkt nach dem Einstieg, einen rund zweiminütigen
-Becher-Zaubertrick. Bei der Kontrollgruppe ist genau dieser Block
-herausgeschnitten, alles Übrige ist identisch. Der Lehrteil nimmt mit
-keinem Satz Bezug auf den Trick, damit er in beiden Fassungen wortgleich
-und vollständig bleibt. Ein Manipulationscheck prüft, ob der Trick
-überhaupt Staunen ausgelöst hat; gemessen werden außerdem Verständnis,
-Transfer auf eine neu eingekleidete Aufgabe und Kalibrierung des eigenen
-Urteils.
-
-Der Entwurf benennt seinen Störfaktor selbst: Durch den reinen
-Herausschnitt ist die Kontrollfassung rund zwei Minuten kürzer
-(Treatment ca.~15:00, Kontrolle ca.~13:00). Länge und gemeinsame
-Aufmerksamkeitszeit sind damit konfundiert. Die Abhilfe ist eine
-längengleiche \emph{aktive Kontrolle}: An die Stelle des Tricks tritt ein
-gleich langer, bewusst nicht staunenswerter Becher-Einschub, etwa ein
-nüchternes Umstapeln mit sachlichem Kommentar
-(\buch{Abschnitt~12d, Studienlogik}).}
-\begin{description}
-\item[{\rot\bf Der Idealentwurf (Kap.~12d)}]~\\[-\lblskip]
-\bi
-  \ite Zwischensubjekt-Design, zufällige Zuteilung
-  \ite UV: Staunmoment (Becher-Zaubertrick) ja / nein
-  \ite derselbe Film, ein Block herausgeschnitten -- sonst alles
-    identisch
-  \ite AV: Verständnis, Transfer, Kalibrierung
-  \ite Manipulationscheck: Hat der Trick überhaupt Staunen ausgelöst?
-\ei
-\os{\newpage}
-
-\item[{\rot\bf Der Störfaktor}]~\\[-\lblskip]
-\begin{center}
-\resizebox{0.9\textwidth}{!}{%
-\begin{tikzpicture}[font=\sffamily]
-  \def\u{0.6}
-  \node[anchor=east] at (-0.2,0) {Treatment};
-  \node[anchor=east] at (-0.2,-1) {Kontrolle};
-  \node[anchor=east] at (-0.2,-2) {aktive Kontrolle};
-  \fill[rwugray!40] (0,-0.3) rectangle (1.33*\u,0.3);
-  \fill[rwuviolet] (1.33*\u,-0.3) rectangle (3.33*\u,0.3);
-  \fill[rwugray!40] (3.33*\u,-0.3) rectangle (15*\u,0.3);
-  \fill[rwugray!40] (0,-1.3) rectangle (13*\u,-0.7);
-  \fill[rwugray!40] (0,-2.3) rectangle (1.33*\u,-1.7);
-  \fill[rwucyan] (1.33*\u,-2.3) rectangle (3.33*\u,-1.7);
-  \fill[rwugray!40] (3.33*\u,-2.3) rectangle (15*\u,-1.7);
-  \node[anchor=west] at (15*\u+0.1,0) {ca.\ 15:00};
-  \node[anchor=west] at (13*\u+0.1,-1) {ca.\ 13:00};
-  \node[anchor=west] at (15*\u+0.1,-2) {ca.\ 15:00};
-  \node[text=rwuviolet,above] at (2.33*\u,0.3) {Trick};
-  \node[text=rwucyan,below] at (2.33*\u,-2.3) {neutraler Einschub};
-\end{tikzpicture}}
-\end{center}
-\bi
-  \ite Herausschneiden macht die Kontrolle \emph{kürzer}: Länge ist
-    konfundiert
-  \ite Abhilfe: gleich langer, nicht staunenswerter Einschub
-\ei
-\os{\newpage}
-\end{description}
-
-\nsl{Umgesetzt wurde der Entwurf als Online-Feldstudie mit drei Armen
-(\buch{Kap.~12f}): U1 als Kontrolle ohne Zaubertrick, U2 mit dem
-Becher-Zaubertrick als Spiel auf der Landingpage vor dem Fragebogen und
-U3 mit dem in das Video integrierten, unaufgelösten Trick. Gegenüber dem
-Idealentwurf ersetzt U2 die empfohlene längengleiche aktive Kontrolle
-durch eine Platzierungsvariante. Die Zuteilung erfolgte zufällig über
-eine Landingpage, die Feldzeit lief vom 3.~bis 31.~Juli 2026. Am Ende
-lagen 32 auswertbare Fälle vor (13/9/10).
-
-Die Befunde sind für eine Einheit über Forschungsdesign lehrreicher, als
-es ein Erfolg gewesen wäre. Erstens ist der Manipulationscheck
-gescheitert: Das Staunen liegt in den drei Armen bei 3{,}89 / 3{,}76 /
-3{,}87, also praktisch gleichauf. Wenn die Intervention die vermutete
-Ursache nicht messbar bewegt, sind alle nachgelagerten Fragen nach ihrer
-Wirkung unbeantwortbar. Zweitens zeigte ein Zwischenstand am 16.~Juli
-noch genau die erhoffte Abstufung (3{,}83 / 4{,}08 / 4{,}28), die sich
-danach einebnete; hätte die Erhebung früher geendet, stünde ein schöner,
-falscher Befund in der Welt. Drittens war der stärkste Zusammenhang einer,
-den die Studie gar nicht untersuchen wollte: Wer das Monty-Hall-Problem
-schon kannte, lag zu 92~Prozent richtig, wer es nicht kannte, zu rund der
-Hälfte. Bei $n=32$ genügen wenige ungleich verteilte Vorwissensträger, um
-jeden Armunterschied zu erzeugen oder zu tilgen. Viertens war die
-Teststärke von Anfang an unzureichend: Für einen mittleren Effekt
-($d=0{,}5$) hätte es rund 64 Personen pro Arm gebraucht, erreicht wurden
-9 bis 13. Das Buch zieht daraus selbst die Konsequenzen für eine
-Folgestudie: Fallzahl vorab planen, nach Vorwissen geschichtet
-randomisieren und den Manipulationscheck reparieren.}
-\begin{description}
-\item[{\rot\bf Die Feldstudie (Kap.~12f)}]~\\[-\lblskip]
-\bi
-  \ite drei Arme: U1 Kontrolle, U2 Trick vorab, U3 Trick im Video
-  \ite U2 statt der aktiven Kontrolle: eine Platzierungsvariante
-  \ite 32 auswertbare Fälle (13 / 9 / 10)
-  \ite Manipulationscheck gescheitert: Staunen 3{,}89 / 3{,}76 / 3{,}87
-  \ite Zwischenstand 16.~Juli: 3{,}83 / 4{,}08 / 4{,}28 -- danach
-    eingeebnet
-\ei
-\os{\newpage}
-
-\item[{\rot\bf Was das Design daraus lernt}]~\\[-\lblskip]
-\bi
-  \ite \textbf{Vorwissen} überstrahlt alles: 92\,\% richtig mit, rund die
-    Hälfte ohne Vorwissen
-  \ite \textbf{Teststärke}: für $d=0{,}5$ rund 64 pro Arm nötig, erreicht
-    9 bis 13
-  \ite Folgestudie: Fallzahl vorab planen
-  \ite nach Vorwissen \emph{geschichtet} randomisieren
-  \ite Manipulationscheck reparieren (z.\,B.\ Verweildauer,
-    verhaltensnahe Maße)
+  \ite Monty Hall: $P(\text{Kugel unter dem anderen Becher} \mid
+    \text{ein leerer wurde geöffnet})$
+  \ite wissende und blinde Spielleitung erzeugen \emph{verschiedene}
+    Bedingungen, obwohl das Bild gleich ist
 \ei
 \os{\newpage}
 \end{description}
 
 \begin{merkbox}
-Ohne Vergleich ist jede Beobachtung eine Vorführung. Ein Design ist so
-gut wie die Alternativerklärungen, die es ausschließt -- und eine
-Intervention ist erst dann geprüft, wenn der Manipulationscheck zeigt,
-dass sie überhaupt gewirkt hat.
+Wahrscheinlichkeiten hängen nicht am Bild, sondern am Prozess, der das
+Bild erzeugt hat. Vor jeder Auswertung steht deshalb die Frage: Wie sind
+diese Daten zustande gekommen?
 \end{merkbox}
 \os{\newpage}
 
 %==============================================================================
-\section{Design-Werkstatt}
+\section{Beschreiben und Schließen}
+%==============================================================================
+\nsl{Die Strichlisten der Paare sind ein kleiner Datensatz. Mit ihm lassen
+sich zwei grundverschiedene Dinge tun. Man kann ihn \emph{beschreiben}:
+Wie oft hat Wechseln in unserem Kurs gewonnen? Das ist deskriptive
+Statistik; sie fasst vorliegende Daten zusammen und sagt nichts über
+Fälle, die nicht erhoben wurden. Man kann aber auch über den Kurs hinaus
+\emph{schließen}: Ist die Gewinnchance beim Wechseln in diesem Spiel
+überhaupt, also in allen denkbaren Runden, größer als ein Halb? Das ist
+Inferenzstatistik. Sie behandelt die erhobenen Daten als Stichprobe aus
+einer Grundgesamtheit und muss deshalb mit Zufallsschwankungen rechnen.
+Ein Standardlehrbuch für beide Teile ist \textcite{doeringbortz2016}.}
+\begin{description}
+\item[{\rot\bf Zwei Aufgaben der Statistik}]~\\[-\lblskip]
+\begin{center}
+\begin{tabular}{p{0.42\textwidth}p{0.42\textwidth}}
+\toprule
+\textbf{Deskriptive Statistik} & \textbf{Inferenzstatistik} \\
+\midrule
+beschreibt die vorliegenden Daten & schließt von der Stichprobe auf die Grundgesamtheit \\
+Kennwerte, Tabellen, Grafiken & Tests, Konfidenzintervalle, Modelle \\
+\enquote{In unserem Kurs gewann Wechseln in 64\,\% der Runden.} & \enquote{Wechseln gewinnt häufiger als in der Hälfte der Fälle.} \\
+\bottomrule
+\end{tabular}
+\end{center}
+\nsl{Die 64\,\% in der Tabelle sind ein Rechenbeispiel, kein Befund.}
+\os{\newpage}
+
+\item[{\rot\bf Skalenniveaus}]~\\[-\lblskip]
+\begin{center}
+\small
+\begin{tabular}{@{}p{0.15\textwidth}p{0.30\textwidth}p{0.27\textwidth}p{0.16\textwidth}@{}}
+\toprule
+\textbf{Skala} & \textbf{sinnvoll ist \dots} & \textbf{Beispiel} & \textbf{Lagemaß} \\
+\midrule
+nominal & gleich / ungleich & Strategie (bleiben, wechseln) & Modus \\
+ordinal & zusätzlich größer / kleiner & Staunen 1--5 & Median \\
+intervall & zusätzlich Abstände & Temperatur in °C & Mittelwert \\
+verhältnis & zusätzlich echter Nullpunkt & Ausschlag in mm & Mittelwert \\
+\bottomrule
+\end{tabular}
+\end{center}
+\bi
+  \ite das Skalenniveau entscheidet, welche Rechnungen erlaubt sind
+\ei
+\nsl{Der häufigste Fehler betrifft Ratingskalen. Eine Antwort von~4 auf
+einer Skala von~1 bis~5 ist nicht \enquote{doppelt so viel} wie eine~2,
+und ob die Abstände zwischen den Stufen gleich groß sind, weiß niemand.
+In der Praxis werden Mittelwerte aus Likert-Items trotzdem oft berichtet;
+wer das tut, sollte es begründen und den Median mit angeben.}
+\os{\newpage}
+\end{description}
+
+%==============================================================================
+\section{Lage, Streuung und Ausreißer}
+%==============================================================================
+\nsl{Ein Datensatz lässt sich durch zwei Fragen grob erfassen: Wo liegt
+seine Mitte, und wie weit streuen die Werte um sie herum? Für die Mitte
+stehen Modus, Median und arithmetisches Mittel zur Verfügung. Der Median
+ist der Wert, unter und über dem jeweils die Hälfte der Daten liegt; das
+Mittel ist die Summe geteilt durch die Anzahl. Bei symmetrischen
+Verteilungen liegen beide nahe beieinander. Bei schiefen Verteilungen oder
+einzelnen Extremwerten wird das Mittel in Richtung der Ausreißer gezogen,
+der Median bleibt stabil. Für die Streuung sind Spannweite,
+Quartilsabstand und Standardabweichung gebräuchlich. Die
+Standardabweichung misst die typische Entfernung der Werte vom Mittelwert
+und ist ebenso ausreißerempfindlich wie dieser.}
+\begin{description}
+\item[{\rot\bf Lage: Wo liegt die Mitte?}]~\\[-\lblskip]
+\bi
+  \ite \textbf{Modus}: der häufigste Wert
+  \ite \textbf{Median} $\tilde{x}$: die Hälfte liegt darunter, die Hälfte
+    darüber
+  \ite \textbf{Mittelwert} $\bar{x} = \frac{1}{n}\sum x_i$
+  \ite Gedankenexperiment: zehn Gäste in einer Kneipe, ihr mittleres
+    Einkommen -- dann kommt eine Milliardärin herein
+\ei
+\nsl{Durch eine einzige Person steigt der Mittelwert ins Absurde, der
+Median ändert sich kaum. Welcher Kennwert \enquote{richtig} ist, hängt von
+der Frage ab. Wer wissen will, was eine typische Person verdient, nimmt
+den Median; wer wissen will, wie viel Geld insgesamt im Raum ist, braucht
+den Mittelwert.}
+\os{\newpage}
+
+\item[{\rot\bf Streuung: Wie verschieden sind die Werte?}]~\\[-\lblskip]
+\bi
+  \ite \textbf{Spannweite}: Maximum minus Minimum
+  \ite \textbf{Quartile} $Q_1$, $Q_3$: ein bzw.\ drei Viertel der Werte
+    liegen darunter
+  \ite \textbf{Quartilsabstand} $\mathit{IQR} = Q_3 - Q_1$: Breite der
+    mittleren Hälfte
+  \ite \textbf{Standardabweichung}
+    $s = \sqrt{\tfrac{1}{n-1}\sum (x_i-\bar{x})^2}$
+\ei
+\os{\newpage}
+
+\item[{\rot\bf Boxplot und Ausreißerregel}]~\\[-\lblskip]
+\begin{center}
+\resizebox{0.8\textwidth}{!}{%
+\begin{tikzpicture}[font=\sffamily\small]
+  \draw[->,rwugray] (0,0) -- (11,0) node[right]{Wert};
+  \foreach \x in {0,2,...,10} \draw[rwugray] (\x,0.1) -- (\x,-0.1);
+  \fill[rwucyan40!50] (3,0.8) rectangle (6,1.8);
+  \draw[thick,rwuviolet] (3,0.8) rectangle (6,1.8);
+  \draw[very thick,rwuviolet] (4.2,0.8) -- (4.2,1.8);
+  \draw[thick,rwuviolet] (1,1.3) -- (3,1.3);
+  \draw[thick,rwuviolet] (6,1.3) -- (8.2,1.3);
+  \draw[thick,rwuviolet] (1,1.05) -- (1,1.55);
+  \draw[thick,rwuviolet] (8.2,1.05) -- (8.2,1.55);
+  \fill[rwuviolet] (10.2,1.3) circle (2.5pt);
+  \node[above] at (3,1.8) {$Q_1$};
+  \node[above] at (4.6,1.8) {Median};
+  \node[above] at (6.2,1.8) {$Q_3$};
+  \node[above] at (10.2,1.45) {Ausreißer};
+  \draw[decorate,decoration={brace,mirror,amplitude=4pt},rwugray] (3,0.6) -- (6,0.6)
+    node[midway,below=4pt]{$\mathit{IQR}$};
+\end{tikzpicture}}
+\end{center}
+\bi
+  \ite Box = mittlere Hälfte, Strich = Median, Antennen bis zum
+    letzten unauffälligen Wert
+  \ite Ausreißer nach \textcite{tukey1977eda}: mehr als
+    $1{,}5\cdot\mathit{IQR}$ unter $Q_1$ oder über $Q_3$
+\ei
+\os{\newpage}
+
+\item[{\rot\bf Was tun mit Ausreißern?}]~\\[-\lblskip]
+\bi
+  \ite zuerst prüfen: Messfehler, Tippfehler -- oder ein echter Fall?
+  \ite \textbf{nie} still löschen, weil er \enquote{stört}
+  \ite Regel \emph{vor} der Auswertung festlegen und berichten
+  \ite im Zweifel beide Auswertungen zeigen: mit und ohne
+\ei
+\nsl{Ausreißer sind die erste Stelle, an der die Freiheit der Auswertung
+beginnt. Wer erst nach dem Blick auf das Ergebnis entscheidet, ob ein
+Extremwert drin bleibt, hat bereits einen Pfad im \enquote{Garten der
+sich verzweigenden Wege} gewählt \parencite{gelmanloken2014forking}. Darauf
+kommt LE~10 ausführlich zurück.}
+\os{\newpage}
+
+\item[{\rot\bf Daten zeigen, nicht verstecken}]~\\[-\lblskip]
+\bi
+  \ite Histogramm und Boxplot für metrische Daten, Balken für
+    Häufigkeiten
+  \ite Achsen beschriften, Einheit angeben, $n$ nennen
+  \ite Fallstricke: abgeschnittene $y$-Achse, 3D-Effekte, Mittelwertbalken
+    ohne Streuung
+  \ite wenn möglich: die einzelnen Datenpunkte zeigen
+\ei
+\nsl{Eine abgeschnittene Achse ist nicht in jedem Fall unzulässig, sie
+muss aber erkennbar sein. Ein Balkendiagramm, das nur zwei Mittelwerte
+zeigt, verschweigt, wie stark sich die Gruppen überlappen. Je kleiner der
+Datensatz, desto eher sollte man alle Punkte zeigen.}
+\os{\newpage}
+\end{description}
+
+%==============================================================================
+\section{Zwei Arten, Daten zu befragen}
+%==============================================================================
+\nsl{Für den Schritt von der Stichprobe zur Aussage gibt es zwei große
+Denkschulen. Die \emph{frequentistische} Statistik versteht
+Wahrscheinlichkeit als relative Häufigkeit in gedachten Wiederholungen.
+Sie fragt: Wie oft kämen Daten wie unsere heraus, wenn die Nullhypothese
+stimmt? Über Hypothesen selbst spricht sie keine Wahrscheinlichkeiten
+aus; eine Hypothese ist wahr oder falsch, nur die Daten schwanken. Die
+\emph{bayesianische} Statistik versteht Wahrscheinlichkeit als Grad
+begründeter Überzeugung. Sie fragt: Wie viel besser sagt die eine
+Hypothese die Daten voraus als die andere, und was sollte ich danach
+glauben? Dafür braucht sie eine Ausgangseinschätzung, den Prior, und
+der ist oft nichts anderes als eine \emph{Basisrate}. Beide Schulen
+rechnen mit denselben Daten. Sie beantworten aber verschiedene Fragen,
+und wer ein Projekt plant, sollte vorher wissen, welche davon ihn
+interessiert. Ein gut lesbarer Vergleich beider Schulen mit
+Rechenbeispielen steht bei \textcite{wagenmakers2007practical}.}
+\begin{description}
+\item[{\rot\bf Dieselben Daten, zwei Fragen}]~\\[-\lblskip]
+\begin{center}
+\begin{tabular}{p{0.42\textwidth}p{0.42\textwidth}}
+\toprule
+\textbf{frequentistisch} & \textbf{bayesianisch} \\
+\midrule
+Wie überraschend wären diese Daten, \emph{wenn} $H_0$ stimmt? &
+Welche Hypothese sagt diese Daten besser voraus? \\
+$P(\text{Daten}\mid H_0)$ & $P(H\mid\text{Daten})$ \\
+Ergebnis: p-Wert, Konfidenzintervall & Ergebnis: Bayes-Faktor, Posterior \\
+braucht: $H_0$, $\alpha$, geplantes $n$ & braucht: $H_0$, $H_1$, Prior
+(Basisrate) \\
+\bottomrule
+\end{tabular}
+\end{center}
+\bi
+  \ite Leitbeispiel für beide: Ist dieser Würfel gezinkt?
+\ei
+\os{\newpage}
+\end{description}
+
+%==============================================================================
+\section{Normalverteilung und Signifikanztest}
+%==============================================================================
+\nsl{Viele Messgrößen, die sich aus vielen kleinen, voneinander
+unabhängigen Einflüssen zusammensetzen, verteilen sich annähernd
+glockenförmig. Für diese Normalverteilung gilt eine einfache Faustregel:
+Etwa 68\,\% der Werte liegen innerhalb einer Standardabweichung um den
+Mittelwert, etwa 95\,\% innerhalb von zwei. Wichtiger als die
+Verteilung einzelner Messwerte ist für die Inferenzstatistik eine andere
+Tatsache: Mittelwerte und Anteile aus hinreichend großen Stichproben sind
+näherungsweise normalverteilt, auch wenn die einzelnen Werte es nicht
+sind. Darauf beruhen die meisten Standardtests.}
+\begin{description}
+\item[{\rot\bf Die Normalverteilung}]~\\[-\lblskip]
+\begin{center}
+\resizebox{0.75\textwidth}{!}{%
+\begin{tikzpicture}[font=\sffamily\small,x=1.8cm,
+  declare function={g(\x)=3*exp(-(\x)^2/2);}]
+  \fill[rwucyan40!30,domain=-2:2,samples=60] (-2,0) -- plot (\x,{g(\x)}) -- (2,0) -- cycle;
+  \fill[rwucyan40!70,domain=-1:1,samples=40] (-1,0) -- plot (\x,{g(\x)}) -- (1,0) -- cycle;
+  \draw[very thick,rwuviolet,domain=-3.5:3.5,samples=100] plot (\x,{g(\x)});
+  \draw[->,rwugray] (-3.8,0) -- (3.9,0);
+  \foreach \x/\l in {-2/$\mu-2\sigma$,-1/$\mu-\sigma$,0/$\mu$,1/$\mu+\sigma$,2/$\mu+2\sigma$}
+    {\draw[rwugray] (\x,0.08) -- (\x,-0.08); \node[below] at (\x,-0.08) {\l};}
+  \node at (0,1.2) {ca.\ 68\,\%};
+  \draw[<->,rwugray] (-2,3.3) -- node[above]{ca.\ 95\,\%} (2,3.3);
+\end{tikzpicture}}
+\end{center}
+\os{\newpage}
+
+\item[{\rot\bf Die Logik des Signifikanztests}]~\\[-\lblskip]
+\bi
+  \ite \textbf{Nullhypothese} $H_0$: Es gibt keinen Effekt
+    (\enquote{Wechseln gewinnt mit $\tfrac12$})
+  \ite Frage: Wie wahrscheinlich wären Daten, die \emph{mindestens so
+    extrem} sind wie unsere, \emph{wenn $H_0$ stimmt}?
+  \ite diese Wahrscheinlichkeit ist der \textbf{p-Wert}
+  \ite ist $p$ kleiner als eine vorab gewählte Schwelle $\alpha$ (meist
+    $0{,}05$), verwirft man $H_0$
+\ei
+\os{\newpage}
+
+\item[{\rot\bf Rechenbeispiel: Kurs-Pool}]~\\[-\lblskip]
+\bi
+  \ite angenommen, der Kurs hat 150 Wechsel-Runden gespielt und 97 davon
+    gewonnen (64,7\,\%)
+  \ite unter $H_0$ (Chance $\tfrac12$) erwartet man 75
+  \ite Binomialtest, zweiseitig: $p \approx 0{,}0004$
+  \ite 95-\%-Konfidenzintervall für die Gewinnquote: etwa 57\,\% bis
+    72\,\%
+  \ite der Wert $\tfrac23$ liegt im Intervall, $\tfrac12$ nicht
+\ei
+\nsl{Die Zahlen sind ein konstruiertes Rechenbeispiel (exakter
+Binomialtest gegen $\tfrac12$, Wilson-Intervall). In der Stunde wird mit
+den echten Kursdaten gerechnet; eine Tabellenkalkulation oder ein
+Online-Rechner für den Binomialtest genügt. Wichtig ist der letzte Punkt
+der Folie: Das Konfidenzintervall sagt mehr als der p-Wert, weil es zeigt,
+welche Gewinnquoten mit den Daten verträglich sind.}
+\os{\newpage}
+
+\item[{\rot\bf Ist dieser Würfel gezinkt? (frequentistisch)}]~\\[-\lblskip]
+\bi
+  \ite 30 Würfe, \textbf{10 Sechsen}; bei einem fairen Würfel erwartet
+    man 5
+  \ite $H_0$: Der Würfel ist fair, $P(6)=\tfrac16$
+  \ite p-Wert: $P(\text{10 oder mehr Sechsen}\mid H_0) = 0{,}020$
+    (Binomialverteilung, einseitig)
+  \ite $p<0{,}05$: $H_0$ wird verworfen, \enquote{signifikant gezinkt}
+  \ite mit \textbf{9 Sechsen}: $p=0{,}051$, nicht signifikant
+\ei
+\nsl{Die Werte sind exakt mit der Binomialverteilung $B(30,\tfrac16)$
+gerechnet; die Tabelle auf dem Übungsblatt (Teil~A, Aufgabe~2) enthält
+$P(X\geq k)$ für alle relevanten $k$. Einseitig wird hier getestet, weil
+die Frage gerichtet ist (\emph{zu viele} Sechsen). Zweiseitig ergäbe sich
+bei 10 Sechsen $p\approx0{,}024$. Der Sprung von 9 auf 10 Sechsen zeigt,
+wie willkürlich die Schwelle ist: Eine einzige Sechs mehr oder weniger
+entscheidet über \enquote{signifikant}. Die Frage, wie \emph{wahrscheinlich}
+der Würfel gezinkt ist, beantwortet der Test nicht; dafür fehlt ihm die
+Information, wie viele gezinkte Würfel es überhaupt gibt.}
+\os{\newpage}
+
+\item[{\rot\bf Der $t$-Test von Hand}]~\\
+Wie viele von 20 Begriffen behalten Studierende nach einem Lehrvideo?
+(fiktiv, je $n=8$)
+\begin{center}
+\small
+\begin{tabular}{@{}lccc@{}}
+\toprule
+ & \textbf{Werte} & $\bar{x}$ & $s$ \\
+\midrule
+mit Zaubertrick & 13, 10, 15, 11, 14, 11, 15, 11 & 12{,}5 & 2{,}0 \\
+ohne Zaubertrick & 8, 12, 9, 11, 8, 13, 8, 11 & 10{,}0 & 2{,}0 \\
+\bottomrule
+\end{tabular}
+\end{center}
+\bi
+  \ite Standardfehler der Differenz:
+    $\mathit{SE} = s\cdot\sqrt{\tfrac1{n_1}+\tfrac1{n_2}} = 2\cdot\sqrt{\tfrac14} = 1{,}0$
+  \ite $t = (\bar{x}_1-\bar{x}_2)\,/\,\mathit{SE} = 2{,}5\,/\,1{,}0 = 2{,}5$
+    mit $\mathit{df} = n_1+n_2-2 = 14$
+  \ite kritischer Wert ($\alpha=0{,}05$, zweiseitig): $2{,}14$
+    $\Rightarrow$ signifikant, $p = 0{,}025$
+  \ite Effektgröße $d = 2{,}5\,/\,2{,}0 = 1{,}25$ (groß)
+\ei
+\nsl{Die Daten sind konstruiert, damit sich alles im Kopf rechnen lässt:
+beide Gruppen haben dieselbe Standardabweichung $s=2$, die gepoolte
+Standardabweichung ist deshalb ebenfalls~2. Allgemein gilt
+$s_p=\sqrt{((n_1-1)s_1^2+(n_2-1)s_2^2)/(n_1+n_2-2)}$. Den kritischen
+Wert liefert jede $t$-Tabelle oder die Tabellenkalkulation
+(\texttt{T.INV.2T(0,05;14)}), den p-Wert \texttt{T.VERT.2S(2,5;14)}.
+Der $t$-Test setzt voraus, dass die Werte unabhängig und in beiden
+Gruppen annähernd normalverteilt sind; bei acht Werten je Gruppe lässt
+sich das kaum prüfen. Wer ungleiche Streuungen erwartet, nimmt den
+Welch-Test. Der $t$-Test kehrt im Bayes-Abschnitt wieder: Dieselben
+Zahlen ergeben dort einen Bayes-Faktor, der deutlich vorsichtiger
+klingt als \enquote{$p=0{,}025$}.}
+\os{\newpage}
+
+\item[{\rot\bf Zwei Arten, sich zu irren}]~\\[-\lblskip]
+\begin{center}
+\begin{tabular}{@{}lll@{}}
+\toprule
+ & \textbf{$H_0$ stimmt} & \textbf{$H_0$ stimmt nicht} \\
+\midrule
+\textbf{$H_0$ verworfen} & Fehler 1.~Art ($\alpha$) & richtig (Power $1-\beta$) \\
+\textbf{$H_0$ beibehalten} & richtig & Fehler 2.~Art ($\beta$) \\
+\bottomrule
+\end{tabular}
+\end{center}
+\bi
+  \ite $\alpha = 0{,}05$ heißt: In 5\,\% der Fälle ohne Effekt meldet der
+    Test trotzdem einen
+  \ite ein nicht signifikantes Ergebnis ist kein Beleg für \enquote{kein
+    Effekt}
+\ei
+\os{\newpage}
+\end{description}
+
+%==============================================================================
+\section{Was der p-Wert nicht sagt}
+%==============================================================================
+\nsl{Kaum ein statistischer Begriff wird so oft missverstanden wie der
+p-Wert. Die American Statistical Association hat 2016 eine eigene
+Stellungnahme veröffentlicht, um die gängigsten Fehldeutungen
+richtigzustellen \parencite{wassersteinlazar2016asa}. Der Kern: Ein
+p-Wert beschreibt, wie gut die Daten zu einem bestimmten Modell (der
+Nullhypothese mit allen Zusatzannahmen) passen. Er sagt nichts darüber,
+wie wahrscheinlich eine Hypothese ist, und nichts darüber, wie groß oder
+wichtig ein Effekt ist.}
+\begin{description}
+\item[{\rot\bf Der p-Wert ist \emph{nicht} \dots}]~\\[-\lblskip]
+\bi
+  \ite die Wahrscheinlichkeit, dass $H_0$ wahr ist
+  \ite die Wahrscheinlichkeit, dass das Ergebnis \enquote{Zufall} ist
+  \ite ein Maß für die Größe oder Bedeutung eines Effekts
+  \ite ein Beweis, weder für noch gegen eine Hypothese
+  \ite unabhängig davon, wie viele Tests man gerechnet hat
+\ei
+\os{\newpage}
+
+\item[{\rot\bf Warum \enquote{p < 0,05} kein Beweis ist}]~\\[-\lblskip]
+\bi
+  \ite $p$ fragt nach $P(\text{Daten} \mid H_0)$
+  \ite wir wollen wissen: $P(H \mid \text{Daten})$
+  \ite das ist wieder bedingte Wahrscheinlichkeit, und die Richtung
+    der Bedingung lässt sich nicht umdrehen
+  \ite was dazwischen fehlt, ist das Vorwissen über $H$ (der Prior)
+\ei
+\nsl{Die Verwechslung von $P(\text{Daten}\mid H_0)$ mit
+$P(H_0\mid\text{Daten})$ ist ein naher Verwandter des Fehlers, den das
+Ziegenproblem sichtbar macht: Man liest eine Bedingung falsch. Wie man
+von der einen Wahrscheinlichkeit zur anderen kommt, regelt der Satz von
+Bayes; dafür braucht man aber eine Vorab-Einschätzung der Hypothese. Ist
+diese niedrig, bleibt die Hypothese auch nach einem kleinen p-Wert
+unsicher. Das erklärt, warum überraschende Einzelbefunde so oft nicht
+replizieren \parencite{ioannidis2005false,opensciencecollaboration2015}.}
+\os{\newpage}
+\end{description}
+
+%==============================================================================
+\section{Die Basisrate: das vergessene Vorwissen}
+%==============================================================================
+\nsl{Die Lücke zwischen $P(\text{Daten}\mid H)$ und $P(H\mid\text{Daten})$
+füllt die \emph{Basisrate}: Wie häufig ist das Gesuchte, bevor man
+hinschaut? Menschen übergehen sie systematisch, sobald eine konkrete,
+anschauliche Information vorliegt
+\parencite{tversky1974judgment,tversky1982evidential}. Am deutlichsten
+zeigt das ein medizinischer Test. Die Zahlen unten sind ein klassisches
+Lehrbeispiel (Prävalenz 1\,\%, Sensitivität 90\,\%,
+Falsch-positiv-Rate 9\,\%). Fragt man nach der Wahrscheinlichkeit, dass
+eine positiv getestete Person tatsächlich krank ist, liegen die
+Schätzungen, auch von Ärztinnen und Ärzten, oft weit zu hoch. Richtig
+sind etwa 9\,\%.
+\textcite{gigerenzerhoffrage1995} haben gezeigt, dass solche Aufgaben
+viel öfter richtig gelöst werden, wenn man sie in \emph{natürlichen
+Häufigkeiten} stellt (\enquote{10 von 1000}) statt in bedingten
+Wahrscheinlichkeiten. Darum rechnet die Folie mit 1000 Personen.}
+\begin{description}
+\item[{\rot\bf Positiv getestet -- und jetzt?}]~\\[-\lblskip]
+\begin{center}
+\resizebox{0.82\textwidth}{!}{%
+\begin{tikzpicture}[font=\sffamily\small,>=Stealth,
+  box/.style={draw=rwuviolet,thick,rounded corners=2pt,fill=rwuviolet!6,
+    minimum width=24mm,minimum height=9mm,align=center},
+  posbox/.style={box,draw=rwucyandark,fill=rwucyan40!60},
+  level distance=17mm]
+  \node[box] (all) at (0,0) {1000 Personen};
+  \node[box] (k) at (-4,-1.7) {10 krank};
+  \node[box] (g) at (4,-1.7) {990 gesund};
+  \node[posbox] (kp) at (-6,-3.4) {\textbf{9 positiv}};
+  \node[box] (kn) at (-2,-3.4) {1 negativ};
+  \node[posbox] (gp) at (2,-3.4) {\textbf{89 positiv}};
+  \node[box] (gn) at (6,-3.4) {901 negativ};
+  \draw[->,thick] (all) -- node[above left]{Basisrate 1\,\%} (k);
+  \draw[->,thick] (all) -- (g);
+  \draw[->,thick] (k) -- node[left]{90\,\%} (kp);
+  \draw[->,thick] (k) -- (kn);
+  \draw[->,thick] (g) -- node[left]{9\,\%} (gp);
+  \draw[->,thick] (g) -- (gn);
+\end{tikzpicture}}
+\end{center}
+\bi
+  \ite positiv sind $9+89=98$ Personen, krank davon nur 9
+  \ite $P(\text{krank}\mid\text{positiv}) = 9\,/\,98 \approx 9\,\%$
+  \ite der Test ist gut, die Krankheit ist selten: \textbf{die Basisrate
+    gewinnt}
+\ei
+\os{\newpage}
+
+\item[{\rot\bf Wie viele signifikante Befunde stimmen?}]~\\[-\lblskip]
+\bi
+  \ite ein Signifikanztest ist ein Test wie der beim Arzt:
+    \enquote{positiv} heißt $p<0{,}05$
+  \ite 1000 geprüfte Hypothesen, \textbf{10\,\% davon wahr} (Basisrate)
+  \ite Power 0,80: von 100 wahren werden 80 signifikant
+  \ite $\alpha=0{,}05$: von 900 falschen werden 45 signifikant
+  \ite von $80+45=125$ signifikanten Befunden stimmen 80, also
+    \textbf{64\,\%}
+\ei
+\begin{center}
+\small
+\begin{tabular}{@{}lccc@{}}
+\toprule
+\textbf{Basisrate wahrer Hypothesen} & 50\,\% & 10\,\% & 1\,\% \\
+\midrule
+Power 0,80 & 94\,\% & 64\,\% & 14\,\% \\
+Power 0,35 (typisch kleine Studie) & 88\,\% & 44\,\% & 7\,\% \\
+\bottomrule
+\end{tabular}
+\end{center}
+\nsl{Der Anteil wahrer unter den signifikanten Befunden heißt in der
+Diagnostik \emph{positiver Vorhersagewert}. Er beträgt
+$\text{Power}\cdot b\,/\,(\text{Power}\cdot b+\alpha\cdot(1-b))$ mit der
+Basisrate~$b$. Das ist das Argument von \textcite{ioannidis2005false}:
+In Feldern, die viele unwahrscheinliche Hypothesen mit kleinen Studien
+prüfen, ist ein großer Teil der signifikanten Befunde falsch, auch ohne
+jedes Fehlverhalten. Kommen p-Hacking und Publikationsbias hinzu, wird
+es schlimmer. Eine Basisrate von 1\,\% ist nicht absurd; sie passt zu
+Forschung, die sehr überraschende Effekte sucht, etwa Hellsehen. Für die
+eigene Projektplanung folgt daraus: Eine Hypothese mit niedriger
+Basisrate braucht mehr als einen einzigen signifikanten Befund.}
+\os{\newpage}
+\end{description}
+
+\begin{merkbox}
+Ein positiver Test, ein signifikanter Befund, ein Treffer in der Suche:
+Was er bedeutet, hängt davon ab, wie häufig das Gesuchte überhaupt ist.
+Wer die Basisrate nicht kennt, sollte sie schätzen und die Schätzung
+offenlegen, statt sie zu ignorieren.
+\end{merkbox}
+\os{\newpage}
+
+%==============================================================================
+\section{Bayes: Was beweist ein Befund?}
+%==============================================================================
+\nsl{Der Satz von Bayes beschreibt, wie sich die Glaubwürdigkeit einer
+Hypothese $H$ durch eine Beobachtung $E$ verändert. Paul Horwich hat
+daraus eine Theorie der Evidenz entwickelt, die das Buch ausführlich
+darstellt (Kap.~5b): Eine Beobachtung bestätigt eine Hypothese, wenn sie
+sie wahrscheinlicher macht, als sie vorher war
+\parencite{horwich1982probability}. Folgt die Beobachtung aus der
+Hypothese, so ist der Zuwachs umso größer, je unwahrscheinlicher die
+Beobachtung ohne Kenntnis der Hypothese war. Riskante Vorhersagen, die
+eintreffen, sind deshalb starke Evidenz; Vorhersagen, die ohnehin
+eingetroffen wären, sind schwache.}
+\begin{description}
+\item[{\rot\bf Der Satz von Bayes}]~\\[-\lblskip]
+\[
+P(H\mid E) \;=\; \frac{P(E\mid H)\cdot P(H)}{P(E)}
+\]
+\bi
+  \ite $P(H)$: Prior -- was ich vorher für plausibel hielt
+  \ite $P(E\mid H)$: Likelihood -- wie gut erwartet $H$ die Daten?
+  \ite $P(H\mid E)$: Posterior -- was ich nachher glauben sollte
+\ei
+\os{\newpage}
+
+\item[{\rot\bf Bayes zum Rechnen: die Chancenform}]~\\
+\[
+\underbrace{\frac{P(H_1\mid E)}{P(H_0\mid E)}}_{\text{Chance nachher}}
+\;=\;
+\underbrace{\frac{P(H_1)}{P(H_0)}}_{\text{Chance vorher (Basisrate)}}
+\;\times\;
+\underbrace{\frac{P(E\mid H_1)}{P(E\mid H_0)}}_{\text{Bayes-Faktor } \mathit{BF}_{10}}
+\]
+\bi
+  \ite Chance $a:b$ heißt Wahrscheinlichkeit $a\,/\,(a+b)$, etwa
+    $1:4 \;\hat{=}\; 20\,\%$
+  \ite der \textbf{Bayes-Faktor} misst allein die Daten: Wie viel besser
+    sagt $H_1$ sie voraus als $H_0$?
+  \ite mehrere unabhängige Befunde: Bayes-Faktoren einfach
+    \textbf{multiplizieren}
+  \ite Medizintest: $1:99 \times (90\,\%\,/\,9\,\%) = 1:99\times10
+    = 10:99 \approx 9\,\%$
+\ei
+\nsl{Die Chancenform (\emph{odds form}) ist die Fassung des Satzes von
+Bayes, mit der man im Kopf rechnen kann. Sie trennt sauber, was man
+vorher wusste (Prior-Chance), von dem, was die Daten beitragen
+(Bayes-Faktor). Das hat einen praktischen Vorteil: Zwei Personen mit
+verschiedenen Ausgangseinschätzungen können sich auf den Bayes-Faktor
+einigen, auch wenn sie am Ende Verschiedenes glauben. Für die Deutung
+des Bayes-Faktors ist die grobe Skala von \textcite{kassraftery1995}
+verbreitet: 1 bis 3 kaum der Rede wert, 3 bis 20 positive, 20 bis 150
+starke, über 150 sehr starke Evidenz. Werte unter~1 sprechen für $H_0$;
+dann liest man den Kehrwert $\mathit{BF}_{01}=1/\mathit{BF}_{10}$.}
+\os{\newpage}
+
+\item[{\rot\bf Derselbe Würfel, bayesianisch}]~\\[-\lblskip]
+\bi
+  \ite $H_1$ muss konkret sein: \enquote{gezinkt} heißt hier
+    $P(6)=\tfrac13$
+  \ite jede Sechs: $\tfrac{1/3}{1/6} = \times 2$ \qquad jede andere Zahl:
+    $\tfrac{2/3}{5/6} = \times 0{,}8$
+  \ite 10 Sechsen, 20 andere: $\mathit{BF}_{10} = 2^{10}\cdot0{,}8^{20}
+    \approx 1024\cdot0{,}0115 \approx 11{,}8$
+\ei
+\begin{center}
+\small
+\begin{tabular}{@{}lccc@{}}
+\toprule
+\textbf{Woher stammt der Würfel?} & \textbf{Basisrate} & \textbf{Chance nachher} & \textbf{$P(\text{gezinkt})$} \\
+\midrule
+Spieleabend bei Freunden & $1:999$ & $11{,}8:999$ & $1\,\%$ \\
+heute im Kurs (jeder fünfte Umschlag) & $1:4$ & $11{,}8:4$ & $75\,\%$ \\
+Grabbelkiste im Scherzartikelladen & $1:1$ & $11{,}8:1$ & $92\,\%$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+\bi
+  \ite gleiche Daten, gleicher p-Wert ($0{,}020$), \textbf{drei verschiedene
+    Antworten}
+\ei
+\nsl{Die Rechnung zeigt den Kern der Einheit in einer Tabelle. Der
+p-Wert ist in allen drei Zeilen derselbe, weil er nur fragt, wie
+überraschend die Daten unter $H_0$ wären. Ob man deshalb glauben sollte,
+dass der Würfel gezinkt ist, hängt aber entscheidend davon ab, wie viele
+gezinkte Würfel es dort gibt, wo er herkommt. Beim Spieleabend wäre es
+nach wie vor viel wahrscheinlicher, dass ein fairer Würfel zufällig viele
+Sechsen gezeigt hat. Bei 9 Sechsen, wo der Test \enquote{nicht
+signifikant} meldet, ist $\mathit{BF}_{10}=4{,}7$; mit der Kurs-Basisrate
+$1:4$ ergibt das eine Chance von $4{,}7:4$, also 54\,\%. Der Bayes-Faktor
+verlangt dafür eine konkrete Alternative: Wie stark ist der Würfel
+gezinkt? Bei den Umschlägen im Kurs ist das bekannt, bei einem echten
+Mogelwürfel nicht. Dann setzt man eine Verteilung möglicher Schieflagen
+an, und der Bayes-Faktor hängt von dieser Wahl ab. Das ist der ehrliche
+Preis der bayesianischen Antwort.}
+\os{\newpage}
+
+\item[{\rot\bf Bayes-Faktor zum $t$-Test}]~\\[-\lblskip]
+\bi
+  \ite Faustformel nach \textcite{wagenmakers2007practical}, mit $N$ =
+    alle Personen:
+    \[\mathit{BF}_{01} \approx \sqrt{N}\cdot\Bigl(1+\frac{t^2}{\mathit{df}}\Bigr)^{-N/2}\]
+  \ite Lehrvideo-Beispiel: $t=2{,}5$, $N=16$, $\mathit{df}=14$
+  \ite $(1+6{,}25/14)^{8} = 1{,}446^{8} \approx 19{,}1$, also
+    $\mathit{BF}_{01}\approx 4\,/\,19{,}1 \approx 0{,}21$
+  \ite $\mathit{BF}_{10}\approx 4{,}8$: die Daten sind knapp fünfmal so
+    gut mit einem Effekt vereinbar (JASP-Standard: 2,7)
+  \ite \enquote{$p=0{,}025$} klingt nach mehr, als die Daten hergeben
+\ei
+\nsl{Die Faustformel beruht auf der BIC-Näherung, die
+\textcite{wagenmakers2007practical} für den $t$-Test ableitet. Sie
+entspricht einem recht breiten Prior für die Effektgröße und ist eine
+Größenordnungsschätzung. Statistikprogramme wie JASP rechnen
+standardmäßig den JZS-Bayes-Faktor nach \textcite{rouder2009bayesian}
+(Cauchy-Prior mit Breite $r=\sqrt2/2$); für das Beispiel ergibt er
+$\mathit{BF}_{10}=2{,}7$. Beide Werte liegen in derselben Kategorie:
+positive, aber keine starke Evidenz. Mit Prior-Chance $1:1$ ergäbe die
+Faustformel eine Posterior-Wahrscheinlichkeit von 83\,\%, mit $1:3$ noch
+62\,\%. Das Beispiel zeigt eine allgemeine Regel: p-Werte knapp unter
+$0{,}05$ entsprechen meist nur schwacher Evidenz
+\parencite{wagenmakers2007practical}.}
+\os{\newpage}
+
+\item[{\rot\bf Was nur der Bayes-Faktor kann}]~\\[-\lblskip]
+\bi
+  \ite \textbf{Signifikant, aber Evidenz für $H_0$:} je 1000 Personen,
+    $t=2{,}0$, $p=0{,}046$, $d=0{,}09$
+  \ite $\mathit{BF}_{01}\approx\sqrt{2000}\cdot(1+4/1998)^{-1000}
+    \approx 44{,}7\cdot e^{-2} \approx 6$: die Daten sprechen
+    eher \emph{gegen} einen nennenswerten Effekt
+  \ite \textbf{Evidenz für \enquote{kein Effekt}:} je 20 Personen,
+    $t=0$: $\mathit{BF}_{01}\approx\sqrt{40}\approx 6{,}3$
+  \ite ein p-Wert kann $H_0$ nie stützen, nur nicht verwerfen
+\ei
+\nsl{Der erste Fall ist als Lindley-Paradox bekannt: Bei sehr großen
+Stichproben wird ein winziger Unterschied signifikant, obwohl die Daten
+die Nullhypothese besser vorhersagen als eine Alternative, die
+nennenswerte Effekte erwartet. Mit dem JZS-Bayes-Faktor ergibt sich
+$\mathit{BF}_{01}=2{,}7$ statt 6; die Richtung bleibt gleich. Im
+zweiten Fall liefert JASP $\mathit{BF}_{01}=3{,}2$. Für kleine
+Studierendenprojekte ist der zweite Punkt wichtig: Ein nicht
+signifikantes Ergebnis ist frequentistisch nur \enquote{kein Befund}.
+Ein Bayes-Faktor kann dagegen zeigen, ob die Daten für die
+Nullhypothese sprechen oder schlicht zu dünn sind, um irgendetwas zu
+sagen.}
+\os{\newpage}
+
+\item[{\rot\bf Der Beweiswert riskanter Vorhersagen}]~\\[-\lblskip]
+\bi
+  \ite folgt $E$ aus $H$, gilt
+    $P(H\mid E)\,/\,P(H) = 1\,/\,P(E)$
+  \ite \textbf{je unwahrscheinlicher die Vorhersage, desto stärker die
+    Bestätigung}, wenn sie eintrifft
+  \ite \enquote{Morgen geht die Sonne auf} trifft ein und beweist
+    fast nichts
+  \ite \enquote{Wechseln gewinnt doppelt so oft} war riskant: Die
+    Strichliste hätte sie widerlegen können
+\ei
+\nsl{Horwich zeigt außerdem, dass nur Beobachtungen, die ein
+Widerlegungsrisiko eingehen, vollen Beweiswert haben
+\parencite{horwich1982probability}. Das schlägt die Brücke zu LE~5
+(Falsifizierbarkeit) und zu LE~10: Ein Verfahren, das jedes Ergebnis
+liefern kann, geht kein Risiko ein und beweist deshalb nichts.}
+\os{\newpage}
+\end{description}
+
+%==============================================================================
+\section{Frequentistisch oder bayesianisch?}
+%==============================================================================
+\nsl{Keine der beiden Schulen ist \enquote{die richtige}. In der
+empirischen Forschung dominieren Signifikanztests, und wer
+Fachliteratur liest, muss sie verstehen. Bayesianische Verfahren
+gewinnen an Boden, weil sie Fragen beantworten, die Forschende
+tatsächlich stellen, und weil sie Evidenz für die Nullhypothese
+ausweisen können. Für die Planung einer eigenen Studie zählt vor allem
+ein Unterschied: Der Signifikanztest verlangt, dass die Stichprobengröße
+vorher feststeht. Wer nach jeder Versuchsperson nachschaut und aufhört,
+sobald $p<0{,}05$ ist, treibt die Fehlerquote weit über 5\,\%
+\parencite{simmons2011falsepositive}. Beim Bayes-Faktor darf man
+dagegen laufend nachsehen und aufhören, wenn die Evidenz eine vorab
+festgelegte Grenze erreicht \parencite{schoenbrodt2017sequential}. Das
+ist für kleine Projekte attraktiv, bei denen niemand weiß, wie viele
+Personen am Ende mitmachen.}
+\begin{description}
+\item[{\rot\bf Die beiden Schulen im Vergleich}]~\\[-\lblskip]
+\begin{center}
+\small
+\begin{tabular}{@{}p{0.25\textwidth}p{0.33\textwidth}p{0.33\textwidth}@{}}
+\toprule
+ & \textbf{Signifikanztest} & \textbf{Bayes-Faktor} \\
+\midrule
+Frage & Sind die Daten mit $H_0$ verträglich? & Welche Hypothese sagt die Daten besser voraus? \\
+Vorwissen & bleibt draußen & geht offen als Prior ein \\
+Alternative $H_1$ & muss nicht genau angegeben werden & muss konkret sein \\
+Evidenz für $H_0$ & nicht möglich & möglich \\
+Zwischenauswertung & verfälscht $p$; $n$ vorab festlegen & erlaubt, Stoppregel vorab festlegen \\
+typischer Fehler & $p$ als $P(H_0\mid\text{Daten})$ lesen & Prior verschweigen oder passend wählen \\
+\bottomrule
+\end{tabular}
+\end{center}
+\os{\newpage}
+\end{description}
+
+\begin{merkbox}
+Der p-Wert fragt, wie überraschend die Daten unter $H_0$ wären. Der
+Bayes-Faktor fragt, um wie viel die Daten eine Hypothese gegenüber einer
+anderen stützen. Was man danach glauben sollte, bestimmen die Daten
+\emph{und} die Basisrate.
+\end{merkbox}
+\os{\newpage}
+
+%==============================================================================
+\section{Übung: Würfel-Detektive}
+%==============================================================================
+\nsl{Die Übung macht in zehn Minuten erlebbar, was die Folien behauptet
+haben: dass ein Test mit $\alpha=0{,}05$ manchmal falschen Alarm gibt, dass
+er bei kleinem $n$ viele echte Effekte übersieht und dass man ohne
+Basisrate nicht sagen kann, wie viele seiner Alarme stimmen. Jedes Paar
+erhält einen verschlossenen Umschlag. Die werfende Person liest die Karte
+für sich: \enquote{fair} (Treffer ist nur die 6) oder \enquote{gezinkt}
+(Treffer sind 5 und 6). Gewürfelt wird verdeckt unter einem der
+Pappbecher; gemeldet wird nur \enquote{Treffer} oder \enquote{kein
+Treffer}. Die Detektivin führt die Strichliste und wertet aus. Ein
+Fünftel der Umschläge ist gezinkt; diese Basisrate wird vorher
+angesagt.}
+\begin{description}
+\item[{\rot\bf Würfel-Detektive (Paare, 10 Min.)}]~\\[-\lblskip]
+\bi
+  \ite Umschlag: Die werfende Person liest die Karte \textbf{für sich}
+    (fair oder gezinkt)
+  \ite verdeckt würfeln, nur \enquote{Treffer} oder \enquote{kein
+    Treffer} sagen; die Detektivin führt die Strichliste (Teil~A,
+    Aufgabe~2)
+  \ite 30 Würfe, dann auswerten: \textbf{(a)} p-Wert aus der Tabelle,
+    Urteil bei $\alpha=0{,}05$ \textbf{(b)} Bayes-Faktor $2^k\cdot0{,}8^{30-k}$,
+    Basisrate $1:4$, $P(\text{gezinkt})$
+  \ite erst dann den Umschlag öffnen
+\ei
+\os{\newpage}
+
+\item[{\rot\bf Auszählung im Kurs}]~\\[-\lblskip]
+\begin{center}
+\begin{tabular}{@{}lcc@{}}
+\toprule
+ & \textbf{Karte: fair} & \textbf{Karte: gezinkt} \\
+\midrule
+\textbf{signifikant} ($k\geq10$) & falscher Alarm ($\alpha$) & Treffer (Power) \\
+\textbf{nicht signifikant} & richtig & übersehen ($\beta$) \\
+\bottomrule
+\end{tabular}
+\end{center}
+\bi
+  \ite erwartet bei 12 fairen und 3 gezinkten Paaren: 0--1 falscher
+    Alarm, aber nur 1--2 der 3 gezinkten erkannt (Power 0,57)
+  \ite Wie viele der signifikanten Würfel waren wirklich gezinkt?
+  \ite Wer lag mit dem Bayes-Urteil ($P>50\,\%$) richtig, wer mit dem Test?
+\ei
+\nsl{Die Erwartungswerte sind exakt gerechnet: Bei einem fairen Würfel
+ist $P(X\geq10)=0{,}020$, bei 12 fairen Paaren erwartet man also 0,24
+falsche Alarme. Bei einem gezinkten Würfel ($P(\text{Treffer})=\tfrac13$)
+ist $P(X\geq10)=0{,}57$; von drei gezinkten werden im Mittel 1,7
+erkannt. Der Anteil wirklich gezinkter unter den signifikanten Würfeln
+liegt bei dieser Basisrate rechnerisch bei 88\,\%; mit einer Basisrate
+von 1 in 100 läge er bei 23\,\%. Die Bayes-Regel \enquote{gezinkt, wenn
+$P(\text{gezinkt})>50\,\%$} schlägt ab 9 Treffern an
+($\mathit{BF}_{10}=4{,}7>4$). Sie erkennt gezinkte Würfel etwas öfter
+(71\,\%) und gibt bei fairen etwas öfter falschen Alarm (5\,\%). Bei so
+wenigen Paaren streut die Auszählung stark; genau das ist ein
+Gesprächsanlass: Mit 30 Würfen lässt sich ein deutlich gezinkter Würfel
+nur in gut der Hälfte der Fälle nachweisen. Welche Konsequenz hätte das
+für eine Studie mit 30 Personen?}
+\os{\newpage}
+\end{description}
+
+%==============================================================================
+\section{Glaubwürdigkeits-Check mit der Suchmaschine}
+%==============================================================================
+\nsl{Bayes in Chancenform ist auch ein Werkzeug für den Alltag der
+Quellenkritik. Es knüpft an SIFT aus LE~4 an (\emph{Find better
+coverage}, \emph{Trace claims}) und macht aus dem Bauchgefühl eine
+nachvollziehbare Rechnung. Vor der Suche setzt man eine Basisrate an:
+Von 100 Behauptungen dieser Art, wie viele stimmen? Dann prüft man jeden
+Fund mit einer einzigen Frage: Wie viel wahrscheinlicher wäre dieser Fund,
+wenn die Behauptung stimmt, als wenn sie nicht stimmt? Die Antwort ist
+ein grober Bayes-Faktor. Die Zahlen sind Schätzungen, und das ist
+gewollt: Sie zwingen dazu, die Einschätzung offenzulegen und mit
+anderen zu vergleichen. Die wichtigste Lehre steckt in der zweiten Zeile
+des Beispiels: Zehn Portale, die dieselbe Pressemitteilung abschreiben,
+sind \emph{ein} Fund, nicht zehn. Multiplizieren darf man nur
+unabhängige Befunde.
+
+Das Beispiel ist echt. Der Wissenschaftsjournalist John Bohannon hat
+2015 mit Absicht eine methodisch schwache Studie zu Schokolade und
+Gewichtsverlust durchgeführt (wenige Versuchspersonen, viele
+Messgrößen) und in einer Zeitschrift veröffentlicht, die gegen Gebühr
+publiziert. Die Pressemitteilung wurde weltweit aufgegriffen, die
+\emph{Bild} titelte \enquote{Schlank durch Schokolade!}. Danach legte
+Bohannon offen, wie und warum er den Fake gebaut hatte
+\parencite{bohannon2015chocolate}.}
+\begin{description}
+\item[{\rot\bf Glaubwürdigkeit in vier Schritten}]~\\[-\lblskip]
+\bi
+  \ite \textbf{Behauptung} genau notieren: Wer sagt was über wen?
+  \ite \textbf{Basisrate}: Von 100 Behauptungen dieser Art, wie viele
+    stimmen? $\Rightarrow$ Prior-Chance
+  \ite \textbf{Suchen} (SIFT, LE~4), für jeden Fund fragen: Wie viel
+    wahrscheinlicher wäre er, wenn die Behauptung \emph{stimmt}, als wenn
+    sie \emph{nicht} stimmt?
+  \ite Faktoren grob wählen: $\times10$, $\times3$, $\times1$,
+    $\times\tfrac13$, $\times\tfrac1{10}$; nur \textbf{unabhängige} Funde
+    multiplizieren
+\ei
+\os{\newpage}
+
+\item[{\rot\bf Beispiel: \enquote{Schokolade hilft beim Abnehmen}}]~\\[-\lblskip]
+\begin{center}
+\small
+\begin{tabular}{@{}p{0.55\textwidth}cc@{}}
+\toprule
+\textbf{Schritt} & \textbf{Faktor} & \textbf{Chance} \\
+\midrule
+Basisrate: Diät-Wunder aus einer Einzelstudie, etwa 1 von 10 hält & & $1:9$ \\
+viele Portale berichten, alle mit derselben Pressemitteilung & $\times1$ & $1:9$ \\
+Originalstudie: sehr wenige Personen, viele Messgrößen, Zeitschrift publiziert gegen Gebühr & $\times\tfrac13$ & $1:27$ \\
+der Autor erklärt öffentlich, die Studie sei ein absichtlicher Fake & $\times\tfrac1{100}$ & $1:2700$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+\bi
+  \ite am Ende: $P(\text{stimmt})\approx 0{,}04\,\%$
+  \ite der Fund, der die meisten Klicks hat, trägt den kleinsten Faktor
+\ei
+\os{\newpage}
+
+\item[{\rot\bf Ihr Glaubwürdigkeits-Check (Kleingruppen, 12 Min.)}]~\\[-\lblskip]
+\bi
+  \ite jede Gruppe zieht eine Behauptungskarte
+  \ite Basisrate \emph{vor} der Suche festlegen und begründen
+  \ite 8 Minuten suchen, jeden Fund mit Faktor in die Tabelle
+    (Teil~B, Aufgabe~5)
+  \ite Ergebnis: $P(\text{stimmt})$ -- und welcher Fund hat am meisten
+    bewegt?
+  \ite Vergleich: Wo lagen zwei Gruppen mit denselben Funden verschieden,
+    weil ihre Basisrate verschieden war?
+\ei
+\os{\newpage}
+\end{description}
+
+\begin{lehrhinweis}[Behauptungskarten für den Glaubwürdigkeits-Check]
+Bewährt haben sich Behauptungen, zu denen eine kurze Suche gute Quellen
+findet. Vorschläge, davon mindestens zwei zutreffende auswählen:
+\begin{itemize}
+  \item \enquote{Wir nutzen nur 10\,\% unseres Gehirns.} (falsch,
+    verbreiteter Mythos)
+  \item \enquote{Die Chinesische Mauer ist das einzige Bauwerk, das man
+    vom Mond aus mit bloßem Auge sieht.} (falsch)
+  \item \enquote{Ein Blitz schlägt nie zweimal an derselben Stelle ein.}
+    (falsch; hohe Gebäude werden regelmäßig mehrfach getroffen)
+  \item \enquote{Mozart hören macht Babys klüger.} (in dieser Form falsch;
+    die Ausgangsstudie fand einen kurzen Effekt bei Erwachsenen, der sich
+    kaum replizieren ließ)
+  \item \enquote{Ausschläge von Wünschelruten und Pendeln entstehen durch
+    unbewusste Muskelbewegungen.} (zutreffend, Ideomotor-Effekt aus LE~1)
+  \item \enquote{In europäischen Ländern hängt die Zahl der
+    Storchenpaare mit der Geburtenzahl zusammen.} (zutreffend als
+    Korrelation, \textcite{matthews2000storks}; ein schönes Beispiel
+    dafür, dass eine wahre Behauptung nicht die kausale Deutung trägt,
+    die sie nahelegt)
+\end{itemize}
+Erwartet wird kein \enquote{richtiger} Zahlenwert. Gute Gruppen begründen
+ihre Basisrate, erkennen abgeschriebene Meldungen als einen einzigen
+Fund und geben den größten Faktoren den Funden, die nur bei einer
+wahren (bzw.\ falschen) Behauptung zu erwarten sind: Übersichtsarbeiten,
+Faktenchecks mit Quellenangaben, die Originalstudie selbst. Lohnend ist
+die Frage, ob eine Gruppe ihre Basisrate nach der Suche nachträglich
+\enquote{angepasst} hat; das wäre Doppelzählung.
+\end{lehrhinweis}
+
+%==============================================================================
+\section{Effektgröße und Power}
+%==============================================================================
+\nsl{Ob ein Effekt \enquote{signifikant} ist, hängt nicht nur von seiner
+Größe ab, sondern auch von der Stichprobengröße. Mit sehr vielen Personen
+wird jeder noch so kleine Unterschied signifikant, mit sehr wenigen
+bleibt selbst ein großer unentdeckt. Deshalb gehört zu jedem Befund eine
+\emph{Effektgröße}, die unabhängig von $n$ angibt, wie groß der
+Unterschied ist. Für Mittelwertunterschiede ist Cohens $d$ üblich, der
+Abstand der Mittelwerte in Einheiten der Standardabweichung
+\parencite{cohen1988power}. Die \emph{Power} (Teststärke) ist die
+Wahrscheinlichkeit, einen tatsächlich vorhandenen Effekt bestimmter Größe
+auch zu finden. Sie wird \emph{vor} der Studie über eine Poweranalyse
+festgelegt; daraus ergibt sich die nötige Stichprobengröße.}
+\begin{description}
+\item[{\rot\bf Effektgröße: Wie groß ist der Unterschied?}]~\\[-\lblskip]
+\bi
+  \ite Cohens $d = (\bar{x}_1 - \bar{x}_2)\,/\,s$: Abstand in
+    Standardabweichungen
+  \ite grobe Orientierung: $0{,}2$ klein, $0{,}5$ mittel, $0{,}8$ groß
+    \parencite{cohen1988power}
+  \ite immer mit Konfidenzintervall berichten
+  \ite signifikant ist nicht dasselbe wie groß, nicht signifikant nicht
+    dasselbe wie null
+\ei
+\os{\newpage}
+
+\item[{\rot\bf Power: Wie viele Personen brauche ich?}]~\\[-\lblskip]
+\begin{center}
+\begin{tabular}{@{}lccc@{}}
+\toprule
+\textbf{erwarteter Effekt} & $d=0{,}2$ & $d=0{,}5$ & $d=0{,}8$ \\
+\midrule
+$n$ \emph{pro Gruppe} & 394 & 64 & 26 \\
+\bottomrule
+\end{tabular}
+\end{center}
+\bi
+  \ite $t$-Test, zwei Gruppen, $\alpha=0{,}05$ zweiseitig, Power $0{,}80$
+  \ite mit 13 Personen pro Gruppe findet man einen mittleren Effekt nur
+    in etwa einem von vier Versuchen
+\ei
+\nsl{Die Werte der Tabelle sind mit der nichtzentralen $t$-Verteilung
+nachgerechnet; sie stimmen mit den Tafeln bei \textcite{cohen1988power}
+überein. Die Power bei 13 Personen pro Gruppe und $d=0{,}5$ beträgt
+nach derselben Rechnung etwa 0,23. Kleine Studien haben nicht nur ein
+hohes Risiko, echte Effekte zu übersehen. Wenn sie doch einmal
+\enquote{signifikant} werden, überschätzen sie die Effektgröße
+typischerweise deutlich \parencite{button2013power}.}
+\os{\newpage}
+
+\item[{\rot\bf Ein Lehrstück aus dem Buch}]~\\[-\lblskip]
+\bi
+  \ite Feldstudie zum Becher-Monty-Hall-Video: 32 auswertbare Fälle in
+    drei Armen (13 / 9 / 10)
+  \ite am 16.~Juli zeigte das Staunen eine schöne Abstufung: 3,83 / 4,08
+    / 4,28
+  \ite am Ende lagen die Arme gleichauf: 3,89 / 3,76 / 3,87
+  \ite stärkster Zusammenhang: \textbf{Vorwissen} -- wer das Problem
+    kannte, lag zu 92\,\% richtig
+\ei
+\nsl{Die Zahlen stammen aus der Feldstudie im Buch (Kap.~12f). Der
+anfängliche Staunen-Gradient war ein Artefakt kleiner Zwischenstände:
+Hätte die Erhebung früher geendet, stünde ein schöner, falscher Befund in
+der Welt. Das Buch zieht daraus die Konsequenz, Fallzahlen vorab zu
+planen (\enquote{ohne mindestens 60 Personen pro Arm lohnt der Aufwand
+nicht}) und nach Vorwissen geschichtet zu randomisieren. Die Studie
+berichtet bewusst keine p-Werte, sondern Effektgrößen (Hedges' $g$) mit
+Bootstrap-Intervallen. Für die Stunde ist das ein Beispiel, das nah an
+den Studierenden liegt: Das Spiel, das sie gerade gespielt haben, war
+Gegenstand einer echten Studie mit echten Schwächen.}
+\os{\newpage}
+
+\item[{\rot\bf Welche Fragen kann Ihr Projekt beantworten?}]~\\[-\lblskip]
+\begin{center}
+\small
+\begin{tabular}{@{}lcccc@{}}
+\toprule
+\textbf{Personen pro Gruppe} & 10 & 15 & 20 & 30 \\
+\midrule
+zwei Gruppen, $d=0{,}5$ & 0,19 & 0,26 & 0,34 & 0,48 \\
+zwei Gruppen, $d=0{,}8$ & 0,40 & 0,56 & 0,69 & 0,86 \\
+Messwiederholung, $d=0{,}5$ & 0,29 & 0,44 & 0,56 & 0,75 \\
+\bottomrule
+\end{tabular}
+\end{center}
+\bi
+  \ite Power des $t$-Tests, $\alpha=0{,}05$ zweiseitig; bei
+    Messwiederholung zählt jede Person einmal
+  \ite mit 20 Personen pro Gruppe findet man einen mittleren Effekt in
+    einem von drei Versuchen
+  \ite Ja/Nein-Zielgrößen brauchen mehr: 50\,\% gegen 70\,\% Erfolg
+    verlangt etwa 47 Personen pro Gruppe
+\ei
+\nsl{Die Werte sind mit der nichtzentralen $t$-Verteilung gerechnet.
+Bei Messwiederholung (dieselben Personen in beiden Bedingungen) ist $d$
+auf die Streuung der Differenzen bezogen; für $d=0{,}5$ und Power 0,80
+genügen dann 34 Personen, für $d=0{,}8$ 15. Der Wert für Anteile ist mit
+der Arkussinus-Näherung (Cohens $h$) gerechnet
+\parencite{cohen1988power}. Die Tabelle ist die wichtigste Brücke zu
+LE~7: Sie zeigt, welche Fragen ein Semesterprojekt mit realistischen
+Fallzahlen überhaupt beantworten kann.}
+\os{\newpage}
+
+\item[{\rot\bf Was daraus für Ihr Design folgt (LE~7)}]~\\[-\lblskip]
+\bi
+  \ite Fragen wählen, bei denen ein \textbf{großer} Effekt plausibel ist,
+    oder dieselben Personen mehrfach messen
+  \ite metrische Zielgrößen statt Ja/Nein, wo es geht
+  \ite den kleinsten Effekt festlegen, der Sie interessieren würde, und
+    daraus $n$ bestimmen
+  \ite Schätzen statt Testen: \enquote{Wie groß ist der Unterschied?}
+    mit Konfidenzintervall ist auch bei kleinem $n$ eine ehrliche Antwort
+  \ite Bayes-Faktor mit Stoppregel (etwa $\mathit{BF}>6$ oder
+    $<\tfrac16$, höchstens 40 Personen), wenn $n$ unsicher ist
+  \ite Basisrate Ihrer Hypothese ehrlich einschätzen: Wie überraschend
+    wäre es, wenn sie stimmt?
+\ei
+\nsl{Diese Liste greift die Design-Skizze in LE~7 auf; dort wird der
+Auswertungsplan Teil der Vorlage. Die Stoppregel im vorletzten Punkt
+folgt dem sequentiellen Bayes-Faktor-Design von
+\textcite{schoenbrodt2017sequential}: Man erhebt, bis die Evidenz eine
+vorab festgelegte Grenze in eine der beiden Richtungen erreicht oder die
+Höchstzahl erreicht ist, und berichtet in jedem Fall den erreichten
+Bayes-Faktor. Die Grenzen und die Höchstzahl gehören, wie beim
+Signifikanztest das $n$, vor Beginn der Erhebung schriftlich fest.}
+\os{\newpage}
+\end{description}
+
+%==============================================================================
+\section{Schwierige Fragen zerlegen: Diamant und Landkarte}
+%==============================================================================
+\nsl{Wer eine Idee prüfen will, sucht fast immer zuerst nach dem, was sie
+bestätigt (LE~5, LE~8). Für den Bayes-Faktor ist das doppelt schädlich:
+Er braucht eine \emph{Alternative}, und die Qualität der Prüfung hängt
+davon ab, wie gut diese Alternative ist. Eine einfache Arbeitsabfolge,
+um systematisch Alternativen zu erzeugen, ist die
+\emph{Diamond-Technik} aus dem NLP-Coaching \parencite{fellehner2026diamond}.
+Sie stellt einer Ausgangsidee ihr Gegenteil, ein \emph{Sowohl-als-auch}
+und ein \emph{Weder-noch} gegenüber und fragt für jede Position, was sie
+ermöglicht und was sie verhindert. Die Figur ist älter als das NLP: Sie
+entspricht dem Tetralemma der indischen Logik, das
+\textcite{vargasparrer2000tetralemma} für die systemische Beratung
+aufbereitet haben.
+
+Zur Einordnung, wie es sich in einem Methodenkurs gehört: Als
+Coaching-Methode ist die Diamond-Technik kaum empirisch geprüft; das
+sagt auch die Quelle selbst. Hier wird sie nicht als Intervention
+eingesetzt, sondern als \emph{Denkgerüst} zum Erzeugen von
+Gegenhypothesen. Dafür wird jeder Schritt in eine Forschungsfrage
+übersetzt. Aus \enquote{ermöglicht / verhindert} wird \enquote{erlaubt /
+verbietet}: Welche Beobachtungen sagt diese Position voraus, welche
+schließt sie aus? Das ist Poppers Frage aus LE~5, und es ist zugleich
+die Frage nach den Likelihoods, aus denen der Bayes-Faktor entsteht.
+Beobachtungen, die alle Positionen gleich gut erwarten, haben einen
+Bayes-Faktor nahe~1 und entscheiden nichts; das \emph{Sowohl-als-auch}
+macht diese Beobachtungen sichtbar. Das \emph{Weder-noch} ist der Ort der
+dritten Erklärung, also der Störvariablen, die in LE~7 kontrolliert
+werden müssen.
+
+Was beim Zerlegen herauskommt, wird auf einer Landkarte festgehalten:
+ein Weg von der Ausgangsidee zur geschärften Hypothese, mit allem, was
+unterwegs geklärt wurde, und mit den Hindernissen, die noch im Weg
+liegen. Die Karte ist bewusst spielerisch, aber sie hat eine strenge
+Regel: Jedes Element trägt einen Beleg oder eine Zahl. So wird sie zur
+Vorlage für die Design-Skizze in LE~7 und später für den
+Limitationen-Abschnitt der Seminararbeit: Die Drachen, die am Ende noch
+auf der Karte stehen, sind genau die Einschränkungen, die man berichten
+muss.}
+\begin{description}
+\item[{\rot\bf Der Diamant: vier Positionen}]~\\[-\lblskip]
+\begin{center}
+\resizebox{!}{0.48\textheight}{%
+\begin{tikzpicture}[font=\sffamily\small,>=Stealth,
+  dia/.style={draw=rwuviolet,thick,fill=rwuviolet!6,rounded corners=2pt,
+    text width=52mm,align=center,minimum height=13mm},
+  mid/.style={dia,draw=rwucyandark,fill=rwucyan40!50,text width=40mm}]
+  \node[dia] (a) at (-5,0)  {\textbf{1 Idee}\\Was behaupte ich?};
+  \node[dia] (b) at (5,0)   {\textbf{2 Gegenteil}\\Was, wenn es umgekehrt ist?};
+  \node[dia] (c) at (0,2.6) {\textbf{3 Sowohl-als-auch}\\Was haben beide gemeinsam?};
+  \node[dia] (d) at (0,-2.6){\textbf{4 Weder-noch}\\Was haben beide übersehen?};
+  \node[mid] (e) at (0,0)   {\textbf{5 neuer Satz}\\geschärfte Hypothese};
+  \draw[rwuviolet,thick] (a) -- (c) -- (b) -- (d) -- (a);
+  \draw[->,rwucyandark,thick,dashed] (a) -- (e);
+  \draw[->,rwucyandark,thick,dashed] (b) -- (e);
+  \draw[->,rwucyandark,thick,dashed] (c) -- (e);
+  \draw[->,rwucyandark,thick,dashed] (d) -- (e);
+\end{tikzpicture}}
+\end{center}
+\bi
+  \ite an jeder Position: Was \textbf{erlaubt} sie, was \textbf{verbietet}
+    sie? (welche Daten?)
+  \ite zum Schluss: Prüfplan und Ökocheck -- kann mein $n$ das klären?
+\ei
+\os{\newpage}
+
+\item[{\rot\bf Vom Coaching zur Forschungsfrage}]~\\[-\lblskip]
+\begin{center}
+\small
+\begin{tabular}{@{}p{0.27\textwidth}p{0.62\textwidth}@{}}
+\toprule
+\textbf{Schritt im Diamanten} & \textbf{Frage in der Forschung} \\
+\midrule
+Idee & $H_1$: Was genau behaupte ich, über wen? \\
+Gegenteil & Gegenhypothese: nicht nur \enquote{kein Effekt}, sondern
+  \enquote{der Effekt geht in die andere Richtung} \\
+Sowohl-als-auch & Was sagen Idee \emph{und} Gegenteil voraus? Solche
+  Daten haben $\mathit{BF}\approx1$ und entscheiden nichts \\
+Weder-noch & dritte Erklärung: Störvariable, andere Ursache, falsch
+  gestellte Frage \\
+ermöglicht / verhindert & welche Beobachtung jede Position erlaubt bzw.\
+  verbietet $\Rightarrow$ Likelihoods \\
+neuer Satz & geschärfte Hypothese, die zwischen den Positionen trennt \\
+Future Pace, Ökocheck & Prüfplan: Power, Basisrate, Stoppregel; was
+  würde mich umstimmen? \\
+\bottomrule
+\end{tabular}
+\end{center}
+\os{\newpage}
+
+\item[{\rot\bf Beispiel: \enquote{Ein Zaubertrick hilft beim Lernen}}]~\\[-\lblskip]
+\begin{center}
+\resizebox{!}{0.7\textheight}{%
+\begin{tikzpicture}[font=\sffamily\small,
+  dia/.style={draw=rwuviolet,thick,fill=rwuviolet!6,rounded corners=2pt,
+    text width=62mm,align=left,inner sep=4pt}]
+  \node[dia] (a) at (-6.8,0) {\textbf{Idee:} Ein Trick vor dem Lernvideo
+    verbessert das Behalten.\\[1pt]
+    \emph{erlaubt:} Trickgruppe behält mehr\\
+    \emph{verbietet:} Trickgruppe behält weniger};
+  \node[dia] (b) at (6.8,0) {\textbf{Gegenteil:} Der Trick lenkt vom
+    Inhalt ab und \emph{verschlechtert} das Behalten.\\[1pt]
+    \emph{erlaubt:} Trickgruppe behält weniger\\
+    \emph{verbietet:} Trickgruppe behält mehr};
+  \node[dia] (c) at (0,3.3) {\textbf{Sowohl-als-auch:} Der Trick weckt
+    Aufmerksamkeit, die zum Inhalt oder weg vom Inhalt gehen kann.\\[1pt]
+    beide erwarten: mehr Staunen, mehr Interesse};
+  \node[dia] (d) at (0,-3.3) {\textbf{Weder-noch:} Nicht der Trick wirkt,
+    sondern etwas Drittes: das 2 Minuten längere Video, Vorwissen, die
+    Erwartung der Versuchsleitung.};
+  \draw[rwuviolet,thick] (a) -- (c) -- (b) -- (d) -- (a);
+\end{tikzpicture}}
+\end{center}
+\nsl{Das Beispiel ist die Leitthese des Buchs, an der auch der
+$t$-Test dieser Einheit gerechnet wurde, und es führt direkt zu dem
+Störfaktor, den die Becher-Monty-Hall-Studie selbst benennt: Die
+Kontrollfassung ist rund zwei Minuten kürzer (\buch{Kap.~12d}; ausführlich
+in LE~7). Das Gegenteil ist hier keine bloße Verneinung, sondern eine
+ernstzunehmende Gegenhypothese: Ein verblüffender Einstieg kann
+Arbeitsgedächtnis binden, das dann für den Inhalt fehlt. In der Stunde
+wird der Diamant gemeinsam an der Tafel gefüllt; die Folie dient als
+Lösung.}
+\os{\newpage}
+
+\item[{\rot\bf Welche Beobachtung trennt die Positionen?}]~\\[-\lblskip]
+\begin{center}
+\small
+\begin{tabular}{@{}p{0.43\textwidth}ccc@{}}
+\toprule
+\textbf{Beobachtung} & \textbf{Idee} & \textbf{Gegenteil} & \textbf{Weder-noch (Länge)} \\
+\midrule
+Trickgruppe staunt mehr (Manipulationscheck) & 0,9 & 0,9 & 0,5 \\
+Trickgruppe behält mehr als die kürzere Kontrolle & 0,7 & 0,1 & 0,7 \\
+Trickgruppe behält mehr als eine \emph{gleich lange} Kontrolle ohne Staunen & 0,7 & 0,1 & 0,2 \\
+\bottomrule
+\end{tabular}
+\end{center}
+\bi
+  \ite Zahlen: grob geschätzte Wahrscheinlichkeit der Beobachtung unter
+    jeder Position
+  \ite Zeile 1: Idee gegen Gegenteil $\mathit{BF}=0{,}9/0{,}9=1$ --
+    \textbf{Nebel}, entscheidet nichts
+  \ite Zeile 2: trennt Idee von Gegenteil ($\mathit{BF}=7$), aber nicht
+    von der Länge ($\mathit{BF}=1$)
+  \ite Zeile 3: trennt beides ($\mathit{BF}=7$ bzw.\ $3{,}5$) -- \textbf{das
+    ist die Studie, die man bauen muss}
+\ei
+\nsl{Die Wahrscheinlichkeiten sind Schätzungen, und sie sollen es sein:
+Es geht nicht um die dritte Nachkommastelle, sondern darum, welche
+Beobachtung überhaupt zwischen den Positionen unterscheidet. Die
+Tabelle zeigt in drei Zeilen, warum ein Manipulationscheck zwar nötig,
+aber kein Beleg für die Idee ist, und warum die längengleiche aktive
+Kontrolle, die das Buch als Abhilfe vorschlägt, den Unterschied macht.
+Wer so eine Tabelle vor der Studie aufschreibt, hat seinen
+Auswertungsplan im Kern schon fertig.}
+\os{\newpage}
+
+\item[{\rot\bf Neuer Satz, Prüfplan, Ökocheck}]~\\[-\lblskip]
+\bi
+  \ite \textbf{neuer Satz:} \enquote{Ein staunenswerter Einstieg
+    verbessert das Behalten gegenüber einem gleich langen Einstieg ohne
+    Staunen, vor allem bei Personen ohne Vorwissen.}
+  \ite \textbf{Basisrate:} offen, eher skeptisch: Prior-Chance $1:3$
+  \ite \textbf{Power:} erwartet $d\approx0{,}5$; mit 20 Personen pro
+    Gruppe nur 0,34 $\Rightarrow$ Messwiederholung (zwei Videos je Person)
+    oder Bayes-Faktor mit Stoppregel
+  \ite \textbf{was mich umstimmt:} $\mathit{BF}_{01}>6$ $\Rightarrow$ Idee
+    aufgeben oder neu fassen
+  \ite \textbf{Ökocheck:} Ist das ethisch und organisatorisch machbar?
+    Täuschen wir jemanden? (LE~13)
+\ei
+\os{\newpage}
+
+\item[{\rot\bf Die Landkarte der Untersuchung}]~\\
+\begin{center}
+\resizebox{0.97\linewidth}{!}{%
+\begin{tikzpicture}[font=\sffamily\scriptsize,>=Stealth,
+  lab/.style={align=center,inner sep=1pt},
+  hint/.style={lab,text=rwugray}]
+  % Pergament
+  \fill[rwuviolet!4,rounded corners=6pt] (-0.4,-0.6) rectangle (16.4,6.4);
+  \draw[rwuviolet!40,thick,rounded corners=6pt] (-0.4,-0.6) rectangle (16.4,6.4);
+  % Fluss des Gegenteils
+  \draw[rwucyan,line width=5pt,opacity=0.6] plot[smooth,tension=0.8]
+    coordinates {(3.3,6.4) (3.6,5) (3.2,3.5) (3.7,2) (3.4,-0.6)};
+  \node[lab,text=rwucyandark,rotate=-80] at (4.05,5.0) {Fluss des Gegenteils};
+  % Nebelsumpf
+  \foreach \x/\y/\r in {6/4.6/0.45,6.6/4.9/0.5,7.2/4.6/0.45,6.4/4.3/0.4,7.0/4.25/0.4}
+    \fill[rwugray!35] (\x,\y) circle (\r);
+  \node[lab] at (6.6,5.65) {\textbf{Nebelsumpf}\\Staunen-Check: $\mathit{BF}\approx1$};
+  % Schlucht mit Bruecke und Drache
+  \draw[rwugray,thick] (9.3,6.4) -- (9.6,5.2) -- (9.2,4.0) -- (9.7,2.6) -- (9.3,1.2) -- (9.6,-0.6);
+  \draw[rwugray,thick] (10.1,6.4) -- (10.4,5.2) -- (10.0,4.0) -- (10.5,2.6) -- (10.1,1.2) -- (10.4,-0.6);
+  \node[lab,rotate=-82,text=rwugray] at (9.85,4.9) {Schlucht};
+  \fill[rwuviolet!60] (9.0,2.45) rectangle (10.8,2.75);
+  \foreach \x in {9.15,9.45,...,10.7} \draw[white] (\x,2.45) -- (\x,2.75);
+  \node[lab,below] at (9.9,2.4) {\textbf{Brücke}: gleich lange\\aktive Kontrolle (LE 7)};
+  \fill[rwuviolet] (11.4,0.55) ellipse (0.45 and 0.22);
+  \fill[rwuviolet] (11.75,0.75) circle (0.16);
+  \draw[rwuviolet,thick] (11.0,0.55) -- (10.75,0.85);
+  \fill[rwuviolet] (11.3,0.75) -- (11.45,1.05) -- (11.55,0.75) -- cycle;
+  \node[lab,right] at (11.95,0.55) {\textbf{Drache Videolänge}\\besiegt durch die Brücke};
+  % Berg Basisrate
+  \fill[rwugray!45] (11.6,3.1) -- (12.6,5.3) -- (13.6,3.1) -- cycle;
+  \fill[rwugray!15] (12.35,4.75) -- (12.6,5.3) -- (12.85,4.75) -- cycle;
+  \node[lab] at (12.6,5.85) {\textbf{Berg Basisrate}: Prior $1:3$};
+  % Ziel: Burg
+  \fill[rwucyandark] (14.6,4.6) rectangle (15.8,5.4);
+  \foreach \x in {14.6,15.0,15.4} \fill[rwucyandark] (\x,5.4) rectangle (\x+0.2,5.6);
+  \fill[rwucyandark] (15.05,5.4) rectangle (15.35,6.0);
+  \draw[rwucyandark] (15.2,6.0) -- (15.2,6.3); \fill[rwuviolet] (15.2,6.3) -- (15.5,6.2) -- (15.2,6.1) -- cycle;
+  \node[lab] at (15.2,4.15) {\textbf{Burg}: geschärfte\\Hypothese};
+  % Startdorf
+  \foreach \x in {0.4,1.0,1.6} {\fill[rwuviolet!70] (\x,0.6) rectangle (\x+0.4,1.0);
+    \fill[rwuviolet] (\x-0.05,1.0) -- (\x+0.2,1.3) -- (\x+0.45,1.0) -- cycle;}
+  \node[lab] at (1.2,0.15) {\textbf{Dorf Vermutung}: \enquote{Trick hilft}};
+  % Hauptweg
+  \draw[rwuviolet,line width=1.4pt,dashed] plot[smooth,tension=0.7]
+    coordinates {(1.2,1.3) (2.3,2.2) (3.5,2.6) (5.0,3.4) (6.6,3.7) (8.2,3.1) (9.9,2.6)
+    (11.0,2.4) (12.0,3.4) (12.6,5.0) (13.6,5.2) (14.6,5.0)};
+  \node[lab,fill=rwuviolet!4] at (3.5,2.0) {\textbf{Furt}: zweiseitig\\testen};
+  \node[lab] at (7.8,2.3) {Idee $>$ Gegenteil\\$\mathit{BF}=7$};
+  % Sackgasse
+  \draw[rwuviolet,line width=1.2pt,dashed] (5.0,3.4) .. controls (5.6,2.6) .. (6.4,1.6);
+  \draw[rwuviolet,very thick] (6.25,1.45) -- (6.55,1.75) (6.25,1.75) -- (6.55,1.45);
+  \node[lab,below] at (6.4,1.35) {\textbf{Sackgasse}: Selbstauskunft\\\enquote{konzentriert}, 23 Tests};
+  % Pfad der kleinen Stichprobe
+  \draw[rwuviolet,thick,dotted] (12.0,3.4) .. controls (14.0,1.4) .. (15.0,4.5);
+  \node[lab] at (14.2,1.7) {\textbf{Umweg} um die kleine\\Stichprobe: Messwieder-\\holung, Bayes-Stoppregel};
+  % Terra incognita
+  \draw[rwugray,dashed] (1.5,4.8) ellipse (1.15 and 0.75);
+  \node[hint] at (1.5,4.8) {weißer Fleck:\\Wirkt es nach\\einer Woche noch?};
+  % Kompass
+  \draw[->,rwugray,thick] (0.1,2.3) -- (0.1,3.1); \node[hint] at (0.1,3.3) {N};
+\end{tikzpicture}}
+\end{center}
+\os{\newpage}
+
+\item[{\rot\bf Ihre eigene Karte: die Legende}]~\\[-\lblskip]
+\begin{center}
+\small
+\begin{tabular}{@{}p{0.26\textwidth}p{0.62\textwidth}@{}}
+\toprule
+\textbf{Kartenelement} & \textbf{bedeutet} \\
+\midrule
+Dorf (Start) & Ausgangsidee, so naiv, wie sie war \\
+Weg & ein geklärter Schritt, beschriftet mit Beleg oder Bayes-Faktor \\
+Fluss, Furt & das Gegenteil; die Furt ist der Ort, an dem es geprüft wurde \\
+Nebel & Befunde, die zu Idee \emph{und} Gegenteil passen ($\mathit{BF}\approx1$) \\
+Drache & offene dritte Erklärung (Störvariable) \\
+Brücke & Designentscheidung, die einen Drachen besiegt \\
+Berg & niedrige Basisrate: mehr Evidenz nötig \\
+Sackgasse & verworfene Idee, mit Grund \\
+weißer Fleck & was niemand weiß, auch Sie nicht \\
+Burg (Ziel) & geschärfte Hypothese oder Befund \\
+\bottomrule
+\end{tabular}
+\end{center}
+\bi
+  \ite Regel: \textbf{jedes} Element trägt eine Quelle oder eine Zahl
+  \ite Drachen, die am Ende noch stehen, gehören in die Limitationen
+\ei
+\os{\newpage}
+\end{description}
+
+\begin{merkbox}
+Eine Idee prüft man am besten gegen ihre stärkste Alternative. Der
+Diamant erzeugt Alternativen, die Tabelle \enquote{Welche Beobachtung
+trennt?} zeigt, welche Daten sich lohnen, und die Landkarte hält fest,
+was geklärt ist und was noch im Weg liegt.
+\end{merkbox}
+\os{\newpage}
+
+\begin{lehrhinweis}[Diamant und Landkarte in der Stunde]
+Den Diamanten am Zaubertrick-Beispiel gemeinsam füllen: vier Felder an
+der Tafel, Zurufe sammeln, dann erst die Folie zeigen. Erfahrungsgemäß
+formulieren Studierende das Gegenteil zunächst als bloße Verneinung
+(\enquote{Der Trick hilft nicht}); die Rückfrage \enquote{Und wenn er
+schadet, warum?} führt zur stärkeren Gegenhypothese. Das
+\emph{Weder-noch} ist der schwierigste Schritt; hilfreich ist die Frage
+\enquote{Was müsste passieren, damit Idee und Gegenteil \emph{beide}
+falsch sind?}. Für die Landkarte reicht in der Stunde das Zeigen des
+Beispiels; die eigene Karte entsteht als Hausaufgabe (Teil~B,
+Aufgabe~7) auf einem A3-Blatt und wird in LE~7 zur Design-Skizze
+mitgebracht. Wer mag, darf zeichnen; bewertet wird nicht die Grafik,
+sondern ob jedes Element einen Beleg trägt. Eine Grenze sollte man
+offen ansprechen: Der Diamant stammt aus dem Coaching, wo er
+Glaubenssätze lockern soll. In der Forschung ist er ein Werkzeug zum
+Erzeugen von Hypothesen, kein Beleg für irgendetwas.
+\end{lehrhinweis}
+
+%==============================================================================
+\section{Warnung: Bedeutung aus Zufall}
+%==============================================================================
+\nsl{Optional, wenn Zeit bleibt (sonst ausführlich in LE~10): eine kurze
+Demonstration, die zeigt, wie
+leicht ein \enquote{auffälliger} Befund entsteht, wenn man nur oft genug
+testet. Jede Person sagt zehn Münzwürfe ihres Nachbarn vorher. Wer acht
+oder mehr Treffer hat, gilt als \enquote{auffällig}: Die Wahrscheinlichkeit
+dafür beträgt bei reinem Raten $56/1024 \approx 5{,}5\,\%$, liegt also
+etwa an der üblichen Signifikanzschwelle. Bei 30 Personen ist die
+Wahrscheinlichkeit, dass mindestens eine Person \enquote{auffällig} wird,
+$1-(1-0{,}0547)^{30} \approx 81\,\%$; im Mittel sind es 1,6 Personen.
+Wird jemand \enquote{hellsichtig}, ist die Demonstration gelungen. Wird
+niemand hellsichtig, gelingt sie auch, weil man dann ausrechnet, wie
+selten das ist. Die ausführliche Fassung mit dem Vorhersage-Trick aus dem
+Buch (Abschnitt~10d) folgt in LE~10. Dass solche Freiheiten in echten
+Studien die Fehlerquote weit über die nominellen 5\,\% treiben, haben
+\textcite{simmons2011falsepositive} gezeigt.}
+\begin{description}
+\item[{\rot\bf Wer von Ihnen ist hellsichtig?}]~\\[-\lblskip]
+\bi
+  \ite sagen Sie zehn Münzwürfe Ihres Nachbarn vorher, notieren Sie die
+    Treffer
+  \ite 8 oder mehr Treffer gelten als \enquote{auffällig} (bei Raten:
+    5,5\,\%)
+  \ite wer hat 8 oder mehr?
+  \ite bei 30 Personen gibt es mit etwa 81\,\% mindestens eine
+    \enquote{Hellseherin}
+\ei
+\os{\newpage}
+
+\item[{\rot\bf Was ist hier passiert?}]~\\[-\lblskip]
+\bi
+  \ite viele Tests: Ein \enquote{Treffer} ist fast garantiert
+  \ite wer nur den Treffer berichtet, macht aus Zufall einen Befund
+  \ite das ist der Kern von \textbf{p-Hacking}
+  \ite Gegenprobe: Die \enquote{Hellseherin} sagt noch einmal zehn Würfe
+    vorher
+  \ite mehr dazu in LE~10: der Vorhersage-Trick
+\ei
+\nsl{Die Gegenprobe ist die eigentliche Pointe und sollte nach
+Möglichkeit live gemacht werden. Die \enquote{auffällige} Person rät beim
+zweiten Durchgang mit hoher Wahrscheinlichkeit nur noch durchschnittlich.
+Das ist Regression zur Mitte und zugleich die Logik der Replikation.}
+\os{\newpage}
+\end{description}
+
+\begin{merkbox}
+Ein kleiner p-Wert sagt, dass die Daten schlecht zur Nullhypothese
+passen. Er sagt nicht, dass die eigene Hypothese stimmt, nicht, wie groß
+der Effekt ist, und gar nichts mehr, wenn man ihn unter vielen Versuchen
+ausgesucht hat.
+\end{merkbox}
+\os{\newpage}
+
+%==============================================================================
+\section{Übungen zum Weiterrechnen}
 %==============================================================================
 \begin{description}
-\item[{\rot\bf Teil 1: Ein Design analysieren (Zweiergruppen, 15 Min.)}]~\\[-\lblskip]
+\item[{\rot\bf Datensatz-Analyse (Hausaufgabe, Kleingruppen)}]~\\[-\lblskip]
 \bi
-  \ite Übungsblatt Teil~A, Aufgabe~1: die (fiktive) Lern-App-Studie
-  \ite Was sind UV und AV? Welcher Designtyp?
-  \ite Gibt es eine Kontrollgruppe -- und taugt sie?
-  \ite Welche Konfounder sehen Sie? Welche Bedrohungen der internen
-    Validität?
-  \ite Wie müsste das Design aussehen, damit die Schlussfolgerung trägt?
+  \ite Datensatz auf dem Übungsblatt Teil~A: Pendelausschlag von 50 Personen
+    (fiktiv)
+  \ite welches Skalenniveau hat jede Variable?
+  \ite Median, Quartile, Mittelwert, Spannweite bestimmen
+  \ite Histogramm und Boxplot zeichnen: Gibt es Ausreißer?
+  \ite unterscheiden sich Personen mit und ohne Vorwissen? $t$-Test
+    \emph{und} Bayes-Faktor
 \ei
 \os{\newpage}
 
-\item[{\rot\bf Teil 2: Ihr eigenes Design (Einzelarbeit, 15 Min.)}]~\\[-\lblskip]
+\item[{\rot\bf Zeitungsstatistik lesen}]~\\[-\lblskip]
 \bi
-  \ite Ausgangspunkt: Ihre H\textsubscript{1} aus LE~5
-  \ite Übungsblatt Teil~A, Aufgabe~2: Design-Skizze ausfüllen
-  \ite Messgüte-Check: objektiv? reliabel? valide? blind? parallel
-    gemessen?
-  \ite Welche Bedrohung der internen Validität bleibt -- und warum
-    nehmen Sie sie in Kauf?
-\ei
-\os{\newpage}
-
-\item[{\rot\bf Peer-Feedback (Zweiergruppen, 10 Min.)}]~\\[-\lblskip]
-\bi
-  \ite stellen Sie Ihr Design in drei Minuten vor
-  \ite die Partnerin sucht \emph{eine} Alternativerklärung, die Ihr
-    Design nicht ausschließt
-  \ite gemeinsam: Welche Änderung würde sie ausschließen?
+  \ite Übungsblatt Teil~B, Aufgabe~6, oder eine aktuelle Meldung
+  \ite Was wurde gemessen, an wem, an wie vielen?
+  \ite Was wird behauptet: Beschreibung, Unterschied, Ursache?
+  \ite Wird eine Effektgröße genannt oder nur \enquote{signifikant}?
+  \ite Wie viele Vergleiche wurden vermutlich gerechnet?
+  \ite Wie hoch ist die Basisrate für eine solche Behauptung?
 \ei
 \os{\newpage}
 \end{description}
 
 \begin{lehrhinweis}
-Bei der Analyse der fiktiven Studie finden die meisten Gruppen die
-Selbstselektion schnell. Lohnend ist es, nach den weniger offensichtlichen
-Konfoundern zu fragen: das Tutorium, das nur die App-Gruppe besucht hat,
-und die nicht blinde Korrektur durch den App-Entwickler. Bei den eigenen
-Designs ist der häufigste Fehler eine Kontrollgruppe, die sich in mehr als
-einer Hinsicht von der Experimentalgruppe unterscheidet; hier hilft die
-Frage \enquote{Was genau ist bei der Kontrollgruppe anders, und ist das
-\emph{nur} Ihre UV?}. Wer ein nicht-experimentelles Design wählt, muss das
-nicht ändern, sollte aber in der Begründung zeigen, dass ihm die Grenzen
-der Kausalaussage klar sind. Statt der fiktiven Studie kann auch der
-Methodenteil eines echten Artikels analysiert werden; als realer Fall aus
-dem Buch eignet sich die Feldstudie aus \buch{Kap.~12f}, die ihre
-Abweichungen vom Idealentwurf selbst offenlegt.
+Die vollständig nachgerechneten Lösungen stehen im Erwartungshorizont am
+Ende von Teil~B des Übungsblatts. Bei der Datensatz-Analyse sollte man in
+der Besprechung (zu Beginn von LE~7 oder in der Sprechstunde) drei Stellen
+gezielt aufgreifen:
+(1)~Quartile hängen vom Berechnungsverfahren ab; Taschenrechner,
+Tabellenkalkulation und Handrechnung liefern leicht verschiedene Werte.
+Das ist kein Fehler, muss aber angegeben werden. (2)~Der Vergleich der
+Vorwissensgruppen kippt je nach Kennwert: Der Mittelwert spricht für einen
+Unterschied, der Median nicht. Ursache sind der Ausreißer und die größere
+Streuung in der Gruppe ohne Vorwissen. Der $t$-Test ist nicht
+signifikant, der Bayes-Faktor spricht leicht für \enquote{kein
+Unterschied}, ist aber zu klein, um das zu belegen. (3)~Die Staunen-Werte
+sind ordinal; ein Mittelwert wird oft trotzdem berechnet. Bei der
+Zeitungsstatistik genügt es, wenn die Gruppe mindestens zwei der Fragen
+auf der Folie beantworten kann und benennt, welche Information fehlt.
 \end{lehrhinweis}
 
 %==============================================================================
@@ -674,26 +1703,33 @@ Abweichungen vom Idealentwurf selbst offenlegt.
 \begin{description}
 \item[{\rot\bf Nach dieser Einheit können Sie}]~\\[-\lblskip]
 \bi
-  \ite UV, AV und Störvariablen in einem Design benennen
-  \ite experimentelle, quasi-experimentelle und nicht-experimentelle
-    Designs unterscheiden
-  \ite Bedrohungen der internen Validität erkennen und Gegenmittel
-    benennen
-  \ite Objektivität, Reliabilität und Validität einer Messung prüfen
-  \ite ein angemessenes Design für Ihre Fragestellung auswählen und
-    begründen
+  \ite das Monty-Hall-Problem mit bedingter Wahrscheinlichkeit erklären
+  \ite deskriptive und schließende Statistik unterscheiden
+  \ite einen Binomialtest und einen $t$-Test von Hand rechnen und
+    typische Fehldeutungen des p-Werts benennen
+  \ite mit Basisrate und Bayes-Faktor in Chancenform rechnen und
+    erklären, warum derselbe Befund je nach Basisrate Verschiedenes
+    bedeutet
+  \ite frequentistische und bayesianische Fragen unterscheiden
+  \ite Effektgröße, Power und Stichprobengröße in Beziehung setzen und
+    abschätzen, welche Frage Ihr Projekt beantworten kann
+  \ite eine Idee mit dem Diamanten in Gegenhypothesen zerlegen und die
+    Beobachtungen benennen, die zwischen ihnen trennen
 \ei
 \os{\newpage}
 
 \item[{\rot\bf Bis zur nächsten Woche}]~\\[-\lblskip]
 \bi
-  \ite \textbf{Fallstudie} (Aufgabe~1) fertigstellen
-  \ite \textbf{Design-Skizze} (Aufgabe~2): Design für Ihre eigene
-    Hypothese, Begründung auf höchstens einer Seite -- benotete
-    Teilleistung
-  \ite Feedback Ihrer Partnerin einarbeiten
-  \ite \textbf{Tagebuch des Staunens:} eine Behauptung aus Werbung oder
-    Nachrichten, der ein Vergleich fehlt
+  \ite \textbf{Datensatz-Analyse} (Übungsblatt Teil~A, Aufgabe~3)
+  \ite \textbf{Basisrate} (Teil~B, Aufgabe~4): Taxi und Test
+  \ite \textbf{Zeitungsmeldung} methodisch lesen (Teil~B, Aufgabe~6)
+  \ite \textbf{Diamant und Landkarte} für Ihre eigene Idee (Teil~B,
+    Aufgabe~7), auf A3, mitbringen zu LE~7
+  \ite \textbf{Auswertungsplan} für Ihr Projekt (Teil~B, Aufgabe~8):
+    Zielgröße, kleinster interessanter Effekt, realistisches $n$, Power
+    -- Sie brauchen ihn für die Design-Skizze in LE~7
+  \ite \textbf{Tagebuch des Staunens}: Wann hat Ihr Gefühl für
+    Wahrscheinlichkeit Sie zuletzt getäuscht?
 \ei
 \os{\newpage}
 \end{description}

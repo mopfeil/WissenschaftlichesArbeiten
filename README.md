@@ -45,9 +45,9 @@ der Woche vorwegnimmt.
 | 3  | Literaturrecherche                 | Kruskal Count                      | Suchstrategie               |
 | 4  | Quellenkritik                      | Apophenie / Das letzte Abendmahl   | Apophenie / Bias            |
 | 5  | Hypothesen und Falsifizierbarkeit  | Switchboard / Black Box            | Falsifikation               |
-| 6  | Forschungsdesign                   | Kontrollierte Seilroutine          | Experimentelle Kontrolle    |
-| 7  | Kognitive Verzerrungen             | Charpentier-Illusion               | Confirmation Bias           |
-| 8  | Quantitative Methoden              | Chop Cup / Monty Hall              | Bedingte Wahrscheinlichkeit |
+| 6  | Statistik: Signifikanztest und Bayes | Monty Hall / Gezinkte Würfel     | Basisrate und Bayes-Faktor  |
+| 7  | Forschungsdesign                   | Kontrollierte Seilroutine          | Experimentelle Kontrolle    |
+| 8  | Kognitive Verzerrungen             | Charpentier-Illusion               | Confirmation Bias           |
 | 9  | Qualitative Methoden               | Das Patter                         | Intersubjektivität          |
 | 10 | Datenanalyse und Interpretation    | Die unveränderliche Summe          | Determinismus               |
 | 11 | Wissenschaftliches Schreiben       | Patter-Umbau in Fachsprache        | Präzision und Struktur      |

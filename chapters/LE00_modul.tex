@@ -116,7 +116,7 @@ Einstieg: Er erzeugt einen Prediction Error, also eine Abweichung zwischen
 Erwartung und Erleben, die das Gehirn auflösen will \parencite{clark2016}.
 Die Staun-Interventionen sind so gewählt, dass sie das Methodenthema
 inhaltlich vorwegnehmen. Das Pendel in LE~1 zeigt, dass Wahrnehmung
-Konstruktion ist; die Becher in LE~8 zeigen, dass das Sichtbare und der
+Konstruktion ist; die Becher in LE~6 zeigen, dass das Sichtbare und der
 Prozess dahinter auseinanderfallen können.}
 \begin{description}
 \item[{\rot\bf Jede Woche dasselbe Muster}]~\\[-\lblskip]
@@ -169,9 +169,9 @@ deshalb so oft geübt haben, dass es sicher sitzt.}
 3  & Literaturrecherche                & Kruskal Count                         & Suchstrategie \\
 4  & Quellenkritik                     & Apophenie / Das letzte Abendmahl      & Apophenie / Bias \\
 5  & Hypothesen und Falsifizierbarkeit & Switchboard / Black Box               & Falsifikation \\
-6  & Forschungsdesign                  & Kontrollierte Seilroutine             & Experimentelle Kontrolle \\
-7  & Kognitive Verzerrungen            & Charpentier-Illusion                  & Confirmation Bias \\
-8  & Quantitative Methoden             & Chop Cup / Monty Hall                 & Bedingte Wahrscheinlichkeit \\
+6  & Statistik: Signifikanztest und Bayes & Monty Hall / Gezinkte Würfel     & Basisrate und Bayes-Faktor \\
+7  & Forschungsdesign                  & Kontrollierte Seilroutine             & Experimentelle Kontrolle \\
+8  & Kognitive Verzerrungen            & Charpentier-Illusion                  & Confirmation Bias \\
 9  & Qualitative Methoden              & Das Patter                            & Intersubjektivität \\
 10 & Datenanalyse und Interpretation   & Die unveränderliche Summe             & Determinismus \\
 11 & Wissenschaftliches Schreiben      & Patter-Umbau in Fachsprache           & Präzision und Struktur \\
@@ -203,12 +203,13 @@ Grafik zeigt, in welcher Einheit welcher Baustein entsteht.}
   \node[st] (a) at (0,0)    {LE 2\\Forschungsfrage};
   \node[ab] (b) at (3,0)    {LE 3\\Recherche-\\protokoll};
   \node[st] (c) at (6,0)    {LE 5\\Hypothesen};
-  \node[ab] (d) at (9,0)    {LE 6\\Design-Skizze};
-  \node[st] (e) at (12,0)   {LE 8--10\\Daten und\\Auswertung};
-  \node[ab] (f) at (15,0)   {LE 12\\Präsentation};
-  \node[ab,draw=rwuviolet,fill=rwuviolet!25] (g) at (18,0) {Semester-\\ende\\Seminararbeit};
-  \foreach \x/\y in {a/b,b/c,c/d,d/e,e/f,f/g} \draw[->,thick] (\x) -- (\y);
-  \node[font=\sffamily\footnotesize,text=rwugray] at (9,-1.4) {cyan: Teilleistung im Portfolio \quad violett: Arbeitsschritt im Projekt};
+  \node[st] (h) at (9,0)    {LE 6\\Auswertungs-\\plan};
+  \node[ab] (d) at (12,0)   {LE 7\\Design-Skizze};
+  \node[st] (e) at (15,0)   {LE 9--10\\Daten und\\Auswertung};
+  \node[ab] (f) at (18,0)   {LE 12\\Präsentation};
+  \node[ab,draw=rwuviolet,fill=rwuviolet!25] (g) at (21,0) {Semester-\\ende\\Seminararbeit};
+  \foreach \x/\y in {a/b,b/c,c/h,h/d,d/e,e/f,f/g} \draw[->,thick] (\x) -- (\y);
+  \node[font=\sffamily\footnotesize,text=rwugray] at (10.5,-1.4) {cyan: Teilleistung im Portfolio \quad violett: Arbeitsschritt im Projekt};
 \end{tikzpicture}}
 \end{center}
 \os{\newpage}
@@ -223,7 +224,7 @@ Grafik zeigt, in welcher Einheit welcher Baustein entsteht.}
 \midrule
 Tagebuch des Staunens & Semesterende & Reflexionsheft, 13 Einträge & 20\,\% \\
 Rechercheprotokoll & LE~3 & dokumentierte Recherche mit Quellenliste & 10\,\% \\
-Forschungsdesign-Skizze & LE~6 & 1--2 Seiten, begründetes Studiendesign & 10\,\% \\
+Forschungsdesign-Skizze & LE~7 & 1--2 Seiten, begründetes Studiendesign & 10\,\% \\
 5-Minuten-Präsentation & LE~12 & Zwischenbericht zum Semesterprojekt & 15\,\% \\
 Seminararbeit & Semesterende & 12--15 Seiten, vollständiger Forschungsbericht & 45\,\% \\
 \bottomrule
