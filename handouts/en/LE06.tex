@@ -1,0 +1,363 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Englische Fassung des Uebungsblatts zu Lehreinheit 6 (Teil A und B).
+% Vorlage: handouts/LE06.tex. Nur in handouts.tex mit \def\wuzsprache{en}.
+% Datensatz (Task 3) identisch mit der deutschen Fassung; Spalten
+% umbenannt: St -> W (wonder), VW -> PK (prior knowledge).
+% Da es kein englisches Handout gibt, steht die Faustformel fuer den
+% Bayes-Faktor direkt in Task 3.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{uebungsblatt}{Cups, Dice and Data}
+
+\aufgabe{Monty Hall in pairs}[in class, pairs, 10 min.]
+The host secretly rolls a die to place the ball (1--2: A, 3--4: B,
+5--6: C), the player points at a cup, and the host lifts an \emph{empty}
+cup that was not chosen. Odd rounds: stay; even rounds: switch. Tick
+whether the round was won.
+
+\begin{center}
+\small
+\renewcommand{\arraystretch}{1.25}
+\begin{tabular}{|c|c|c|c||c|c|c|c|}
+\hline
+\textbf{Rd.} & \textbf{Strategy} & \textbf{Ball} & \textbf{won} &
+\textbf{Rd.} & \textbf{Strategy} & \textbf{Ball} & \textbf{won} \\ \hline
+1 & stay & & & 13 & stay & & \\ \hline
+2 & switch & & & 14 & switch & & \\ \hline
+3 & stay & & & 15 & stay & & \\ \hline
+4 & switch & & & 16 & switch & & \\ \hline
+5 & stay & & & 17 & stay & & \\ \hline
+6 & switch & & & 18 & switch & & \\ \hline
+7 & stay & & & 19 & stay & & \\ \hline
+8 & switch & & & 20 & switch & & \\ \hline
+9 & stay & & & 21 & stay & & \\ \hline
+10 & switch & & & 22 & switch & & \\ \hline
+11 & stay & & & 23 & stay & & \\ \hline
+12 & switch & & & 24 & switch & & \\ \hline
+\end{tabular}
+\end{center}
+Total: \textbf{stay} won \rule{12mm}{0.3pt} of \rule{12mm}{0.3pt}
+\qquad \textbf{switch} won \rule{12mm}{0.3pt} of \rule{12mm}{0.3pt}
+\qquad whole class (board): \rule{25mm}{0.3pt}
+
+\aufgabe{Dice detectives}[in class, pairs, 10 min.]
+The roller opens the envelope and reads the card \emph{privately}:
+\enquote{fair} (only a 6 counts as a hit) or \enquote{loaded} (5 and 6
+count as hits). The roller throws the die 30 times, hidden under a cup,
+and only says \enquote{hit} or \enquote{no hit}. The detective keeps the
+tally. Known in advance: one envelope in five is loaded.
+
+\begin{center}
+\renewcommand{\arraystretch}{1.6}
+\begin{tabular}{|p{0.3\textwidth}|p{0.55\textwidth}|}
+\hline
+Hit (tally) & \\ \hline
+No hit (tally) & \\ \hline
+\end{tabular}
+\end{center}
+
+\begin{center}
+\footnotesize
+\setlength{\tabcolsep}{3.5pt}
+\begin{tabular}{@{}l*{12}{c}@{}}
+\toprule
+Hits $k$ & 3 & 4 & 5 & 6 & 7 & 8 & 9 & 10 & 11 & 12 & 13 & 14 \\
+\midrule
+$p=P(X\geq k\mid\text{fair})$ & 0.90 & 0.76 & 0.58 & 0.38 & 0.22 & 0.11 & 0.051 & 0.020 & 0.007 & 0.002 & 0.0005 & 0.0001 \\
+$\mathit{BF}_{10}=2^k\cdot0.8^{30-k}$ & 0.02 & 0.05 & 0.12 & 0.30 & 0.76 & 1.9 & 4.7 & 11.8 & 30 & 74 & 184 & 461 \\
+$P(\text{loaded})$ at $1:4$ & 0.5\,\% & 1\,\% & 3\,\% & 7\,\% & 16\,\% & 32\,\% & 54\,\% & 75\,\% & 88\,\% & 95\,\% & 98\,\% & 99\,\% \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\begin{enumerate}
+  \item \textbf{Frequentist:} $H_0$: fair. p-value for your $k$:
+    \rule{20mm}{0.3pt}. At $\alpha=0.05$ the die is
+    $\square$ significantly loaded \quad $\square$ not significant.
+  \item \textbf{Bayesian:} $\mathit{BF}_{10}$ = \rule{18mm}{0.3pt};
+    prior odds $1:4$, posterior odds \rule{18mm}{0.3pt};\\
+    $P(\text{loaded})$ = \rule{18mm}{0.3pt}. Do the calculation once
+    yourself, without the last row of the table.
+  \item Open the envelope. Who was right? Enter your pair in the
+    two-by-two table on the board.
+  \item What would your Bayesian verdict be if only one die in 100 were
+    loaded? And your test verdict?
+\end{enumerate}
+\schreiblinien{2}
+
+\aufgabe{Analysing a data set}[homework, small groups]
+\textbf{Fictitious data set} (constructed for this exercise, not a real
+survey): 50 people held an ideomotor pendulum (cf.\ Unit~1). The largest
+swing was measured in millimetres (\textbf{mm}); afterwards the people
+rated how amazed they were (\textbf{W} for wonder, 1 = not at all to
+5 = very much) and stated whether they had known the pendulum effect
+before (\textbf{PK} for prior knowledge, 1 = yes, 0 = no).
+
+\begin{center}
+\footnotesize
+\setlength{\tabcolsep}{3.2pt}
+\begin{tabular}{@{}rrrr@{\hspace{9pt}}rrrr@{\hspace{9pt}}rrrr@{\hspace{9pt}}rrrr@{\hspace{9pt}}rrrr@{}}
+\toprule
+\textbf{No} & \textbf{mm} & \textbf{W} & \textbf{PK} &
+\textbf{No} & \textbf{mm} & \textbf{W} & \textbf{PK} &
+\textbf{No} & \textbf{mm} & \textbf{W} & \textbf{PK} &
+\textbf{No} & \textbf{mm} & \textbf{W} & \textbf{PK} &
+\textbf{No} & \textbf{mm} & \textbf{W} & \textbf{PK} \\
+\midrule
+ 1 & 11 & 3 & 0 & 11 &  9 & 3 & 0 & 21 & 10 & 2 & 1 & 31 & 43 & 3 & 1 & 41 & 47 & 4 & 0 \\
+ 2 &  5 & 2 & 0 & 12 & 24 & 2 & 0 & 22 & 26 & 4 & 1 & 32 & 57 & 4 & 0 & 42 & 59 & 3 & 0 \\
+ 3 & 15 & 3 & 1 & 13 & 24 & 4 & 1 & 23 & 39 & 4 & 0 & 33 & 21 & 3 & 0 & 43 & 26 & 3 & 0 \\
+ 4 & 41 & 4 & 1 & 14 &  8 & 2 & 0 & 24 & 15 & 4 & 0 & 34 & 96 & 5 & 0 & 44 & 31 & 4 & 1 \\
+ 5 & 37 & 3 & 0 & 15 & 16 & 2 & 1 & 25 & 13 & 3 & 0 & 35 & 49 & 4 & 0 & 45 & 23 & 2 & 0 \\
+ 6 & 39 & 5 & 0 & 16 & 25 & 4 & 0 & 26 & 13 & 3 & 0 & 36 & 30 & 4 & 0 & 46 & 20 & 3 & 1 \\
+ 7 & 18 & 3 & 0 & 17 & 19 & 5 & 0 & 27 & 66 & 5 & 0 & 37 & 23 & 4 & 0 & 47 & 12 & 1 & 1 \\
+ 8 &  0 & 1 & 0 & 18 & 53 & 4 & 1 & 28 & 35 & 3 & 1 & 38 & 53 & 4 & 0 & 48 & 36 & 4 & 1 \\
+ 9 & 16 & 2 & 1 & 19 &  5 & 2 & 1 & 29 & 38 & 5 & 0 & 39 & 18 & 2 & 0 & 49 & 18 & 3 & 0 \\
+10 & 31 & 4 & 1 & 20 & 45 & 5 & 0 & 30 & 26 & 3 & 1 & 40 & 73 & 5 & 0 & 50 & 40 & 4 & 0 \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\begin{enumerate}
+  \item State the level of measurement of each variable.
+  \item For \textbf{mm}, compute the minimum, maximum, range, median,
+    $Q_1$, $Q_3$, $\mathit{IQR}$ and mean. State how you determined the
+    quartiles.
+  \item Draw a histogram (bin width 10\,mm) and a box plot. Are there
+    outliers according to the $1.5\cdot\mathit{IQR}$ rule (values more
+    than $1.5\cdot\mathit{IQR}$ below $Q_1$ or above $Q_3$)? What would you
+    do with them?
+  \item Compute the mean and median of \textbf{mm} without the outlier.
+    Which statistic reacts more strongly, and why?
+  \item Summarise \textbf{W} in a sensible way. Is a mean admissible?
+  \item Compare \textbf{mm} between people with and without prior
+    knowledge, using the mean \emph{and} the median. What do you notice?
+  \item For the same comparison, compute a $t$-test with the pooled
+    standard deviation and the Bayes factor from the rule of thumb
+    \parencite{wagenmakers2007practical}, where $N$ is the total number of
+    people:
+    \[t=\frac{\bar{x}_1-\bar{x}_2}{s_p\sqrt{1/n_1+1/n_2}},\quad
+      \mathit{df}=n_1+n_2-2,\qquad
+      \mathit{BF}_{01}\approx\sqrt{N}\,\Bigl(1+\frac{t^2}{\mathit{df}}\Bigr)^{-N/2}\] What do the two results say, and what do they not say?
+\end{enumerate}
+\schreiblinien{6}
+\end{uebungsblatt}
+
+\begin{uebungsblattb}{4}{Base Rates, Credibility, Your Project}
+
+\aufgabe{Base rate: the taxi and the witness}[homework]
+In a city, 85\,\% of taxis are green and 15\,\% are blue. After a
+hit-and-run accident, a witness says the taxi was blue. Tests show that
+under the visibility conditions of that night he identifies the colour
+correctly in 80\,\% of cases \parencite{tversky1982evidential}.
+\begin{enumerate}
+  \item First, a gut estimate: how likely was the taxi blue?
+  \item Calculate with natural frequencies (100 accidents) and draw the
+    tree as on the slide about the medical test.
+  \item Do the same calculation in odds form: prior odds, the witness's
+    Bayes factor, posterior odds.
+  \item A second, independent witness with the same accuracy also says
+    \enquote{blue}. How likely is it now?
+  \item In another city, half of the taxis are blue. With one witness,
+    what changes and what does not?
+\end{enumerate}
+\schreiblinien{5}
+
+\aufgabe{Credibility check with a search engine}[in class, small groups, 12 min.]
+Claim (card): \rule{0.7\textwidth}{0.3pt}
+
+Base rate \emph{before} searching: of 100 claims of this kind, about
+\rule{12mm}{0.3pt} are true, because\\ \rule{\textwidth}{0.3pt}
+
+\begin{center}
+\small
+\renewcommand{\arraystretch}{1.7}
+\begin{tabular}{|p{0.38\textwidth}|p{0.3\textwidth}|c|c|}
+\hline
+\textbf{Finding} (source, what does it say?) & \textbf{expected if true? if false?} & \textbf{Factor} & \textbf{Odds} \\ \hline
+Start: base rate & & -- & \hspace{12mm} \\ \hline
+ & & & \\ \hline
+ & & & \\ \hline
+ & & & \\ \hline
+ & & & \\ \hline
+\end{tabular}
+\end{center}
+Rough factors: $\times10$, $\times3$, $\times1$, $\times\tfrac13$,
+$\times\tfrac1{10}$. Only multiply independent findings; ten sites
+copying the same press release are \emph{one} finding.
+Result: $P(\text{true})\approx$ \rule{15mm}{0.3pt}. Which finding moved
+you the most?
+\schreiblinien{2}
+
+\aufgabe{Reading a news report}[homework]
+\textbf{Fictitious report} (written for this exercise):
+
+\begin{quote}\small
+\emph{Magic tricks make you smarter -- now proven.} People who watch a
+magic trick before studying remember more. This is shown by an online
+survey of 112 students. The researchers recorded 23 aspects of learning
+behaviour. On the item \enquote{I was able to concentrate well}, the group
+that saw a magic trick came out significantly ahead ($p = 0.04$).
+\enquote{This scientifically proves the value of magic in the lecture
+hall}, says the head of the study.
+\end{quote}
+Answer: What was measured, and in whom? What is claimed? Is an effect
+size reported? How many comparisons were made, and what does that mean
+for the one significant result? What base rate would you assign to the
+claim? If you like, apply the same questions to a real article that
+presents a study with $p<0.05$ as \enquote{proof}.
+\schreiblinien{4}
+
+\aufgabe{Diamond and map for your idea}[homework, A3, bring to Unit~7]
+Take your hypothesis from Unit~5 as the \emph{idea} and fill in the
+diamond. At each position, note which observation it \emph{allows} and
+which it \emph{rules out}.
+
+\begin{center}
+\begin{tikzpicture}[font=\sffamily\footnotesize,
+  dia/.style={draw=rwuviolet,thick,rounded corners=2pt,
+    text width=52mm,minimum height=24mm,align=left,anchor=center}]
+  \node[dia] (a) at (-4.4,0) {\textbf{Idea}\\[18mm]};
+  \node[dia] (b) at (4.4,0) {\textbf{Opposite}\\[18mm]};
+  \node[dia] (c) at (0,3.0) {\textbf{Both}\\[18mm]};
+  \node[dia] (d) at (0,-3.0) {\textbf{Neither}\\[18mm]};
+  \draw[rwuviolet,thick] (a) -- (c) -- (b) -- (d) -- (a);
+\end{tikzpicture}
+\end{center}
+\begin{enumerate}
+  \item Which observation separates the idea from its opposite? Which
+    separates the idea from the \enquote{neither} position? Roughly
+    estimate how likely the observation is under each position and
+    compute the Bayes factor.
+  \item Write down the new, sharpened statement.
+  \item On an A3 sheet, draw the map of your study (legend on the slide):
+    starting village, paths, fog, dragons, bridges, dead ends, blank
+    spots, destination. Every element carries a source or a number.
+\end{enumerate}
+\schreiblinien{3}
+
+\aufgabe{Analysis plan for your project}[homework, basis for the design sketch in Unit~7]
+\begin{center}
+\renewcommand{\arraystretch}{1.5}
+\begin{tabular}{|p{0.38\textwidth}|p{0.52\textwidth}|}
+\hline
+H\textsubscript{1} (from Unit~5) & \\[6mm] \hline
+Outcome variable and level of measurement & \\ \hline
+Comparison: two groups, repeated measures or proportions? & \\ \hline
+Smallest effect that would interest you & \\ \hline
+Realistic $n$ (who, how many?) & \\ \hline
+Power according to the table on the slide & \\ \hline
+Analysis: test, estimate with interval, or Bayes factor with stopping rule? & \\ \hline
+Base rate of your hypothesis: how surprising would it be if it were true? & \\ \hline
+Conclusion: does the question fit the $n$, or will you change the question or the design? & \\[6mm] \hline
+\end{tabular}
+\end{center}
+
+\aufgabe{Diary of wonder}[homework]
+When did your sense of probability last deceive you? Write down what you
+expected, what happened, and the matching concept from this unit.
+
+\begin{lehrhinweis}[Expected answers]
+\textbf{Task~1.} Per pair, roughly 8 of 12 wins are expected when
+switching and 4 of 12 when staying. Individual pairs vary a lot (the
+standard deviation of the number of wins in 12 switch rounds is about
+1.6); some pairs even find the opposite. Only the class pool shows the
+pattern reliably. This is the starting point for talking about sample
+size.
+
+\textbf{Task~2.} Table values computed exactly with $B(30,\tfrac16)$ and
+$B(30,\tfrac13)$. A die is significant ($\alpha=0.05$, one-sided) from
+10 hits on. A fair die gets there with 2.0\,\%, a loaded one with
+57\,\%. The Bayesian rule \enquote{loaded if $P(\text{loaded})>50\,\%$}
+applies at base rate $1:4$ from 9 hits on (fair: 5.1\,\%, loaded:
+71\,\%). Check for $k=10$: $2^{10}=1024$, $0.8^{20}=0.0115$,
+$\mathit{BF}_{10}=11.8$; odds $11.8:4$, i.e.\ $11.8/15.8=75\,\%$.
+(4)~At base rate $1:99$ and $k=10$: $11.8:99$, i.e.\ 11\,\%. Despite
+being \enquote{significant}, the die is then probably fair; the test
+verdict does not change because the test does not know the base rate.
+With 15 pairs the two-by-two table varies a lot; expected are 0--1 false
+alarms and 1--2 of 3 loaded dice detected.
+
+\textbf{Task~3} (values checked with Python).
+(1)~No: nominal (identifier); mm: ratio scale; W: ordinal; PK: nominal
+(dichotomous).
+(2)~$n=50$; minimum 0, maximum 96, range 96\,mm; median 25.5\,mm; mean
+29.94\,mm; standard deviation $s=19.32$\,mm. Quartiles as the median of
+the lower and upper half: $Q_1=16$, $Q_3=40$, $\mathit{IQR}=24$. With
+linear interpolation (e.g.\ Excel \texttt{QUARTILE.INC}) one gets
+$Q_3=39.75$ and $\mathit{IQR}=23.75$; both are correct if the method is
+stated. Mode: 18 and 26 (three times each).
+(3)~Bin frequencies 0--9: 5; 10--19: 13; 20--29: 10; 30--39: 9; 40--49: 6;
+50--59: 4; 60--69: 1; 70--79: 1; 80--89: 0; 90--99: 1. The distribution
+is right-skewed. Fences: $16-36=-20$ and $40+36=76$. The only outlier is
+no.~34 with 96\,mm; 73\,mm (no.~40) lies just inside. With interpolation
+the fences are $-19.6$ and $75.4$; same result. Good answers do not
+silently delete the value but check it (measurement error? someone swung
+on purpose?) and report both analyses.
+(4)~Without no.~34: mean 28.59\,mm, median 25.0\,mm, $s=16.98$\,mm. The
+mean drops by 1.35\,mm, the median by 0.5\,mm, the standard deviation by
+2.3\,mm.
+(5)~Frequencies of W: 1: 2; 2: 9; 3: 15; 4: 17; 5: 7. Median 3, mode 4.
+Strictly speaking a mean (3.36) is not admissible because the distances
+between the levels are unknown; anyone who reports it should justify it.
+Optional: Spearman's rank correlation between mm and W is $\rho=0.71$.
+(6)~With prior knowledge ($n=17$): mean 25.88\,mm, median 26\,mm,
+$s=13.06$. Without prior knowledge ($n=33$): mean 32.03\,mm, median
+25\,mm, $s=21.75$. The mean suggests a difference of just over 6\,mm,
+the median almost none; the group without prior knowledge varies more
+and contains the two largest values (73 and 96\,mm). Expected answer:
+these data show no robust group difference, and the choice of statistic
+determines the story one could tell.
+(7)~Pooled standard deviation $s_p=19.3$\,mm,
+$\mathit{SE}=s_p\sqrt{1/33+1/17}=5.76$\,mm,
+$t=(32.03-25.88)/5.76=1.07$, $\mathit{df}=48$, $p=0.29$; $d=0.32$.
+Welch test: $t=1.25$, $p=0.22$. Rule of thumb:
+$\mathit{BF}_{01}\approx\sqrt{50}\,(1+1.14/48)^{-25}\approx7.07\cdot0.56\approx3.9$;
+JASP (JZS, $r=\sqrt2/2$) gives $\mathit{BF}_{01}=2.1$. Expected
+interpretation: no significant difference; the data lean slightly
+towards \enquote{no difference} but do not establish it. The outlier
+(no.~34) drives the difference in means; the $t$-test compares means and
+inherits this sensitivity.
+
+\textbf{Task~4.} (1)~Most people say 80\,\%. (2)~Of 100 accidents, 15
+involve blue taxis, of which the witness identifies 12 as blue; of the 85
+green ones he calls 17 blue.
+$P(\text{blue}\mid\text{\enquote{blue}})=12/29\approx41\,\%$. (3)~Prior
+odds $15:85$, $\mathit{BF}=0.8/0.2=4$, posterior $60:85$, i.e.\ 41\,\%.
+(4)~$60:85\times4=240:85$, i.e.\ 74\,\%. (5)~Prior $1:1$, posterior
+$4:1$, i.e.\ 80\,\%: the gut feeling is only right when the base rates
+are equal. The witness's Bayes factor stays at 4; it describes the
+witness, not the city.
+
+\textbf{Task~5.} No \enquote{correct} number is expected. Good groups
+justify their base rate before searching, treat copied reports as a
+single finding, and give the largest factors to findings that would only
+be expected if the claim were true (or false): reviews, fact checks with
+sources, the original study itself. Adjusting the base rate after the
+search would count the same evidence twice.
+
+\textbf{Task~6.} Measured: self-report, not learning performance; online
+survey, unclear whether the groups were randomised. 23 aspects: at
+$\alpha=0.05$, pure chance is expected to produce just over one
+\enquote{significant} result ($23\cdot0.05\approx1.2$); the probability of
+at least one is $1-0.95^{23}\approx69\,\%$. No effect size. The base rate
+for \enquote{a magic trick improves learning} is open; for \enquote{it
+improves exactly the concentration self-report and nothing else} it is
+low. Nothing is \enquote{proven}; at best there is a hypothesis for a
+preregistered follow-up study (link to Unit~10).
+
+\textbf{Task~7.} A good opposite is a hypothesis of its own with its own
+reasoning, not a mere negation. The \enquote{neither} position should
+contain at least one confounder that can be controlled in Unit~7. Key
+point (1): an observation that all positions expect equally well is
+worthless as evidence; good answers notice this themselves. For the map,
+the drawing is not graded, but whether every element carries a source or
+a number and whether open dragons are honestly left standing.
+
+\textbf{Task~8.} Good plans name a concrete outcome variable, a justified
+smallest effect and an $n$ that can actually be recruited. The most
+common insight: with 15--20 people per group only a large effect can be
+found; sensible responses are repeated measures, a metric rather than a
+yes/no outcome, an estimation question instead of a test, or a
+sequential Bayes factor with a maximum sample size.
+\end{lehrhinweis}
+\end{uebungsblattb}
