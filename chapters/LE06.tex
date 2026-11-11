@@ -753,6 +753,34 @@ beschreiben das Verfahren über viele Wiederholungen, wie die nächste
 Folie zeigt.}
 \os{\newpage}
 
+\item[{\rot\bf Rechenweg: Konfidenzintervall für einen Mittelwert}]~\\
+Fiktive Lehrvideo-Gruppe: $n=8$, $\bar{x}=12{,}5$, $s=2$
+\begin{center}
+\small
+\begin{tabular}{@{}l>{\raggedright\arraybackslash}p{0.38\textwidth}l@{}}
+\toprule
+\textbf{Schritt} & \textbf{Was} & \textbf{Rechnung} \\
+\midrule
+1 & Standardfehler & $\mathit{SE}=s/\sqrt{n}=2/\sqrt8=2/2{,}83\approx0{,}71$ \\
+2 & Freiheitsgrade & $\mathit{df}=n-1=7$ \\
+3 & kritischer Wert ($t$-Tabelle, 95\,\%, zweiseitig) & $t_{7}=2{,}36$ \quad (bei großem $n$: 1,96) \\
+4 & halbe Breite des Intervalls & $2{,}36\cdot0{,}71\approx1{,}67$ \\
+5 & untere Grenze & $12{,}5-1{,}67=10{,}83$ \\
+6 & obere Grenze & $12{,}5+1{,}67=14{,}17$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+\bi
+  \ite Ergebnis: 95-\%-Intervall von etwa \textbf{10,8 bis 14,2} behaltenen
+    Begriffen
+  \ite doppelt so viele Personen ($n=16$): $\mathit{SE}=0{,}5$, Intervall
+    etwa 11,4 bis 13,6
+\ei
+\nsl{Für $n=16$ ist $t_{15}=2{,}13$, die halbe Breite also
+$2{,}13\cdot0{,}5\approx1{,}07$. Den kritischen Wert 2,36 liefert in
+Tabellenkalkulationen die Formel \texttt{T.INV.2T(0,05;7)}.}
+\os{\newpage}
+
 \item[{\rot\bf Was \enquote{95\,\%} bedeutet}]~\\
 \begin{center}
 \includegraphics[width=0.97\linewidth]{figures/LE06_konfidenz.pdf}
@@ -889,6 +917,33 @@ sich das kaum prüfen. Wer ungleiche Streuungen erwartet, nimmt den
 Welch-Test. Der $t$-Test kehrt im Bayes-Abschnitt wieder: Dieselben
 Zahlen ergeben dort einen Bayes-Faktor, der deutlich vorsichtiger
 klingt als \enquote{$p=0{,}025$}.}
+\os{\newpage}
+
+\item[{\rot\bf Rechenweg: der $t$-Test Schritt für Schritt}]~\\
+\begin{center}
+\small
+\begin{tabular}{@{}l>{\raggedright\arraybackslash}p{0.36\textwidth}>{\raggedright\arraybackslash}p{0.47\textwidth}@{}}
+\toprule
+\textbf{Schritt} & \textbf{Was} & \textbf{Rechnung} \\
+\midrule
+1 & Mittelwerte & $\bar{x}_1=100/8=12{,}5$; \quad $\bar{x}_2=80/8=10{,}0$ \\
+2 & Quadratsummen & mit Trick: 28 (Folie zur Standardabweichung); ohne: $4+4+1+1+4+9+4+1=28$ \\
+3 & gepoolte Varianz & $s_p^2=(28+28)/(8+8-2)=56/14=4$, also $s_p=2$ \\
+4 & Standardfehler der Differenz & $\mathit{SE}=s_p\sqrt{1/8+1/8}=2\cdot\sqrt{0{,}25}=2\cdot0{,}5=1{,}0$ \\
+5 & Teststatistik & $t=(12{,}5-10{,}0)/1{,}0=2{,}5$ \\
+6 & Vergleich mit der Tabelle & $\mathit{df}=14$: kritischer Wert $2{,}14$; $2{,}5>2{,}14$ \\
+7 & p-Wert & $p=0{,}025$ \quad (\texttt{T.VERT.2S(2,5;14)}) \\
+8 & Effektgröße & $d=(12{,}5-10{,}0)/2=1{,}25$ \\
+9 & 95-\%-Intervall der Differenz & $2{,}5\pm2{,}14\cdot1{,}0$: \textbf{0,4 bis 4,6} Begriffe \\
+\bottomrule
+\end{tabular}
+\end{center}
+\nsl{Die Abweichungen in der Gruppe ohne Trick (8, 12, 9, 11, 8, 13, 8,
+11; Mittel 10) sind $-2, 2, -1, 1, -2, 3, -2, 1$; ihre Quadrate summieren
+sich wie in der Trick-Gruppe zu 28. Schritt~9 zeigt, was der p-Wert
+verschweigt: Mit den Daten verträglich ist ein Unterschied zwischen knapp
+einem halben und gut viereinhalb Begriffen, also alles von
+\enquote{praktisch nichts} bis \enquote{sehr groß}.}
 \os{\newpage}
 
 \item[{\rot\bf Zwei Arten, sich zu irren}]~\\[-\lblskip]
@@ -1087,6 +1142,31 @@ entscheidet über \enquote{signifikant}. Die Frage, wie \emph{wahrscheinlich}
 der Würfel gezinkt ist, beantwortet der Test nicht; dafür fehlt ihm die
 Information, wie viele gezinkte Würfel es überhaupt gibt.}
 \os{\newpage}
+
+\item[{\rot\bf Rechenweg: der Würfeltest}]~\\
+30 Würfe, 10 Sechsen; $H_0$: $P(6)=\tfrac16$
+\begin{center}
+\small
+\begin{tabular}{@{}l>{\raggedright\arraybackslash}p{0.34\textwidth}>{\raggedright\arraybackslash}p{0.49\textwidth}@{}}
+\toprule
+\textbf{Schritt} & \textbf{Was} & \textbf{Rechnung} \\
+\midrule
+1 & Erwartung unter $H_0$ & $30\cdot\tfrac16=5$ Sechsen \\
+2 & Streuung unter $H_0$ & $\sqrt{30\cdot\tfrac16\cdot\tfrac56}=\sqrt{4{,}17}\approx2{,}04$ \\
+3 & Abstand in Standardabweichungen & $z=(10-5)/2{,}04\approx2{,}45$ \\
+4 & genau: $P(X=k)=\binom{30}{k}\bigl(\tfrac16\bigr)^k\bigl(\tfrac56\bigr)^{30-k}$ & $P(X=10)\approx0{,}0130$, $P(X=11)\approx0{,}0047$, $P(X=12)\approx0{,}0015$, $P(X\geq13)\approx0{,}0005$ \\
+5 & p-Wert (einseitig) & Summe: $P(X\geq10)\approx0{,}020$ \\
+6 & Urteil & $0{,}020<0{,}05$: $H_0$ verwerfen \\
+\bottomrule
+\end{tabular}
+\end{center}
+\nsl{Schritt~4 ist mit dem Taschenrechner mühsam; $\binom{30}{10}=30\,045\,015$,
+und der Rest ist Potenzrechnung. In der Tabellenkalkulation liefert
+\texttt{1-BINOM.VERT(9;30;1/6;WAHR)} den Wert direkt. Die
+Normalnäherung aus Schritt~3 ergibt $p\approx0{,}007$, mit
+Stetigkeitskorrektur ($z=(9{,}5-5)/2{,}04=2{,}20$) $p\approx0{,}014$; bei so
+kleinen Erwartungswerten ist die Näherung grob, darum der exakte Wert.}
+\os{\newpage}
 \end{description}
 
 %==============================================================================
@@ -1277,6 +1357,34 @@ Mogelwürfel nicht. Dann setzt man eine Verteilung möglicher Schieflagen
 an, und der Bayes-Faktor hängt von dieser Wahl ab. Das ist der ehrliche
 Preis der bayesianischen Antwort.}
 \os{\newpage}
+\item[{\rot\bf Rechenweg: derselbe Würfel mit Bayes}]~\\
+\begin{center}
+\small
+\begin{tabular}{@{}l>{\raggedright\arraybackslash}p{0.34\textwidth}>{\raggedright\arraybackslash}p{0.49\textwidth}@{}}
+\toprule
+\textbf{Schritt} & \textbf{Was} & \textbf{Rechnung} \\
+\midrule
+1 & Daten unter \enquote{gezinkt} & $\bigl(\tfrac13\bigr)^{10}\bigl(\tfrac23\bigr)^{20}$ \\
+2 & Daten unter \enquote{fair} & $\bigl(\tfrac16\bigr)^{10}\bigl(\tfrac56\bigr)^{20}$ \\
+3 & Bayes-Faktor = Quotient & $\bigl(\tfrac{1/3}{1/6}\bigr)^{10}\cdot\bigl(\tfrac{2/3}{5/6}\bigr)^{20}=2^{10}\cdot0{,}8^{20}$ \\
+4 & ausrechnen & $2^{10}=1024$; \quad $0{,}8^{20}\approx0{,}0115$; \quad $\mathit{BF}_{10}\approx11{,}8$ \\
+5 & Prior-Chance (Kurs) & $1:4$ \\
+6 & Posterior-Chance & $1\cdot11{,}8:4 = 11{,}8:4$ \\
+7 & in Wahrscheinlichkeit & $11{,}8/(11{,}8+4)=11{,}8/15{,}8\approx\textbf{75\,\%}$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+\bi
+  \ite Spieleabend ($1:999$): $11{,}8/1010{,}8\approx1{,}2\,\%$ \quad
+    Scherzartikelladen ($1:1$): $11{,}8/12{,}8\approx92\,\%$
+\ei
+\nsl{Der Trick in Schritt~3: Alle Faktoren, die in beiden Hypothesen
+gleich sind (etwa die Zahl der möglichen Reihenfolgen
+$\binom{30}{10}$), kürzen sich weg. Übrig bleibt pro Treffer der Faktor 2
+und pro Nicht-Treffer der Faktor 0,8. $0{,}8^{20}$ rechnet man am
+bequemsten als $(0{,}8^{2})^{10}=0{,}64^{10}$ oder mit der Potenztaste.}
+\os{\newpage}
+
 \item[{\rot\bf Der Posterior wandert mit jedem Wurf}]~\\
 \begin{center}
 \includegraphics[width=0.97\linewidth]{figures/LE06_posterior_pfade.pdf}
@@ -1340,6 +1448,31 @@ $0{,}05$ entsprechen meist nur schwacher Evidenz
 \parencite{wagenmakers2007practical}.}
 \os{\newpage}
 
+\item[{\rot\bf Rechenweg: Bayes-Faktor zum $t$-Test}]~\\
+Lehrvideo-Beispiel: $t=2{,}5$, $N=16$, $\mathit{df}=14$
+\begin{center}
+\small
+\begin{tabular}{@{}l>{\raggedright\arraybackslash}p{0.34\textwidth}>{\raggedright\arraybackslash}p{0.49\textwidth}@{}}
+\toprule
+\textbf{Schritt} & \textbf{Was} & \textbf{Rechnung} \\
+\midrule
+1 & $t^2/\mathit{df}$ & $6{,}25/14\approx0{,}446$ \\
+2 & Klammer & $1+0{,}446=1{,}446$ \\
+3 & hoch $N/2=8$ (dreimal quadrieren) & $1{,}446^2=2{,}09$; \ $2{,}09^2=4{,}38$; \ $4{,}38^2\approx19{,}2$ \\
+4 & $\sqrt{N}$ & $\sqrt{16}=4$ \\
+5 & $\mathit{BF}_{01}$ & $4/19{,}2\approx0{,}21$ \\
+6 & Kehrwert: $\mathit{BF}_{10}$ & $1/0{,}21\approx4{,}8$ \\
+7 & Posterior bei Prior $1:1$ & $4{,}8:1$, also $4{,}8/5{,}8\approx83\,\%$ \\
+8 & Posterior bei Prior $1:3$ & $4{,}8:3$, also $4{,}8/7{,}8\approx62\,\%$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+\nsl{Hoch~8 ist dasselbe wie dreimal hintereinander quadrieren; so geht
+es auch ohne Potenztaste. Zur Erinnerung: Die Faustformel ist eine
+Näherung; JASP liefert für dieselben Daten $\mathit{BF}_{10}=2{,}7$, mit
+Prior $1:1$ also 73\,\%.}
+\os{\newpage}
+
 \item[{\rot\bf Was nur der Bayes-Faktor kann}]~\\[-\lblskip]
 \bi
   \ite \textbf{Signifikant, aber Evidenz für $H_0$:} je 1000 Personen,
@@ -1362,6 +1495,35 @@ signifikantes Ergebnis ist frequentistisch nur \enquote{kein Befund}.
 Ein Bayes-Faktor kann dagegen zeigen, ob die Daten für die
 Nullhypothese sprechen oder schlicht zu dünn sind, um irgendetwas zu
 sagen.}
+\os{\newpage}
+
+\item[{\rot\bf Rechenweg: signifikant, aber Evidenz für $H_0$}]~\\
+Je 1000 Personen, $t=2{,}0$, $N=2000$, $\mathit{df}=1998$
+\begin{center}
+\small
+\begin{tabular}{@{}l>{\raggedright\arraybackslash}p{0.34\textwidth}>{\raggedright\arraybackslash}p{0.49\textwidth}@{}}
+\toprule
+\textbf{Schritt} & \textbf{Was} & \textbf{Rechnung} \\
+\midrule
+1 & p-Wert & $p=0{,}046$: signifikant \\
+2 & Effektgröße & $d=t\cdot\sqrt{1/1000+1/1000}=2\cdot0{,}045\approx0{,}09$: winzig \\
+3 & $t^2/\mathit{df}$ & $4/1998\approx0{,}002$ \\
+4 & $(1+0{,}002)^{1000}$ & $\approx e^{1000\cdot0{,}002}=e^{2}\approx7{,}4$ \\
+5 & $\sqrt{N}$ & $\sqrt{2000}\approx44{,}7$ \\
+6 & $\mathit{BF}_{01}$ & $44{,}7/7{,}4\approx6$: \textbf{6:1 für $H_0$} \\
+\bottomrule
+\end{tabular}
+\end{center}
+\bi
+  \ite der Test meldet \enquote{Effekt}, der Bayes-Faktor \enquote{eher
+    keiner von nennenswerter Größe}
+\ei
+\nsl{Schritt~4 nutzt die Näherung $(1+x)^m\approx e^{mx}$ für kleines $x$.
+Der Grund für den Widerspruch: Bei 2000 Personen ist schon ein winziger
+Unterschied signifikant. Die Alternativhypothese des Bayes-Faktors
+erwartet dagegen Effekte in der Größenordnung, die man in der Forschung
+üblicherweise sucht, und sagt einen so kleinen Unterschied schlechter
+voraus als $H_0$.}
 \os{\newpage}
 
 \item[{\rot\bf Der Beweiswert riskanter Vorhersagen}]~\\[-\lblskip]
