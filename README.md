@@ -24,6 +24,9 @@ der Woche vorwegnimmt.
   auch als [PPTX](pdf/WuZ_WissArbeiten_Folien.pptx) zum Präsentieren (ein Bild je Folie)
 - [Handouts und Übungsblätter (A4)](pdf/WuZ_WissArbeiten_Handouts.pdf) – Druckvorlage
   für die Studierenden, ohne Regie- und Lösungshinweise
+- Skript und Folien kapitelweise, je Lehreinheit eine PDF zum Hochladen:
+  [pdf/Skript_Kapitel/](pdf/Skript_Kapitel/), [pdf/Folien_Kapitel/](pdf/Folien_Kapitel/)
+  (`LE00`–`LE13`, dazu Anhang und Literatur; erzeugt mit `make kapitel`)
 - Getrennt zum Austeilen, je Lehreinheit eine PDF ([Übungsblätter](pdf/Uebungsblaetter/),
   [Zusammenfassungen](pdf/Zusammenfassungen/)):
   - Übungsblatt Teil A: zu Beginn der Stunde, verrät den Staunmoment nicht

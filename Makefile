@@ -9,7 +9,7 @@ else
 LATEXMK = latexmk -lualatex -interaction=nonstopmode -halt-on-error
 endif
 
-.PHONY: all script slides handouts einzeln english publish clean
+.PHONY: all script slides handouts einzeln english kapitel publish clean
 
 all: script slides handouts
 
@@ -82,8 +82,15 @@ PPTXPY ?= $(HOME)/.local/share/lecture-tools/venv/bin/python
 pdf/Worksheets_EN/LE%_Worksheet_C.pdf: handouts/en/LE%.tex $(HDEPS)
 	$(call teil,LE$*_Worksheet_C,$(patsubst 0%,%,$*),uebungc,$@,\def\wuzsprache{en})
 
+# Skript und Folien kapitelweise (LE00-LE13, Anhang, Literatur) zum Hochladen,
+# geschnitten aus docu.pdf und slides.pdf anhand der Seitenzahlen in der .toc
+kapitel: script slides
+	rm -rf pdf/Skript_Kapitel pdf/Folien_Kapitel
+	python3 tools/kapitel_pdfs.py docu pdf/Skript_Kapitel Skript
+	python3 tools/kapitel_pdfs.py slides pdf/Folien_Kapitel Folien
+
 # Kopiert die PDFs nach pdf/ (versionierte Fassungen, verlinkt in README.md)
-publish: all einzeln english
+publish: all einzeln english kapitel
 	cp docu.pdf pdf/WuZ_WissArbeiten_Skript.pdf
 	cp slides.pdf pdf/WuZ_WissArbeiten_Folien.pdf
 	$(PPTXPY) tools/pdf2pptx.py slides.pdf pdf/WuZ_WissArbeiten_Folien.pptx
