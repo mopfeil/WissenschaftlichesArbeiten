@@ -3,10 +3,87 @@
 % Vorlage: handouts/LE06.tex. Nur in handouts.tex mit \def\wuzsprache{en}.
 % Datensatz (Task 3) identisch mit der deutschen Fassung; Spalten
 % umbenannt: St -> W (wonder), VW -> PK (prior knowledge).
-% Das englische Handout fasst nur die neuen Teile zusammen (Uebersetzung
-% des zweiten deutschen Handouts); die Faustformel fuer den Bayes-Faktor
-% steht deshalb weiter direkt in Task 3.
+% Zwei englische Handouts, Uebersetzungen der beiden deutschen: Signifikanztest
+% und Bayes (Ueberblick) sowie Wuerfel/Abfuellanlage/Schluessel/Quellen. Die
+% Faustformel fuer den Bayes-Faktor steht zusaetzlich direkt in Task 3.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{handout}{Statistics: Significance Tests and Bayes}
+
+\textbf{What this was about.} Three cups, one ball: if the host
+knowingly lifts an empty cup, switching wins in two out of three cases.
+If the host lifts one blindly, it makes no difference. Same picture, two
+processes, two probabilities. Statistics checks such tricks of intuition,
+and it does so in two ways.
+
+\begin{center}
+\small
+\begin{tabular}{@{}p{0.2\textwidth}p{0.36\textwidth}p{0.36\textwidth}@{}}
+\toprule
+ & \textbf{frequentist} & \textbf{Bayesian} \\
+\midrule
+question & How surprising would the data be if $H_0$ is true? & Which hypothesis predicts the data better? \\
+result & p-value, confidence interval & Bayes factor, posterior \\
+needs & $H_0$, $\alpha$, $n$ fixed in advance & $H_0$, a concrete $H_1$, prior (base rate) \\
+cannot & support $H_0$; say how probable $H$ is & do without a disclosed prior \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\textbf{Key terms}
+\begin{description}\itemsep 0pt
+  \item[Standard deviation, standard error] $s$: typical distance of the
+    \emph{values} from the mean. $\mathit{SE}=s/\sqrt{n}$: how precisely
+    the \emph{mean} is determined; it shrinks as $n$ grows.
+  \item[Central limit theorem] Means of many independent values are
+    approximately normally distributed, however the single values are
+    distributed.
+  \item[Confidence interval] estimate $\pm1.96\,\mathit{SE}$; the
+    procedure captures the true value in 95\,\% of repetitions.
+  \item[Conditional probability] $P(A\mid B)$. The direction matters:
+    $P(\text{data}\mid H)\neq P(H\mid\text{data})$.
+  \item[p-value] Probability of data at least this extreme, \emph{if}
+    $H_0$ is true. Not a measure of whether a hypothesis is true, and not
+    one of the size of an effect \parencite{wassersteinlazar2016asa}.
+  \item[Base rate] How common is what you are looking for, before you
+    look? Without it, no positive test and no significant finding can be
+    interpreted.
+  \item[Bayes factor] $\mathit{BF}_{10}=P(\text{data}\mid H_1)/P(\text{data}\mid H_0)$:
+    1--3 barely worth mentioning, 3--20 positive, above 20 strong
+    \parencite{kassraftery1995}; below 1 it favours $H_0$.
+  \item[Effect size, power] Cohen's $d$ (0.2 small, 0.5 medium, 0.8
+    large); power = chance of finding an effect that is there. For
+    $d=0.5$ and power 0.80: 64 people per group.
+\end{description}
+
+\textbf{Calculating in three lines}
+\begin{itemize}\itemsep 0pt
+  \item Odds form: \emph{posterior odds = prior odds} $\times$
+    $\mathit{BF}_{10}$; odds $a:b$ = probability $a/(a+b)$.
+    Die, 10 sixes in 30 rolls, \enquote{loaded} = $P(6)=\tfrac13$:
+    $\mathit{BF}_{10}=2^{10}\cdot0.8^{20}\approx12$; with base rate $1:4$
+    that gives $12:4$, about 75\,\%.
+  \item $t$-test, two groups: $t=(\bar{x}_1-\bar{x}_2)\,/\,(s_p\sqrt{1/n_1+1/n_2})$,
+    $\mathit{df}=n_1+n_2-2$; $d=(\bar{x}_1-\bar{x}_2)/s_p$.
+  \item Rule of thumb \parencite{wagenmakers2007practical}:
+    $\mathit{BF}_{01}\approx\sqrt{N}\,(1+t^2/\mathit{df})^{-N/2}$, $N$ = all
+    participants. More precisely: JASP.
+\end{itemize}
+Scales: nominal (mode), ordinal (median, quartiles), metric (mean, $s$).
+Outliers after \textcite{tukey1977eda}: more than
+$1.5\cdot\mathit{IQR}$ below $Q_1$ or above $Q_3$.
+
+\begin{merkbox}[Key points]
+First ask how the data came about, then calculate. A small p-value is no
+proof; what you should believe depends on the data \emph{and} the base
+rate. And before every study: can my $n$ answer the question at all?
+\end{merkbox}
+
+\textbf{Further reading:} \textcite{doeringbortz2016}, ch.~12
+(in German); \textcite{wagenmakers2007practical};
+\textcite{gigerenzerhoffrage1995}; on the Monty Hall problem
+\textcite{mhall_krauss2003}.
+\end{handout}
+
 \begin{handout}{From Dice to Test, from Bayes to Keys}
 
 \textbf{What this was about.} Many dice means form a bell curve, the bell

@@ -40,8 +40,8 @@ der Woche vorwegnimmt.
     [alle Teil B](pdf/WuZ_WissArbeiten_Uebungsblaetter_B.pdf),
     [alle Zusammenfassungen](pdf/WuZ_WissArbeiten_Zusammenfassungen.pdf)
 - Englische Übungsblätter (Worksheets A/B) für LE 1–8, Worksheet C für LE 4 (SIFT-Quellen)
-  und LE 6 (Abfüllanlage, Bayes-Mittelwert, Schlüssel, Quellen), dazu ein englisches
-  Handout zu diesen LE-6-Teilen (`LE06_Handout.pdf`):
+  und LE 6 (Abfüllanlage, Bayes-Mittelwert, Schlüssel, Quellen), dazu die beiden
+  LE-6-Handouts auf Englisch (`LE06_Handout.pdf`):
   [pdf/Worksheets_EN/](pdf/Worksheets_EN/), Quelltext in `handouts/en/`
 
 ## Die 13 Lehreinheiten

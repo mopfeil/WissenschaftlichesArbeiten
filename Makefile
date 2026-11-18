@@ -83,7 +83,7 @@ PPTXPY ?= $(HOME)/.local/share/lecture-tools/venv/bin/python
 pdf/Worksheets_EN/LE%_Worksheet_C.pdf: handouts/en/LE%.tex $(HDEPS)
 	$(call teil,LE$*_Worksheet_C,$(patsubst 0%,%,$*),uebungc,$@,\def\wuzsprache{en})
 
-# englisches Handout (bisher nur LE 6: Zusammenfassung der neuen Teile)
+# englische Handouts (bisher nur LE 6)
 pdf/Worksheets_EN/LE%_Handout.pdf: handouts/en/LE%.tex $(HDEPS)
 	$(call teil,LE$*_Handout,$(patsubst 0%,%,$*),handout,$@,\def\wuzsprache{en})
 
