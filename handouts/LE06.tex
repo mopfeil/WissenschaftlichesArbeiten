@@ -485,3 +485,223 @@ metrische statt einer Ja/Nein-Zielgröße, eine Schätzfrage statt eines
 Tests oder ein sequentieller Bayes-Faktor mit Höchstzahl.
 \end{lehrhinweis}
 \end{uebungsblattb}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Uebungsblatt C: Ergaenzung zu den Folien Abfuellanlage, Bayes-Mittelwert,
+% Schluessel und Quellen. Aufgaben 10--13 zaehlen nach Teil B weiter, damit
+% die Verweise der Folien auf Teil A/B gueltig bleiben. Daten identisch mit
+% material/LE06/abfuellung.csv. Englische Fassung: handouts/en/LE06.tex.
+% Alle Loesungen mit Python (scipy) nachgerechnet.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{uebungsblattc}{Abfüllanlage, Schlüssel und Quellen}
+\setcounter{wuzaufgabe}{9}%
+\noindent{\small \wuzpersonname: \rule{55mm}{0.3pt}\hfill \wuzdatumname: \rule{30mm}{0.3pt}}\par\medskip
+\noindent Ergänzung zu den Teilen A und B. Aufgabe~10 gehört zu
+Sitzung~1 (Abfüllanlage), die Aufgaben~11--13 gehören zu Sitzung~2
+(Bayes). Interaktive Fassungen stehen im Colab-Notebook
+\texttt{ZGS\_Test\_Bayes.ipynb} (Abschnitte 3, 4, 7, 8 und 9).
+
+\aufgabe{Die Abfüllanlage: ein $t$-Test gegen den Sollwert}[Hausaufgabe nach Sitzung~1]
+Eine Anlage füllt Mehl in Packungen mit 500\,g Nennfüllmenge. Die
+Qualitätskontrolle nimmt $n=20$ Packungen vom Band und wiegt sie nach
+(in g; simuliert, aber realistisch):
+
+\begin{center}
+\small
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{@{}*{10}{c}@{}}
+\toprule
+499,7 & 501,4 & 498,0 & 494,4 & 497,0 & 493,8 & 500,0 & 507,5 & 496,8 & 496,0 \\
+502,5 & 501,8 & 500,3 & 494,2 & 499,5 & 503,8 & 491,7 & 497,0 & 488,5 & 492,1 \\
+\bottomrule
+\end{tabular}
+\end{center}
+\begin{enumerate}
+  \item Berechnen Sie den Mittelwert $\bar{x}$, die Standardabweichung $s$
+    und den Standardfehler $\mathit{SE}=s/\sqrt{n}$. (Kontrolle: Die
+    Summe der quadrierten Abweichungen ist 401.)
+  \item Formulieren Sie $H_0$ und $H_1$. Warum ist hier ein einseitiger
+    Test angemessen?
+  \item Berechnen Sie $t=(\bar{x}-500)/\mathit{SE}$ und die
+    Freiheitsgrade. Den einseitigen p-Wert liefert die
+    Tabellenkalkulation: \texttt{T.VERT(t;19;WAHR)}.
+  \item Die interne Qualitätssicherung arbeitet mit $\alpha=5\,\%$
+    (kritischer Wert $-1{,}73$). Muss die Anlage nachjustiert werden?
+  \item Die Fertigpackungsverordnung (FPackV, Anlage~3) beanstandet ein
+    Los, wenn $\bar{x}<500\,\text{g}-0{,}640\cdot s$. Wird dieses Los
+    beanstandet? Zeigen Sie, dass $0{,}640=t_{0,995;\,19}/\sqrt{20}$ ist
+    (\texttt{T.INV(0,995;19)}): Mit welchem $\alpha$ arbeitet das Gesetz,
+    und warum so klein?
+  \item Richtig oder falsch? Kurz begründen.\\
+    (a)~\enquote{Wenn die Anlage im Mittel genau 500\,g abfüllt, haben nur
+    etwa 2\,\% aller Stichproben einen so kleinen oder noch kleineren
+    Mittelwert.}\\
+    (b)~\enquote{Die Anlage füllt mit 97,7\,\% Wahrscheinlichkeit zu
+    wenig ab.}\\
+    (c)~\enquote{Die Wahrscheinlichkeit, dass die Anlage in Ordnung ist,
+    beträgt 2,3\,\%.}
+  \item Freiwillig (Notebook, Abschnitt~4): Stellen Sie den wahren
+    Mittelwert auf 498\,g. In welchem Anteil der Stichproben ist der Test
+    bei $\alpha=5\,\%$ signifikant, in welchem bei $\alpha=0{,}5\,\%$? Was
+    bedeutet das für die Kundschaft?
+\end{enumerate}
+\schreiblinien{5}
+
+\newpage
+\aufgabe{Dieselbe Abfüllanlage mit Bayes}[Hausaufgabe nach Sitzung~2]
+Verwenden Sie $\bar{x}=497{,}8$\,g, $s=4{,}6$\,g und $n=20$ aus
+Aufgabe~10. Bei flachem Prior ist der Posterior für den wahren
+Mittelwert $\mu$ eine $t$-Verteilung um $\bar{x}$ mit der Breite
+$\mathit{SE}=1{,}03$\,g (19 Freiheitsgrade).
+\begin{enumerate}
+  \item Berechnen Sie $P(\mu<500\,\text{g}\mid\text{Daten})$ mit
+    \texttt{T.VERT((500-497,8)/1,03;19;WAHR)} und ebenso
+    $P(\mu<498\,\text{g}\mid\text{Daten})$.
+  \item Schreiben Sie je einen frequentistischen und einen bayesianischen
+    Satz über dieselben Daten. Warum ergeben $p=2{,}3\,\%$ und
+    $97{,}7\,\%$ hier zusammen 100\,\%, und wann wäre das nicht so?
+  \item Der Techniker sagt: \enquote{Ich habe die Anlage heute früh
+    auf $500\pm1$\,g eingestellt.} Nehmen Sie das als Vorwissen, also als
+    Prior $N(500;\,1)$. Bei
+    normalverteiltem Prior und normalverteilten Daten ist auch der
+    Posterior normalverteilt: Die Präzisionen (Kehrwerte der Varianzen)
+    addieren sich, und der Mittelwert des Posteriors ist der mit den
+    Präzisionen gewichtete Mittelwert:
+    \[\tfrac{1}{\sigma^2_{\text{post}}}=\tfrac{1}{1^2}+\tfrac{n}{s^2},\qquad
+      \mu_{\text{post}}=\sigma^2_{\text{post}}\Bigl(\tfrac{500}{1^2}+\tfrac{n\,\bar{x}}{s^2}\Bigr)\]
+    Berechnen Sie $\mu_{\text{post}}$, $\sigma_{\text{post}}$ und
+    $P(\mu<500\,\text{g}\mid\text{Daten})$, für die Normalverteilung
+    mit\newline
+    \texttt{NORM.VERT(500;$\mu_{\text{post}}$;$\sigma_{\text{post}}$;WAHR)}.
+  \item Wer sollte entscheiden, ob dieser Prior verwendet werden darf, und
+    was muss ein Bericht dazu sagen?
+\end{enumerate}
+\schreiblinien{5}
+
+\aufgabe{Wo ist mein Schlüssel?}[in der Stunde oder als Hausaufgabe, Paare]
+Ihr Schlüssel ist weg. Aus Gewohnheit (Prior) und daraus, wie gründlich
+Sie an jedem Ort nachsehen können (Chance, ihn zu entdecken, \emph{falls}
+er dort ist), ergibt sich:
+
+\begin{center}
+\small
+\renewcommand{\arraystretch}{1.7}
+\begin{tabular}{@{}lcccccc@{}}
+\toprule
+ & \textbf{Jacke} & \textbf{Brett} & \textbf{Schreibtisch} & \textbf{Auto} & \textbf{Küche} & \textbf{woanders} \\
+\midrule
+Prior & 35\,\% & 25\,\% & 15\,\% & 10\,\% & 10\,\% & 5\,\% \\
+Entdeckungschance & 90\,\% & 99\,\% & 60\,\% & 70\,\% & 80\,\% & 10\,\% \\
+\midrule
+nach \enquote{Jacke: nicht gefunden} & & & & & & \\
+nach \enquote{Brett: nicht gefunden} & & & & & & \\
+nächste Suche: $P\times$ Chance & & & & & & \\
+\bottomrule
+\end{tabular}
+\end{center}
+\begin{enumerate}
+  \item Sie durchsuchen die Jackentasche und finden ihn nicht.
+    Multiplizieren Sie die Wahrscheinlichkeit der Jacke mit $1-0{,}90$,
+    lassen Sie die anderen unverändert und bringen Sie alle sechs wieder
+    auf 100\,\%. Füllen Sie die Zeile aus.
+  \item Danach sehen Sie am Schlüsselbrett nach: nicht gefunden.
+    Aktualisieren Sie erneut.
+  \item Wo suchen Sie als Nächstes? Vergleichen Sie die Orte nach
+    \emph{Wahrscheinlichkeit $\times$ Entdeckungschance}. Warum ist das
+    nicht einfach der wahrscheinlichste Ort?
+  \item Kann es sinnvoll sein, die Jacke ein zweites Mal zu durchsuchen?
+    Berechnen Sie ihre Wahrscheinlichkeit nach einer zweiten erfolglosen
+    Suche dort.
+  \item Finden Sie ein eigenes Beispiel ohne Zahlen in den Daten (ein
+    verlorener Gegenstand, ein Fehler in einem Programm, eine Diagnose)
+    und benennen Sie Prior und Likelihood.
+\end{enumerate}
+\schreiblinien{3}
+
+\aufgabe{Eine Quelle oder zwei?}[Hausaufgabe nach Sitzung~2]
+Behauptung: \enquote{Kaffee nach 16 Uhr verkürzt den Schlaf um eine
+Stunde.} Vor der Suche halten Sie sie für 30\,\% wahrscheinlich.
+Quelle~A berichtet die Behauptung. Ihre Einschätzung: Eine Quelle wie A
+berichtet so etwas in 80\,\% der Fälle, wenn es stimmt, und in 20\,\% der
+Fälle, wenn es nicht stimmt.
+\begin{enumerate}
+  \item Berechnen Sie den Bayes-Faktor von A, die Prior-Chance, die
+    Posterior-Chance und $P(\text{stimmt})$.
+  \item Eine unabhängige Quelle~B gleicher Güte berichtet es ebenfalls.
+    Wie groß ist $P(\text{stimmt})$ jetzt?
+  \item Sie erfahren, dass B den Artikel von A nur abgeschrieben hat. Wie
+    groß ist $P(\text{stimmt})$ jetzt, und warum?
+  \item Eine Website berichtet jede solche Behauptung, ob sie stimmt oder
+    nicht (in beiden Fällen zu 95\,\%). Wie groß ist ihr Bayes-Faktor?
+    Was sagt das über \enquote{Das stand doch überall im Netz}?
+  \item Rechnen Sie (1) und (2) mit einem Prior von 5\,\%. Was ändert
+    sich, was bleibt gleich?
+\end{enumerate}
+\schreiblinien{4}
+
+\begin{lehrhinweis}[Erwartungshorizont Teil C]
+\textbf{Aufgabe~10.} (1)~Summe 9956\,g, $\bar{x}=497{,}8$\,g; Summe der
+quadrierten Abweichungen 401, $s^2=401/19=21{,}1$, $s=4{,}59$\,g;
+$\mathit{SE}=4{,}59/\sqrt{20}=1{,}03$\,g. (2)~$H_0$: $\mu=500$\,g,
+$H_1$: $\mu<500$\,g; nur Unterfüllung schadet der Kundschaft und ist
+geregelt, Überfüllung kostet nur den Hersteller. (3)~$t=-2{,}2/1{,}03=-2{,}14$,
+$\mathit{df}=19$, $p=0{,}023$. (4)~$-2{,}14<-1{,}73$: signifikant,
+nachjustieren. (5)~Grenze $500-0{,}640\cdot4{,}59=497{,}1$\,g;
+$497{,}8>497{,}1$: keine Beanstandung. $t_{0,995;19}=2{,}861$,
+$2{,}861/\sqrt{20}=0{,}640$: Das Gesetz schreibt einen einseitigen
+$t$-Test mit $\alpha=0{,}5\,\%$ vor, damit ein ehrlicher Hersteller fast
+nie zu Unrecht beanstandet wird. Dieselben Daten, zwei Urteile: $\alpha$
+ist eine Entscheidung über die Kosten der Fehler. (6)~(a)~richtig: Das
+ist die Definition des p-Werts. (b) und (c)~falsch: Beide sind Aussagen
+über die Hypothese, die der p-Wert nicht macht; dafür braucht es Bayes
+(Aufgabe~11). (7)~Bei $\mu=498$\,g ist der Test bei $\alpha=5\,\%$ in
+etwa 59\,\% der Stichproben signifikant, bei $\alpha=0{,}5\,\%$ nur in
+etwa 21\,\%: Die strenge gesetzliche Prüfung lässt eine Anlage, die 2\,g
+zu wenig abfüllt, in vier von fünf Fällen durch.
+
+\textbf{Aufgabe~11.} (1)~$P(\mu<500\mid\text{Daten})=97{,}7\,\%$;
+$P(\mu<498\mid\text{Daten})=58\,\%$: Unterfüllung an sich ist sehr
+wahrscheinlich, eine Unterfüllung um mehr als 2\,g etwa so wahrscheinlich
+wie nicht. (2)~Frequentistisch: \enquote{Wäre die Anlage in Ordnung,
+kämen so niedrige Mittelwerte nur in 2,3\,\% der Stichproben vor.}
+Bayesianisch: \enquote{Gegeben die Daten und einen flachen Prior füllt
+die Anlage mit 97,7\,\% zu wenig ab.} Die Zahlen ergänzen sich nur in
+diesem Sonderfall (einseitiger Test, Normalmodell, flacher Prior); mit
+informativem Prior oder einer Punkthypothese (fairer Würfel) fallen sie
+auseinander. (3)~Präzisionen $1/1^2=1$ und $20/4{,}6^2=0{,}945$, Summe
+1,945; $\sigma_{\text{post}}=0{,}72$\,g;
+$\mu_{\text{post}}=(500\cdot1+497{,}8\cdot0{,}945)/1{,}945=498{,}9$\,g;
+$P(\mu<500)=93\,\%$. Die Daten ziehen die Schätzung von 500\,g weg, das
+Wissen des Technikers hält sie zurück. (4)~Gute Antworten: Der Prior muss
+vor dem Blick auf die Daten feststehen, begründet sein (z.\,B.\ durch
+Kalibrierprotokolle) und zusammen mit dem Ergebnis für einen flachen
+Prior berichtet werden.
+
+\textbf{Aufgabe~12.} (1)~Jacke $0{,}35\cdot0{,}1=0{,}035$; Summe
+$0{,}035+0{,}25+0{,}15+0{,}10+0{,}10+0{,}05=0{,}685$; nach dem Normieren:
+Jacke 5\,\%, Brett 36\,\%, Schreibtisch 22\,\%, Auto 15\,\%, Küche
+15\,\%, woanders 7\,\%. (2)~Brett $0{,}25\cdot0{,}01=0{,}0025$; Summe
+0,4375: Jacke 8\,\%, Brett 0,6\,\%, Schreibtisch 34\,\%, Auto 23\,\%,
+Küche 23\,\%, woanders 11\,\%. (3)~$P\times$ Chance: Jacke 7\,\%, Brett
+0,6\,\%, Schreibtisch 21\,\%, Auto 16\,\%, Küche 18\,\%, woanders 1\,\%;
+also als Nächstes der Schreibtisch. Der wahrscheinlichste Ort ist nicht
+immer der beste, wenn man dort beim Suchen selten etwas findet
+(\enquote{woanders}). (4)~Eine zweite erfolglose Suche in der Jacke
+senkt sie von 8\,\% auf unter 1\,\%; sinnvoll, wenn die Jacke schnell
+durchsucht ist. Das ist das Prinzip der Bayesschen Suchtheorie (U-Boote,
+Wrack von Air France 447, 2011). (5)~Offen; gute Beispiele nennen einen
+Prior aus Erfahrung und eine Likelihood, die davon abhängt, wie gründlich
+geprüft wird.
+
+\textbf{Aufgabe~13.} (1)~$\mathit{BF}=0{,}8/0{,}2=4$; Prior-Chance
+$3:7$; Posterior-Chance $12:7$; $P=12/19=63\,\%$. (2)~$12:7\times4=48:7$,
+$P=87\,\%$. (3)~63\,\%: Eine abgeschriebene Quelle hätte die Behauptung
+ohnehin gebracht, ihr Bayes-Faktor gegeben A ist also~1. Zehn Seiten mit
+derselben Pressemitteilung sind ein Fund. (4)~$\mathit{BF}=0{,}95/0{,}95=1$:
+Eine solche Quelle bewegt den Glauben gar nicht; \enquote{stand überall im
+Netz} ist kein Beleg, solange die Quellen nicht unabhängig und
+wählerisch sind. (5)~Prior-Chance $1:19$; nach A $4:19$, $P=17\,\%$; nach
+B $16:19$, $P=46\,\%$. Die Bayes-Faktoren bleiben gleich (sie beschreiben
+die Quellen), der Posterior ändert sich mit dem Prior.
+\end{lehrhinweis}
+\end{uebungsblattc}

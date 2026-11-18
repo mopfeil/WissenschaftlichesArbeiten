@@ -28,8 +28,8 @@ handouts:
 LES     = 01 02 03 04 05 06 07 08 09 10 11 12 13
 UEB     = $(patsubst %,pdf/Uebungsblaetter/LE%_Uebungsblatt_A.pdf,$(LES)) \
           $(patsubst %,pdf/Uebungsblaetter/LE%_Uebungsblatt_B.pdf,$(LES))
-# Teil C (Material zum Austeilen) gibt es bisher nur fuer LE 4
-UEB_C   = pdf/Uebungsblaetter/LE04_Uebungsblatt_C.pdf
+# Teil C gibt es fuer LE 4 (Material zum Austeilen) und LE 6 (Zusatzaufgaben)
+UEB_C   = pdf/Uebungsblaetter/LE04_Uebungsblatt_C.pdf pdf/Uebungsblaetter/LE06_Uebungsblatt_C.pdf
 ZUS     = $(patsubst %,pdf/Zusammenfassungen/LE%_Zusammenfassung.pdf,$(LES))
 SAMMEL  = pdf/WuZ_WissArbeiten_Uebungsblaetter_A.pdf pdf/WuZ_WissArbeiten_Uebungsblaetter_B.pdf \
           pdf/WuZ_WissArbeiten_Zusammenfassungen.pdf
