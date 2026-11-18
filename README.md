@@ -37,7 +37,8 @@ der Woche vorwegnimmt.
   - Sammeldateien: [alle Teil A](pdf/WuZ_WissArbeiten_Uebungsblaetter_A.pdf),
     [alle Teil B](pdf/WuZ_WissArbeiten_Uebungsblaetter_B.pdf),
     [alle Zusammenfassungen](pdf/WuZ_WissArbeiten_Zusammenfassungen.pdf)
-- Englische Übungsblätter (Worksheets A/B) für LE 1–8, Worksheet C für LE 4:
+- Englische Übungsblätter (Worksheets A/B) für LE 1–8, Worksheet C für LE 4 (SIFT-Quellen)
+  und LE 6 (Abfüllanlage, Bayes-Mittelwert, Schlüssel, Quellen):
   [pdf/Worksheets_EN/](pdf/Worksheets_EN/), Quelltext in `handouts/en/`
 
 ## Die 13 Lehreinheiten

@@ -1,5 +1,5 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Englische Fassung des Uebungsblatts zu Lehreinheit 6 (Teil A und B).
+% Englische Fassung des Uebungsblatts zu Lehreinheit 6 (Teil A, B und C; C nur englisch).
 % Vorlage: handouts/LE06.tex. Nur in handouts.tex mit \def\wuzsprache{en}.
 % Datensatz (Task 3) identisch mit der deutschen Fassung; Spalten
 % umbenannt: St -> W (wonder), VW -> PK (prior knowledge).
@@ -410,3 +410,204 @@ yes/no outcome, an estimation question instead of a test, or a
 sequential Bayes factor with a maximum sample size.
 \end{lehrhinweis}
 \end{uebungsblattb}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Worksheet C (nur englisch): Ergaenzung zu den neuen Folien der LE 6
+% (Abfuellanlage, Bayes-Mittelwert, Schluessel, Quellen). Aufgaben 10--13
+% zaehlen nach Teil B weiter, damit die Verweise der Folien auf Teil A/B
+% gueltig bleiben. Daten identisch mit material/LE06/abfuellung.csv.
+% Alle Loesungen mit Python (scipy) nachgerechnet.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{uebungsblattc}{Filling Line, Keys and Sources}
+\setcounter{wuzaufgabe}{9}%
+\noindent{\small \wuzpersonname: \rule{55mm}{0.3pt}\hfill \wuzdatumname: \rule{30mm}{0.3pt}}\par\medskip
+\noindent Supplement to Worksheets A and B. Task~10 goes with session~1
+(the filling line), Tasks~11--13 with session~2 (Bayes). The interactive
+versions are in the Colab notebook \texttt{ZGS\_Test\_Bayes.ipynb}
+(sections 3, 4, 7, 8 and 9).
+
+\aufgabe{The filling line: a one-sample $t$-test}[homework after session~1]
+A machine fills flour into packs with a nominal weight of 500\,g. Quality
+control takes $n=20$ packs from the line and weighs them (in g;
+simulated, but realistic data):
+
+\begin{center}
+\small
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{@{}*{10}{c}@{}}
+\toprule
+499.7 & 501.4 & 498.0 & 494.4 & 497.0 & 493.8 & 500.0 & 507.5 & 496.8 & 496.0 \\
+502.5 & 501.8 & 500.3 & 494.2 & 499.5 & 503.8 & 491.7 & 497.0 & 488.5 & 492.1 \\
+\bottomrule
+\end{tabular}
+\end{center}
+\begin{enumerate}
+  \item Compute the mean $\bar{x}$, the standard deviation $s$ and the
+    standard error $\mathit{SE}=s/\sqrt{n}$. (Check: the sum of squared
+    deviations is 401.)
+  \item State $H_0$ and $H_1$. Why is a one-sided test appropriate here?
+  \item Compute $t=(\bar{x}-500)/\mathit{SE}$ and the degrees of freedom.
+    Find the one-sided p-value with a spreadsheet:
+    \texttt{T.DIST(t;19;TRUE)}.
+  \item In-house quality control uses $\alpha=5\,\%$ (critical value
+    $-1.73$). Does the line need adjusting?
+  \item German law on prepackages (FPackV, Annex~3) objects to a lot if
+    $\bar{x}<500\,\text{g}-0.640\cdot s$. Is this lot objected to? Show
+    that $0.640=t_{0.995;\,19}/\sqrt{20}$ (\texttt{T.INV(0.995;19)}): which
+    $\alpha$ does the law use, and why so small?
+  \item True or false? Justify briefly.\\
+    (a)~\enquote{If the line fills exactly 500\,g on average, only about
+    2\,\% of samples would have a mean this low or lower.}\\
+    (b)~\enquote{The line underfills with a probability of 97.7\,\%.}\\
+    (c)~\enquote{The probability that the line is fine is 2.3\,\%.}
+  \item Optional (notebook, section~4): set the true mean to 498\,g. In
+    what share of samples is the test significant at $\alpha=5\,\%$, and
+    at $\alpha=0.5\,\%$? What does this mean for the customer?
+\end{enumerate}
+\schreiblinien{5}
+
+\newpage
+\aufgabe{The same filling line with Bayes}[homework after session~2]
+Use $\bar{x}=497.8$\,g, $s=4.6$\,g and $n=20$ from Task~10.
+With a flat prior, the posterior for the true mean $\mu$ is a
+$t$-distribution centred at $\bar{x}$ with width
+$\mathit{SE}=1.03$\,g (19 degrees of freedom).
+\begin{enumerate}
+  \item Compute $P(\mu<500\,\text{g}\mid\text{data})$ with
+    \texttt{T.DIST((500-497.8)/1.03;19;TRUE)}, and in the same way
+    $P(\mu<498\,\text{g}\mid\text{data})$.
+  \item Write one frequentist and one Bayesian sentence about the same
+    data. Why do $p=2.3\,\%$ and $97.7\,\%$ add up to 100\,\% here, and
+    when would they not?
+  \item The technician says: \enquote{I set the machine to
+    $500\pm1$\,g this morning.} Use this as a prior $N(500;\,1)$. With
+    a normal prior and normal data, the posterior is again normal:
+    precisions add up, and the posterior mean is the precision-weighted
+    average:
+    \[\tfrac{1}{\sigma^2_{\text{post}}}=\tfrac{1}{1^2}+\tfrac{n}{s^2},\qquad
+      \mu_{\text{post}}=\sigma^2_{\text{post}}\Bigl(\tfrac{500}{1^2}+\tfrac{n\,\bar{x}}{s^2}\Bigr)\]
+    Compute $\mu_{\text{post}}$, $\sigma_{\text{post}}$ and
+    $P(\mu<500\,\text{g}\mid\text{data})$ (normal distribution:
+    \texttt{NORM.DIST(500;$\mu_{\text{post}}$;$\sigma_{\text{post}}$;TRUE)}).
+  \item Who should decide whether this prior may be used, and what must
+    a report say about it?
+\end{enumerate}
+\schreiblinien{5}
+
+\aufgabe{Where are my keys?}[in class or homework, pairs]
+Your keys are missing. From habit (prior) and from how thoroughly you can
+search each place (chance of spotting them \emph{if} they are there):
+
+\begin{center}
+\small
+\renewcommand{\arraystretch}{1.7}
+\begin{tabular}{@{}lcccccc@{}}
+\toprule
+ & \textbf{Jacket} & \textbf{Key board} & \textbf{Desk} & \textbf{Car} & \textbf{Kitchen} & \textbf{Elsewhere} \\
+\midrule
+Prior & 35\,\% & 25\,\% & 15\,\% & 10\,\% & 10\,\% & 5\,\% \\
+Chance of spotting them & 90\,\% & 99\,\% & 60\,\% & 70\,\% & 80\,\% & 10\,\% \\
+\midrule
+after \enquote{jacket: not found} & & & & & & \\
+after \enquote{key board: not found} & & & & & & \\
+next search: $P\times$ chance & & & & & & \\
+\bottomrule
+\end{tabular}
+\end{center}
+\begin{enumerate}
+  \item You search the jacket and do not find them. Multiply the jacket's
+    probability by $1-0.90$, leave the others unchanged and rescale all
+    six to 100\,\%. Fill in the row.
+  \item Next you check the key board: not found. Update again.
+  \item Where should you search next? Compare the places by
+    \emph{probability $\times$ chance of spotting}. Why is it not simply
+    the most probable place?
+  \item Can it make sense to search the jacket a second time? Compute its
+    probability after a second unsuccessful search there.
+  \item Find your own example without numbers in the data (a lost item,
+    a bug in a program, a diagnosis) and name prior and likelihood.
+\end{enumerate}
+\schreiblinien{3}
+
+\aufgabe{One source or two?}[homework after session~2]
+Claim: \enquote{Coffee after 4\,p.m.\ shortens sleep by an hour.} Before
+searching, you consider it 30\,\% likely. Source~A reports the claim. You
+estimate: a source like A reports such a claim in 80\,\% of cases if it
+is true and in 20\,\% of cases if it is false.
+\begin{enumerate}
+  \item Compute A's Bayes factor, the prior odds, the posterior odds and
+    $P(\text{true})$.
+  \item An independent source~B of the same quality also reports the
+    claim. What is $P(\text{true})$ now?
+  \item You find out that B has only copied A's article. What is
+    $P(\text{true})$ now, and why?
+  \item A website reports every such claim, whether true or not (in 95\,\%
+    of cases in both situations). What is its Bayes factor? What does
+    this say about \enquote{it was all over the internet}?
+  \item Repeat (1) and (2) with a prior of 5\,\%. What changes, and what
+    stays the same?
+\end{enumerate}
+\schreiblinien{4}
+
+\begin{lehrhinweis}[Expected answers, Worksheet C]
+\textbf{Task~10.} (1)~Sum 9956\,g, $\bar{x}=497.8$\,g; sum of squared
+deviations 401, $s^2=401/19=21.1$, $s=4.59$\,g;
+$\mathit{SE}=4.59/\sqrt{20}=1.03$\,g. (2)~$H_0$: $\mu=500$\,g,
+$H_1$: $\mu<500$\,g; only underfilling harms customers and is regulated,
+overfilling only costs the producer. (3)~$t=-2.2/1.03=-2.14$,
+$\mathit{df}=19$, $p=0.023$. (4)~$-2.14<-1.73$: significant, adjust the
+line. (5)~Limit $500-0.640\cdot4.59=497.1$\,g; $497.8>497.1$: no
+objection. $t_{0.995;19}=2.861$, $2.861/\sqrt{20}=0.640$: the law
+prescribes a one-sided $t$-test with $\alpha=0.5\,\%$, so that an honest
+producer is almost never penalised wrongly. Same data, two verdicts:
+$\alpha$ is a decision about the costs of errors. (6)~(a)~true: this is
+the definition of the p-value. (b) and (c)~false: both are statements
+about the hypothesis, which the p-value does not make; this needs Bayes
+(Task~11). (7)~With $\mu=498$\,g the test is significant in about 59\,\%
+of samples at $\alpha=5\,\%$, but only in about 21\,\% at
+$\alpha=0.5\,\%$: the strict legal check lets a line that underfills by
+2\,g pass four times out of five.
+
+\textbf{Task~11.} (1)~$P(\mu<500\mid\text{data})=97.7\,\%$;
+$P(\mu<498\mid\text{data})=58\,\%$: underfilling as such is very
+likely, an underfilling of more than 2\,g is about as likely as not.
+(2)~Frequentist: \enquote{If the line were fine, such low means would
+occur in only 2.3\,\% of samples.} Bayesian: \enquote{Given the data
+and a flat prior, the line underfills with 97.7\,\%.} The numbers add up
+to 100\,\% only in this special case (one-sided test, normal model, flat
+prior); with an informative prior or a point hypothesis (fair die) they
+diverge. (3)~Precisions $1/1^2=1$ and $20/4.6^2=0.945$, sum 1.945;
+$\sigma_{\text{post}}=0.72$\,g;
+$\mu_{\text{post}}=(500\cdot1+497.8\cdot0.945)/1.945=498.9$\,g;
+$P(\mu<500)=93\,\%$. The data pull the estimate away from 500\,g, the
+technician's knowledge holds it back. (4)~Good answers: the prior must be
+fixed before seeing the data, justified (e.g.\ by calibration records)
+and reported together with the result for a flat prior.
+
+\textbf{Task~12.} (1)~Jacket $0.35\cdot0.1=0.035$; sum
+$0.035+0.25+0.15+0.10+0.10+0.05=0.685$; after rescaling: jacket 5\,\%,
+key board 36\,\%, desk 22\,\%, car 15\,\%, kitchen 15\,\%, elsewhere
+7\,\%. (2)~Key board $0.25\cdot0.01=0.0025$; sum 0.4375: jacket 8\,\%,
+key board 0.6\,\%, desk 34\,\%, car 23\,\%, kitchen 23\,\%, elsewhere
+11\,\%. (3)~$P\times$ chance: jacket 7\,\%, key board 0.6\,\%, desk
+21\,\%, car 16\,\%, kitchen 18\,\%, elsewhere 1\,\%; search the desk
+next. The most probable place is not always the best if searching there
+rarely finds anything (\enquote{elsewhere}). (4)~A second unsuccessful
+search of the jacket lowers it from 8\,\% to under 1\,\%; it can make
+sense if the jacket is quick to search. This is the principle of Bayesian
+search theory (submarines, the wreck of Air France 447 in 2011).
+(5)~Open; good examples name a prior from experience and a likelihood
+that depends on how thorough the check is.
+
+\textbf{Task~13.} (1)~$\mathit{BF}=0.8/0.2=4$; prior odds $3:7$;
+posterior odds $12:7$; $P=12/19=63\,\%$. (2)~$12:7\times4=48:7$,
+$P=87\,\%$. (3)~63\,\%: a copied source would have reported the claim
+anyway, so its Bayes factor given A is 1. Ten sites with the same press
+release are one finding. (4)~$\mathit{BF}=0.95/0.95=1$: such a source
+does not move belief at all; \enquote{it was all over the internet} is
+no evidence unless the sources are independent and selective. (5)~Prior
+odds $1:19$; after A $4:19$, $P=17\,\%$; after B $16:19$, $P=46\,\%$.
+The Bayes factors stay the same (they describe the sources), the
+posterior changes with the prior.
+\end{lehrhinweis}
+\end{uebungsblattc}

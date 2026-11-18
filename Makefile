@@ -66,7 +66,7 @@ pdf/WuZ_WissArbeiten_Zusammenfassungen.pdf: handouts/*.tex $(HDEPS)
 LES_EN  = 01 02 03 04 05 06 07 08
 UEB_EN  = $(patsubst %,pdf/Worksheets_EN/LE%_Worksheet_A.pdf,$(LES_EN)) \
           $(patsubst %,pdf/Worksheets_EN/LE%_Worksheet_B.pdf,$(LES_EN)) \
-          pdf/Worksheets_EN/LE04_Worksheet_C.pdf
+          pdf/Worksheets_EN/LE04_Worksheet_C.pdf pdf/Worksheets_EN/LE06_Worksheet_C.pdf
 
 english: $(UEB_EN)
 
