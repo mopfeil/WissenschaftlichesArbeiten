@@ -79,6 +79,133 @@ p-Wert ist kein Beweis; was man glauben sollte, bestimmen die Daten
 zum Ziegenproblem \textcite{mhall_krauss2003}.
 \end{handout}
 
+% Zweites Handout: Zusammenfassung der Teile Weiterwuerfeln/SE ablesen,
+% Abfuellanlage, Bayes als Flaechenbild und fuer einen Mittelwert, Schluessel,
+% unabhaengige Quellen. Zahlen wie in den Folien und Blatt C (Python).
+\begin{handout}{Vom Würfel zum Test, von Bayes zum Schlüssel}
+
+\textbf{Worum es ging.} Aus vielen Würfelmittelwerten wird eine Glocke,
+aus der Glocke der Standardfehler, aus dem Standardfehler ein $t$-Test.
+Mit denselben Daten einer Abfüllanlage rechnet man dann bayesianisch, und
+zum Schluss zeigt sich, dass Bayes auch ganz ohne Messwerte funktioniert.
+
+\textbf{1. Vom Würfel zum $t$-Test in vier Schritten}
+\begin{enumerate}\itemsep 0pt
+  \item \emph{Zentraler Grenzwertsatz:} Mittelwerte aus $n$ Würfen sind
+    annähernd normalverteilt, beim fairen wie beim gezinkten Würfel.
+  \item \emph{Standardfehler:} $\mathit{SE}=\sigma/\sqrt{n}$, an der Glocke
+    abzulesen als Abstand vom Gipfel zum Wendepunkt. Fairer Würfel,
+    $\sigma=1{,}71$, $n=30$: $\mathit{SE}\approx0{,}31$; 95\,\% der
+    Mittelwerte liegen zwischen 2,9 und 4,1.
+  \item \emph{Abstand in Standardfehlern:} $t=(\bar{x}-\mu_0)/\mathit{SE}$,
+    mit $\mathit{SE}=s/\sqrt{n}$ aus der Stichprobe und $\mathit{df}=n-1$.
+  \item \emph{p-Wert:} Fläche unter der $t$-Verteilung jenseits von $t$.
+\end{enumerate}
+
+\textbf{2. Praxis: Füllt die Anlage zu wenig ab?} 500-g-Packungen, $n=20$
+nachgewogen, $\bar{x}=497{,}8$\,g, $s=4{,}6$\,g; $H_0$: $\mu=500$\,g,
+$H_1$: $\mu<500$\,g (einseitig).
+\begin{center}
+\small
+\begin{tabular}{@{}>{\raggedright\arraybackslash}p{0.27\textwidth}>{\raggedright\arraybackslash}p{0.66\textwidth}@{}}
+\toprule
+Standardfehler & $4{,}6/\sqrt{20}\approx1{,}03$\,g \\
+Teststatistik, p-Wert & $t=-2{,}2/1{,}03\approx-2{,}14$, $\mathit{df}=19$; $p\approx0{,}023$ (\texttt{T.VERT(-2,14;19;WAHR)}) \\
+interne QS, $\alpha=5\,\%$ & kritischer Wert $-1{,}73$ $\Rightarrow$ \textbf{nachjustieren} \\
+Eichamt, $\alpha=0{,}5\,\%$ & Grenze $500-0{,}640\cdot s=497{,}1$\,g $\Rightarrow$ \textbf{keine Beanstandung} \\
+Power bei $\mu=498$\,g & 59\,\% ($\alpha=5\,\%$) gegen 21\,\% ($\alpha=0{,}5\,\%$) \\
+\bottomrule
+\end{tabular}
+\end{center}
+Der Faktor 0,640 aus der Fertigpackungsverordnung ist
+$t_{0{,}995;\,19}/\sqrt{20}$: Das Eichrecht schreibt einen einseitigen
+$t$-Test vor. $\alpha$ ist eine Abwägung, keine Naturkonstante: Ein
+kleines $\alpha$ schützt vor Fehlalarmen und lässt dafür mehr echte
+Fehler durch.
+
+\textbf{3. Zwei Aussagen über dieselben Daten}
+\begin{center}
+\small
+\begin{tabular}{@{}>{\raggedright\arraybackslash}p{0.2\textwidth}>{\raggedright\arraybackslash}p{0.36\textwidth}>{\raggedright\arraybackslash}p{0.36\textwidth}@{}}
+\toprule
+ & \textbf{frequentistisch} & \textbf{bayesianisch} \\
+\midrule
+fest ist \dots & die Hypothese ($\mu=500$\,g) & die Daten (die 20 Packungen) \\
+zufällig ist \dots & die Daten & unser Wissen über $\mu$ \\
+Aussage & \enquote{Wäre die Anlage in Ordnung, kämen so niedrige Mittelwerte nur in 2,3\,\% der Stichproben vor.} & \enquote{Gegeben die Daten (flacher Prior), füllt die Anlage mit 97,7\,\% zu wenig ab.} \\
+\bottomrule
+\end{tabular}
+\end{center}
+Dass sich 2,3\,\% und 97,7\,\% zu 100\,\% ergänzen, ist ein Sonderfall
+(einseitig, Normalmodell, flacher Prior). Mit dem Vorwissen
+\enquote{eingestellt auf $500\pm1$\,g} wird der Posterior
+$498{,}9\pm0{,}7$\,g und $P(\mu<500\mid\text{Daten})\approx93\,\%$. Eine
+Unterfüllung um mehr als 2\,g ist auch mit flachem Prior nur zu 58\,\%
+wahrscheinlich. Wer einen Prior verwendet, legt ihn offen und begründet ihn.
+
+\textbf{4. Bayes als Flächenbild}
+\begin{description}\itemsep 0pt
+  \item[Prior] Breite der Spalten. Fünf Münzen, eine gezinkt (Kopf
+    70\,\%): 20\,\% gegen 80\,\%.
+  \item[Likelihood] gefärbte Höhe in jeder Spalte: 70\,\% bzw.\ 50\,\%
+    Kopf.
+  \item[Posterior] Was nicht zur Beobachtung passt, fällt weg; der Rest
+    wird auf 100\,\% gestreckt. Ein Kopf:
+    $0{,}14/(0{,}14+0{,}40)\approx26\,\%$ gezinkt.
+\end{description}
+Für einen Mittelwert macht man dasselbe mit vielen Hypothesen
+nebeneinander ($\mu=490{,}0$; $490{,}01$; \dots; $510$\,g): Jede Packung
+verschiebt und schärft die Kurve.
+
+\newpage
+\textbf{5. Bayes ohne Messwerte}
+\begin{description}\itemsep 0pt
+  \item[Wo ist mein Schlüssel?] Prior = Gewohnheit, Likelihood =
+    Entdeckungschance $e_i$ beim Nachsehen. Nicht gefunden am Ort $i$:
+    $P(i)\times(1-e_i)$, dann alle Werte auf 100\,\% bringen.
+    \enquote{Nicht gefunden} ist auch ein Befund. Als Nächstes dort
+    suchen, wo $P(i)\cdot e_i$ am größten ist, nicht unbedingt am
+    wahrscheinlichsten Ort.
+\end{description}
+\begin{center}
+\small
+\begin{tabular}{@{}lrrrrrr@{}}
+\toprule
+ & Jacke & Brett & Schreibtisch & Auto & Küche & woanders \\
+\midrule
+Prior & 35 & 25 & 15 & 10 & 10 & 5 \\
+Entdeckungschance $e_i$ & 90 & 99 & 60 & 70 & 80 & 10 \\
+nach \enquote{nicht in der Jacke} & 5 & 37 & 22 & 15 & 15 & 7 \\
+nach \enquote{auch nicht am Brett} & 8 & 1 & \textbf{34} & 23 & 23 & 11 \\
+\bottomrule
+\end{tabular}\\[0.5ex]
+{\footnotesize Angaben in Prozent. Nach zwei Fehlversuchen lohnt der
+Schreibtisch am meisten ($0{,}34\cdot0{,}6\approx0{,}21$), obwohl Auto und
+Küche zusammen wahrscheinlicher sind.}
+\end{center}
+\begin{description}\itemsep 0pt
+  \item[Glaube ich dieser Quelle?] Chance nachher = Chance vorher
+    $\times$ Bayes-Faktor der Quelle. Prior 30\,\% (Chance $3:7$), eine
+    Quelle mit $\mathit{BF}=0{,}8/0{,}2=4$: $12:7$, also 63\,\%; eine
+    zweite, \emph{unabhängige}: $48:7$, also 87\,\%. Hat die zweite nur
+    abgeschrieben, ist ihr Faktor~1: Es bleibt bei 63\,\%.
+\end{description}
+
+\begin{merkbox}
+Der Standardfehler sagt, wie genau ein Mittelwert ist; der $t$-Test
+misst den Abstand zum Sollwert in Standardfehlern. Der p-Wert beschreibt
+die Daten unter einer festen Hypothese, der Posterior die Hypothese unter
+festen Daten. Bayes braucht keine Messreihe: Gewohnheit, Suchgüte und
+Quellenqualität genügen, solange man nur unabhängige Befunde
+multipliziert.
+\end{merkbox}
+
+\textbf{Zum Nachspielen:} das Notebook \texttt{ZGS\_Test\_Bayes.ipynb}
+(läuft in Google Colab, Abschnitte 1--9) und die Messwerte in
+\texttt{abfuellung.csv}, beides im Kursmaterial. Aufgaben dazu stehen
+auf Übungsblatt~C.
+\end{handout}
+
 \begin{uebungsblatt}{Becher, Würfel und Daten}
 
 \aufgabe{Monty Hall in Paaren}[in der Stunde, Paare, 10 Min.]
