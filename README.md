@@ -14,6 +14,7 @@ der Woche vorwegnimmt.
 | `handouts/`      | Handout und Übungsblatt (Teil A/B) je Lehreinheit             |
 | `fonts/`         | Barlow Semi Condensed, die RWU-Hausschrift (SIL OFL)          |
 | `tools/`         | Hilfsskripte (Literaturliste aus dem Buch, Prüfskripte)       |
+| `material/`      | Live-Material zu einzelnen LE (LE 6: PPTX mit VBA, Notebook)  |
 
 ## Skript, Folien, Handouts
 
@@ -42,8 +43,19 @@ der Woche vorwegnimmt.
 ## Die 13 Lehreinheiten
 
 LE 6 (Statistik) umfasst zwei Doppelstunden, das Semester also 14 Termine.
-Ihre Grafiken erzeugt `python3 tools/le06_figuren.py` (numpy, scipy, matplotlib)
-nach `figures/LE06_*.pdf`.
+Ihre Grafiken erzeugen `python3 tools/le06_figuren.py` und
+`python3 tools/le06_live_figuren.py` (numpy, scipy, matplotlib) nach `figures/LE06_*.pdf`.
+
+Zu LE 6 gibt es Live-Material in [material/LE06/](material/LE06/):
+
+- `ZGS_Test_Bayes.pptx`: 35 editierbare Folien mit Sprechernotizen (Grenzwertsatz,
+  Standardfehler, t-Test, Abfüllanlage mit Eichrecht, Bayes, Schlüssel, Quellen),
+  drei davon interaktiv (Würfel-Labor, Münze, Schlüsselsuche) über das VBA-Modul
+  `StatistikLive.bas`; Einbau in `ANLEITUNG.md`
+- `ZGS_Test_Bayes.ipynb`: Colab-Notebook mit Schiebereglern zu allen Beispielen
+- `abfuellung.csv`: die 20 Packungsgewichte (simuliert)
+- neu bauen: `python3 tools/le06_live_figuren.py`,
+  `$(PPTXPY) tools/le06_live_folien.py`, `python3 tools/le06_live_notebook.py`
 
 | LE | Thema                              | Staunmoment                        | Kernbegriff                 |
 |----|------------------------------------|------------------------------------|-----------------------------|

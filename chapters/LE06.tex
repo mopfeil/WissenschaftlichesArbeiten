@@ -17,6 +17,10 @@
 % Python (scipy) nachgerechnet; JZS-Bayes-Faktoren nach Rouder et al. 2009
 % mit r = sqrt(2)/2 (Voreinstellung in JASP). Grafiken figures/LE06_*.pdf
 % erzeugt tools/le06_figuren.py.
+% Ergaenzung (Abfuellanlage, Standardfehler ablesen, p-Wert-Simulation,
+% Bayes-Flaechenbild, Bayes-Mittelwert, Schluessel, Quellen): Grafiken aus
+% tools/le06_live_figuren.py; Live-Folien (PPTX mit VBA) und Colab-Notebook
+% in material/LE06/.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \nsl{Bis hierher hat das Semester gefragt, wie man eine Frage stellt, wie
 man Quellen prüft und wie man aus einer Vermutung eine Hypothese macht,
@@ -65,6 +69,7 @@ Startwerte und lassen sich für eigene Varianten leicht abwandeln.
     Zentraler Grenzwertsatz, Konfidenzintervall
   \ite der Signifikanztest: Kurs-Pool, $t$-Test von Hand, zwei Arten,
     sich zu irren
+  \ite Praxis: die Abfüllanlage -- $t$-Test, Eichrecht und was $p$ bedeutet
 \ei
 \end{description}
 \newpage}
@@ -701,6 +706,28 @@ breit. Wer mag, lässt die Hälfte des Kurses mit zwei Würfen pro
 Mittelwert arbeiten und vergleicht die beiden Bilder.}
 \os{\newpage}
 
+\item[{\rot\bf Weiterwürfeln am Rechner}]~\\[-\lblskip]
+\bi
+  \ite an der Tafel entstehen gut 100 Mittelwerte, am Rechner tausende in
+    Sekunden
+  \ite PowerPoint mit Knöpfen (\enquote{Würfel-Labor}): $n=1$, 5 oder 30
+    Würfe, fairer oder gezinkter Würfel
+  \ite Colab-Notebook mit Schiebereglern für $n$ und den Würfeltyp
+  \ite Beobachtungsauftrag: Wie stark streuen die Mittelwerte -- und
+    stimmt das mit $1{,}71/\sqrt{n}$ überein?
+  \ite ab welchem $n$ lassen sich fairer und gezinkter Würfel trennen?
+\ei
+\nsl{Material in \texttt{material/LE06/}: \texttt{ZGS\_Test\_Bayes.pptx}
+(Folie~6 \enquote{Würfel-Labor}; die Knöpfe brauchen das VBA-Modul
+\texttt{StatistikLive.bas}, Einbau in \texttt{ANLEITUNG.md}) und
+\texttt{ZGS\_Test\_Bayes.ipynb} (Abschnitte~1 und~2, läuft in Google
+Colab). Der gezinkte Würfel dort zeigt die Sechs in 25\,\% der Würfe
+($\mu=3{,}75$, $\sigma=1{,}79$). Bei $n=30$ überlappen die Glocken von
+fairem und gezinktem Würfel noch deutlich; für einen Abstand von zwei
+Standardfehlern braucht man rund 190 Würfe
+($2\cdot1{,}71/\sqrt{n}\le0{,}25$).}
+\os{\newpage}
+
 \item[{\rot\bf Die Normalverteilung}]~\\[-\lblskip]
 \begin{center}
 \resizebox{0.75\textwidth}{!}{%
@@ -716,6 +743,25 @@ Mittelwert arbeiten und vergleicht die beiden Bilder.}
   \draw[<->,rwugray] (-2,3.3) -- node[above]{ca.\ 95\,\%} (2,3.3);
 \end{tikzpicture}}
 \end{center}
+\os{\newpage}
+
+\item[{\rot\bf Den Standardfehler an der Kurve ablesen}]~\\
+\begin{center}
+\includegraphics[width=0.97\linewidth,height=0.56\textheight,keepaspectratio]{figures/LE06_se_ablesen.pdf}
+\end{center}
+\bi
+  \ite vom Gipfel bis zum Wendepunkt der Glocke: genau \textbf{ein
+    Standardfehler}
+  \ite 30 Würfe, fairer Würfel: $\mathit{SE}=1{,}71/\sqrt{30}\approx0{,}31$,
+    95\,\% der Mittelwerte zwischen 2,9 und 4,1
+\ei
+\nsl{Der Wendepunkt ist die Stelle, an der die Kurve von
+\enquote{nach unten gekrümmt} zu \enquote{nach oben gekrümmt} wechselt.
+Bei jeder Normalverteilung liegt er genau eine Standardabweichung vom
+Gipfel entfernt; bei der Verteilung der Mittelwerte ist diese
+Standardabweichung der Standardfehler. Wer die Glocke an der Tafel
+gewürfelt hat, kann den Standardfehler so mit dem Lineal abschätzen und
+mit $\sigma/\sqrt{n}$ vergleichen.}
 \os{\newpage}
 
 \item[{\rot\bf Der $z$-Wert: Abstand in Standardfehlern}]~\\[-\lblskip]
@@ -984,6 +1030,109 @@ siehe die Power-Tabelle in Sitzung~2).}
 
 
 %==============================================================================
+\section{Praxisbeispiel: die Abfüllanlage}
+%==============================================================================
+\nsl{Der Signifikanztest ist kein Hörsaalspiel. In jeder Lebensmittelfabrik
+prüft die Qualitätssicherung mit Stichproben, ob die Abfüllanlage richtig
+eingestellt ist, und das Eichamt prüft mit genau derselben Logik nach. Die
+Fertigpackungsverordnung (FPackV, Anlage~3) verlangt, dass der Mittelwert
+eines Loses die Nennfüllmenge nicht unterschreitet. Geprüft wird mit einer
+Stichprobe: Beanstandet wird, wenn $\bar{x} < Q_n - k\cdot s$. Für die
+zerstörende Prüfung mit $n=20$ Packungen ist $k=0{,}640$, für $n=50$ ist
+$k=0{,}379$. Diese Faktoren sind nichts anderes als das 99,5-\%-Quantil der
+$t$-Verteilung geteilt durch $\sqrt{n}$ ($2{,}861/\sqrt{20}=0{,}640$): Das
+Eichrecht schreibt einen einseitigen $t$-Test mit $\alpha=0{,}5\,\%$ vor.
+Die Losgrößenklassen der Tabelle unterscheiden sich zwischen Fassungen der
+Verordnung; vor der Stunde die aktuelle Fassung auf gesetze-im-internet.de
+nachsehen. Die 20 Packungsgewichte sind simuliert
+(\texttt{material/LE06/abfuellung.csv}), in der Größenordnung aber
+typisch. Zeitbedarf etwa 15 Minuten; wenn es knapp wird, genügen die
+Folien \enquote{Rechenweg} und \enquote{Was $p=0{,}023$ bedeutet}.}
+\begin{description}
+\item[{\rot\bf Füllt die Anlage zu wenig ab?}]~\\
+\begin{center}
+\includegraphics[width=0.97\linewidth,height=0.24\textheight,keepaspectratio]{figures/LE06_abfuell_daten.pdf}
+\end{center}
+\bi
+  \ite 500-g-Packungen; die Qualitätskontrolle wiegt $n=20$ nach:
+    $\bar{x}=497{,}8$\,g, $s=4{,}6$\,g
+  \ite $H_0$: $\mu=500$\,g (Anlage in Ordnung); $H_1$: $\mu<500$\,g
+    (einseitig, denn nur Unterfüllung schadet den Kunden)
+  \ite Eichrecht: beanstandet wird, wenn
+    $\bar{x}<500\,\text{g}-0{,}640\cdot s$
+\ei
+\os{\newpage}
+
+\item[{\rot\bf Rechenweg: $t$-Test für die Abfüllanlage}]~\\
+\begin{center}
+\small
+\begin{tabular}{@{}l>{\raggedright\arraybackslash}p{0.33\textwidth}>{\raggedright\arraybackslash}p{0.5\textwidth}@{}}
+\toprule
+\textbf{Schritt} & \textbf{Was} & \textbf{Rechnung} \\
+\midrule
+1 & Standardfehler & $\mathit{SE}=s/\sqrt{n}=4{,}6/\sqrt{20}=4{,}6/4{,}47\approx1{,}03$\,g \\
+2 & Abstand vom Sollwert & $\bar{x}-\mu_0=497{,}8-500=-2{,}2$\,g \\
+3 & Teststatistik & $t=-2{,}2/1{,}03\approx-2{,}14$, \quad $\mathit{df}=19$ \\
+4 & p-Wert (einseitig) & $P(T\le-2{,}14)\approx0{,}023$ \quad (\texttt{T.VERT(-2,14;19;WAHR)}) \\
+5 & interne QS, $\alpha=5\,\%$ & kritischer Wert $-1{,}73$; $-2{,}14<-1{,}73$: \textbf{nachjustieren} \\
+6 & Eichamt, $\alpha=0{,}5\,\%$ & Grenze $500-0{,}640\cdot4{,}6=497{,}1$\,g; $497{,}8>497{,}1$: \textbf{keine Beanstandung} \\
+\bottomrule
+\end{tabular}
+\end{center}
+\bi
+  \ite dieselben Daten, zwei Urteile -- je nachdem, wie teuer ein
+    Fehlalarm ist
+\ei
+\nsl{Mit den Rohdaten aus der CSV-Datei liefert
+\texttt{scipy.stats.ttest\_1samp(x, 500, alternative='less')} $t=-2{,}14$
+und $p=0{,}0227$ (die Einzelwerte sind auf 0,1\,g gerundet, deshalb ist
+$s=4{,}59$). Den kritischen Wert $-1{,}73$ liefert \texttt{T.INV(0,05;19)},
+den Faktor des Eichrechts \texttt{T.INV(0,995;19)/WURZEL(20)}.}
+\os{\newpage}
+
+\item[{\rot\bf Im Datenraum: zwei Schwellen}]~\\
+\begin{center}
+\includegraphics[width=0.97\linewidth,height=0.56\textheight,keepaspectratio]{figures/LE06_abfuell_test.pdf}
+\end{center}
+\bi
+  \ite grau: so streuen Mittelwerte von 20 Packungen, wenn die Anlage
+    stimmt
+  \ite $\alpha$ ist keine Naturkonstante, sondern eine Abwägung: Was
+    kostet ein Fehlalarm, was ein übersehener Fehler?
+\ei
+\nsl{Die Grafik zeigt den Test in Gramm statt in $t$-Einheiten. Das
+Eichamt schützt mit $\alpha=0{,}5\,\%$ auch den Hersteller: Ein ehrlich
+arbeitender Abfüller soll fast nie zu Unrecht beanstandet werden. Die
+interne Qualitätssicherung will Abweichungen früh sehen und nimmt dafür
+mehr Fehlalarme in Kauf. Umgekehrt steigt mit kleinem $\alpha$ der Fehler
+2.~Art: Eine Anlage, die wirklich 1\,g zu wenig abfüllt, rutscht beim
+Eichamt oft durch. Interaktiv im Notebook, Abschnitt~3.}
+\os{\newpage}
+
+\item[{\rot\bf Was $p=0{,}023$ bedeutet}]~\\
+\begin{center}
+\includegraphics[width=0.97\linewidth,height=0.56\textheight,keepaspectratio]{figures/LE06_pwert_simulation.pdf}
+\end{center}
+\bi
+  \ite \textbf{richtig}: Wenn die Anlage genau 500\,g abfüllt, liefern nur
+    gut 2\,\% aller Stichproben einen so kleinen Mittelwert
+  \ite \textbf{falsch}: \enquote{Mit 97,7\,\% füllt die Anlage zu wenig
+    ab} -- das wäre $P(H\mid\text{Daten})$, und dafür braucht es Bayes
+\ei
+\nsl{Die Simulation macht die frequentistische Logik greifbar: Wir
+erfinden eine Welt, in der $H_0$ gilt, ziehen dort 10\,000 Stichproben
+und zählen, wie oft so etwas wie unsere Daten vorkommt (219-mal, also
+2,2\,\%; die Abweichung von 2,3\,\% ist Simulationsrauschen). In dieser
+Logik ist die Hypothese fest und die Daten sind zufällig; eine
+Wahrscheinlichkeit für die Hypothese kommt darin nicht vor. In Sitzung~2
+rechnen wir mit denselben Daten die bayesianische Aussage. Im Notebook
+(Abschnitt~4) lässt sich der wahre Mittelwert verstellen: Bei
+$\mu=498$\,g zeigt der Anteil signifikanter Stichproben die Power.}
+\os{\newpage}
+\end{description}
+
+
+%==============================================================================
 \section{Was der p-Wert nicht sagt}
 %==============================================================================
 \nsl{Kaum ein statistischer Begriff wird so oft missverstanden wie der
@@ -1077,6 +1226,7 @@ mit Werkzeugen für das eigene Projekt.}
   \ite die Basisrate: das vergessene Vorwissen
   \ite bayesianisch prüfen: Bayes-Faktor, Posterior, Chancenform
   \ite selbst rechnen: Würfel-Detektive, Glaubwürdigkeits-Check
+  \ite Bayes ohne Messwerte: Wo ist mein Schlüssel? Wem glaube ich?
   \ite Welche Fragen kann Ihr Projekt beantworten?
   \ite schwierige Fragen zerlegen: Diamant und Landkarte
 \ei
@@ -1287,6 +1437,27 @@ P(H\mid E) \;=\; \frac{P(E\mid H)\cdot P(H)}{P(E)}
 \ei
 \os{\newpage}
 
+\item[{\rot\bf Bayes als Flächenbild}]~\\
+\begin{center}
+\includegraphics[width=0.97\linewidth,height=0.56\textheight,keepaspectratio]{figures/LE06_bayes_flaeche.pdf}
+\end{center}
+\bi
+  \ite Kiste mit fünf Münzen, eine davon gezinkt (Kopf in 70\,\%);
+    eine ziehen, werfen: Kopf
+  \ite Breite = Prior, Höhe = Likelihood; was zur Beobachtung nicht passt,
+    fällt weg
+  \ite Posterior = Anteil der gezinkten Fläche am Rest
+\ei
+\nsl{Schritt~1: Die Spaltenbreiten sind der Prior (20\,\% gezinkt, 80\,\%
+fair). Schritt~2: In jeder Spalte wird der Anteil gefärbt, der
+\enquote{Kopf} liefert (70\,\% bzw.\ 50\,\%). Alle \enquote{Zahl}-Flächen
+fallen weg, weil Kopf beobachtet wurde. Schritt~3: Was übrig bleibt, wird
+auf 100\,\% gestreckt; das ist die Division durch $P(E)$.
+$0{,}14/(0{,}14+0{,}40)\approx26\,\%$: Ein einzelner Kopf macht die
+gezinkte Münze nur wenig plausibler. Zum Mitmachen ein Einheitsquadrat an
+die Tafel zeichnen und schätzen lassen, bevor gerechnet wird.}
+\os{\newpage}
+
 \item[{\rot\bf Bayes zum Rechnen: die Chancenform}]~\\
 \[
 \underbrace{\frac{P(H_1\mid E)}{P(H_0\mid E)}}_{\text{Chance nachher}}
@@ -1420,6 +1591,46 @@ Wichtig ist, dass das bayesianische 95-\%-Intervall (\enquote{Glaubwürdigkeitsi
 genau die Aussage macht, die man dem Konfidenzintervall oft fälschlich
 zuschreibt. Bei einem flachen Prior und vielen Daten liegen beide
 Intervalle zahlenmäßig nahe beieinander.}
+\os{\newpage}
+
+\item[{\rot\bf Bayes für einen Mittelwert: die Abfüllanlage}]~\\
+\begin{center}
+\includegraphics[width=0.97\linewidth,height=0.56\textheight,keepaspectratio]{figures/LE06_abfuell_bayes.pdf}
+\end{center}
+\bi
+  \ite dieselben 20 Packungen wie in Sitzung~1; jede Packung verschiebt
+    und schärft die Kurve
+  \ite mit Vorwissen (\enquote{auf $500\pm1$\,g eingestellt}) rückt die
+    Schätzung zum Sollwert
+\ei
+\nsl{Links das Gitterverfahren: 2001 Hypothesen für $\mu$ zwischen 490
+und 510\,g, flacher Prior, $\sigma=4{,}6$\,g als bekannt angenommen,
+Aktualisierung Packung für Packung. Rechts das Endergebnis: Mit flachem
+Prior ist $P(\mu<500\,\text{g}\mid\text{Daten})=97{,}7\,\%$ und
+$P(\mu<498\,\text{g}\mid\text{Daten})\approx58\,\%$, eine relevante
+Unterfüllung um mehr als 2\,g ist also ungefähr so wahrscheinlich wie
+nicht. Gestrichelt der Posterior mit informativem Prior $N(500;\,1)$ aus
+der Einrichtung der Anlage: $498{,}9\pm0{,}7$\,g, $P(\mu<500)\approx93\,\%$.
+Wer einen Prior verwendet, muss ihn offenlegen und begründen. Interaktiv
+im Notebook, Abschnitt~7.}
+\os{\newpage}
+
+\item[{\rot\bf Zwei Aussagen über dieselben Daten}]~\\
+\begin{center}
+\includegraphics[width=0.97\linewidth,height=0.56\textheight,keepaspectratio]{figures/LE06_zwei_aussagen.pdf}
+\end{center}
+\bi
+  \ite frequentistisch: \enquote{Wäre die Anlage in Ordnung, kämen so
+    niedrige Mittelwerte nur in 2,3\,\% der Stichproben vor.}
+  \ite bayesianisch: \enquote{Gegeben die Daten (und einen flachen Prior)
+    füllt die Anlage mit 97,7\,\% zu wenig ab.}
+\ei
+\nsl{Gleiche Kurvenform, Zahlen, die sich zu 100\,\% ergänzen -- aber
+die Achsen sind verschieden. Links variieren die Daten bei festem
+$\mu=500$\,g, rechts variiert die Hypothese $\mu$ bei festen Daten. Dass
+sich die Zahlen hier ergänzen, ist ein Sonderfall (einseitiger Test,
+Normalmodell, flacher Prior). Mit Vorwissen (93\,\%, vorige Folie) oder
+bei einer Punkthypothese wie dem fairen Würfel fallen sie auseinander.}
 \os{\newpage}
 
 \item[{\rot\bf Bayes-Faktor zum $t$-Test}]~\\[-\lblskip]
@@ -1735,6 +1946,46 @@ für eine Studie mit 30 Personen?}
 \end{description}
 
 %==============================================================================
+\section{Bayes ohne Messwerte: Wo ist mein Schlüssel?}
+%==============================================================================
+\nsl{Bayes braucht keine Messreihen. Vorwissen und Beobachtungen genügen,
+auch wenn beide nur grob geschätzt sind. Das alltäglichste Beispiel ist
+die Suche nach einem verlegten Gegenstand. Der Prior ist die Gewohnheit:
+Wo lag der Schlüssel sonst? Die Likelihood einer erfolglosen Suche hängt
+davon ab, wie gründlich man an einem Ort nachsehen kann: In der
+Jackentasche findet man ihn fast sicher, auf einem unordentlichen
+Schreibtisch vielleicht nur in sechs von zehn Fällen. Daraus folgt die
+Pointe: \enquote{Nicht gefunden} ist auch ein Befund, und am meisten
+lohnt das Suchen nicht unbedingt am wahrscheinlichsten Ort, sondern dort,
+wo Wahrscheinlichkeit mal Entdeckungschance am größten ist. Dasselbe
+Prinzip heißt in der Praxis \emph{Bayessche Suchtheorie}; mit ihr wurden
+verlorene U-Boote und 2011 das Wrack von Air France 447 gefunden.}
+\begin{description}
+\item[{\rot\bf Wo ist mein Schlüssel?}]~\\
+\begin{center}
+\includegraphics[width=0.97\linewidth,height=0.44\textheight,keepaspectratio]{figures/LE06_schluessel.pdf}
+\end{center}
+\bi
+  \ite Prior: Gewohnheit; Likelihood: Wie sicher hätte ich ihn dort
+    gefunden, wenn er da wäre?
+  \ite \enquote{nicht gefunden} senkt diesen Ort und hebt alle anderen
+\ei
+\nsl{Prior: Jackentasche 35\,\%, Schlüsselbrett 25\,\%, Schreibtisch
+15\,\%, Auto 10\,\%, Küche 10\,\%, woanders 5\,\%. Entdeckungschance beim
+Nachsehen: 90, 99, 60, 70, 80 und 10\,\%. Nach erfolgloser Suche am Ort
+$i$ wird $P(i)$ mit $1-\text{Entdeckungschance}$ multipliziert, danach
+werden alle Werte wieder auf 100\,\% gebracht. Jackentasche:
+$0{,}35\cdot0{,}1=0{,}035$, nach dem Normieren 5\,\%; das Brett springt auf
+36\,\%. Nach zwei Fehlversuchen lohnt der Schreibtisch am meisten
+($0{,}34\cdot0{,}6\approx0{,}21$), obwohl Auto und Küche zusammen
+wahrscheinlicher sind. Live zum Mitspielen: \texttt{ZGS\_Test\_Bayes.pptx},
+Folie~31 (VBA), oder Notebook Abschnitt~8; der Schlüssel wird dort
+verdeckt nach dem Prior versteckt, das Publikum entscheidet, wo gesucht
+wird.}
+\os{\newpage}
+\end{description}
+
+%==============================================================================
 \section{Glaubwürdigkeits-Check mit der Suchmaschine}
 %==============================================================================
 \nsl{Bayes in Chancenform ist auch ein Werkzeug für den Alltag der
@@ -1792,6 +2043,26 @@ der Autor erklärt öffentlich, die Studie sei ein absichtlicher Fake & $\times\
   \ite am Ende: $P(\text{stimmt})\approx 0{,}04\,\%$
   \ite der Fund, der die meisten Klicks hat, trägt den kleinsten Faktor
 \ei
+\os{\newpage}
+
+\item[{\rot\bf Unabhängig oder abgeschrieben?}]~\\
+\begin{center}
+\includegraphics[width=0.97\linewidth,height=0.56\textheight,keepaspectratio]{figures/LE06_quellen.pdf}
+\end{center}
+\bi
+  \ite links: wie weit eine Bestätigung den Glauben verschiebt, hängt von
+    Prior und Qualität der Quelle ab
+  \ite rechts: zwei unabhängige Quellen ($\times4\times4$) gegen eine
+    abgeschriebene ($\times4\times1$)
+\ei
+\nsl{Beispiel rechts: Prior 30\,\%, also Chance $3:7$. Eine Quelle, die
+die Behauptung in 80\,\% der Fälle bringt, wenn sie stimmt, und in 20\,\%,
+wenn nicht, hat den Bayes-Faktor $0{,}8/0{,}2=4$: $3:7\times4=12:7$, also
+63\,\%. Eine zweite, unabhängige Quelle gleicher Güte: $48:7$, also
+87\,\%. Hat die zweite Quelle nur von der ersten abgeschrieben, ist ihr
+Faktor~1: Sie hätte es ohnehin gesagt, es bleibt bei 63\,\%. Die
+Bayes-Faktoren links (2, 4, 20) sind Größenordnungen zur Illustration,
+keine empirischen Werte. Interaktiv im Notebook, Abschnitt~9.}
 \os{\newpage}
 
 \item[{\rot\bf Ihr Glaubwürdigkeits-Check (Kleingruppen, 12 Min.)}]~\\[-\lblskip]
