@@ -94,6 +94,8 @@ publish: all einzeln english kapitel
 	cp docu.pdf pdf/WuZ_WissArbeiten_Skript.pdf
 	cp slides.pdf pdf/WuZ_WissArbeiten_Folien.pdf
 	$(PPTXPY) tools/pdf2pptx.py slides.pdf pdf/WuZ_WissArbeiten_Folien.pptx
+	$(PPTXPY) tools/pptx_live_einfuegen.py pdf/WuZ_WissArbeiten_Folien.pptx \
+	  material/LE06/ZGS_Test_Bayes.pptx slides.pdf
 	cp handouts.pdf pdf/WuZ_WissArbeiten_Handouts.pdf
 
 clean:

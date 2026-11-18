@@ -124,13 +124,19 @@ Private Function Folie(ByVal formName As String) As Slide
     MsgBox "Form '" & formName & "' nicht gefunden.", vbExclamation
 End Function
 
+' Schriftgrade und Linien sind fuer 16:9-Folien (960 pt breit) gewaehlt;
+' in kleineren Foliensaetzen (volle Vorlesungs-PPTX) wird mitskaliert.
+Private Function Massstab() As Single
+    Massstab = ActivePresentation.PageSetup.SlideWidth / 960
+End Function
+
 Private Sub SetzeText(ByVal sh As Shape, ByVal kopf As String, ByVal rumpf As String)
     With sh.TextFrame.TextRange
         .Text = T(kopf) & vbCr & T(rumpf)
-        .Font.Size = 14
+        .Font.Size = 14 * Massstab()
         .Font.Bold = msoFalse
         .Font.Color.RGB = RGB(34, 34, 34)
-        .Paragraphs(1).Font.Size = 17
+        .Paragraphs(1).Font.Size = 17 * Massstab()
         .Paragraphs(1).Font.Bold = msoTrue
         .Paragraphs(1).Font.Color.RGB = VIOLETT
     End With
@@ -253,7 +259,7 @@ Private Sub ZgsZeichnen()
             .Name = "zgsKurve"
             .Fill.Visible = msoFalse
             .Line.ForeColor.RGB = CYAN
-            .Line.Weight = 2.5
+            .Line.Weight = 2.5 * Massstab()
         End With
     End If
 

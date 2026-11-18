@@ -9,6 +9,13 @@ Drei Folien in `ZGS_Test_Bayes.pptx` sind interaktiv, wenn das Makro-Modul
 | 23 | Live: Ist diese Münze gezinkt? | Kopf/Zahl eingeben oder eine verdeckte Münze werfen; Posterior über p, P(p > 0,5), Glaubwürdigkeitsintervall und daneben der p-Wert des Binomialtests |
 | 31 | Live: Schlüsselsuche | Schlüssel ist verdeckt versteckt; jede erfolglose Suche aktualisiert die Wahrscheinlichkeiten |
 
+Dieselben drei Folien stecken auch in der vollen Vorlesungsfassung
+`pdf/WuZ_WissArbeiten_Folien.pptx`, jeweils direkt hinter der passenden Folie
+(„Weiterwürfeln am Rechner“, „Der Posterior wandert mit jedem Wurf“, „Wo ist mein
+Schlüssel?“). `make publish` fügt sie mit `tools/pptx_live_einfuegen.py` ein und
+skaliert sie auf das Folienformat; die Makros passen Schriftgrade selbst an. Der
+Einbau unten funktioniert dort genauso, mit dieser Datei statt `ZGS_Test_Bayes.pptx`.
+
 ## Einmalig einrichten (PowerPoint für Windows)
 
 1. `ZGS_Test_Bayes.pptx` öffnen.

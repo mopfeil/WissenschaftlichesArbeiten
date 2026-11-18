@@ -22,7 +22,8 @@ der Woche vorwegnimmt.
   Theorie, Folieninhalte, Vorbereitung jedes Kunststücks, Ablauf der
   Doppelstunde, Handouts, Übungsblätter mit Erwartungshorizont
 - [Folien (A5 quer)](pdf/WuZ_WissArbeiten_Folien.pdf) – was in der Stunde gezeigt wird,
-  auch als [PPTX](pdf/WuZ_WissArbeiten_Folien.pptx) zum Präsentieren (ein Bild je Folie)
+  auch als [PPTX](pdf/WuZ_WissArbeiten_Folien.pptx) zum Präsentieren (ein Bild je Folie; in LE 6 zusätzlich die drei
+  interaktiven Live-Folien mit Knöpfen, VBA-Einbau siehe `material/LE06/ANLEITUNG.md`)
 - [Handouts und Übungsblätter (A4)](pdf/WuZ_WissArbeiten_Handouts.pdf) – Druckvorlage
   für die Studierenden, ohne Regie- und Lösungshinweise
 - Skript und Folien kapitelweise, je Lehreinheit eine PDF zum Hochladen:
