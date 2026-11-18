@@ -40,7 +40,8 @@ der Woche vorwegnimmt.
     [alle Teil B](pdf/WuZ_WissArbeiten_Uebungsblaetter_B.pdf),
     [alle Zusammenfassungen](pdf/WuZ_WissArbeiten_Zusammenfassungen.pdf)
 - Englische Übungsblätter (Worksheets A/B) für LE 1–8, Worksheet C für LE 4 (SIFT-Quellen)
-  und LE 6 (Abfüllanlage, Bayes-Mittelwert, Schlüssel, Quellen):
+  und LE 6 (Abfüllanlage, Bayes-Mittelwert, Schlüssel, Quellen), dazu ein englisches
+  Handout zu diesen LE-6-Teilen (`LE06_Handout.pdf`):
   [pdf/Worksheets_EN/](pdf/Worksheets_EN/), Quelltext in `handouts/en/`
 
 ## Die 13 Lehreinheiten
@@ -84,7 +85,7 @@ make script     nur das Skript
 make slides     nur die Folien
 make handouts   nur Handouts und Übungsblätter
 make einzeln    Übungsblatt A, B und Zusammenfassung getrennt, je LE (make -j8 einzeln)
-make english    englische Übungsblätter A und B (LE 1–8) nach pdf/Worksheets_EN/
+make english    englische Übungsblätter (LE 1–8) und Handout LE 6 nach pdf/Worksheets_EN/
 make publish    baut alles und kopiert die PDFs nach pdf/
 make clean      entfernt LaTeX-Hilfsdateien
 ```

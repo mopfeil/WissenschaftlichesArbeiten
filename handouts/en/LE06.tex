@@ -3,9 +3,132 @@
 % Vorlage: handouts/LE06.tex. Nur in handouts.tex mit \def\wuzsprache{en}.
 % Datensatz (Task 3) identisch mit der deutschen Fassung; Spalten
 % umbenannt: St -> W (wonder), VW -> PK (prior knowledge).
-% Da es kein englisches Handout gibt, steht die Faustformel fuer den
-% Bayes-Faktor direkt in Task 3.
+% Das englische Handout fasst nur die neuen Teile zusammen (Uebersetzung
+% des zweiten deutschen Handouts); die Faustformel fuer den Bayes-Faktor
+% steht deshalb weiter direkt in Task 3.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{handout}{From Dice to Test, from Bayes to Keys}
+
+\textbf{What this was about.} Many dice means form a bell curve, the bell
+curve gives the standard error, and the standard error gives a $t$-test.
+With the same filling-line data we then reason the Bayesian way, and
+finally we see that Bayes works without any measurements at all.
+
+\textbf{1. From dice to $t$-test in four steps}
+\begin{enumerate}\itemsep 0pt
+  \item \emph{Central limit theorem:} means of $n$ rolls are approximately
+    normally distributed, for a fair die and for a loaded one.
+  \item \emph{Standard error:} $\mathit{SE}=\sigma/\sqrt{n}$, read off the
+    bell curve as the distance from the peak to the inflection point. Fair
+    die, $\sigma=1.71$, $n=30$: $\mathit{SE}\approx0.31$; 95\,\% of the
+    means lie between 2.9 and 4.1.
+  \item \emph{Distance in standard errors:} $t=(\bar{x}-\mu_0)/\mathit{SE}$,
+    with $\mathit{SE}=s/\sqrt{n}$ from the sample and $\mathit{df}=n-1$.
+  \item \emph{p-value:} area under the $t$-distribution beyond $t$.
+\end{enumerate}
+
+\textbf{2. In practice: does the line underfill?} 500-g packs, $n=20$
+weighed, $\bar{x}=497.8$\,g, $s=4.6$\,g; $H_0$: $\mu=500$\,g,
+$H_1$: $\mu<500$\,g (one-sided).
+\begin{center}
+\small
+\begin{tabular}{@{}>{\raggedright\arraybackslash}p{0.27\textwidth}>{\raggedright\arraybackslash}p{0.66\textwidth}@{}}
+\toprule
+standard error & $4.6/\sqrt{20}\approx1.03$\,g \\
+test statistic, p-value & $t=-2.2/1.03\approx-2.14$, $\mathit{df}=19$; $p\approx0.023$ (\texttt{T.DIST(-2.14;19;TRUE)}) \\
+in-house QC, $\alpha=5\,\%$ & critical value $-1.73$ $\Rightarrow$ \textbf{adjust the line} \\
+legal check, $\alpha=0.5\,\%$ & limit $500-0.640\cdot s=497.1$\,g $\Rightarrow$ \textbf{no objection} \\
+power at $\mu=498$\,g & 59\,\% ($\alpha=5\,\%$) versus 21\,\% ($\alpha=0.5\,\%$) \\
+\bottomrule
+\end{tabular}
+\end{center}
+The factor 0.640 from the German prepackage regulation (FPackV) is
+$t_{0.995;\,19}/\sqrt{20}$: the law prescribes a one-sided $t$-test.
+$\alpha$ is a trade-off, not a constant of nature: a small $\alpha$
+protects against false alarms and lets more real faults slip through.
+
+\textbf{3. Two statements about the same data}
+\begin{center}
+\small
+\begin{tabular}{@{}>{\raggedright\arraybackslash}p{0.2\textwidth}>{\raggedright\arraybackslash}p{0.36\textwidth}>{\raggedright\arraybackslash}p{0.36\textwidth}@{}}
+\toprule
+ & \textbf{frequentist} & \textbf{Bayesian} \\
+\midrule
+fixed & the hypothesis ($\mu=500$\,g) & the data (the 20 packs) \\
+random & the data & our knowledge about $\mu$ \\
+statement & \enquote{If the line were fine, means this low would occur in only 2.3\,\% of samples.} & \enquote{Given the data (flat prior), the line underfills with probability 97.7\,\%.} \\
+\bottomrule
+\end{tabular}
+\end{center}
+That 2.3\,\% and 97.7\,\% add up to 100\,\% is a special case (one-sided,
+normal model, flat prior). With the prior knowledge \enquote{set to
+$500\pm1$\,g} the posterior becomes $498.9\pm0.7$\,g and
+$P(\mu<500\mid\text{data})\approx93\,\%$. Even with a flat prior, an
+underfill of more than 2\,g has a probability of only 58\,\%. Whoever uses
+a prior states it openly and justifies it.
+
+\textbf{4. Bayes as an area picture}
+\begin{description}\itemsep 0pt
+  \item[Prior] width of the columns. Five coins, one loaded (heads
+    70\,\%): 20\,\% versus 80\,\%.
+  \item[Likelihood] coloured height in each column: 70\,\% or 50\,\%
+    heads.
+  \item[Posterior] whatever does not fit the observation drops out; the
+    rest is stretched back to 100\,\%. One head:
+    $0.14/(0.14+0.40)\approx26\,\%$ loaded.
+\end{description}
+For a mean we do the same with many hypotheses side by side
+($\mu=490.00$; $490.01$; \dots; $510$\,g): every pack shifts and sharpens
+the curve.
+
+\newpage
+\textbf{5. Bayes without measurements}
+\begin{description}\itemsep 0pt
+  \item[Where are my keys?] Prior = habit, likelihood = chance of
+    detection $e_i$ when looking there. Not found at place $i$:
+    $P(i)\times(1-e_i)$, then rescale all values to 100\,\%.
+    \enquote{Not found} is a finding too. Search next where
+    $P(i)\cdot e_i$ is largest, not necessarily at the most likely place.
+\end{description}
+\begin{center}
+\small
+\begin{tabular}{@{}lrrrrrr@{}}
+\toprule
+ & jacket & key rack & desk & car & kitchen & elsewhere \\
+\midrule
+prior & 35 & 25 & 15 & 10 & 10 & 5 \\
+chance of detection $e_i$ & 90 & 99 & 60 & 70 & 80 & 10 \\
+after \enquote{not in the jacket} & 5 & 37 & 22 & 15 & 15 & 7 \\
+after \enquote{not on the rack either} & 8 & 1 & \textbf{34} & 23 & 23 & 11 \\
+\bottomrule
+\end{tabular}\\[0.5ex]
+{\footnotesize Figures in per cent. After two failed searches the desk
+is the best bet ($0.34\cdot0.6\approx0.21$), although car and kitchen
+together are more likely.}
+\end{center}
+\begin{description}\itemsep 0pt
+  \item[Do I believe this source?] Posterior odds = prior odds $\times$
+    Bayes factor of the source. Prior 30\,\% (odds $3:7$), one source with
+    $\mathit{BF}=0.8/0.2=4$: $12:7$, i.e.\ 63\,\%; a second,
+    \emph{independent} one: $48:7$, i.e.\ 87\,\%. If the second one only
+    copied the first, its factor is~1: we stay at 63\,\%.
+\end{description}
+
+\begin{merkbox}[Key points]
+The standard error tells how precise a mean is; the $t$-test measures
+the distance to the target value in standard errors. The p-value
+describes the data under a fixed hypothesis, the posterior describes the
+hypothesis given fixed data. Bayes needs no series of measurements:
+habit, search quality and source quality are enough, as long as only
+independent findings are multiplied.
+\end{merkbox}
+
+\textbf{To try it yourself:} the notebook \texttt{ZGS\_Test\_Bayes.ipynb}
+(runs in Google Colab, sections 1--9) and the measurements in
+\texttt{abfuellung.csv}, both in the course material. Exercises are on
+Worksheet~C.
+\end{handout}
+
 \begin{uebungsblatt}{Cups, Dice and Data}
 
 \aufgabe{Monty Hall in pairs}[in class, pairs, 10 min.]

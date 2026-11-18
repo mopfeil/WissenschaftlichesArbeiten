@@ -66,7 +66,8 @@ pdf/WuZ_WissArbeiten_Zusammenfassungen.pdf: handouts/*.tex $(HDEPS)
 LES_EN  = 01 02 03 04 05 06 07 08
 UEB_EN  = $(patsubst %,pdf/Worksheets_EN/LE%_Worksheet_A.pdf,$(LES_EN)) \
           $(patsubst %,pdf/Worksheets_EN/LE%_Worksheet_B.pdf,$(LES_EN)) \
-          pdf/Worksheets_EN/LE04_Worksheet_C.pdf pdf/Worksheets_EN/LE06_Worksheet_C.pdf
+          pdf/Worksheets_EN/LE04_Worksheet_C.pdf pdf/Worksheets_EN/LE06_Worksheet_C.pdf \
+          pdf/Worksheets_EN/LE06_Handout.pdf
 
 english: $(UEB_EN)
 
@@ -81,6 +82,10 @@ PPTXPY ?= $(HOME)/.local/share/lecture-tools/venv/bin/python
 
 pdf/Worksheets_EN/LE%_Worksheet_C.pdf: handouts/en/LE%.tex $(HDEPS)
 	$(call teil,LE$*_Worksheet_C,$(patsubst 0%,%,$*),uebungc,$@,\def\wuzsprache{en})
+
+# englisches Handout (bisher nur LE 6: Zusammenfassung der neuen Teile)
+pdf/Worksheets_EN/LE%_Handout.pdf: handouts/en/LE%.tex $(HDEPS)
+	$(call teil,LE$*_Handout,$(patsubst 0%,%,$*),handout,$@,\def\wuzsprache{en})
 
 # Skript und Folien kapitelweise (LE00-LE13, Anhang, Literatur) zum Hochladen,
 # geschnitten aus docu.pdf und slides.pdf anhand der Seitenzahlen in der .toc
