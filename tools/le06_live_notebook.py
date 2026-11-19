@@ -349,7 +349,17 @@ md("""
 ## 8  Wo ist mein Schlüssel?
 
 Der Schlüssel wird verdeckt nach der Gewohnheit versteckt. Klicken Sie auf einen Ort, um dort nachzusehen.
-„Nicht gefunden“ ist auch ein Befund: P(dort) wird mit (1 − Entdeckungschance) multipliziert und alles neu normiert.
+„Nicht gefunden“ ist auch ein Befund (B). Für jeden Ort gilt
+
+**Posterior-Chance = Prior-Chance × Bayes-Faktor**, mit
+BF(Ort) = P(nicht gefunden | Schlüssel dort) / P(nicht gefunden | Schlüssel nicht dort) und Chance = P / (1 − P).
+
+* gesuchter Ort: BF = 1 − Entdeckungschance (< 1, Balken schrumpft)
+* alle anderen Orte: BF = (1 − P_j) / (1 − P_i · f_i − P_j) > 1 (Balken wächst)
+* gefunden: BF = ∞ für den Fundort, 0 für alle anderen
+
+Entdeckungschance f: Tasche 90 %, Brett 99 %, Schreibtisch 60 %, Auto 70 %, Küche 80 %, woanders 10 %.
+Unter jedem Balken steht der Bayes-Faktor der letzten Suche, darunter die Rechnung für den gesuchten Ort.
 """)
 
 code("""
@@ -361,34 +371,59 @@ ausgabe = widgets.Output()
 
 def neuer_fall(_=None):
     zustand.update(post=PRIOR.copy(), ort=np.random.choice(6, p=PRIOR), gefunden=False, suchen=0,
-                   text='Neuer Fall: Wo suchen Sie zuerst?')
+                   bf=None, text='Neuer Fall: Wo suchen Sie zuerst?', rechnung='')
     zeichne()
 
 def suche(i):
     if zustand['gefunden']:
-        return
+        zustand['text'] = 'Schon gefunden – für einen neuen Fall auf „Neuer Fall“ klicken.'
+        zeichne(); return
     zustand['suchen'] += 1
+    p = zustand['post']
     if zustand['ort'] == i and np.random.rand() < FUND[i]:
         zustand['gefunden'] = True
+        zustand['bf'] = np.where(np.arange(6) == i, np.inf, 0.0)
         zustand['post'] = np.eye(6)[i]
         zustand['text'] = f'Gefunden in: {ORTE[i]} (nach {zustand["suchen"]} Suchen)'
+        zustand['rechnung'] = (f'BF = P(gefunden | dort) / P(gefunden | nicht dort) = {FUND[i]:.2f} / 0 = ∞')
     else:
-        p = zustand['post'].copy(); p[i] *= 1 - FUND[i]; zustand['post'] = p / p.sum()
-        best = np.argmax(zustand['post'] * FUND)
-        zustand['text'] = (f'{ORTE[i]}: nicht gefunden.  Suchen lohnt jetzt am meisten: {ORTE[best]} '
-                           f'(P × Entdeckung = {zustand["post"][best]*FUND[best]:.0%})')
+        # Bayes-Faktor je Ort für B = „an Ort i nicht gefunden“
+        bf = (1 - p) / (1 - p[i] * FUND[i] - p)
+        bf[i] = 1 - FUND[i]
+        neu = p.copy(); neu[i] *= 1 - FUND[i]; neu /= neu.sum()
+        cv, cn = p[i] / (1 - p[i]), neu[i] / (1 - neu[i])
+        best = np.argmax(neu * FUND)
+        zustand.update(post=neu, bf=bf)
+        zustand['text'] = f'{ORTE[i]}: nicht gefunden'
+        zustand['rechnung'] = (f'Rechnung {ORTE[i]}:  Chance {cv:.3f} × BF {bf[i]:.2f} = {cn:.4f}  →  P = {neu[i]:.1%}\\n'
+                               f'Am wahrscheinlichsten jetzt: {ORTE[np.argmax(neu)]} ({neu.max():.0%});  '
+                               f'Suchen lohnt am meisten: {ORTE[best]} (P × Entdeckung = {neu[best]*FUND[best]:.0%})')
     zeichne()
+
+def bf_text(v):
+    return '∞' if np.isinf(v) else f'{v:.2f}'
 
 def zeichne():
     with ausgabe:
         clear_output(wait=True)
-        fig, ax = plt.subplots(figsize=(10, 3.8))
+        fig, ax = plt.subplots(figsize=(10, 4.2))
         farben = [CYAN if zustand['gefunden'] and v == 1 else VIOLETT for v in zustand['post']]
         ax.bar(ORTE, zustand['post'], color=farben)
         for j, v in enumerate(zustand['post']):
             ax.text(j, v + .01, f'{v:.0%}', ha='center')
-        ax.set_ylim(0, 1.05); ax.set_ylabel('P(Schlüssel ist dort)'); ax.set_title(zustand['text'])
+            if zustand['bf'] is None:
+                t, c = 'BF –', GRAU
+            else:
+                b = zustand['bf'][j]
+                t, c = 'BF ' + bf_text(b), (ROT if b < 1 else CYAN)
+            ax.text(j, -0.13, t, ha='center', va='top', color=c, fontweight='bold',
+                    transform=ax.get_xaxis_transform())
+        ax.set_ylim(0, 1.05); ax.set_ylabel('P(Schlüssel ist dort)')
+        ax.set_title(zustand['text'] + '\\nPosterior-Chance = Prior-Chance × Bayes-Faktor', fontsize=11)
+        plt.tight_layout()
         plt.show()
+        if zustand['rechnung']:
+            print(zustand['rechnung'])
 
 knoepfe = [widgets.Button(description=o) for o in ORTE]
 for i, b in enumerate(knoepfe):
