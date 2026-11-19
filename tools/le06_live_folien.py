@@ -1010,7 +1010,7 @@ notizen(f, "Zusammenfassung zum Mitnehmen.")
 f = neue_folie("Material zum Weiterarbeiten", None)
 punkte(f, LINKS, Inches(1.5), BREIT, Inches(5.4), [
     ("ZGS_Test_Bayes.ipynb – Colab-Notebook mit Schiebereglern: ZGS, Standardfehler, t-Test, Simulation des p-Werts, "
-     "Münze, Würfel, Mittelwert, Schlüssel, Quellen", {}),
+     "Münze, Würfel, Mittelwert, Schlüssel, Quellen, Diamant", {}),
     ("StatistikLive.bas – Makros für die vier Live-Folien (Würfel-Labor, Münze, Schlüssel, Diamant); "
      "Einbau in ANLEITUNG.md", {}),
     ("abfuellung.csv – die 20 Packungsgewichte", {}),

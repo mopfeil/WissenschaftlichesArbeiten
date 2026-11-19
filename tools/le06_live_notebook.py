@@ -38,6 +38,7 @@ Interaktive Begleitung zum Foliensatz **ZGS_Test_Bayes.pptx**. Jede Zelle ausfü
 | 7 | Bayes-Schätzung des Mittelwerts (Abfüllanlage) |
 | 8 | Wo ist mein Schlüssel? |
 | 9 | Glaube ich dieser Quelle? |
+| 10 | Den Diamanten durchrechnen: welche Spitze bewegt was? |
 """)
 
 code("""
@@ -428,6 +429,92 @@ interact(quelle, prior=widgets.FloatSlider(value=0.3, min=0.01, max=0.99, step=0
          treffer=widgets.FloatSlider(value=0.8, min=0.05, max=1, step=0.05),
          fehlalarm=widgets.FloatSlider(value=0.2, min=0.01, max=1, step=0.01),
          quellen=widgets.IntSlider(value=2, min=1, max=6), unabhaengig=True);
+""")
+
+md("""
+## 10  Den Diamanten durchrechnen
+
+Drei Spitzen des Diamanten sind konkurrierende Erklärungen für „Trickgruppe behält mehr“:
+**Idee** (der Trick hilft), **Gegenteil** (der Trick lenkt ab und schadet), **Weder-noch** (etwas Drittes,
+z. B. das zwei Minuten längere Video). Die vierte Spitze, **Sowohl-als-auch**, ist keine eigene Erklärung,
+sondern liefert eine Beobachtung, die Idee *und* Gegenteil erwarten.
+
+| Beobachtung | P(B \\| Idee) | P(B \\| Gegenteil) | P(B \\| Weder-noch) |
+|---|---|---|---|
+| ① Sowohl-als-auch: Trickgruppe staunt mehr | 0,9 | 0,9 | 0,5 |
+| ② behält mehr als die kürzere Kontrolle | 0,7 | 0,1 | 0,7 |
+| ③ behält mehr als eine gleich lange Kontrolle | 0,7 | 0,1 | 0,2 |
+
+Posterior-Chance = Prior-Chance × Bayes-Faktor. Für jede Erklärung H gilt
+BF(H) = P(B | H) / P(B | nicht H); paarweise BF(Idee : Gegenteil) = P(B | Idee) / P(B | Gegenteil).
+„nicht beobachtet“ rechnet mit 1 − P. Wählen Sie für jede Beobachtung ein Ergebnis und schauen Sie, welche
+Spitze welche Erklärung bewegt. Annahme: Die Beobachtungen sind gegeben die Erklärung unabhängig.
+""")
+
+code("""
+ERKL = ['Idee', 'Gegenteil', 'Weder-noch']
+BEOB = ['① staunt mehr', '② > kürzere Kontrolle', '③ > gleich lange Kontrolle']
+LIK = np.array([[.9, .9, .5],
+                [.7, .1, .7],
+                [.7, .1, .2]])
+ERGEBNIS = ['nicht erhoben', 'beobachtet', 'nicht beobachtet']
+
+def diamant(prior_idee=0.25, prior_gegenteil=0.25, b1='beobachtet', b2='beobachtet', b3='beobachtet',
+            lik_eigene=False, l1='0.9 0.9 0.5', l2='0.7 0.1 0.7', l3='0.7 0.1 0.2'):
+    if prior_idee + prior_gegenteil >= 1:
+        print('Prior Idee + Gegenteil muss unter 1 bleiben (Rest = Weder-noch).'); return
+    lik = LIK.copy()
+    if lik_eigene:
+        try:
+            lik = np.array([[float(x.replace(',', '.')) for x in z.split()] for z in (l1, l2, l3)])
+            assert lik.shape == (3, 3) and ((lik > 0) & (lik < 1)).all()
+        except Exception:
+            print('Eigene Likelihoods: je Zeile drei Zahlen zwischen 0 und 1, z. B. 0.7 0.1 0.2'); return
+    p = np.array([prior_idee, prior_gegenteil, 1 - prior_idee - prior_gegenteil])
+    schritte, zeilen = [('Prior', p)], []
+    for k, erg in enumerate([b1, b2, b3]):
+        if erg == 'nicht erhoben':
+            continue
+        l = lik[k] if erg == 'beobachtet' else 1 - lik[k]
+        bf = np.array([l[j] / ((p @ l - p[j] * l[j]) / (1 - p[j])) for j in range(3)])
+        neu = p * l / (p @ l)
+        zeilen.append((BEOB[k] + ('' if erg == 'beobachtet' else ' (nein)'), l, bf, p, neu))
+        p = neu
+        schritte.append((BEOB[k][:1] + ('' if erg == 'beobachtet' else ' nein'), p))
+
+    fig, ax = plt.subplots(figsize=(10, 4))
+    breite = 0.26
+    for j, (name, farbe) in enumerate(zip(ERKL, [VIOLETT, ROT, GRAU])):
+        werte = [s[1][j] for s in schritte]
+        x = np.arange(len(schritte)) + (j - 1) * breite
+        ax.bar(x, werte, breite, color=farbe, label=name)
+        for xi, v in zip(x, werte):
+            ax.text(xi, v + .01, f'{v:.0%}', ha='center', fontsize=8)
+    ax.set_xticks(np.arange(len(schritte)), [s[0] for s in schritte])
+    ax.set_ylim(0, 1.08); ax.set_ylabel('P(Erklärung)'); ax.legend(frameon=False, ncol=3, loc='upper left')
+    ax.set_title('Posterior-Chance = Prior-Chance × Bayes-Faktor')
+    plt.show()
+
+    for name, l, bf, vor, nach in zeilen:
+        print(f'{name}')
+        print(f'   P(B | H)          ' + '   '.join(f'{e}: {v:.2f}' for e, v in zip(ERKL, l)))
+        print(f'   BF(H gegen Rest)  ' + '   '.join(f'{e}: {v:.2f}' for e, v in zip(ERKL, bf)))
+        print(f'   paarweise         Idee : Gegenteil = {l[0]:.2f} / {l[1]:.2f} = {l[0]/l[1]:.2f}'
+              f'    Idee : Weder-noch = {l[0]:.2f} / {l[2]:.2f} = {l[0]/l[2]:.2f}')
+        cv, cn = vor[0] / (1 - vor[0]), nach[0] / (1 - nach[0])
+        print(f'   Rechnung Idee     Chance {cv:.3f} × BF {bf[0]:.2f} = {cn:.3f}  →  P = {nach[0]:.1%}')
+        print()
+
+interact(diamant,
+         prior_idee=widgets.FloatSlider(value=0.25, min=0.01, max=0.97, step=0.01),
+         prior_gegenteil=widgets.FloatSlider(value=0.25, min=0.01, max=0.97, step=0.01),
+         b1=widgets.Dropdown(options=ERGEBNIS, value='beobachtet', description='① staunt'),
+         b2=widgets.Dropdown(options=ERGEBNIS, value='beobachtet', description='② kürzer'),
+         b3=widgets.Dropdown(options=ERGEBNIS, value='beobachtet', description='③ gleich lang'),
+         lik_eigene=widgets.Checkbox(value=False, description='eigene Likelihoods'),
+         l1=widgets.Text(value='0.9 0.9 0.5', description='① I G W'),
+         l2=widgets.Text(value='0.7 0.1 0.7', description='② I G W'),
+         l3=widgets.Text(value='0.7 0.1 0.2', description='③ I G W'));
 """)
 
 nb = {"cells": zellen, "metadata": {"colab": {"name": "ZGS_Test_Bayes.ipynb"},

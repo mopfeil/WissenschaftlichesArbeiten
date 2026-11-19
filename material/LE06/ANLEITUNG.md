@@ -55,7 +55,7 @@ Speichern einmal „Zurücksetzen“ klicken, wenn die Folie leer starten soll.
   PowerPoint für Mac laufen; getestet ist das nicht.
 
 Ohne Makros zeigt das Colab-Notebook `ZGS_Test_Bayes.ipynb` dieselben Simulationen
-(Abschnitte 1, 5 und 8; den Diamanten nicht).
+(Abschnitte 1, 5, 8 und 10).
 
 ## Hinweis
 
