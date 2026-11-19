@@ -27,6 +27,7 @@ EINFUEGEN = [
     (6, "Weiterwürfeln am Rechner"),
     (23, "Der Posterior wandert mit jedem Wurf"),
     (31, "Wo ist mein Schlüssel?"),
+    (34, "Welche Beobachtung trennt die Positionen?"),
 ]
 
 A = "{http://schemas.openxmlformats.org/drawingml/2006/main}"

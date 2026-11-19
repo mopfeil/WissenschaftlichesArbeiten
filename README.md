@@ -22,7 +22,7 @@ der Woche vorwegnimmt.
   Theorie, Folieninhalte, Vorbereitung jedes Kunststücks, Ablauf der
   Doppelstunde, Handouts, Übungsblätter mit Erwartungshorizont
 - [Folien (A5 quer)](pdf/WuZ_WissArbeiten_Folien.pdf) – was in der Stunde gezeigt wird,
-  auch als [PPTX](pdf/WuZ_WissArbeiten_Folien.pptx) zum Präsentieren (ein Bild je Folie; in LE 6 zusätzlich die drei
+  auch als [PPTX](pdf/WuZ_WissArbeiten_Folien.pptx) zum Präsentieren (ein Bild je Folie; in LE 6 zusätzlich die vier
   interaktiven Live-Folien mit Knöpfen, VBA-Einbau siehe `material/LE06/ANLEITUNG.md`)
 - [Handouts und Übungsblätter (A4)](pdf/WuZ_WissArbeiten_Handouts.pdf) – Druckvorlage
   für die Studierenden, ohne Regie- und Lösungshinweise
@@ -52,9 +52,9 @@ Ihre Grafiken erzeugen `python3 tools/le06_figuren.py` und
 
 Zu LE 6 gibt es Live-Material in [material/LE06/](material/LE06/):
 
-- `ZGS_Test_Bayes.pptx`: 35 editierbare Folien mit Sprechernotizen (Grenzwertsatz,
-  Standardfehler, t-Test, Abfüllanlage mit Eichrecht, Bayes, Schlüssel, Quellen),
-  drei davon interaktiv (Würfel-Labor, Münze, Schlüsselsuche) über das VBA-Modul
+- `ZGS_Test_Bayes.pptx`: 36 editierbare Folien mit Sprechernotizen (Grenzwertsatz,
+  Standardfehler, t-Test, Abfüllanlage mit Eichrecht, Bayes, Schlüssel, Quellen, Diamant),
+  vier davon interaktiv (Würfel-Labor, Münze, Schlüsselsuche, Diamant) über das VBA-Modul
   `StatistikLive.bas`; Einbau in `ANLEITUNG.md`
 - `ZGS_Test_Bayes.ipynb`: Colab-Notebook mit Schiebereglern zu allen Beispielen
 - `abfuellung.csv`: die 20 Packungsgewichte (simuliert)

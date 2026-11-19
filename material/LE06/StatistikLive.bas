@@ -5,6 +5,7 @@ Attribute VB_Name = "StatistikLive"
 '  1. Wuerfel-Labor     (Zentraler Grenzwertsatz, Standardfehler)
 '  2. Muenze live       (Bayes-Update ueber p, daneben der p-Wert)
 '  3. Schluesselsuche   (Bayes ohne Messwerte)
+'  4. Diamant           (drei Erklaerungen, Bayes-Faktor je Beobachtung)
 '
 ' Einbau (einmalig): Alt+F11 -> Datei -> Datei importieren -> diese Datei.
 ' Dann Makro "Einrichten" ausfuehren (Alt+F8) und die Praesentation als
@@ -12,7 +13,9 @@ Attribute VB_Name = "StatistikLive"
 '
 ' Die Makros finden ihre Formen ueber die Namen (Auswahlbereich, Alt+F10):
 ' zgsFeld, zgsBar01..26, zgsInfo, bayFeld, bayBar01..50, bayInfo,
-' keyFeld, keyBar1..6, keyPct1..6, keyBF1..6, keyInfo und die Knoepfe btn...
+' keyFeld, keyBar1..6, keyPct1..6, keyBF1..6, keyInfo,
+' diaFeld, diaBar1..3, diaPct1..3, diaL1..3, diaBF1..3, diaObs1..3, diaInfo
+' und die Knoepfe btn...
 ' Umlaute und Sonderzeichen werden ueber Platzhalter wie {ue} erzeugt,
 ' damit die Datei reines ASCII bleibt.
 '=============================================================================
@@ -50,6 +53,12 @@ Private keyGefunden As Boolean
 Private keySuchen As Long
 Private keyBF(1 To 6) As Double            ' Bayes-Faktor der letzten Suche; -1 = keiner, -2 = unendlich
 
+' --- Diamant -----------------------------------------------------------------
+Private diaPost(1 To 3) As Double          ' Idee, Gegenteil, Weder-noch
+Private diaL(1 To 3) As Double             ' P(B | H) der letzten Beobachtung; -1 = keine
+Private diaBF(1 To 3) As Double            ' BF(H) = P(B | H) / P(B | nicht H)
+Private diaBenutzt(1 To 3) As Boolean
+
 
 '=============================================================================
 ' Einrichten: verbindet jeden Knopf "btn..." mit dem gleichnamigen Makro
@@ -85,6 +94,7 @@ Private Sub Start()
         bayVerdecktP = NeueMuenzeP()
         KeyPrior
         keyOrt = ZieheOrt()
+        DiaPrior
     End If
 End Sub
 
@@ -548,4 +558,141 @@ Private Sub KeyZeichnen(ByVal kopf As String, ByVal rumpf As String)
         End With
     Next j
     SetzeText s.Shapes("keyInfo"), kopf, rumpf
+End Sub
+
+
+'=============================================================================
+' 4  Diamant: Idee, Gegenteil, Weder-noch; Beobachtungen aus den Spitzen
+'=============================================================================
+Public Sub btnDia1Ja(): DiaBeob 1, True: End Sub
+Public Sub btnDia1Nein(): DiaBeob 1, False: End Sub
+Public Sub btnDia2Ja(): DiaBeob 2, True: End Sub
+Public Sub btnDia2Nein(): DiaBeob 2, False: End Sub
+Public Sub btnDia3Ja(): DiaBeob 3, True: End Sub
+Public Sub btnDia3Nein(): DiaBeob 3, False: End Sub
+
+Public Sub btnDiaReset()
+    Start
+    DiaPrior
+    DiaZeichnen "Neu gestartet.", _
+                "Prior: Idee 1 : 3 (skeptisch), Gegenteil ebenso, Weder-noch 50 %. Klicken Sie eine Beobachtung an."
+End Sub
+
+Private Sub DiaPrior()
+    Dim j As Long
+    diaPost(1) = 0.25: diaPost(2) = 0.25: diaPost(3) = 0.5
+    For j = 1 To 3
+        diaL(j) = -1: diaBF(j) = -1: diaBenutzt(j) = False
+    Next j
+End Sub
+
+' P(Beobachtung k | Hypothese h), Tabelle "Welche Beobachtung trennt die Positionen?"
+Private Function DiaLik(ByVal k As Long, ByVal h As Long) As Double
+    Select Case k
+        Case 1: DiaLik = Choose(h, 0.9, 0.9, 0.5)   ' Sowohl-als-auch: staunt mehr
+        Case 2: DiaLik = Choose(h, 0.7, 0.1, 0.7)   ' mehr als kuerzere Kontrolle
+        Case 3: DiaLik = Choose(h, 0.7, 0.1, 0.2)   ' mehr als gleich lange Kontrolle
+    End Select
+End Function
+
+Private Function DiaName(ByVal h As Long) As String
+    DiaName = Choose(h, "Idee", "Gegenteil", "Weder-noch")
+End Function
+
+Private Sub DiaBeob(ByVal k As Long, ByVal ja As Boolean)
+    Dim j As Long, m As Long, summe As Double, rest As Double, pVor As Double, bfIG As Double, bfIW As Double
+    Dim kopf As String
+    Start
+    kopf = Choose(k, "Trickgruppe staunt mehr", "mehr als k{ue}rzere Kontrolle", "mehr als gleich lange Kontrolle")
+    If diaBenutzt(k) Then
+        DiaZeichnen "Schon ber{ue}cksichtigt: " & ChrW(9311 + k), _
+                    "Jede Beobachtung z{ae}hlt nur einmal. F{ue}r einen neuen Durchgang auf Zur{ue}cksetzen klicken."
+        Exit Sub
+    End If
+    diaBenutzt(k) = True
+    For j = 1 To 3
+        diaL(j) = DiaLik(k, j)
+        If Not ja Then diaL(j) = 1 - diaL(j)
+    Next j
+    ' BF(H) = P(B | H) / P(B | nicht H), mit P(B | nicht H) = Summe der anderen P(H') P(B | H') / (1 - P(H))
+    For j = 1 To 3
+        rest = 0
+        For m = 1 To 3
+            If m <> j Then rest = rest + diaPost(m) * diaL(m)
+        Next m
+        diaBF(j) = diaL(j) / (rest / (1 - diaPost(j)))
+    Next j
+    pVor = diaPost(1)
+    For j = 1 To 3: diaPost(j) = diaPost(j) * diaL(j): summe = summe + diaPost(j): Next j
+    For j = 1 To 3: diaPost(j) = diaPost(j) / summe: Next j
+    bfIG = diaL(1) / diaL(2)
+    bfIW = diaL(1) / diaL(3)
+    DiaZeichnen IIf(ja, "Beobachtet ", "Nicht beobachtet ") & ChrW(9311 + k) & ": " & kopf, _
+                "Idee : Gegenteil  BF = " & Z(diaL(1), 1) & " / " & Z(diaL(2), 1) & " = " & ZC(bfIG) & vbCr & _
+                "Idee : Weder-noch  BF = " & Z(diaL(1), 1) & " / " & Z(diaL(3), 1) & " = " & ZC(bfIW) & vbCr & _
+                "Rechnung Idee:" & vbCr & _
+                "Chance " & ZC(pVor / (1 - pVor)) & " " & ChrW(215) & " BF " & ZC(diaBF(1)) & " = " & _
+                ZC(diaPost(1) / (1 - diaPost(1))) & "  " & ChrW(8594) & "  P = " & Z(100 * diaPost(1), 1) & " %" & _
+                vbCr & "Ber{ue}cksichtigt: " & DiaListe()
+End Sub
+
+Private Function DiaListe() As String
+    Dim k As Long, t As String
+    For k = 1 To 3
+        If diaBenutzt(k) Then t = t & ChrW(9311 + k) & " "
+    Next k
+    DiaListe = Trim$(t)
+End Function
+
+Private Sub DiaZeichnen(ByVal kopf As String, ByVal rumpf As String)
+    Dim s As Slide, feld As Shape, j As Long, unten As Single, hMax As Single, skala As Double
+    Dim b As Shape, lab As Shape
+    Set s = Folie("diaFeld")
+    If s Is Nothing Then Exit Sub
+    Set feld = s.Shapes("diaFeld")
+    unten = feld.Top + feld.Height
+    hMax = feld.Height * 0.85
+    skala = 0.5
+    For j = 1 To 3
+        If diaPost(j) > skala Then skala = diaPost(j)
+    Next j
+    For j = 1 To 3
+        Set b = s.Shapes("diaBar" & j)
+        Balken b, unten, CSng(hMax * diaPost(j) / skala)
+        Set lab = s.Shapes("diaPct" & j)
+        lab.Top = b.Top - lab.Height - 2
+        lab.TextFrame.TextRange.Text = Z(100 * diaPost(j), 0) & " %"
+        With s.Shapes("diaL" & j).TextFrame.TextRange
+            If diaL(j) < 0 Then
+                .Text = "P(B | H) " & ChrW(8211)
+            Else
+                .Text = "P(B | H) = " & Z(diaL(j), 1)
+            End If
+        End With
+        With s.Shapes("diaBF" & j).TextFrame.TextRange
+            If diaBF(j) < 0 Then
+                .Text = "BF " & ChrW(8211)
+                .Font.Color.RGB = GRAU
+            Else
+                .Text = "BF " & Z(diaBF(j), 2)
+                If diaBF(j) < 0.995 Then
+                    .Font.Color.RGB = ROT
+                ElseIf diaBF(j) > 1.005 Then
+                    .Font.Color.RGB = CYAN
+                Else
+                    .Font.Color.RGB = GRAU
+                End If
+            End If
+        End With
+    Next j
+    ' benutzte Beobachtungen ausgrauen
+    For j = 1 To 3
+        If diaBenutzt(j) Then
+            s.Shapes("diaObs" & j).TextFrame.TextRange.Font.Color.RGB = RGB(190, 190, 190)
+        Else
+            s.Shapes("diaObs" & j).TextFrame.TextRange.Paragraphs(1).Font.Color.RGB = RGB(34, 34, 34)
+            s.Shapes("diaObs" & j).TextFrame.TextRange.Paragraphs(2).Font.Color.RGB = GRAU
+        End If
+    Next j
+    SetzeText s.Shapes("diaInfo"), kopf, rumpf
 End Sub

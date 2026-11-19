@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 """Baut den Live-Foliensatz material/LE06/ZGS_Test_Bayes.pptx (Ergaenzung zu LE 6).
 
-Die Folien sind editierbar (Textfelder, keine Folienbilder). Drei Folien
+Die Folien sind editierbar (Textfelder, keine Folienbilder). Vier Folien
 enthalten benannte Formen fuer die VBA-Simulationen aus material/LE06/StatistikLive.bas
-(Wuerfel-Labor, Muenze live, Schluesselsuche). Sprechernotizen erklaeren
+(Wuerfel-Labor, Muenze live, Schluesselsuche, Diamant). Sprechernotizen erklaeren
 jede Folie.
 
     python3 tools/le06_live_figuren.py            # zuerst die Grafiken
@@ -210,7 +210,7 @@ notizen(f, """
 Ziel der Einheit: Die Studierenden sehen an Würfel und Münze, warum Mittelwerte normalverteilt sind,
 lesen daraus den Standardfehler ab und bauen daraus selbst einen Test. Danach dieselben Daten mit Bayes:
 Was ändert sich an der Aussage? Zum Schluss Bayes ohne Messwerte (Schlüssel, Quellen).
-Ergänzt LE 6 (Skript und Folien) um Live-Simulationen. Interaktiv: drei Live-Folien (VBA, siehe material/LE06/ANLEITUNG.md) und das Colab-Notebook ZGS_Test_Bayes.ipynb.
+Ergänzt LE 6 (Skript und Folien) um Live-Simulationen. Interaktiv: vier Live-Folien (VBA, siehe material/LE06/ANLEITUNG.md) und das Colab-Notebook ZGS_Test_Bayes.ipynb.
 """)
 
 f = neue_folie("Fahrplan")
@@ -914,6 +914,83 @@ Merksatz: Zehn Webseiten, die dieselbe Pressemitteilung zitieren, sind eine Quel
 Die Bayes-Faktoren (2, 4, 20) sind Größenordnungen zur Illustration, keine empirischen Werte.
 """)
 
+f = neue_folie("Live: Den Diamanten durchrechnen",
+               "Drei Erklärungen konkurrieren. Welche Beobachtung verschiebt was – und wie stark?", T_D)
+DX, DY, DW, DH = Inches(0.7), Inches(1.95), Inches(5.4), Inches(2.55)
+feld = f.shapes.add_shape(MSO_SHAPE.RECTANGLE, DX, DY, DW, DH)
+feld.name = "diaFeld"
+feld.fill.solid()
+feld.fill.fore_color.rgb = RGBColor(0xFA, 0xFA, 0xFA)
+feld.line.color.rgb = GRAU_HELL
+HYPO = [("Idee", "Trick hilft beim Behalten"), ("Gegenteil", "Trick lenkt ab, schadet"),
+        ("Weder-noch", "Drittes: längeres Video")]
+DPRIOR = [0.25, 0.25, 0.50]
+dsp = DW / 3
+for i, ((name, kurz), pr) in enumerate(zip(HYPO, DPRIOR)):
+    x = int(DX + i * dsp)
+    h = int(DH * 0.85 * pr / 0.5)
+    b = f.shapes.add_shape(MSO_SHAPE.RECTANGLE, x + Inches(0.35), DY + DH - h, int(dsp) - Inches(0.7), h)
+    b.name = f"diaBar{i + 1}"
+    b.fill.solid()
+    b.fill.fore_color.rgb = VIOLETT
+    b.line.fill.background()
+    textfeld(f, x, DY + DH - h - Inches(0.4), int(dsp), Inches(0.35), [f"{pr * 100:.0f} %"], groesse=15,
+             fett=True, ausrichtung=PP_ALIGN.CENTER, name=f"diaPct{i + 1}")
+    textfeld(f, x, DY + DH + Inches(0.03), int(dsp), Inches(0.55),
+             [(name, {"fett": True, "farbe": VIOLETT, "groesse": 15, "abstand": 0}),
+              (kurz, {"groesse": 11, "farbe": GRAU, "abstand": 0})], ausrichtung=PP_ALIGN.CENTER)
+    # P(Beobachtung | H) und Bayes-Faktor der letzten Beobachtung (VBA schreibt sie neu)
+    textfeld(f, x, DY + DH + Inches(0.6), int(dsp), Inches(0.3), ["P(B | H) –"], groesse=13, farbe=GRAU,
+             ausrichtung=PP_ALIGN.CENTER, name=f"diaL{i + 1}")
+    textfeld(f, x, DY + DH + Inches(0.9), int(dsp), Inches(0.32), ["BF –"], groesse=14, farbe=GRAU, fett=True,
+             ausrichtung=PP_ALIGN.CENTER, name=f"diaBF{i + 1}")
+
+# Beobachtungen: je eine aus einer Diamantspitze, ja / nein
+BEOB = [("① Sowohl-als-auch: Trickgruppe staunt mehr", "0,9 · 0,9 · 0,5"),
+        ("② Idee/Gegenteil: behält mehr als kürzere Kontrolle", "0,7 · 0,1 · 0,7"),
+        ("③ Weder-noch: behält mehr als gleich lange Kontrolle", "0,7 · 0,1 · 0,2")]
+OX, OW = Inches(6.35), Inches(3.2)
+for k, (text, lik) in enumerate(BEOB):
+    y = DY + k * Inches(1.1)
+    textfeld(f, OX, y, OW, Inches(0.68),
+             [(text, {"groesse": 12, "fett": True, "abstand": 0}),
+              (f"P(B | Idee, Gegent., Weder-n.) = {lik}", {"groesse": 11, "farbe": GRAU, "abstand": 0})],
+             name=f"diaObs{k + 1}")
+    knopf(f, OX, y + Inches(0.7), OW / 2 - Inches(0.05), Inches(0.36), "beobachtet", f"btnDia{k + 1}Ja", CYAN,
+          groesse=12)
+    knopf(f, OX + OW / 2 + Inches(0.05), y + Inches(0.7), OW / 2 - Inches(0.05), Inches(0.36), "nicht beobachtet",
+          f"btnDia{k + 1}Nein", GRAU, groesse=12)
+kasten(f, Inches(9.75), DY, Inches(3.05), Inches(3.2),
+       [("Noch nichts beobachtet.", {"groesse": 16}),
+        ("Prior: Idee 1 : 3 (skeptisch), Gegenteil ebenso, Weder-noch 50 %. Klicken Sie eine Beobachtung an.",
+         {"groesse": 14, "farbe": GRAU})],
+       name="diaInfo", anker=MSO_ANCHOR.TOP)
+knopf(f, Inches(9.75), DY + Inches(3.3), Inches(3.05), Inches(0.5), "Zurücksetzen", "btnDiaReset", GRAU,
+      groesse=13)
+kasten(f, DX, Inches(5.85), Inches(12.1), Inches(1.1),
+       [("Posterior-Chance  =  Prior-Chance  ×  Bayes-Faktor          Chance = P / (1 − P)",
+         {"groesse": 16, "fett": True, "farbe": VIOLETT, "abstand": 2}),
+        ("BF(H)  =  P(B | H)  /  P(B | nicht H)        paarweise:  BF(Idee : Gegenteil)  =  P(B | Idee)  /  "
+         "P(B | Gegenteil)", {"groesse": 14, "abstand": 2}),
+        ("„nicht beobachtet“ rechnet mit 1 − P.   Gleiche P unter zwei Spitzen ⇒ BF = 1 (Nebel).   "
+         "Jede Beobachtung zählt nur einmal.", {"groesse": 13, "farbe": GRAU, "abstand": 0})],
+       name="diaFormel", anker=MSO_ANCHOR.MIDDLE)
+notizen(f, """
+VBA-Folie. Fortsetzung des Diamanten (Skript: „Welche Beobachtung trennt die Positionen?“) als Bayes-Rechnung.
+Drei Hypothesen aus den Diamantspitzen: Idee (Trick hilft), Gegenteil (Trick schadet), Weder-noch (das längere Video).
+Die vierte Spitze, Sowohl-als-auch, ist keine eigene Hypothese, sondern liefert Beobachtung ①: Staunen erwarten
+Idee und Gegenteil gleich (0,9 / 0,9), also BF = 1 zwischen beiden – Nebel. Es trifft nur das Weder-noch (0,5).
+Prior: Idee 25 %, Gegenteil 25 %, Weder-noch 50 % (Idee-Chance 1 : 3 wie auf der Folie „Neuer Satz, Prüfplan“).
+Alle drei beobachtet (①②③): 25/25/50 → 32/32/36 → 44/6/49 → 75/1,5/24 %.
+Ohne ① (nur ②③): 63/1/36 %. ② allein trennt Idee und Gegenteil (BF 7), lässt Weder-noch aber gleichauf (BF 1).
+Erst ③, die gleich lange aktive Kontrolle, drückt das Weder-noch (BF Idee : Weder-noch = 3,5).
+„nicht beobachtet“ zeigt die Kehrseite: ③ nein → Idee : Gegenteil = 0,3 / 0,9, Idee : Weder-noch = 0,3 / 0,8.
+Unter jedem Balken: P(B | H) und BF(H) = P(B | H) / P(B | nicht H), also der Faktor, mit dem die Chance dieser
+Hypothese gegen den Rest multipliziert wird. Der Infokasten zeigt die paarweisen BF wie in der Tabelle im Skript.
+Annahme beim Multiplizieren: die Beobachtungen sind gegeben die Hypothese unabhängig. ② und ③ teilen sich die
+Trickgruppe; das ist eine Vereinfachung, die man offen sagen sollte. Die Wahrscheinlichkeiten sind Schätzungen.
+""")
+
 f = neue_folie("Das Wichtigste", None)
 punkte(f, LINKS, Inches(1.5), Inches(6.2), Inches(5.4), [
     "Mittelwerte sind normalverteilt (ZGS), ihre Breite ist der Standardfehler σ/√n.",
@@ -934,7 +1011,7 @@ f = neue_folie("Material zum Weiterarbeiten", None)
 punkte(f, LINKS, Inches(1.5), BREIT, Inches(5.4), [
     ("ZGS_Test_Bayes.ipynb – Colab-Notebook mit Schiebereglern: ZGS, Standardfehler, t-Test, Simulation des p-Werts, "
      "Münze, Würfel, Mittelwert, Schlüssel, Quellen", {}),
-    ("StatistikLive.bas – Makros für die drei Live-Folien (Würfel-Labor, Münze, Schlüssel); "
+    ("StatistikLive.bas – Makros für die vier Live-Folien (Würfel-Labor, Münze, Schlüssel, Diamant); "
      "Einbau in ANLEITUNG.md", {}),
     ("abfuellung.csv – die 20 Packungsgewichte", {}),
     ("tools/le06_live_figuren.py – erzeugt alle Grafiken dieser Folien neu", {}),

@@ -2276,6 +2276,41 @@ Wer so eine Tabelle vor der Studie aufschreibt, hat seinen
 Auswertungsplan im Kern schon fertig.}
 \os{\newpage}
 
+\item[{\rot\bf Rechenweg: der Diamant mit Bayes}]~\\
+Drei Erklärungen, Prior aus dem Prüfplan (Idee-Chance $1:3$)
+\begin{center}
+\small
+\begin{tabular}{@{}>{\raggedright\arraybackslash}p{0.36\textwidth}ccc>{\raggedright\arraybackslash}p{0.2\textwidth}@{}}
+\toprule
+\textbf{Spitze: Beobachtung} & \textbf{Idee} & \textbf{Gegenteil} & \textbf{Weder-noch} & \textbf{BF I\,:\,G \;/\; I\,:\,W} \\
+\midrule
+Prior & 25\,\% & 25\,\% & 50\,\% & \\
+\ding{172} Sowohl-als-auch: staunt mehr & 32\,\% & 32\,\% & 36\,\% & $1$ \;/\; $1{,}8$ \\
+\ding{173} mehr als kürzere Kontrolle & 44\,\% & 6\,\% & 49\,\% & $7$ \;/\; $1$ \\
+\ding{174} mehr als gleich lange Kontrolle & 75\,\% & 1{,}5\,\% & 24\,\% & $7$ \;/\; $3{,}5$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+\bi
+  \ite jede Zeile: Posterior $\propto$ Prior $\times$ $P(B\mid H)$ aus der
+    Tabelle davor
+  \ite \ding{172} bewegt Idee gegen Gegenteil gar nicht (Nebel), drückt nur
+    das Weder-noch
+  \ite \ding{173} erledigt das Gegenteil, \ding{174} erst das Weder-noch
+  \ite \ding{174} \emph{nicht} beobachtet: Idee fällt von 25 auf 11\,\%
+\ei
+\nsl{Rechnung für \ding{174}, Idee gegen den Rest: Vorher 44\,\%, also
+Chance $0{,}80$. $P(B\mid\text{Idee})=0{,}7$; unter
+\enquote{nicht Idee} ist $P(B)=(0{,}063\cdot0{,}1+0{,}493\cdot0{,}2)/0{,}556
+\approx0{,}19$. Der Bayes-Faktor ist $0{,}7/0{,}19\approx3{,}7$, die neue
+Chance $0{,}80\cdot3{,}7\approx2{,}95$, also 75\,\%. Das Multiplizieren
+setzt voraus, dass die Beobachtungen gegeben die Hypothese unabhängig
+sind; \ding{173} und \ding{174} teilen sich die Trickgruppe, das ist eine
+Vereinfachung. Live zum Mitklicken: Folie \enquote{Live: Den Diamanten
+durchrechnen} in \texttt{ZGS\_Test\_Bayes.pptx}, mit
+\texttt{StatistikLive.bas}.}
+\os{\newpage}
+
 \item[{\rot\bf Neuer Satz, Prüfplan, Ökocheck}]~\\[-\lblskip]
 \bi
   \ite \textbf{neuer Satz:} \enquote{Ein staunenswerter Einstieg
