@@ -817,7 +817,7 @@ Echte Anwendung: Bayessche Suchtheorie (Suche nach U-Booten, nach dem Wrack von 
 
 f = neue_folie("Live: Schlüsselsuche", "Der Schlüssel liegt verdeckt irgendwo (gezogen nach der Gewohnheit). Wo suchen Sie?",
                T_D)
-KX, KY, KW, KH = Inches(0.7), Inches(1.95), Inches(8.6), Inches(3.4)
+KX, KY, KW, KH = Inches(0.7), Inches(1.95), Inches(8.6), Inches(2.7)
 feld = f.shapes.add_shape(MSO_SHAPE.RECTANGLE, KX, KY, KW, KH)
 feld.name = "keyFeld"
 feld.fill.solid()
@@ -836,19 +836,36 @@ for i, (ort, pr) in enumerate(zip(ORTE, PRIOR)):
     b.line.fill.background()
     textfeld(f, x, KY + KH - h - Inches(0.4), int(spalte), Inches(0.35), [f"{pr * 100:.0f} %"], groesse=15,
              fett=True, ausrichtung=PP_ALIGN.CENTER, name=f"keyPct{i + 1}")
-    knopf(f, x + Inches(0.08), KY + KH + Inches(0.1), int(spalte) - Inches(0.16), Inches(0.62), ort, f"btnSuche{i + 1}",
-          CYAN, groesse=12)
-kasten(f, Inches(9.6), Inches(1.95), Inches(3.2), Inches(3.4),
+    # Bayes-Faktor der letzten Suche fuer diesen Ort (VBA schreibt ihn nach jedem Klick neu)
+    textfeld(f, x, KY + KH + Inches(0.02), int(spalte), Inches(0.32), ["BF –"], groesse=14, farbe=GRAU,
+             fett=True, ausrichtung=PP_ALIGN.CENTER, name=f"keyBF{i + 1}")
+    knopf(f, x + Inches(0.08), KY + KH + Inches(0.38), int(spalte) - Inches(0.16), Inches(0.58), ort,
+          f"btnSuche{i + 1}", CYAN, groesse=12)
+kasten(f, Inches(9.6), Inches(1.95), Inches(3.2), Inches(3.05),
        [("Noch nicht gesucht.", {"groesse": 16}),
         ("Klicken Sie unter einen Ort, um dort nachzusehen.", {"groesse": 14, "farbe": GRAU})],
        name="keyInfo", anker=MSO_ANCHOR.TOP)
-knopf(f, Inches(9.6), Inches(5.45), Inches(3.2), Inches(0.62), "Neuer Fall / Zurücksetzen", "btnKeyReset", GRAU)
-textfeld(f, KX, Inches(6.3), Inches(12), Inches(0.6), [
-    "Chance, ihn beim Nachsehen zu entdecken: Tasche 90 %, Brett 99 %, Schreibtisch 60 %, Auto 70 %, Küche 80 %, "
-    "woanders 10 %"], groesse=14, farbe=GRAU)
+knopf(f, Inches(9.6), KY + KH + Inches(0.38), Inches(3.2), Inches(0.58), "Neuer Fall / Zurücksetzen", "btnKeyReset",
+      GRAU)
+# Die Formel bleibt die ganze Zeit sichtbar
+kasten(f, KX, Inches(5.72), Inches(12.1), Inches(1.26),
+       [("Posterior-Chance  =  Prior-Chance  ×  Bayes-Faktor          Chance = P / (1 − P)",
+         {"groesse": 16, "fett": True, "farbe": VIOLETT, "abstand": 2}),
+        ("Bayes-Faktor  BF  =  P(nicht gefunden | Schlüssel dort)  /  P(nicht gefunden | Schlüssel nicht dort)",
+         {"groesse": 14, "abstand": 2}),
+        ("Gesuchter Ort: BF = 1 − Entdeckungschance  (< 1, Balken schrumpft)   ·   alle anderen Orte: BF > 1  "
+         "(Balken wächst)", {"groesse": 14, "abstand": 2}),
+        ("Entdeckungschance: Tasche 90 %, Brett 99 %, Schreibtisch 60 %, Auto 70 %, Küche 80 %, woanders 10 %",
+         {"groesse": 12, "farbe": GRAU, "abstand": 0})],
+       name="keyFormel", anker=MSO_ANCHOR.MIDDLE)
 notizen(f, """
 VBA-Folie. Ablauf: Publikum entscheidet, wo gesucht wird. Nach jedem Fehlversuch werden die Balken neu berechnet,
 der Infokasten nennt den Ort mit dem höchsten „Suchwert“ (P × Entdeckungschance).
+Unter jedem Balken steht der Bayes-Faktor der letzten Suche; die Formel unten bleibt stehen.
+Gesuchter Ort: BF = 1 − Entdeckungschance, z. B. Jackentasche 0,10. Der Infokasten rechnet es vor:
+Chance 0,54 (35 : 65) × 0,10 = 0,054, also P = 5 %.
+Alle anderen Orte: BF = (1 − P_j) / (1 − P_i·f_i − P_j) > 1, nach der ersten Suche in der Tasche 1,5 (woanders) bis 1,7 (Brett).
+Gefunden: BF = ∞ für den Fundort, 0 für alle anderen.
 Findet man den Schlüssel, endet der Fall; „Neuer Fall“ versteckt ihn erneut zufällig gemäß Prior.
 Diskussion: Warum kann es sinnvoll sein, die Jackentasche ein zweites Mal zu durchsuchen?
 (Weil die Entdeckung dort nicht 100 % ist – nach einer Suche bleiben 5 %.)

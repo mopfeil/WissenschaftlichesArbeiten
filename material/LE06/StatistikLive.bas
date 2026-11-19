@@ -12,7 +12,7 @@ Attribute VB_Name = "StatistikLive"
 '
 ' Die Makros finden ihre Formen ueber die Namen (Auswahlbereich, Alt+F10):
 ' zgsFeld, zgsBar01..26, zgsInfo, bayFeld, bayBar01..50, bayInfo,
-' keyFeld, keyBar1..6, keyPct1..6, keyInfo und die Knoepfe btn...
+' keyFeld, keyBar1..6, keyPct1..6, keyBF1..6, keyInfo und die Knoepfe btn...
 ' Umlaute und Sonderzeichen werden ueber Platzhalter wie {ue} erzeugt,
 ' damit die Datei reines ASCII bleibt.
 '=============================================================================
@@ -22,6 +22,7 @@ Private Const VIOLETT As Long = 11941990    ' RGB(102, 56, 182)
 Private Const VIOLETT_HELL As Long = 15251657 ' RGB(201, 184, 232)
 Private Const CYAN As Long = 10125056       ' RGB(0, 127, 154)
 Private Const GRAU As Long = 7566195        ' RGB(115, 115, 115)
+Private Const ROT As Long = 2832832         ' RGB(192, 57, 43)
 
 Private bereit As Boolean
 
@@ -47,6 +48,7 @@ Private keyFund(1 To 6) As Double
 Private keyOrt As Long
 Private keyGefunden As Boolean
 Private keySuchen As Long
+Private keyBF(1 To 6) As Double            ' Bayes-Faktor der letzten Suche; -1 = keiner, -2 = unendlich
 
 
 '=============================================================================
@@ -421,8 +423,10 @@ Public Sub btnKeyReset()
 End Sub
 
 Private Sub KeyPrior()
+    Dim j As Long
     keyPost(1) = 0.35: keyPost(2) = 0.25: keyPost(3) = 0.15
     keyPost(4) = 0.1: keyPost(5) = 0.1: keyPost(6) = 0.05
+    For j = 1 To 6: keyBF(j) = -1: Next j
 End Sub
 
 Private Function ZieheOrt() As Long
@@ -443,7 +447,7 @@ Private Function OrtName(ByVal i As Long) As String
 End Function
 
 Private Sub Suche(ByVal i As Long)
-    Dim j As Long, summe As Double
+    Dim j As Long, summe As Double, pVor As Double, chVor As Double, chNach As Double
     Start
     If keyGefunden Then
         KeyZeichnen "Schon gefunden!", "F{ue}r einen neuen Fall auf " & ChrW(8222) & "Neuer Fall" & ChrW(8220) & " klicken."
@@ -452,16 +456,31 @@ Private Sub Suche(ByVal i As Long)
     keySuchen = keySuchen + 1
     If keyOrt = i And Rnd() < keyFund(i) Then
         keyGefunden = True
-        For j = 1 To 6: keyPost(j) = 0: Next j
+        For j = 1 To 6: keyPost(j) = 0: keyBF(j) = 0: Next j
         keyPost(i) = 1
-        KeyZeichnen "Gefunden: " & OrtName(i) & "!", "nach " & keySuchen & " Suche(n)."
+        keyBF(i) = -2
+        KeyZeichnen "Gefunden: " & OrtName(i) & "!", "nach " & keySuchen & " Suche(n)." & vbCr & _
+                    "BF = P(gefunden | dort) / P(gefunden | nicht dort) = " & Z(keyFund(i), 2) & " / 0 = " & ChrW(8734)
         Exit Sub
     End If
+    ' Bayes-Faktoren fuer die Beobachtung E = "an Ort i nicht gefunden":
+    '   Ort i:      BF = P(E | dort) / P(E | nicht dort) = (1 - f_i) / 1
+    '   anderer j:  BF = 1 / P(E | nicht j) = (1 - P_j) / (1 - P_i * f_i - P_j)
+    pVor = keyPost(i)
+    For j = 1 To 6
+        If j = i Then
+            keyBF(j) = 1 - keyFund(i)
+        Else
+            keyBF(j) = (1 - keyPost(j)) / (1 - pVor * keyFund(i) - keyPost(j))
+        End If
+    Next j
     ' Bayes-Update: P(dort) wird mit (1 - Entdeckungschance) multipliziert
     keyPost(i) = keyPost(i) * (1 - keyFund(i))
     For j = 1 To 6: summe = summe + keyPost(j): Next j
     For j = 1 To 6: keyPost(j) = keyPost(j) / summe: Next j
 
+    chVor = pVor / (1 - pVor)
+    chNach = chVor * keyBF(i)
     Dim best As Long, bestW As Long
     best = 1: bestW = 1
     For j = 2 To 6
@@ -469,10 +488,24 @@ Private Sub Suche(ByVal i As Long)
         If keyPost(j) > keyPost(bestW) Then bestW = j
     Next j
     KeyZeichnen "Nicht gefunden: " & OrtName(i), _
+                "Rechnung " & OrtName(i) & ":" & vbCr & _
+                "Chance " & ZC(chVor) & " " & ChrW(215) & " BF " & Z(keyBF(i), 2) & " = " & ZC(chNach) & _
+                "  " & ChrW(8594) & "  P = " & Z(100 * keyPost(i), 1) & " %" & vbCr & _
                 "Am wahrscheinlichsten jetzt: " & OrtName(bestW) & " (" & Z(100 * keyPost(bestW), 0) & " %)" & vbCr & _
                 "Suchen lohnt am meisten: " & OrtName(best) & vbCr & _
                 "(P " & ChrW(215) & " Entdeckungschance = " & Z(100 * keyPost(best) * keyFund(best), 0) & " %)"
 End Sub
+
+' Chance (Odds) mit passender Stellenzahl
+Private Function ZC(ByVal x As Double) As String
+    If x >= 10 Then
+        ZC = Z(x, 1)
+    ElseIf x >= 0.1 Then
+        ZC = Z(x, 2)
+    Else
+        ZC = Z(x, 3)
+    End If
+End Function
 
 Private Sub KeyZeichnen(ByVal kopf As String, ByVal rumpf As String)
     Dim s As Slide, feld As Shape, j As Long, unten As Single, hMax As Single, skala As Double
@@ -497,6 +530,22 @@ Private Sub KeyZeichnen(ByVal kopf As String, ByVal rumpf As String)
         Set lab = s.Shapes("keyPct" & j)
         lab.Top = b.Top - lab.Height - 2
         lab.TextFrame.TextRange.Text = Z(100 * keyPost(j), 0) & " %"
+        With s.Shapes("keyBF" & j).TextFrame.TextRange
+            If keyBF(j) = -1 Then
+                .Text = "BF " & ChrW(8211)
+                .Font.Color.RGB = GRAU
+            ElseIf keyBF(j) = -2 Then
+                .Text = "BF " & ChrW(8734)
+                .Font.Color.RGB = CYAN
+            Else
+                .Text = "BF " & Z(keyBF(j), 2)
+                If keyBF(j) < 1 Then
+                    .Font.Color.RGB = ROT
+                Else
+                    .Font.Color.RGB = CYAN
+                End If
+            End If
+        End With
     Next j
     SetzeText s.Shapes("keyInfo"), kopf, rumpf
 End Sub
